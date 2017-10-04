@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: dohko-parser
+Bundle-SymbolicName: dohko-parser
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: dohko-parser.jar,
+ eneiascs/dohko-workspace/dohko/target/super-pom-1.0.0-SNAPSHOT.jar,
+ eneiascs/dohko-workspace/dohko/core/target/excalibur-core-1.0.0-SNAPSHOT.jar,
+ eneiascs/dohko-workspace/dohko/discovery/target/discovery-1.0.0-SNAPSHOT.jar,
+ eneiascs/dohko-workspace/devlab/devlab/client
+Export-Package: br.unb.autoexp.dohko.parser
