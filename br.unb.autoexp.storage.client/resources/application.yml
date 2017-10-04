@@ -1,0 +1,3 @@
+server:
+  port: 8090
+br.unb.autoexp.storage.uri: http://localhost:8080

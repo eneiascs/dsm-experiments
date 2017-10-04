@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Client
+Bundle-SymbolicName: br.unb.autoexp.storage.client
+Bundle-Version: 1.0.0.qualifier
+Export-Package: br.unb.autoexp.storage.client
+Import-Package: br.unb.autoexp.storage.entity.dto,
+ br.unb.autoexp.storage.service
