@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!-- @generated dslforge -->
+<plugin>
+
+     <extension
+           id="helloServlet"
+           point="org.eclipse.equinox.http.registry.servlets">
+        <servlet
+              alias="/texteditor/simulation"
+              class="br.unb.autoexp.web.servlet.SimulationServlet">
+        </servlet>
+     </extension>
+     <extension
+           id="helloResource"
+           point="org.eclipse.equinox.http.registry.resources">
+        <resource
+              alias="/texteditor/helloworld.html"
+              base-name="/html/helloworld.html"
+              />
+     </extension>
+      <extension
+         point="org.eclipse.rap.ui.resources">
+      <resource
+          class="br.unb.autoexp.web.editor.widget.AutoExpResource">
+		<dependsOn
+			resourceId="org.dslforge.styledtext.basictext">
+		</dependsOn>
+      </resource>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.themeableWidgets">
+      <widget
+            class="br.unb.autoexp.web.editor.widget.AutoExp"
+            id="br.unb.autoexp.web.editor.widget.AutoExp"
+            name="AutoExp">
+      </widget>
+   </extension>
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="br.unb.autoexp.web.editor"
+            name="AutoExp Model Editor"
+		            extensions="ae"
+           class="br.unb.autoexp.web.editor.AutoExpEditor"
+            contributorClass="br.unb.autoexp.web.editor.AutoExpActionBarContributor">
+      </editor>
+      <editor
+            class="org.dslforge.texteditor.BasicTextEditor"
+            default="true"
+            extensions="yml,txt,log,sh,html,json,java,R,Rnw,tex,sty,out"
+            id="br.unb.autoexp.web.textEditor"
+            name="Text Editor">
+      </editor>
+   </extension>
+   <extension
+     point="org.dslforge.xtext.common.contribution">
+  <contribution
+       factory="br.unb.autoexp.web.AutoExpExecutableExtensionFactory"
+        path="/br.unb.autoexp/src/br/unb/autoexp/AutoExp.xtext"
+        extension="ae">
+  </contribution>
+</extension>
+   <extension
+         point="org.dslforge.workspace.config.configuration">
+      <contribution
+            path="/opt/dslforge">
+      </contribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="br.unb.autoexp.web.commands.categoryAnalysis"
+            id="br.unb.autoexp.web.commands.runAnalysisCommand"
+            name="Analysis">
+      </command>
+      <category
+            id="br.unb.autoexp.web.commands.categoryAnalysis"
+            name="Analysis">
+      </category>
+      <command
+            categoryId="br.unb.autoexp.web.commands.categoryExecution"
+            id="br.unb.autoexp.web.runCommand"
+            name="Run">
+      </command>
+      <command
+            id="br.unb.autoexp.web.statusCommand"
+            name="status">
+      </command>
+      <command
+            id="br.unb.autoexp.web.downloadCommand"
+            name="download">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="br.unb.autoexp.web.handlers.RunAnalysisCommand"
+            commandId="br.unb.autoexp.web.commands.runAnalysisCommand">
+      </handler>
+      <handler
+            class="br.unb.autoexp.web.handlers.RunCommand"
+            commandId="br.unb.autoexp.web.runCommand">
+      </handler>
+      <handler
+            class="br.unb.autoexp.web.handlers.StatusCommand"
+            commandId="br.unb.autoexp.web.statusCommand">
+      </handler>
+      <handler
+            class="br.unb.autoexp.web.handlers.DownloadHandler"
+            commandId="br.unb.autoexp.web.downloadCommand">
+      </handler>
+     
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+     
+     
+     
+      
+        <menuContribution
+            allPopups="false"
+            locationURI="popup:org.dslforge.navigator.view?after=org.dslforge.workspace.menu.generate">
+            
+         <command
+         	   commandId="br.unb.autoexp.web.runCommand"
+               helpContextId="Run"
+               icon="icons/run.ico"
+               id="br.unb.autoexp.web.menu.run"
+               label="Generate and Run"
+               style="push"
+               tooltip="Run Experiment with Dohko">
+         </command>
+      </menuContribution>
+    
+     <menuContribution
+           allPopups="false"
+           locationURI="popup:org.dslforge.navigator.view?after=br.unb.autoexp.web.menu.run">
+        <command
+              commandId="br.unb.autoexp.web.statusCommand"
+              icon="icons/status.ico"
+              id="status"
+              label="Execution Status"
+              style="push">
+        </command>
+     </menuContribution>
+    <menuContribution
+            allPopups="false"
+            locationURI="popup:org.dslforge.navigator.view?after=status">
+            
+         <command
+         	   commandId="br.unb.autoexp.web.commands.runAnalysisCommand"
+               helpContextId="Run Analysis"
+               icon="icons/analysis.ico"
+               id="br.unb.autoexp.web.menu.runAnalysis"
+               label="Run Analysis"
+               style="push"
+               tooltip="Run Analysis">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.dslforge.navigator.view?before=separator2">
+            
+         <command
+         	   commandId="br.unb.autoexp.web.downloadCommand"
+               helpContextId="Download"
+               id="br.unb.autoexp.web.menu.download"
+               label="Download"
+               style="push"
+               tooltip="Download">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.serviceHandler">
+      <serviceHandler
+            class="br.unb.autoexp.web.handlers.DownloadServiceHandler"
+            id="br.unb.autoexp.web.downloadServiceHandler">
+      </serviceHandler>
+   </extension>
+ 
+</plugin>
