@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: R API
+Bundle-SymbolicName: br.unb.autoexp.r-base-api
+Bundle-Version: 1.0.0.qualifier
+Import-Package: javax.ws.rs;version="2.0.1",
+ javax.ws.rs.core;version="2.0.1"
+Export-Package: br.unb.autoexp.rBaseApi.dto
