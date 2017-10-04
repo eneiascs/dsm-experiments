@@ -1,0 +1,362 @@
+grammar br.unb.autoexp.AutoExp with org.eclipse.xtext.common.Terminals
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate autoExp "http://www.unb.br/autoexp/AutoExp"
+
+
+ 
+Model:
+	
+	experiments+=Experiment*
+
+;
+
+
+Experiment returns Experiment:
+	'Experiment'
+	name=ID
+	'{'
+	('Authors' '{' authors+=Author ("," authors+=Author)* '}')?
+	('description' description=STRING)?
+	('Abstract' abstract=Abstract)?
+	('Keywords' '{' keywords+=Keyword ("," keywords+=Keyword)* '}')?
+	('Goals' '{' goals+=Goal ("," goals+=Goal)* '}')?
+	('Research Questions' '{' researchQuestions+=ResearchQuestion ("," researchQuestions+=ResearchQuestion)* '}')?
+	('Research Hypotheses' '{' researchHypotheses+=ResearchHypothesis ("," researchHypotheses+=ResearchHypothesis)* '}')?
+	('Threat' '{' threats+=Threat ("," threats+=Threat)* '}')?
+	'Experimental Design' experimentalDesign=ExperimentalDesign
+	('Executions' '{' executions+=Execution ("," executions+=Execution)* '}')?
+	('Analysis' analysis=Analysis)?
+	('Infrastructure' infrastructure=Infrastructure)?
+	'}';
+
+Infrastructure:
+	{Infrastructure}
+	'{'
+		(user=User)?
+		('requirements' requirements=Requirements)?
+		('preconditions' preconditions=Preconditions)?
+		('clouds' '{' clouds+=Cloud	 (',' clouds+=Cloud)* '}')?
+		('on-finish' onFinish=OnFinishType)?
+	'}'
+;
+
+Preconditions:
+	{Preconditions}
+	'{'
+	 (packages+=STRING	 (',' packages+=STRING)*)?
+	'}'
+;	
+User:
+	'user' '{'
+	 'username' username=STRING
+	 ('keys' '{' keys+=UserKey	 (',' keys+=UserKey)* '}')?
+	
+	 '}'
+;
+UserKey:
+	name=STRING
+	('{'
+	 ('privateKey' privateKey=STRING)?
+	 ('publicKey' publicKey=STRING)?
+	 ('fingerprint' fingerprint=STRING)?
+	'}')?
+	;
+Requirements:
+	'{'
+	'cpu' cpu=INT
+	'memory' memory=INT
+	'platform' platform=PlatformType
+	'cost' cost=BigDecimalType
+	'number-of-instances-per-cloud' instancesPerCloud=INT
+	'}'	
+;
+PlatformType:
+	typeName=('LINUX' | 'WINDOWS' );
+BigDecimalType returns ecore::EBigDecimal:
+ INT ('.' INT)?;
+
+Cloud:
+	name=STRING
+	'{'
+	 provider=CloudProvider
+	 accessKey=AccessKey
+	('regions' '{' regions+=Region  (',' regions+=Region)*'}')?
+	('instanceTypes' '{' instanceTypes+=InstanceType  (',' instanceTypes+=InstanceType)*'}')?
+	'}'
+	;
+
+CloudProvider:
+	'provider' name=STRING
+	('{'
+	('maxResourcePerType' maxResourcePerType=INT)?  
+	('description' description=STRING)? 
+	 ('serviceClass' serviceClass=STRING)? 
+	 '}')?
+	
+;
+
+InstanceType:
+	{InstanceType}
+	name=STRING
+	('instances' numberOfInstances=INT)?
+;
+
+Region:
+	name=STRING
+	('{'
+	('endpoint' endpoint=STRING)?
+	('status' status=StatusType)?
+	('city' city=STRING)?
+	('geographicRegion' geographicRegion=INT)?
+	('zones' '{' zones+=Zone  (',' zones+=Zone)*'}')?
+	'}')?
+;
+
+//enum GeographicRegionEnum:
+//	AFRICA='1' | ASIA='2' | CENTRAL_AMERICA='3' | EUROPEAN='4' | NORTH_AMERICA='5'|SOUTH_AMERICA='6'
+//	
+//;
+ 
+StatusType:
+	typeName=('UP' | 'DOWN' );
+	
+Zone:
+	name=STRING
+	(status=STRING)?	
+;
+
+AccessKey:
+	'access-key' accessKey=STRING
+	'secret-key'secretKey=STRING
+;
+
+			 		
+		
+
+
+
+
+OnFinishType:
+	typeName=('NONE' | 'TERMINATE' );
+Abstract returns Abstract:
+	Abstract_Impl | SimpleAbstract | StructuredAbstract;
+
+Goal returns Goal:
+	Goal_Impl | SimpleGoal | StructuredGoal;
+
+ExperimentalDesign returns ExperimentalDesign:
+	'{'
+	('type' type=DesignType)?
+	('runs' runs=INT )?
+	
+	'Dependent Variables' '{' dependentVariables+=CustomDependentVariable ("," dependentVariables+=CustomDependentVariable)* '}'
+	'Factors' '{' factors+=Factor ("," factors+=Factor)* '}'
+	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
+	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
+	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
+	('Context Variables' '{' contextVariables+=ContextVariable ("," contextVariables+=ContextVariable)* '}')?
+	'}';
+
+Execution returns Execution:
+	name=ID
+	'{'
+	('command' cmd=STRING)?
+	('preconditions' preconditions=Preconditions)?
+	('result' result=File)?
+	('files' '{' files+=File ("," files+=File)* '}')?
+	'}';
+
+Analysis returns Analysis:
+	{Analysis}
+	name=ID
+	'{'
+	('significance' significanceLevel=BigDecimalType)?
+	'}';
+
+ExperimentalObject returns ExperimentalObject:
+	{ExperimentalObject}
+	name=ID
+	'description' description=STRING
+	('group' objectGroup=[ObjectGroup|ID])?
+	('parameters' '{' parameters+=Parameter ("," parameters+=Parameter)* '}')?
+	('files' '{' files+=File ("," files+=File)* '}')?
+;
+Abstract_Impl returns Abstract:
+	{Abstract};
+
+Author returns Author:
+	{Author}
+	name=ID
+	'{'
+	('fullName' fullName=STRING)?
+	('institution' institution=STRING)?
+	('email' email=STRING)?
+	
+	'}';
+
+Keyword returns Keyword:
+	{Keyword}
+	description=STRING
+	;
+
+Threat returns Threat:
+	{Threat}
+	name=ID
+	'{'
+	('description' description=STRING)?
+	('type' type=ThreatType)?
+	('CA' CA=STRING)?
+	'}';
+
+Goal_Impl returns Goal:
+	{Goal}
+	name=ID;
+
+ResearchQuestion returns ResearchQuestion:
+	{ResearchQuestion}
+	name=ID
+	'{'
+	('description' description=STRING)?
+	('goal' goal=[Goal|ID])?
+	'}';
+
+ResearchHypothesis returns ResearchHypothesis:
+	{ResearchHypothesis}
+	name=ID
+	'{'
+	formula=ResearchHypothesisFormula
+	('description' description=STRING)?
+	('goal' goal=[Goal|ID])?
+	'}';
+
+ResearchHypothesisFormula returns ResearchHypothesisFormula:
+	{ResearchHypothesisFormula}
+	depVariable=[CustomDependentVariable|ID] treatment1=[Treatment|ID] operator=OperatorType treatment2=[Treatment|ID];
+
+OperatorType:
+	typeName=('<' | '=' |'!=' | '>');
+
+DependentVariable returns DependentVariable:
+	
+	DependentVariable_Impl|BuiltinDependentVariable|CustomDependentVariable
+;
+
+DependentVariable_Impl returns DependentVariable:
+	{DependentVariable}
+	name=ID
+;
+BuiltinDependentVariable returns BuiltinDependentVariable:
+	{BuiltinDependentVariable}
+	name=STRING
+	;
+//enum BuiltinDependentVariableType returns BuiltinDependentVariableType:
+	
+//	cpu='cpu' |time='CRD' | RCBD='RCBD' | LS='LS' |  OTHER='OTHER';
+
+CustomDependentVariable returns CustomDependentVariable:
+	{CustomDependentVariable}
+	name=ID
+	'{'
+	'description' description=STRING
+	('scaleType' scaleType=ScaleType)?
+	('range' '{' range+=Range ("," range+=Range)* '}')?
+	'}';
+
+Factor returns Factor:
+	{Factor}
+	name=ID
+	'{'
+	'description' description=STRING
+	('scaleType' scaleType=ScaleType)?
+	'}';
+
+ContextVariable returns Context:
+	{Context}
+	name=ID
+	'{'
+	('description' description=STRING)?
+	('scaleType' scaleType=ScaleType)?
+	('range' '{' range+=Range ("," range+=Range)* '}')?
+	'}';
+
+enum DesignType returns DesignType:
+	
+	FACTORIAL='FACTORIAL' |CRD='CRD' | RCBD='RCBD' | LS='LS' |  OTHER='OTHER';
+
+enum ScaleType returns ScaleType:
+	Absolute='Absolute' | Ratio='Ratio' | Interval='Interval' | Ordinal='Ordinal' | Nominal='Nominal';
+
+Range returns Range:
+	{Range}
+	name=ID;
+
+Treatment returns Treatment:
+	name=ID
+	'description' description=STRING
+	'factor' factor=[Factor|ID]
+	('parameters' '{' parameters+=Parameter ("," parameters+=Parameter)* '}')?
+	('files' '{' files+=File ("," files+=File)* '}')?
+	'execution' execution=[Execution|ID];
+
+File returns File:
+	{File}
+	'{'
+	'name' name=STRING
+	'path' path=STRING
+	'}'
+	
+;
+Parameter returns Parameter:
+	{Parameter}
+	name=ID
+	(value=STRING)?;
+
+ExecutionParameter returns ExecutionParameter:
+	{ExecutionParameter}
+	(value=STRING)?;
+
+Artifact returns Artifact:
+	{Artifact}
+	name=ID
+	(value=STRING)?;
+
+ObjectGroup returns ObjectGroup:
+	{ObjectGroup}
+	name=ID;
+
+SimpleAbstract returns SimpleAbstract:
+	{SimpleAbstract}
+	(description=STRING)
+	;
+
+StructuredAbstract returns StructuredAbstract:
+	{StructuredAbstract}
+	'{'
+	('context' context=STRING)?
+	('objective' objective=STRING)?
+	('method' method=STRING)?
+	('results' results=STRING)?
+	('conclusion' conclusion=STRING)?
+	'}';
+
+enum ThreatType returns ThreatType:
+	iv='iv' | ev='ev' | c='c' | r='r' | cl='cl';
+
+SimpleGoal returns SimpleGoal:
+	{SimpleGoal}
+	name=ID
+	description=STRING
+	;
+
+StructuredGoal returns StructuredGoal:
+	{StructuredGoal}
+	name=ID
+	'{'
+	('object' object=STRING)?
+	('technique' technique=STRING)?
+	('quality' quality=STRING)?
+	('ptView' ptView=STRING)?
+	('contextOf' contextOf=STRING)?
+	'}';
+
+
