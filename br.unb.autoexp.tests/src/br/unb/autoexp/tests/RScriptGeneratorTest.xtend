@@ -302,6 +302,20 @@ class RScriptGeneratorTest {
 					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
 				}
 				 
+				 
+				print("")
+				print("Means comparison")
+				print(paste("Mean Analysis time for Feature Family: ",mean(time_featureFamily)))
+				print(paste("Mean Analysis time for Feature Product: ",mean(time_featureProduct)))
+				print(paste("Absolute difference: ",abs(mean(time_featureProduct)-mean(time_featureFamily))))
+				if(mean(time_featureFamily)>mean(time_featureProduct)){
+				    print(paste("Analysis time for Feature Family is ",100*(abs(mean(time_featureProduct)-mean(time_featureFamily))/mean(time_featureProduct)),"% greater than Analysis time for Feature Product"))
+				
+				}else{
+				    print(paste("Analysis time for Feature Product is ",100*(abs(mean(time_featureProduct)-mean(time_featureFamily))/mean(time_featureFamily)),"% greater than Analysis time for Feature Family"))
+				
+				}
+
 				@
 				
 				
@@ -379,6 +393,20 @@ class RScriptGeneratorTest {
 					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
 				}
 				 
+				 
+				print("")
+				print("Means comparison")
+				print(paste("Mean Memory Consumption for Feature Family: ",mean(memory_featureFamily)))
+				print(paste("Mean Memory Consumption for Feature Product: ",mean(memory_featureProduct)))
+				print(paste("Absolute difference: ",abs(mean(memory_featureProduct)-mean(memory_featureFamily))))
+				if(mean(memory_featureFamily)>mean(memory_featureProduct)){
+				    print(paste("Memory Consumption for Feature Family is ",100*(abs(mean(memory_featureProduct)-mean(memory_featureFamily))/mean(memory_featureProduct)),"% greater than Memory Consumption for Feature Product"))
+				
+				}else{
+				    print(paste("Memory Consumption for Feature Product is ",100*(abs(mean(memory_featureProduct)-mean(memory_featureFamily))/mean(memory_featureFamily)),"% greater than Memory Consumption for Feature Family"))
+				
+				}
+				
 				@
 				
 				
@@ -456,6 +484,20 @@ class RScriptGeneratorTest {
 					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
 				}
 				 
+				 
+				print("")
+				print("Means comparison")
+				print(paste("Mean Cpu Consumption for Feature Family: ",mean(cpu_featureFamily)))
+				print(paste("Mean Cpu Consumption for Feature Product: ",mean(cpu_featureProduct)))
+				print(paste("Absolute difference: ",abs(mean(cpu_featureProduct)-mean(cpu_featureFamily))))
+				if(mean(cpu_featureFamily)>mean(cpu_featureProduct)){
+				    print(paste("Cpu Consumption for Feature Family is ",100*(abs(mean(cpu_featureProduct)-mean(cpu_featureFamily))/mean(cpu_featureProduct)),"% greater than Cpu Consumption for Feature Product"))
+				
+				}else{
+				    print(paste("Cpu Consumption for Feature Product is ",100*(abs(mean(cpu_featureProduct)-mean(cpu_featureFamily))/mean(cpu_featureFamily)),"% greater than Cpu Consumption for Feature Family"))
+				
+				}
+				
 				@
 				
 					

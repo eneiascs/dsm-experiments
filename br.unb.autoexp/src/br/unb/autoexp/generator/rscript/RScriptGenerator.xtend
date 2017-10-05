@@ -98,7 +98,26 @@ class RScriptGenerator {
 		«hypothesis.generateParametricTest» 
 		 
 		«hypothesis.generateNonParametricTest» 
+		 
+		«hypothesis.generateComparison»
+		
 		@
+		'''
+	
+	def String generateComparison(ResearchHypothesis hypothesis)
+		'''
+		print("")
+		print("Means comparison")
+		print(paste("Mean «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description»: ",mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»)))
+		print(paste("Mean «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description»: ",mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)))
+		print(paste("Absolute difference: ",abs(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)-mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»))))
+		if(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»)>mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)){
+		    print(paste("«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description» is ",100*(abs(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)-mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»))/mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)),"% greater than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description»"))
+		
+		}else{
+		    print(paste("«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description» is ",100*(abs(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)-mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»))/mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»)),"% greater than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description»"))
+		
+		}
 		'''
 	
 	def String generateNonParametricTest(ResearchHypothesis hypothesis)
