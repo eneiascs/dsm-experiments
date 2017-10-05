@@ -23,11 +23,7 @@
 		<xtend.maven.version>2.9.2</xtend.maven.version>
 	</properties>
 	<dependencies>
-    <dependency>
-      <groupId>br.unb.autoexp</groupId>
-	<artifactId>br.unb.autoexp.third-part</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-    </dependency>
+  
     
   </dependencies>
 	
