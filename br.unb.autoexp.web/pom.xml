@@ -2,17 +2,71 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
-    <artifactId>br.unb.autoexp.web.build.parent.parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <groupId>br.unb.autoexp</groupId>    
-    <relativePath>../br.unb.autoexp.web.build/parent/parent/pom.xml</relativePath>
- 	</parent>
- 	
+		<artifactId>br.unb.autoexp.web.build.parent.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<groupId>br.unb.autoexp</groupId>
+		<relativePath>../br.unb.autoexp.web.build/parent/parent/pom.xml</relativePath>
+	</parent>
+
 	<groupId>br.unb.autoexp</groupId>
 	<artifactId>br.unb.autoexp.web</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>br.unb.autoexp.web</name>
+	<build>
+	<plugins>
+		<plugin>
+			<artifactId>maven-clean-plugin</artifactId>
+
+			<configuration>
+				<filesets>
+					<fileset>
+						<directory>src/main/xtend-gen</directory>
+						<includes>
+							<include>**</include>
+						</includes>
+					</fileset>
+				</filesets>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>build-helper-maven-plugin</artifactId>
+			    <version>3.0.0</version>
+			
+			<executions>
+				<execution>
+					<phase>generate-sources</phase>
+					<goals>
+						<goal>add-source</goal>
+					</goals>
+					<configuration>
+						<sources>
+							<source>src/main/xtend-gen</source>
+						</sources>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+		<plugin>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>xtend-maven-plugin</artifactId>
+			<version>2.12.0</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>compile</goal>
+						<goal>testCompile</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>src/main/xtend-gen</outputDirectory>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+
+	</plugins>
+	</build>
 </project>
