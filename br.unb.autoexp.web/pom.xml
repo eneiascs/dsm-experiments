@@ -23,7 +23,7 @@
 			<configuration>
 				<filesets>
 					<fileset>
-						<directory>src/main/xtend-gen</directory>
+						<directory>xtend-gen</directory>
 						<includes>
 							<include>**</include>
 						</includes>
@@ -44,7 +44,7 @@
 					</goals>
 					<configuration>
 						<sources>
-							<source>src/main/xtend-gen</source>
+							<source>xtend-gen</source>
 						</sources>
 					</configuration>
 				</execution>
@@ -61,7 +61,7 @@
 						<goal>testCompile</goal>
 					</goals>
 					<configuration>
-						<outputDirectory>src/main/xtend-gen</outputDirectory>
+						<outputDirectory>xtend-gen</outputDirectory>
 					</configuration>
 				</execution>
 			</executions>
