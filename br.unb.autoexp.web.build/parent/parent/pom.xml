@@ -23,10 +23,10 @@
 		<xtend.maven.version>2.9.2</xtend.maven.version>
 	</properties>
 	<dependencies>
-  
-    
-  </dependencies>
-	
+
+
+	</dependencies>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -285,6 +285,12 @@
 
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-maven-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<extensions>true</extensions>
+					</plugin>
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
