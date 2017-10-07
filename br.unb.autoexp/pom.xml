@@ -27,6 +27,9 @@
 						<fileset>
 							<directory>${basedir}/xtend-gen</directory>
 						</fileset>
+						<fileset>
+							<directory>${basedir}/model</directory>
+						</fileset>
 						<!-- clean ui plugin as well -->
 						<!-- <fileset> -->
 						<!-- <directory>${basedir}/../${project.artifactId}.ui/src-gen</directory> -->
