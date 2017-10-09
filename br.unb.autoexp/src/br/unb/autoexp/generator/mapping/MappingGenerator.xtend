@@ -12,18 +12,18 @@ class MappingGenerator {
 	def compileMapping(Experiment experiment) {
 		'''
 			[
-			  «FOR mapping:experiment.mappings»
+			  Â«FOR mapping:experiment.mappingsÂ»
 			  {
-			    "experimentName": "«mapping.experimentName»",
-			    "design": "«mapping.designType.name()»",
-			    "runs": «mapping.runs»,
-			    "taskName": "«mapping.taskName»",
-			    "executionName": "«mapping.executionName»",
-			    "factor": "«mapping.factor»",
-			    "treatment": "«mapping.treatment»",
-			    "object": "«mapping.object»"
-			  }«IF !experiment.mappings.last.taskName.equals(mapping.taskName)»,«ENDIF»
-			  «ENDFOR»		
+			    "experimentName": "Â«mapping.experimentNameÂ»",
+			    "design": "Â«mapping.designType.name()Â»",
+			    "runs": Â«mapping.runsÂ»,
+			    "taskName": "Â«mapping.taskNameÂ»",
+			    "executionName": "Â«mapping.executionNameÂ»",
+			    "factor": "Â«mapping.factorÂ»",
+			    "treatment": "Â«mapping.treatmentÂ»",
+			    "object": "Â«mapping.objectÂ»"
+			  }Â«IF !experiment.mappings.last.taskName.equals(mapping.taskName)Â»,Â«ENDIFÂ»
+			  Â«ENDFORÂ»		
 			]
 		'''
 

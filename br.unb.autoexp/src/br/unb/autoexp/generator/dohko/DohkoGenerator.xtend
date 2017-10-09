@@ -10,128 +10,128 @@ class DohkoGenerator {
 	def compileDohko(Experiment experiment) {
 		'''
 			---
-			name: "«experiment.name»"
+			name: "Â«experiment.nameÂ»"
 			user:
-			  username: "«experiment.infrastructure.user.username»"
-			  «IF !experiment.infrastructure.user.keys.isNullOrEmpty»
+			  username: "Â«experiment.infrastructure.user.usernameÂ»"
+			  Â«IF !experiment.infrastructure.user.keys.isNullOrEmptyÂ»
 			  keys:
 			    key:
-			  «ENDIF»
-			    «FOR key:experiment.infrastructure.user.keys»
-			    - name: "«key.name»"
-			      «IF key.privateKey!==null»
-			      private-key-material: "«key.privateKey»"
-			      «ENDIF»
-			      «IF key.privateKey!==null»
-			      public-key-material: "«key.publicKey»"
-			      «ENDIF»
-			      «IF key.privateKey!==null»
-			      fingerprint: "«key.fingerprint»"
-			      «ENDIF»
-			    «ENDFOR»			   
-			«IF experiment.infrastructure.requirements!==null»
+			  Â«ENDIFÂ»
+			    Â«FOR key:experiment.infrastructure.user.keysÂ»
+			    - name: "Â«key.nameÂ»"
+			      Â«IF key.privateKey!==nullÂ»
+			      private-key-material: "Â«key.privateKeyÂ»"
+			      Â«ENDIFÂ»
+			      Â«IF key.privateKey!==nullÂ»
+			      public-key-material: "Â«key.publicKeyÂ»"
+			      Â«ENDIFÂ»
+			      Â«IF key.privateKey!==nullÂ»
+			      fingerprint: "Â«key.fingerprintÂ»"
+			      Â«ENDIFÂ»
+			    Â«ENDFORÂ»			   
+			Â«IF experiment.infrastructure.requirements!==nullÂ»
 				requirements:
-				  cpu: «experiment.infrastructure.requirements.cpu»
-				  memory: «experiment.infrastructure.requirements.memory»
-				  platform: "«experiment.infrastructure.requirements.platform.typeName»"
-				  cost: «experiment.infrastructure.requirements.cost»
-				  number-of-instances-per-cloud: «experiment.infrastructure.requirements.instancesPerCloud»
-			«ENDIF»
-			«IF experiment.infrastructure.preconditions!==null»
+				  cpu: Â«experiment.infrastructure.requirements.cpuÂ»
+				  memory: Â«experiment.infrastructure.requirements.memoryÂ»
+				  platform: "Â«experiment.infrastructure.requirements.platform.typeNameÂ»"
+				  cost: Â«experiment.infrastructure.requirements.costÂ»
+				  number-of-instances-per-cloud: Â«experiment.infrastructure.requirements.instancesPerCloudÂ»
+			Â«ENDIFÂ»
+			Â«IF experiment.infrastructure.preconditions!==nullÂ»
 				preconditions:
 				  packages:
-				  «FOR pack:experiment.infrastructure.preconditions.packages»
-				  - «pack»
-				  «ENDFOR»
-			«ENDIF»				
-			«IF !experiment.infrastructure.clouds.isNullOrEmpty»
+				  Â«FOR pack:experiment.infrastructure.preconditions.packagesÂ»
+				  - Â«packÂ»
+				  Â«ENDFORÂ»
+			Â«ENDIFÂ»				
+			Â«IF !experiment.infrastructure.clouds.isNullOrEmptyÂ»
 				clouds:
 				  cloud:
-				  «FOR cloud:experiment.infrastructure.clouds»				  	
-				  	- name: "«cloud.name»"
-				  	  «IF cloud.provider!==null»
+				  Â«FOR cloud:experiment.infrastructure.cloudsÂ»				  	
+				  	- name: "Â«cloud.nameÂ»"
+				  	  Â«IF cloud.provider!==nullÂ»
 				  	  provider:
-				  	    name: "«cloud.provider.name»"
-				  	    «IF cloud.provider.maxResourcePerType>0»
-				  	    max-resource-per-type: «cloud.provider.maxResourcePerType»
-				  	    «ENDIF»
-				  	    «IF cloud.provider.description!==null»
-				  	    description: "«cloud.provider.description»"
-				  	    «ENDIF»
-				  	    «IF cloud.provider.serviceClass!==null»
-				  	    service-class: "«cloud.provider.serviceClass»"
-				  	    «ENDIF»
-				  	  «ENDIF»
-				  	  «IF cloud.accessKey!==null»
+				  	    name: "Â«cloud.provider.nameÂ»"
+				  	    Â«IF cloud.provider.maxResourcePerType>0Â»
+				  	    max-resource-per-type: Â«cloud.provider.maxResourcePerTypeÂ»
+				  	    Â«ENDIFÂ»
+				  	    Â«IF cloud.provider.description!==nullÂ»
+				  	    description: "Â«cloud.provider.descriptionÂ»"
+				  	    Â«ENDIFÂ»
+				  	    Â«IF cloud.provider.serviceClass!==nullÂ»
+				  	    service-class: "Â«cloud.provider.serviceClassÂ»"
+				  	    Â«ENDIFÂ»
+				  	  Â«ENDIFÂ»
+				  	  Â«IF cloud.accessKey!==nullÂ»
 				  	  access-key:
-				  	    access-key: "«cloud.accessKey.accessKey»"
-				  	    secret-key: "«cloud.accessKey.secretKey»"
-				  	  «ENDIF»  
-				  	  «IF !cloud.regions.isNullOrEmpty»
+				  	    access-key: "Â«cloud.accessKey.accessKeyÂ»"
+				  	    secret-key: "Â«cloud.accessKey.secretKeyÂ»"
+				  	  Â«ENDIFÂ»  
+				  	  Â«IF !cloud.regions.isNullOrEmptyÂ»
 				  	  	region:
-				  	  «ENDIF»
-				  	  «FOR region:cloud.regions»
-				  	  	- name: "«region.name»"
-				  	  	  «IF region.endpoint!==null»
-				  	  	  endpoint: "«region.endpoint»"
-				  	  	  «ENDIF»
-				  	  	  «IF region.status!==null»
-				  	  	  status: «region.status.typeName»
-				  	  	  «ENDIF»
-				  	  	  «IF region.city!==null»
-				  	  	  city: "«region.city»"
-				  	  	  «ENDIF»
-				  	  	  «IF region.geographicRegion!=0»
-				  	  	  geographic-region: «region.geographicRegion»
-				  	  	  «ENDIF»
-				  	  	  «IF !region.zones.isNullOrEmpty»
+				  	  Â«ENDIFÂ»
+				  	  Â«FOR region:cloud.regionsÂ»
+				  	  	- name: "Â«region.nameÂ»"
+				  	  	  Â«IF region.endpoint!==nullÂ»
+				  	  	  endpoint: "Â«region.endpointÂ»"
+				  	  	  Â«ENDIFÂ»
+				  	  	  Â«IF region.status!==nullÂ»
+				  	  	  status: Â«region.status.typeNameÂ»
+				  	  	  Â«ENDIFÂ»
+				  	  	  Â«IF region.city!==nullÂ»
+				  	  	  city: "Â«region.cityÂ»"
+				  	  	  Â«ENDIFÂ»
+				  	  	  Â«IF region.geographicRegion!=0Â»
+				  	  	  geographic-region: Â«region.geographicRegionÂ»
+				  	  	  Â«ENDIFÂ»
+				  	  	  Â«IF !region.zones.isNullOrEmptyÂ»
 				  	  	  zone:
-				  	  	  «ENDIF»
-				  	  	  «FOR zone:region.zones»
-				  	  	  - name: "«zone.name»"
-				  	  	    «IF zone.status!==null»
-				  	  	    status: "«zone.status»"
-				  	  	    «ENDIF»
-				  	  	  «ENDFOR»  
-				  	  «ENDFOR»
-				  	  «IF !cloud.instanceTypes.isNullOrEmpty»
+				  	  	  Â«ENDIFÂ»
+				  	  	  Â«FOR zone:region.zonesÂ»
+				  	  	  - name: "Â«zone.nameÂ»"
+				  	  	    Â«IF zone.status!==nullÂ»
+				  	  	    status: "Â«zone.statusÂ»"
+				  	  	    Â«ENDIFÂ»
+				  	  	  Â«ENDFORÂ»  
+				  	  Â«ENDFORÂ»
+				  	  Â«IF !cloud.instanceTypes.isNullOrEmptyÂ»
 				  	  instance-types:
 				  	    instance-type:
-				  	  «ENDIF»
-				  	    «FOR instance:cloud.instanceTypes»
-				  	    - name: "«instance.name»"
-				  	      «IF instance.numberOfInstances>0»
-				  	      number-of-instances: «instance.numberOfInstances»
-				  	      «ENDIF»
-				  	    «ENDFOR»					  	
-				  «ENDFOR»
-			«ENDIF» 
-			«IF !experiment.designExecutionsRepeatedWithNumberOfRuns.isNullOrEmpty»				
+				  	  Â«ENDIFÂ»
+				  	    Â«FOR instance:cloud.instanceTypesÂ»
+				  	    - name: "Â«instance.nameÂ»"
+				  	      Â«IF instance.numberOfInstances>0Â»
+				  	      number-of-instances: Â«instance.numberOfInstancesÂ»
+				  	      Â«ENDIFÂ»
+				  	    Â«ENDFORÂ»					  	
+				  Â«ENDFORÂ»
+			Â«ENDIFÂ» 
+			Â«IF !experiment.designExecutionsRepeatedWithNumberOfRuns.isNullOrEmptyÂ»				
 				applications:
 				  application:
-				  «FOR execution:experiment.designExecutionsRepeatedWithNumberOfRuns»				  	
-				  - name: "«execution.taskName»"
-				    command-line: "«execution.cmd»«IF !execution.files.filter[generated].isNullOrEmpty» >> ${«execution.files.filter[generated].head.name»}«ENDIF»"
-				    «IF execution.preconditions!==null»
+				  Â«FOR execution:experiment.designExecutionsRepeatedWithNumberOfRunsÂ»				  	
+				  - name: "Â«execution.taskNameÂ»"
+				    command-line: "Â«execution.cmdÂ»Â«IF !execution.files.filter[generated].isNullOrEmptyÂ» >> ${Â«execution.files.filter[generated].head.nameÂ»}Â«ENDIFÂ»"
+				    Â«IF execution.preconditions!==nullÂ»
 				    preconditions:
 				      packages:
-				      «FOR pack:execution.preconditions.packages»
-				      - «pack»
-				      «ENDFOR»
-				    «ENDIF»
-				    «IF!execution.files.isNullOrEmpty»				    
+				      Â«FOR pack:execution.preconditions.packagesÂ»
+				      - Â«packÂ»
+				      Â«ENDFORÂ»
+				    Â«ENDIFÂ»
+				    Â«IF!execution.files.isNullOrEmptyÂ»				    
 				    files:
-				    «ENDIF»
-				    «FOR file:execution.files»
-				    - name: "«file.name»"
-				      path: "«file.path»"
-				      generated: «IF file.generated»"Y"«ELSE»"N"«ENDIF»
-				   «ENDFOR»
-				  «ENDFOR»  
-			«ENDIF»
-			«IF experiment.infrastructure.onFinish!==null»
-				on-finish: "«experiment.infrastructure.onFinish.typeName»"
-			«ENDIF»
+				    Â«ENDIFÂ»
+				    Â«FOR file:execution.filesÂ»
+				    - name: "Â«file.nameÂ»"
+				      path: "Â«file.pathÂ»"
+				      generated: Â«IF file.generatedÂ»"Y"Â«ELSEÂ»"N"Â«ENDIFÂ»
+				   Â«ENDFORÂ»
+				  Â«ENDFORÂ»  
+			Â«ENDIFÂ»
+			Â«IF experiment.infrastructure.onFinish!==nullÂ»
+				on-finish: "Â«experiment.infrastructure.onFinish.typeNameÂ»"
+			Â«ENDIFÂ»
 		'''
 
 	}
