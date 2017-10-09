@@ -20,6 +20,7 @@
 		<module>../br.unb.autoexp.web.target/neon</module>
 		<module>../br.unb.autoexp</module> 
 		<module>../br.unb.autoexp.web</module>	
+		<module>../br.unb.autoexp.example</module>	
 		<module>./autoexp</module>
   </modules>
 
