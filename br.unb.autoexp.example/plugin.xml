@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml">
+      </toc>
+      <toc
+            file="testToc.xml"
+            primary="true">
+      </toc>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="br.unb.autoexp.wizard.newModelExampleCommand"
+            name="newModelExampleCommand">
+      </command>
+   </extension>
+ <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="menu:new">
+     
+         <command
+               commandId="br.unb.autoexp.wizard.newModelExampleCommand"
+               helpContextId="Create a new example specification"
+               icon="icons/model.png"
+               label="Model Example"
+               style="push"
+               tooltip="Create a new example specification">
+      </command>
+      </menuContribution>
+       <menuContribution
+            allPopups="true"
+            locationURI="popup:org.dslforge.workspace.menu.new?after=dslforge.workspace.menu.new.file">
+            
+         <command
+               commandId="br.unb.autoexp.wizard.newModelExampleCommand"
+               helpContextId="Create a new example specification"
+               icon="icons/model.png"
+               label="Model Example"
+               style="push"
+               tooltip="Create a new example specification">
+      </command>
+      </menuContribution>
+    
+    </extension>
+ <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="br.unb.autoexp.example.command.NewModelExampleCommand"
+          commandId="br.unb.autoexp.wizard.newModelExampleCommand">
+    </handler>
+ </extension> 
+</plugin>
