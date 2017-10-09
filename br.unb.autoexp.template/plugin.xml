@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+  
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="br.unb.autoexp.wizard.newModelTemplateCommand"
+            name="newModelTemplateCommand">
+      </command>
+   </extension>
+ <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="menu:new">
+     
+         <command
+               commandId="br.unb.autoexp.wizard.newModelTemplateCommand"
+               helpContextId="Create a new specification based on a template"
+               icon="icons/model.png"
+               label="Model Template"
+               style="push"
+               tooltip="Create a new specification based on a template">
+      </command>
+      </menuContribution>
+       <menuContribution
+            allPopups="true"
+            locationURI="popup:org.dslforge.workspace.menu.new?after=dslforge.workspace.menu.new.file">
+            
+         <command
+               commandId="br.unb.autoexp.wizard.newModelTemplateCommand"
+               helpContextId="Create a new specification based on a template"
+               icon="icons/model.png"
+               label="Model Template"
+               style="push"
+               tooltip="Create a new specification based on a template">
+      </command>
+      </menuContribution>
+    
+    </extension>
+ <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="br.unb.autoexp.template.command.NewModelTemplateCommand"
+          commandId="br.unb.autoexp.wizard.newModelTemplateCommand">
+    </handler>
+ </extension> 
+</plugin>
