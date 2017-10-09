@@ -20,11 +20,7 @@ import org.dslforge.xtext.common.commands.BasicGenerateCommand;
 import org.dslforge.xtext.common.registry.LanguageRegistry;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -59,65 +55,61 @@ public class RunCommand extends AbstractWorkspaceCommand {
 	private ExperimentExecutionStorageService experimentExecutionService = ExperimentExecutionStorageServiceFactory
 			.get();
 	private IWorkbenchWindow window;
-	
 
-	
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		final File file = unwrap(event, File.class);
 
-		BasicGenerateCommand generateCommand= new BasicGenerateCommand();
-		
+		BasicGenerateCommand generateCommand = new BasicGenerateCommand();
+
 		generateCommand.execute(event);
-		
-	
+
 		IRunnableWithProgress operation = new IRunnableWithProgress() {
+			@Override
 			public void run(IProgressMonitor progressMonitor) {
 				String result = "";
 
 				try {
-					
+
 					String message = "Execution must be run from a specification file (*.ae)";
-					if (!file.getName().endsWith(".ae")){
-						
+					if (!file.getName().endsWith(".ae")) {
+
 						MessageDialog.openError(window.getShell(), "Run Error", message);
 						throw new RuntimeException(message);
 					}
-					File specificationFile=file;
-					File jsonFile=new File(file.getParentFile().getAbsolutePath()+File.separator+DEFAULT_OUTPUT_FOLDER+File.separator+file.getName().replaceFirst("[.][^.]+$", ".json"));
-					File applicationDescriptorFile=new File(file.getParentFile().getAbsolutePath()+File.separator+DEFAULT_OUTPUT_FOLDER+File.separator+file.getName().replaceFirst("[.][^.]+$", ".yml"));;
-					File rnwFile=new File(file.getParentFile().getAbsolutePath()+File.separator+DEFAULT_OUTPUT_FOLDER+File.separator+file.getName().replaceFirst("[.][^.]+$", ".Rnw"));;
-					
-					
+					File specificationFile = file;
+					File jsonFile = new File(
+							file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER
+									+ File.separator + file.getName().replaceFirst("[.][^.]+$", ".json"));
+					File applicationDescriptorFile = new File(
+							file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER
+									+ File.separator + file.getName().replaceFirst("[.][^.]+$", ".yml"));
+					;
+					File rnwFile = new File(
+							file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER
+									+ File.separator + file.getName().replaceFirst("[.][^.]+$", ".Rnw"));
+					;
+
 					String jobId = UUID.randomUUID().toString();
-					
-					File executionFolder=new File(String.format("%s%s%s%s%s",specificationFile.getParentFile().getAbsolutePath(),File.separator,"executions",File.separator,jobId));
+
+					File executionFolder = new File(
+							String.format("%s%s%s%s%s", specificationFile.getParentFile().getAbsolutePath(),
+									File.separator, "executions", File.separator, jobId));
 					executionFolder.mkdirs();
-					
+
 					copyToFolder(applicationDescriptorFile, executionFolder);
 					copyToFolder(jsonFile, executionFolder);
 					copyToFolder(specificationFile, executionFolder);
 					copyToFolder(rnwFile, executionFolder);
 
-						
-						
-					
-					
-					MappingService mappingService = MappingServiceFactory
-							.get(jsonFile.getAbsolutePath());
+					MappingService mappingService = MappingServiceFactory.get(jsonFile.getAbsolutePath());
 
 					String design = mappingService.findAll().get(0).getDesignType().getName();
-					
-					
-					
-				
-					
-					
-					
+
 					int runs = mappingService.findAll().get(0).getRuns();
 					String experimentName = mappingService.findAll().get(0).getExperimentName();
-						
+
 					experimentDesignService.create(ExperimentDesignDTO.getBuilder().design(design).jobId(jobId)
 							.runs(runs).name(experimentName).fileName(specificationFile.getName()).build());
 					mappingService.findAll().forEach((task) -> {
@@ -137,7 +129,7 @@ public class RunCommand extends AbstractWorkspaceCommand {
 						}
 					});
 
-					//Path filePath = new Path(file.getAbsolutePath());
+					// Path filePath = new Path(file.getAbsolutePath());
 					String host = "10.10.3.10";
 					if (System.getenv("DOHKO_ADDRESS") != null) {
 						host = System.getenv("DOHKO_ADDRESS");
@@ -148,8 +140,7 @@ public class RunCommand extends AbstractWorkspaceCommand {
 					if (System.getenv("DOHKO_CLIENT_PATH") != null) {
 						clientPath = System.getenv("DOHKO_CLIENT_PATH");
 					}
-									
-					
+
 					File tempScript = createTempScript(clientPath, host, applicationDescriptorFile.getAbsolutePath());
 
 					try {
@@ -178,16 +169,14 @@ public class RunCommand extends AbstractWorkspaceCommand {
 					MessageDialog.openInformation(window.getShell(), "br.unb.autoexp.web", result);
 
 				} catch (Exception ex) {
-					
+
 					logger.error(ex.getMessage(), ex);
 				} finally {
 					progressMonitor.done();
 				}
 			}
 
-			
-
-					};
+		};
 		try {
 			getWindow().run(false, false, operation);
 		} catch (InvocationTargetException ex) {
@@ -199,25 +188,29 @@ public class RunCommand extends AbstractWorkspaceCommand {
 	}
 
 	private void copyToFolder(final File file, File executionFolder) throws IOException {
-		if (!file.exists()){		
-			String message=String.format("File %s not found in %s folder",file.getName(),DEFAULT_OUTPUT_FOLDER );
+		if (!file.exists()) {
+			String message = String.format("File %s not found in %s folder", file.getName(), DEFAULT_OUTPUT_FOLDER);
 			MessageDialog.openError(window.getShell(), "Run Error", message);
 			throw new RuntimeException(message);
 		}
-		
-		Files.copy(file.toPath(), new File(executionFolder.getAbsolutePath()+File.separator+file.getName()).toPath(),StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+
+		Files.copy(file.toPath(),
+				new File(executionFolder.getAbsolutePath() + File.separator + file.getName()).toPath(),
+				StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
 	}
+
 	public File createTempScript(String clientPath, String host, String filePath) throws IOException {
-		File clientFile=new File(clientPath);
-		if(!clientFile.exists()){
-			throw new RuntimeException(String.format("file %s not found.",clientFile.getAbsolutePath()));
+		File clientFile = new File(clientPath);
+		if (!clientFile.exists()) {
+			throw new RuntimeException(String.format("file %s not found.", clientFile.getAbsolutePath()));
 		}
 		File tempScript = File.createTempFile("script", null);
 		Writer streamWriter = new OutputStreamWriter(new FileOutputStream(tempScript));
 		PrintWriter printWriter = new PrintWriter(streamWriter);
 
 		printWriter.println("#!/bin/bash");
-		printWriter.println(String.format("java -jar %s deploy  --host %s --df %s", clientFile.getAbsolutePath(), host, filePath));
+		printWriter.println(
+				String.format("java -jar %s deploy  --host %s --df %s", clientFile.getAbsolutePath(), host, filePath));
 
 		printWriter.close();
 
