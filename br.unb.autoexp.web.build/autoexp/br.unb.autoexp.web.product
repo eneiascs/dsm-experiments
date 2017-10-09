@@ -26,6 +26,7 @@
    <plugins>
       <plugin id="br.unb.autoexp"/>
       <plugin id="br.unb.autoexp.example"/>
+      <plugin id="br.unb.autoexp.template"/>
       <plugin id="br.unb.autoexp.web"/>
       <plugin id="com.fasterxml.jackson.core.jackson-annotations"/>
       <plugin id="com.fasterxml.jackson.core.jackson-core"/>
@@ -117,6 +118,7 @@
    <configurations>
       <plugin id="br.unb.autoexp" autoStart="true" startLevel="5" />
       <plugin id="br.unb.autoexp.example" autoStart="false" startLevel="5" />
+      <plugin id="br.unb.autoexp.template" autoStart="false" startLevel="0" />
       <plugin id="br.unb.autoexp.web" autoStart="true" startLevel="5" />
       <plugin id="com.fasterxml.jackson.core.jackson-annotations" autoStart="true" startLevel="5" />
       <plugin id="com.fasterxml.jackson.core.jackson-core" autoStart="true" startLevel="5" />

@@ -21,6 +21,7 @@
 		<module>../br.unb.autoexp</module> 
 		<module>../br.unb.autoexp.web</module>	
 		<module>../br.unb.autoexp.example</module>	
+		<module>../br.unb.autoexp.template</module>	
 		<module>./autoexp</module>
   </modules>
 
