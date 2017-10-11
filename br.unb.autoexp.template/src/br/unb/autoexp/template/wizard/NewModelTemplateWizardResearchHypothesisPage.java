@@ -7,25 +7,25 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
-import br.unb.autoexp.autoExp.Author;
-import br.unb.autoexp.autoExp.AutoExpFactory;
 import br.unb.autoexp.autoExp.Experiment;
 
-public class NewModelTemplateWizardBasicInfoPage extends AbstractNewResourceWizardPage {
+public class NewModelTemplateWizardResearchHypothesisPage extends AbstractNewResourceWizardPage {
 
 	private static final long serialVersionUID = 1L;
 
 	protected Experiment experiment;
 	protected Text nameText;
 	protected Text descriptionText;
-	protected Text authorText;
+	protected Text depVariableText;
+	protected Text depVariableDescriptionText;
 
-	public NewModelTemplateWizardBasicInfoPage(String pageName, Experiment experiment) {
+	public NewModelTemplateWizardResearchHypothesisPage(String pageName, Experiment experiment) {
 		super(pageName);
 		this.experiment = experiment;
+
 	}
 
-	protected NewModelTemplateWizardBasicInfoPage(String pageName) {
+	protected NewModelTemplateWizardResearchHypothesisPage(String pageName) {
 		super(pageName);
 
 	}
@@ -36,6 +36,8 @@ public class NewModelTemplateWizardBasicInfoPage extends AbstractNewResourceWiza
 		setControl(workArea);
 		workArea.setLayout(new GridLayout());
 		workArea.setLayoutData(new GridData(SWT.BORDER | GridData.FILL_HORIZONTAL));
+
+		// createDialogArea(workArea);
 		createInfoArea(workArea);
 	}
 
@@ -43,55 +45,49 @@ public class NewModelTemplateWizardBasicInfoPage extends AbstractNewResourceWiza
 		Group group = new Group(workArea, SWT.NONE);
 		group.setLayout(new GridLayout());
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		group.setText("Basic Information");
+		group.setText("Research Hypothesis");
 
 		Composite folderInfoComposite = new Composite(group, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		layout.marginWidth = 0;
-		layout.makeColumnsEqualWidth = false;
+		layout.makeColumnsEqualWidth = true;
 		folderInfoComposite.setLayout(layout);
 		folderInfoComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		nameText = addTextField(folderInfoComposite, "&Experiment Name:", true);
-		descriptionText = addTextField(folderInfoComposite, "&Description:", false);
-		authorText = addTextField(folderInfoComposite, "&Author:", false);
+		nameText = addTextField(folderInfoComposite, "Hypothesis Name:", true);
+		descriptionText = addTextField(folderInfoComposite, "Hypothesis Description:", false);
+		depVariableText = addTextField(folderInfoComposite, "Dependent Variable:", false);
+		depVariableDescriptionText = addTextField(folderInfoComposite, "Dependent Variable Description:", false);
 
-		initValues();
 		setPageComplete(validatePage());
-	}
-
-	protected void initValues() {
-		String name = "";
-		String description = "";
-
-		if (experiment.getName() != null) {
-			name = experiment.getName();
-		}
-		if (experiment.getDescription() != null) {
-			description = experiment.getDescription();
-		}
-		nameText.setText(name);
-		descriptionText.setText(description);
 	}
 
 	@Override
 	protected boolean validatePage() {
 		if (nameText.getText() == null || nameText.getText().equals("")) {
-			setErrorMessage("Experiment name not specified, please enter the experiment name");
+			setErrorMessage("Hypothesis name not specified, please enter the research hypothesis name");
+
+			return false;
+		}
+		if (depVariableText.getText() == null || depVariableText.getText().equals("")) {
+			setErrorMessage("Dependent Variable not specified, please enter the dependent variable");
 
 			return false;
 		}
 
-		Author author = AutoExpFactory.eINSTANCE.createAuthor();
-		author.setName("firstAuthor");
-		author.setFullName(authorText.getText());
-		experiment.setName(nameText.getText());
-		experiment.setDescription(descriptionText.getText());
-		experiment.getAuthors().clear();
-		experiment.getAuthors().add(author);
 		setErrorMessage(null);
+
 		return true;
+	}
+
+	public void clearPage() {
+
+		depVariableDescriptionText.setText("");
+		depVariableText.setText("");
+		nameText.setText("");
+		descriptionText.setText("");
+
 	}
 
 }

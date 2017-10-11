@@ -1,16 +1,12 @@
 package br.unb.autoexp.template.wizard;
 
-import br.unb.autoexp.autoExp.AutoExpFactory
 import br.unb.autoexp.autoExp.Experiment
 import com.google.common.base.Charsets
 import java.io.File
 import java.lang.reflect.InvocationTargetException
 import java.util.Collections
 import org.apache.log4j.Logger
-import org.dslforge.workspace.WorkspaceManager
-import org.dslforge.workspace.ui.wizards.NewModelFileWizard
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.URI
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.operation.IRunnableWithProgress
@@ -20,40 +16,63 @@ import org.eclipse.rap.rwt.RWT
 import static extension com.google.common.io.Files.*
 import static extension java.lang.String.*
 
-class NewModelTemplateWizard extends NewModelFileWizard {
+class NewModelTemplateWizard extends AbstractNewResourceWizard {
+	
+
 	static final Logger logger = Logger.getLogger(NewModelTemplateWizard)
-	protected NewModelTemplateWizardPage page = null;
-	protected NewModelTemplateWizardBasicInfoPage basicInfoPage = null;
+	protected NewModelTemplateWizardPage page
+	protected NewModelTemplateWizardResearchHypothesisPage researchHypothesePage;
+	protected NewModelTemplateWizardTreatmentsPage treatmentsPage;
 	protected File containerFile;
-	protected Experiment experiment=AutoExpFactory.eINSTANCE.createExperiment
-	new(File container) {
+	protected Experiment experiment
+
+	new(File container, Experiment experiment) {
 		super(container);
+		
 		containerFile = container;
+		this.experiment = experiment
+		
+		
 		setWindowTitle("New Model Template");
 	}
 
+	
+
 	override public void addPages() {
-		page = new NewModelTemplateWizardPage("NewModelFile");
+
+		page = new NewModelTemplateWizardPage("page")
 		page.setTitle("File Information");
 		page.setDescription("Create a example of experiment specification");
+
 		//
 		page.setInitialElementSelections(Collections.singletonList(getSelection()));
 		addPage(page);
-		
-		basicInfoPage=new NewModelTemplateWizardBasicInfoPage("NewModelFile",experiment)
-		basicInfoPage.title="Experiment Basic Information"
+
+		val basicInfoPage = new NewModelTemplateWizardBasicInfoPage("basicInfoPage", experiment)
+		basicInfoPage.title = "Experiment Basic Information"
 		addPage(basicInfoPage)
-		
-		val researhHypothesePage=new NewModelTemplateWizardResearchHypothesesPage("NewModelFile",experiment)
-		researhHypothesePage.title="Experiment Research Hypotheses"
-		addPage(researhHypothesePage)
+
+		researchHypothesePage = new NewModelTemplateWizardResearchHypothesisPage("researchHypothesePage", experiment)
+		researchHypothesePage.title = "Experiment Research Hypotheses"
+
+		addPage(researchHypothesePage)
+
+		treatmentsPage = new NewModelTemplateWizardTreatmentsPage("treatmentsPage", experiment)
+		treatmentsPage.title = "Experiment Research Hypotheses"
+
+		addPage(treatmentsPage)
+
+		val researhHypothesisListPage = new NewModelTemplateWizardResearchHypothessListPage("researhHypothesisListPage",
+			experiment)
+	// addPage(researhHypothesisListPage)
 	}
 
 	override boolean performFinish() {
+		treatmentsPage.addResearchHypothesis
 		val URI fileURI = computeFileURI();
 		logger.info(experiment.name)
 		logger.info(experiment.description)
-		
+
 		val IStructuredSelection selection = getSelection();
 		val File container = new File(selection.toString());
 		if (container.exists() && !container.isDirectory()) {
@@ -74,7 +93,7 @@ class NewModelTemplateWizard extends NewModelFileWizard {
 			override void run(IProgressMonitor progressMonitor) {
 				try {
 
-					WorkspaceManager.INSTANCE.createResource(new Path(fileURI.devicePath()));
+					// WorkspaceManager.INSTANCE.createResource(new Path(fileURI.devicePath()));
 					logger.info("Writing to file %s".format(fileURI.toFileString))
 					experiment.generate.write(new File(fileURI.toFileString), Charsets.UTF_8)
 
@@ -104,7 +123,7 @@ class NewModelTemplateWizard extends NewModelFileWizard {
 		return true;
 	}
 
-	override URI computeFileURI() {
+	def URI computeFileURI() {
 		page.fileURI
 	}
 
@@ -112,40 +131,38 @@ class NewModelTemplateWizard extends NewModelFileWizard {
 		'''
 			Experiment «experiment.name» {
 				Authors {
-				    firstAuthor {fullName "First Author"},
-				    secondAuthor {fullName "Second Author"}
-				     
+					«FOR author : experiment.authors»
+						«author.name» {fullName "«author.fullName»"}«IF !experiment.authors.last.name.equals(author.name)»,«ENDIF»
+					«ENDFOR»
 				}
 				
 				 description "«experiment.description»" 
-				 
-				 Keywords { "SPL","Software Product Lines"}
-				 Goals {goal1 {object "Object" technique "Technique" quality "Quality"  ptView "ptView" contextOf "contextOf"},goal2 "Goal 2"}
-				 
-				 Research Questions { question1 { description  "Research Question 1" goal goal1}, question2 { description "Question 2"}} 
-				 
+				 				 
 				 Research Hypotheses {
-				 	«FOR rh:experiment.researchHypotheses»
-				 	«rh.name» {«rh.formula.depVariable.name» «rh.formula.treatment1.name» = «rh.formula.treatment2.name» description "«rh.description»" goal goal1}«IF !experiment.researchHypotheses.last.name.equals(rh.name)»,«ENDIF»
+				 	«FOR rh : experiment.researchHypotheses»
+				 		«rh.name» {«rh.formula.depVariable.name» «rh.formula.treatment1.name» = «rh.formula.treatment2.name» description "«rh.description»"}«IF !experiment.researchHypotheses.last.name.equals(rh.name)»,«ENDIF»
 				 	«ENDFOR»
-				  }
-				  
-				  Experimental Design {
-				     runs 8 
-				    Dependent Variables {
-				    «FOR depVariable:experiment.experimentalDesign.dependentVariables»	
-				      «depVariable.name» { description "«depVariable.description»" scaleType Absolute }«IF !experiment.experimentalDesign.dependentVariables.last.name.equals(depVariable.name)»,«ENDIF»
-				    «ENDFOR»   
+				 	}
+				 	
+				 	Experimental Design {
+				 	   runs 8 
+				 	  Dependent Variables {
+				 	  «FOR depVariable : experiment.experimentalDesign.dependentVariables»	
+				 	  	«depVariable.name» { description "«depVariable.description»" scaleType Absolute }«IF !experiment.experimentalDesign.dependentVariables.last.name.equals(depVariable.name)»,«ENDIF»
+				 	  «ENDFOR»   
 				 }    
 				  
-				 Factors { 
-				 	strategy { description "Analysis Strategy" scaleType Nominal}
+				 Factors {
+				 	«FOR factor : experiment.experimentalDesign.factors»
+				 		«factor.name» { description "«factor.description»" scaleType Nominal}«IF !experiment.experimentalDesign.factors.last.name.equals(factor.name)»,«ENDIF»
+				 	«ENDFOR»    
+				 	
 				 	} 
 				 	
 				 	Treatments {
-					 «FOR treatment:experiment.experimentalDesign.treatments»
-					 	«treatment.name» description "«treatment.description»"  factor strategy parameters{argument "«treatment.name»"} execution reanaEvaluator«IF !experiment.experimentalDesign.treatments.last.name.equals(treatment.name)»,«ENDIF»	
-					 «ENDFOR»   	 		 
+				 	«FOR treatment : experiment.experimentalDesign.treatments»
+				 		«treatment.name» description "«treatment.description»"  factor «treatment.factor.name» parameters{argument "arg"} execution reanaEvaluator«IF !experiment.experimentalDesign.treatments.last.name.equals(treatment.name)»,«ENDIF»	
+				 	«ENDFOR»   	 		 
 				 	}
 				 Objects { 
 				 	intercloud description "Intercloud" parameters {
