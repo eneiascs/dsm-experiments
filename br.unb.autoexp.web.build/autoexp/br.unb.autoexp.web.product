@@ -38,6 +38,7 @@
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>
       <plugin id="javax.ws.rs"/>
+      <plugin id="javax.ws.rs-api"/>
       <plugin id="javax.xml"/>
       <plugin id="org.antlr.runtime"/>
       <plugin id="org.apache.felix.gogo.command"/>
@@ -102,16 +103,22 @@
       <plugin id="org.eclipse.xtend.lib.macro"/>
       <plugin id="org.eclipse.xtext"/>
       <plugin id="org.eclipse.xtext.common.types"/>
+      <plugin id="org.eclipse.xtext.ide"/>
       <plugin id="org.eclipse.xtext.logging" fragment="true"/>
       <plugin id="org.eclipse.xtext.smap"/>
+      <plugin id="org.eclipse.xtext.testing"/>
       <plugin id="org.eclipse.xtext.util"/>
       <plugin id="org.eclipse.xtext.xbase"/>
       <plugin id="org.eclipse.xtext.xbase.lib"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.junit"/>
       <plugin id="org.mongodb.bson"/>
       <plugin id="org.mongodb.driver-core"/>
       <plugin id="org.mongodb.mongo-java-driver"/>
       <plugin id="org.mongojack"/>
       <plugin id="org.objectweb.asm"/>
+      <plugin id="org.osgi.service.jdbc"/>
+      <plugin id="org.osgi.service.jndi"/>
       <plugin id="osgi.enterprise"/>
    </plugins>
 
@@ -130,6 +137,7 @@
       <plugin id="javax.inject" autoStart="true" startLevel="5" />
       <plugin id="javax.persistence" autoStart="true" startLevel="5" />
       <plugin id="javax.ws.rs" autoStart="true" startLevel="5" />
+      <plugin id="javax.ws.rs-api" autoStart="false" startLevel="0" />
       <plugin id="javax.xml" autoStart="true" startLevel="5" />
       <plugin id="org.antlr.runtime" autoStart="true" startLevel="5" />
       <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="5" />
@@ -191,15 +199,21 @@
       <plugin id="org.eclipse.xtend.lib.macro" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtext" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtext.common.types" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext.ide" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.xtext.smap" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext.testing" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.xtext.util" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtext.xbase" autoStart="false" startLevel="5" />
       <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="5" />
+      <plugin id="org.hamcrest.core" autoStart="false" startLevel="0" />
+      <plugin id="org.junit" autoStart="false" startLevel="0" />
       <plugin id="org.mongodb.bson" autoStart="true" startLevel="5" />
       <plugin id="org.mongodb.driver-core" autoStart="true" startLevel="5" />
       <plugin id="org.mongodb.mongo-java-driver" autoStart="true" startLevel="5" />
       <plugin id="org.mongojack" autoStart="true" startLevel="5" />
       <plugin id="org.objectweb.asm" autoStart="true" startLevel="5" />
+      <plugin id="org.osgi.service.jdbc" autoStart="false" startLevel="0" />
+      <plugin id="org.osgi.service.jndi" autoStart="false" startLevel="0" />
       <plugin id="osgi.enterprise" autoStart="true" startLevel="5" />
    </configurations>
 
