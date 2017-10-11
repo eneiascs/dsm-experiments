@@ -12,4 +12,13 @@ class AutoExpStandaloneSetup extends AutoExpStandaloneSetupGenerated {
 	def static void doSetup() {
 		new AutoExpStandaloneSetup().createInjectorAndDoEMFRegistration()
 	}
+	
+	override createInjector() {
+		super.createInjector
+	}
+	
+	override createInjectorAndDoEMFRegistration() {
+		super.createInjectorAndDoEMFRegistration
+	}
+	
 }
