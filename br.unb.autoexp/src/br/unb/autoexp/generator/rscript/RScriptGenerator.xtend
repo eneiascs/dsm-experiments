@@ -38,7 +38,8 @@ class RScriptGenerator {
 		 
 		json_data <- fromJSON("data.json")
 		@
-		
+		\section{Description}
+		«experiment.description»
 		\section{Goals}
 		«experiment.generateGoals»
 		\section{Research Questions}
