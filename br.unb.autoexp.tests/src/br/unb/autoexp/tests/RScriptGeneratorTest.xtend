@@ -107,7 +107,8 @@ class RScriptGeneratorTest {
 				 
 				json_data <- fromJSON("data.json")
 				@
-				
+				\section{Description}
+				Reliability Analysis of Software Product Lines
 				\section{Goals}
 				\begin{itemize}
 				\item{goal1: 
