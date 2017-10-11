@@ -33,7 +33,7 @@ class NewModelTemplateWizard extends AbstractNewResourceWizard {
 		this.experiment = experiment
 		
 		
-		setWindowTitle("New Model Template");
+		setWindowTitle("Model Wizard");
 	}
 
 	

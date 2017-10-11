@@ -48,7 +48,7 @@
                commandId="br.unb.autoexp.wizard.newModelTemplateCommand"
                helpContextId="Create a new specification based on a template"
                icon="icons/model.png"
-               label="Model Template"
+               label="Model Wizard"
                style="push"
                tooltip="Create a new specification based on a template">
       </command>
