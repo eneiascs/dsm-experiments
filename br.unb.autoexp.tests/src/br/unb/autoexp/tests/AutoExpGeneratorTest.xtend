@@ -1174,5 +1174,163 @@ Experiment reanaSpl {
 			applicationDescriptor.convert
 		]
 	}
+	@Test
+	def void testDesignRestrictions() {
+		'''
+Experiment reanaSpl {
 
+	
+	 description "Reliability Analysis" 
+	 				 
+	 Research Hypotheses {
+	 	rh1 {time featureFamily = product description ""},
+	 	rh2 {time featureFamily = featureProduct description ""},
+	 	rh3 {time featureFamily = family description ""},
+	 	rh4 {time featureFamily = familyProduct description ""}
+	 	
+	 	
+	 	}
+	 	
+	 	Experimental Design {
+	 	   runs 2 
+	 	  Dependent Variables {
+	 	  time { description "Analysis time" scaleType Absolute }
+	 	  
+	 	  
+	 	  
+	 }    
+	  
+	 Factors {
+	 	strategy { description "Analysis Strategy" scaleType Nominal}
+	 	
+	 	} 
+	 	
+	 	Treatments {
+	 	featureFamily description "Feature Family"  factor strategy parameters{argument "arg"} execution reanaEvaluator,	
+	 	featureProduct description "Feature Product"  factor strategy parameters{argument "arg"} execution reanaEvaluator,	
+	 	family description ""  factor strategy parameters{argument "arg"} execution reanaEvaluator,	
+	 	familyProduct description ""  factor strategy parameters{argument "arg"} execution reanaEvaluator,
+	 	product description ""  factor strategy parameters{argument "arg"} execution reanaEvaluator	
+	 	}
+	 Objects { 
+	 	intercloud description "Intercloud" parameters {
+	 		featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"},
+	 	lift description "Lift" parameters {
+	 		featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}, 
+	 		
+	 	bsn description "BSN" parameters {
+	 		featureModel "bsn/0.txt",umlModel "bsn/0_behavioral_model.xml"}, 	 
+	 	eMail description "Email" parameters {
+	 		featureModel "email/0.txt",umlModel "email/0_behavioral_model.xml"}, 	 
+	 	tankwar description "Tank War" parameters {
+	 		featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}, 	 
+	 	minepump description "Minepump" parameters {
+	 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"} 	 
+	 			
+	 }
+	 Restrictions {
+	 	 	  	product objects {bsn},
+	 	 	  	product objects {eMail},
+	 	 	  	family objects{intercloud,minepump},
+	 	 	  	featureProduct objects {lift,bsn},
+	 	 	  	familyProduct objects {bsn,eMail,minepump}
+	 }
+	 
+	 }
+	 Executions { 
+	 	reanaEvaluator { 
+	 		command "java -jar reanaSpl.jar --analysis-strategy='${treatment.parameter.argument}' --feature-model='${object.parameter.featureModel}' --uml-model='${object.parameter.umlModel}'" 
+	 		
+	 		files {
+	 		    {name "featureModel" path "${object.parameter.featureModel}"},
+	 		    { name "umlModel" path "${object.parameter.umlModel}" }
+	 		    
+	 		}
+	 		   
+	 	}
+	 		
+	 		
+	 }
+	 Infrastructure {
+	 	user{
+	 	  username "vagrant"
+	 	  	 
+	 	  	    
+	 	}
+	 	 
+	 }
+	}
+		''' => [
+			val applicationDescriptor = '''
+				---
+				name: "reanaSpl"
+				user:
+				  username: "vagrant"
+				applications:
+				  application:
+				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='intercloud/0.txt' --uml-model='intercloud/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='intercloud/0.txt' --uml-model='intercloud/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_lift"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='lift/0.txt' --uml-model='lift/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_lift"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='lift/0.txt' --uml-model='lift/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_eMail"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='email/0.txt' --uml-model='email/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_eMail"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='email/0.txt' --uml-model='email/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_tankwar"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='tankwar/0.txt' --uml-model='tankwar/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_tankwar"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='tankwar/0.txt' --uml-model='tankwar/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_minepump"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='minepump/0.txt' --uml-model='minepump/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureFamily_minepump"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='minepump/0.txt' --uml-model='minepump/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_product_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_product_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_product_eMail"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='email/0.txt' --uml-model='email/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_product_eMail"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='email/0.txt' --uml-model='email/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureProduct_lift"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='lift/0.txt' --uml-model='lift/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureProduct_lift"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='lift/0.txt' --uml-model='lift/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureProduct_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_featureProduct_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_family_intercloud"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='intercloud/0.txt' --uml-model='intercloud/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_family_intercloud"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='intercloud/0.txt' --uml-model='intercloud/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_family_minepump"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='minepump/0.txt' --uml-model='minepump/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_family_minepump"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='minepump/0.txt' --uml-model='minepump/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_familyProduct_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_familyProduct_bsn"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='bsn/0.txt' --uml-model='bsn/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_familyProduct_eMail"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='email/0.txt' --uml-model='email/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_familyProduct_eMail"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='email/0.txt' --uml-model='email/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_familyProduct_minepump"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='minepump/0.txt' --uml-model='minepump/0_behavioral_model.xml'"
+				  - name: "FACTORIAL_strategy_familyProduct_minepump"
+				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='minepump/0.txt' --uml-model='minepump/0_behavioral_model.xml'"
+			'''
+			assertCompilesToWithFileExtension(applicationDescriptor, ".yml")
+			applicationDescriptor.convert
+		]
+	}
 }

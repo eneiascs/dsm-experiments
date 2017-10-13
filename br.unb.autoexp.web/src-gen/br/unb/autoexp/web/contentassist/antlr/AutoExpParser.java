@@ -117,6 +117,10 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExperimentalDesignAccess().getGroup_22(), "rule__ExperimentalDesign__Group_22__0");
 					put(grammarAccess.getExperimentalDesignAccess().getGroup_24(), "rule__ExperimentalDesign__Group_24__0");
 					put(grammarAccess.getExperimentalDesignAccess().getGroup_24_3(), "rule__ExperimentalDesign__Group_24_3__0");
+					put(grammarAccess.getExperimentalDesignAccess().getGroup_25(), "rule__ExperimentalDesign__Group_25__0");
+					put(grammarAccess.getExperimentalDesignAccess().getGroup_25_3(), "rule__ExperimentalDesign__Group_25_3__0");
+					put(grammarAccess.getRestrictionAccess().getGroup(), "rule__Restriction__Group__0");
+					put(grammarAccess.getRestrictionAccess().getGroup_4(), "rule__Restriction__Group_4__0");
 					put(grammarAccess.getExecutionAccess().getGroup(), "rule__Execution__Group__0");
 					put(grammarAccess.getExecutionAccess().getGroup_2(), "rule__Execution__Group_2__0");
 					put(grammarAccess.getExecutionAccess().getGroup_3(), "rule__Execution__Group_3__0");
@@ -266,8 +270,13 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExperimentalDesignAccess().getGroupsAssignment_18_3_1(), "rule__ExperimentalDesign__GroupsAssignment_18_3_1");
 					put(grammarAccess.getExperimentalDesignAccess().getExperimentalObjectsAssignment_21(), "rule__ExperimentalDesign__ExperimentalObjectsAssignment_21");
 					put(grammarAccess.getExperimentalDesignAccess().getExperimentalObjectsAssignment_22_1(), "rule__ExperimentalDesign__ExperimentalObjectsAssignment_22_1");
-					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_24_2(), "rule__ExperimentalDesign__ContextVariablesAssignment_24_2");
-					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_24_3_1(), "rule__ExperimentalDesign__ContextVariablesAssignment_24_3_1");
+					put(grammarAccess.getExperimentalDesignAccess().getRestrictionsAssignment_24_2(), "rule__ExperimentalDesign__RestrictionsAssignment_24_2");
+					put(grammarAccess.getExperimentalDesignAccess().getRestrictionsAssignment_24_3_1(), "rule__ExperimentalDesign__RestrictionsAssignment_24_3_1");
+					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_25_2(), "rule__ExperimentalDesign__ContextVariablesAssignment_25_2");
+					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_25_3_1(), "rule__ExperimentalDesign__ContextVariablesAssignment_25_3_1");
+					put(grammarAccess.getRestrictionAccess().getTreatmentAssignment_0(), "rule__Restriction__TreatmentAssignment_0");
+					put(grammarAccess.getRestrictionAccess().getObjectsAssignment_3(), "rule__Restriction__ObjectsAssignment_3");
+					put(grammarAccess.getRestrictionAccess().getObjectsAssignment_4_1(), "rule__Restriction__ObjectsAssignment_4_1");
 					put(grammarAccess.getExecutionAccess().getNameAssignment_0(), "rule__Execution__NameAssignment_0");
 					put(grammarAccess.getExecutionAccess().getCmdAssignment_2_1(), "rule__Execution__CmdAssignment_2_1");
 					put(grammarAccess.getExecutionAccess().getPreconditionsAssignment_3_1(), "rule__Execution__PreconditionsAssignment_3_1");

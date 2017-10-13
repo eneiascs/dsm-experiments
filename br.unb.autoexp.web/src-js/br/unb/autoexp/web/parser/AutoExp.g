@@ -208,8 +208,16 @@ rule_ExperimentalDesign :
 	'Treatments' '{' treatments_6+=rule_Treatment (',' treatments_7+=rule_Treatment)* '}'
 	('Groups' '{' groups_8+=rule_ObjectGroup (',' groups_9+=rule_ObjectGroup)* '}')?
 	'Objects' '{' experimentalobjects_10+=rule_ExperimentalObject (',' experimentalobjects_11+=rule_ExperimentalObject)* '}'
-	('Context Variables' '{' contextvariables_12+=rule_ContextVariable (',' contextvariables_13+=rule_ContextVariable)* '}')?
+	('Restrictions' '{' restrictions_12+=rule_Restriction (',' restrictions_13+=rule_Restriction)* '}')?
+	
+	('Context Variables' '{' contextvariables_14+=rule_ContextVariable (',' contextvariables_15+=rule_ContextVariable)* '}')?
 	'}';
+
+
+
+rule_Restriction :
+	treatment_0=ID 'objects' '{' objects_1+=ID (',' objects_2+=ID)* '}' 
+;
 
 
 

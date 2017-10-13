@@ -154,8 +154,14 @@ ExperimentalDesign returns ExperimentalDesign:
 	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
 	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
 	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
+	('Restrictions' '{' restrictions+=Restriction ("," restrictions+=Restriction)* '}')?
+	
 	('Context Variables' '{' contextVariables+=ContextVariable ("," contextVariables+=ContextVariable)* '}')?
 	'}';
+
+Restriction returns Restriction:
+	treatment=[Treatment|ID] 'objects' '{' objects+=[ExperimentalObject|ID] ("," objects+=[ExperimentalObject|ID])* '}' 
+;
 
 Execution returns Execution:
 	name=ID
