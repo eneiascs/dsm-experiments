@@ -11,11 +11,11 @@ class DohkoGenerator {
 		'''
 			---
 			name: "«experiment.name»"
+			description: "«IF experiment.description!==null»«experiment.description»«ENDIF»"
 			user:
 			  username: "«experiment.infrastructure.user.username»"
 			  «IF !experiment.infrastructure.user.keys.isNullOrEmpty»
 			  keys:
-			    key:
 			  «ENDIF»
 			    «FOR key:experiment.infrastructure.user.keys»
 			    - name: "«key.name»"
@@ -46,7 +46,6 @@ class DohkoGenerator {
 			«ENDIF»				
 			«IF !experiment.infrastructure.clouds.isNullOrEmpty»
 				clouds:
-				  cloud:
 				  «FOR cloud:experiment.infrastructure.clouds»				  	
 				  	- name: "«cloud.name»"
 				  	  «IF cloud.provider!==null»
@@ -68,7 +67,7 @@ class DohkoGenerator {
 				  	    secret-key: "«cloud.accessKey.secretKey»"
 				  	  «ENDIF»  
 				  	  «IF !cloud.regions.isNullOrEmpty»
-				  	  	region:
+				  	  	regions:
 				  	  «ENDIF»
 				  	  «FOR region:cloud.regions»
 				  	  	- name: "«region.name»"
@@ -96,7 +95,6 @@ class DohkoGenerator {
 				  	  «ENDFOR»
 				  	  «IF !cloud.instanceTypes.isNullOrEmpty»
 				  	  instance-types:
-				  	    instance-type:
 				  	  «ENDIF»
 				  	    «FOR instance:cloud.instanceTypes»
 				  	    - name: "«instance.name»"
@@ -108,7 +106,6 @@ class DohkoGenerator {
 			«ENDIF» 
 			«IF !experiment.designExecutionsRepeatedWithNumberOfRuns.isNullOrEmpty»				
 				applications:
-				  application:
 				  «FOR execution:experiment.designExecutionsRepeatedWithNumberOfRuns»				  	
 				  - name: "«execution.taskName»"
 				    command-line: "«execution.cmd»«IF !execution.files.filter[generated].isNullOrEmpty» >> ${«execution.files.filter[generated].head.name»}«ENDIF»"
