@@ -3,7 +3,7 @@
  */
 package br.unb.autoexp.tests
 
-import br.unb.autoexp.dohko.parser.ApplicationDescriptorConverter
+import br.unb.autoexp.tests.dohko.ApplicationDescriptorConverter
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -25,15 +25,14 @@ class AutoExpParsingTest {
 			user:
 			  username: "user"
 			  keys:
-			    key:
-			    - name: "key"
-			      private-key-material: "xxx"
-			      public-key-material: "yyy"
-			      fingerprint: "zzz"
-			    - name: "key2"
-			      private-key-material: "xxx2"
-			      public-key-material: "yyy2"
-			      fingerprint: "zzz2"
+			  - name: "key"
+			    private-key-material: "xxx"
+			    public-key-material: "yyy"
+			    fingerprint: "zzz"
+			  - name: "key2"
+			    private-key-material: "xxx2"
+			    public-key-material: "yyy2"
+			    fingerprint: "zzz2"
 			requirements:
 			  cpu: 1
 			  memory: 2
@@ -45,7 +44,6 @@ class AutoExpParsingTest {
 			  - docker
 			  - java  
 			clouds:
-			  cloud:
 			  - name: "ec2"
 			    provider:
 			      name: "amazon"
@@ -55,7 +53,7 @@ class AutoExpParsingTest {
 			    access-key:
 			      access-key: "65AA31A0E92741A2"
 			      secret-key: "619770ECE1D5492886D80B44E3AA2970"
-			    region:
+			    regions:
 			    - name: "us-east-1"
 			      endpoint: "endpoint"
 			      status: UP
@@ -65,7 +63,6 @@ class AutoExpParsingTest {
 			      - name: "name"
 			        status: "status"
 			    instance-types:
-			      instance-type:
 			      - name: "micro"
 			        number-of-instances: 1
 			      - name: "large"
@@ -77,7 +74,6 @@ class AutoExpParsingTest {
 			      access-key: "65AA31A0E92741A2"
 			      secret-key: "619770ECE1D5492886D80B44E3AA2970"
 			applications:
-			  application:
 			    - name: "ssearch36"
 			      command-line: "ssearch36 -d 0 ${query} ${database}"
 			      files:
@@ -126,77 +122,76 @@ class AutoExpParsingTest {
 	@Test
 	def void testName() {
 
-		applicationDescriptor.name.assertEquals("reanaSpl")
+		"reanaSpl".assertEquals(applicationDescriptor.name)
 	}
-
 	@Test
 	def void testUser() {
 
-		applicationDescriptor.user.username.assertEquals("user")
-		applicationDescriptor.user.keys.size.assertEquals(2)
+		"user".assertEquals(applicationDescriptor.user.username)
+		2.assertEquals(applicationDescriptor.user.keys.size)
 	}
 
 	@Test
 	def void testKeys() {
 
-		applicationDescriptor.user.keys.head.name.assertEquals("key")
-		applicationDescriptor.user.keys.head.privateKeyMaterial.assertEquals("xxx")
-		applicationDescriptor.user.keys.head.publicKeyMaterial.assertEquals("yyy")
-		applicationDescriptor.user.keys.head.fingerPrint.assertEquals("zzz")
-		applicationDescriptor.user.keys.tail.head.name.assertEquals("key2")
-		applicationDescriptor.user.keys.tail.head.privateKeyMaterial.assertEquals("xxx2")
-		applicationDescriptor.user.keys.tail.head.publicKeyMaterial.assertEquals("yyy2")
-		applicationDescriptor.user.keys.tail.head.fingerPrint.assertEquals("zzz2")
+		"key".assertEquals(applicationDescriptor.user.keys.head.name)
+		"xxx".assertEquals(applicationDescriptor.user.keys.head.privateKeyMaterial)
+		"yyy".assertEquals(applicationDescriptor.user.keys.head.publicKeyMaterial)
+		"zzz".assertEquals(applicationDescriptor.user.keys.head.fingerPrint)
+		"key2".assertEquals(applicationDescriptor.user.keys.tail.head.name)
+		"xxx2".assertEquals(applicationDescriptor.user.keys.tail.head.privateKeyMaterial)
+		"yyy2".assertEquals(applicationDescriptor.user.keys.tail.head.publicKeyMaterial)
+		"zzz2".assertEquals(applicationDescriptor.user.keys.tail.head.fingerPrint)
 
 	}
 
 	@Test
 	def void testRequirements() {
 
-		applicationDescriptor.requirements.numberOfCpuCores.assertEquals(1)
-		applicationDescriptor.requirements.memorySize.assertEquals(2)
-		applicationDescriptor.requirements.platform.name.assertEquals("LINUX")
-		applicationDescriptor.requirements.maximalCostPerHour.doubleValue.assertEquals(0.2, 0)
-		applicationDescriptor.requirements.numberOfInstancesPerCloud.assertEquals(1)
-	}
+		1.assertEquals(applicationDescriptor.requirements.numberOfCpuCores)
+		2.assertEquals(applicationDescriptor.requirements.memorySize)
+		"LINUX".assertEquals(applicationDescriptor.requirements.platform.name)
+		0.2.assertEquals(applicationDescriptor.requirements.maximalCostPerHour.doubleValue,0)
+		1.assertEquals(applicationDescriptor.requirements.numberOfInstancesPerCloud)
+	} 
 
 	@Test
 	def void testClouds() {
 
-		applicationDescriptor.clouds.size.assertEquals(2)
-		applicationDescriptor.clouds.head.name.assertEquals("ec2")
-		applicationDescriptor.clouds.tail.head.name.assertEquals("ec3")
+		2.assertEquals(applicationDescriptor.clouds.size)
+		"ec2".assertEquals(applicationDescriptor.clouds.head.name)
+		"ec3".assertEquals(applicationDescriptor.clouds.tail.head.name)
 
 	}
 
 	@Test
 	def void testProvider() {
 
-		applicationDescriptor.clouds.head.provider.name.assertEquals("amazon")
-		applicationDescriptor.clouds.head.provider.limitOfResourcesPerType.assertEquals(2)
-		applicationDescriptor.clouds.head.provider.description.assertEquals("description")
-		applicationDescriptor.clouds.head.provider.serviceClass.assertEquals("Service class")
-		applicationDescriptor.clouds.tail.head.provider.name.assertEquals("amazon3")
+		"amazon".assertEquals(applicationDescriptor.clouds.head.provider.name)
+		2.assertEquals(applicationDescriptor.clouds.head.provider.limitOfResourcesPerType)
+		"description".assertEquals(applicationDescriptor.clouds.head.provider.description)
+		"Service class".assertEquals(applicationDescriptor.clouds.head.provider.serviceClass)
+		"amazon3".assertEquals(applicationDescriptor.clouds.tail.head.provider.name)
 
 	}
 
 	@Test
 	def void testAccessKey() {
 
-		applicationDescriptor.clouds.head.accessKey.accessKey.assertEquals("65AA31A0E92741A2")
-		applicationDescriptor.clouds.head.accessKey.secretKey.assertEquals("619770ECE1D5492886D80B44E3AA2970")
+		"65AA31A0E92741A2".assertEquals(applicationDescriptor.clouds.head.accessKey.accessKey)
+		"619770ECE1D5492886D80B44E3AA2970".assertEquals(applicationDescriptor.clouds.head.accessKey.secretKey)
 
 	}
 
 	@Test
 	def void testRegion() {
 
-		applicationDescriptor.clouds.head.regions.size.assertEquals(1)
-		applicationDescriptor.clouds.head.regions.head.name.assertEquals("us-east-1")
-		applicationDescriptor.clouds.head.regions.head.endpoint.assertEquals("endpoint")
-		 applicationDescriptor.clouds.head.regions.head.status.name.assertEquals("UP")
-		applicationDescriptor.clouds.head.regions.head.city.assertEquals("City")
-		applicationDescriptor.clouds.head.regions.head.geographicRegion.id.assertEquals(5)
+		1.assertEquals(applicationDescriptor.clouds.head.regions.size)
+		"us-east-1".assertEquals(applicationDescriptor.clouds.head.regions.head.name)
+		"endpoint".assertEquals(applicationDescriptor.clouds.head.regions.head.endpoint)
+		"UP".assertEquals( applicationDescriptor.clouds.head.regions.head.status.name)
+		"City".assertEquals(applicationDescriptor.clouds.head.regions.head.city)
+		5.assertEquals(applicationDescriptor.clouds.head.regions.head.geographicRegion.id)
 	}
 
 
@@ -204,41 +199,41 @@ class AutoExpParsingTest {
 	def void testInstanceTypes() {
 
 	
-		applicationDescriptor.clouds.head.instanceTypes.size.assertEquals(2)
-		applicationDescriptor.clouds.head.instanceTypes.head.name.assertEquals("micro")
-		applicationDescriptor.clouds.head.instanceTypes.head.numberOfInstances.assertEquals(1,0)
-		applicationDescriptor.clouds.head.instanceTypes.tail.head.name.assertEquals("large")
-		applicationDescriptor.clouds.head.instanceTypes.tail.head.numberOfInstances.assertEquals(1,0)
+		2.assertEquals(applicationDescriptor.clouds.head.instanceTypes.size)
+		"micro".assertEquals(applicationDescriptor.clouds.head.instanceTypes.head.name)
+		1.assertEquals(applicationDescriptor.clouds.head.instanceTypes.head.numberOfInstances)
+		"large".assertEquals(applicationDescriptor.clouds.head.instanceTypes.tail.head.name)
+		1.assertEquals(applicationDescriptor.clouds.head.instanceTypes.tail.head.numberOfInstances)
 	}	
 	
 	@Test
 	def void testApplications() {
 
 	
-		applicationDescriptor.applications.size.assertEquals(4)
-		applicationDescriptor.applications.head.name.assertEquals("ssearch36")
-		applicationDescriptor.applications.head.commandLine.assertEquals("ssearch36 -d 0 ${query} ${database}")
-		applicationDescriptor.applications.head.files.size.assertEquals(2)
-		applicationDescriptor.applications.head.files.head.name.assertEquals("query")
-		applicationDescriptor.applications.head.files.head.path.assertEquals("$HOME/sequences/O60341.fasta")
-		applicationDescriptor.applications.head.files.head.generated.name.assertEquals("NO")
+		4.assertEquals(applicationDescriptor.applications.size)
+		"ssearch36".assertEquals(applicationDescriptor.applications.head.name)
+		"ssearch36 -d 0 ${query} ${database}".assertEquals(applicationDescriptor.applications.head.commandLine)
+		2.assertEquals(applicationDescriptor.applications.head.files.size)
+		"query".assertEquals(applicationDescriptor.applications.head.files.head.name)
+		"$HOME/sequences/O60341.fasta".assertEquals(applicationDescriptor.applications.head.files.head.path)
+		"NO".assertEquals(applicationDescriptor.applications.head.files.head.generated.name)
 	}		
 	@Test
 	def void testOnFinish() {
-		applicationDescriptor.onFinished.name.assertEquals("NONE")
+		"NONE".assertEquals(applicationDescriptor.onFinished.name)
 	}
 		
 	@Test
-	def void testPreconditionGlobal() {
-		//applicationDescriptor.requirements.preconditions.head.packages.head.assertEquals("docker")
-		//applicationDescriptor.preconditions.head.packages.tail.head.assertEquals("java")
+	def void testPreconditionsGlobal() {
+		"docker".assertEquals(applicationDescriptor.preconditions.head.packages.head)
+		"java".assertEquals(applicationDescriptor.preconditions.head.packages.tail.head)
 	}	
 	
 		
 	@Test
 	def void testPreconditionApplication() {
-		applicationDescriptor.applications.head.preconditions.head.packages.head.assertEquals("reana-spl")
-		applicationDescriptor.applications.head.preconditions.head.packages.tail.head.assertEquals("param")
+		"reana-spl".assertEquals(applicationDescriptor.applications.head.preconditions.head.packages.head)
+		"param".assertEquals(applicationDescriptor.applications.head.preconditions.head.packages.tail.head)
 		
 		
 	}				  

@@ -1,6 +1,6 @@
 package br.unb.autoexp.tests
 
-import br.unb.autoexp.dohko.parser.ApplicationDescriptorConverter
+import br.unb.autoexp.tests.dohko.ApplicationDescriptorConverter
 import br.unb.autoexp.tests.helper.AutoExpGeneratorTestHelper
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
@@ -98,10 +98,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				  keys:
-				    key:
 				    - name: "key"
 				      private-key-material: "xxx"
 				      public-key-material: "yyy"
@@ -121,7 +121,6 @@ class AutoExpGeneratorTest {
 				  - docker
 				  - java
 				clouds:
-				  cloud:
 				  - name: "ec2"
 				    provider:
 				      name: "amazon"
@@ -131,7 +130,7 @@ class AutoExpGeneratorTest {
 				    access-key:
 				      access-key: "65AA31A0E92741A2"
 				      secret-key: "619770ECE1D5492886D80B44E3AA2970"
-				    region:
+				    regions:
 				    - name: "us-east-1"
 				      endpoint: "endpoint"
 				      status: UP
@@ -141,7 +140,6 @@ class AutoExpGeneratorTest {
 				      - name: "name"
 				        status: "status"
 				    instance-types:
-				      instance-type:
 				      - name: "micro"
 				        number-of-instances: 1
 				      - name: "large"
@@ -153,7 +151,6 @@ class AutoExpGeneratorTest {
 				      access-key: "65AA31A0E92741A2"
 				      secret-key: "619770ECE1D5492886D80B44E3AA2970"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "cat /proc/cpuinfo"
 				    preconditions:
@@ -236,10 +233,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "cat /proc/cpuinfo"
 				  - name: "FACTORIAL_strategy_featureFamily_bsn"
@@ -321,10 +318,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "echo 'Hello World Feature Family'"
 				    preconditions:
@@ -396,10 +393,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "echo 'Hello World featureFamily'"
 				  - name: "FACTORIAL_strategy_featureFamily_bsn"
@@ -471,10 +468,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "echo 'Hello World Feature Family Lift'"
 				  - name: "FACTORIAL_strategy_featureFamily_bsn"
@@ -546,10 +543,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "echo 'Hello World Feature Family'"
 				  - name: "FACTORIAL_strategy_featureProduct_lift"
@@ -614,10 +611,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
 				    command-line: "echo 'Hello World featureFamily: Feature Family'"
 				  - name: "FACTORIAL_strategy_featureFamily_bsn"
@@ -689,10 +686,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
 				    command-line: "echo 'Hello World featureFamily: Feature Family Object:intercloud featureModel: intercloud/0.txt umlModel: intercloud/0_behavioral_model.xml'"
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
@@ -753,10 +750,10 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
 				    command-line: "echo 'Hello World featureFamily intercloud' >> ${results}"
 				    files:
@@ -835,13 +832,12 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "ssearch36"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				  keys:
-				    key:
 				    - name: "key"
 				applications:
-				  application:
 				  - name: "FACTORIAL_query_query1_O60341"
 				    command-line: "ssearch36 -d 0 ${query} ${database} >> ${score_table}"
 				    files:
@@ -921,13 +917,12 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "ssearch36"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				  keys:
-				    key:
 				    - name: "key"
 				applications:
-				  application:
 				  - name: "FACTORIAL_query_query1_O60341"
 				    command-line: "ssearch36 -d 0 ${query} ${database}"
 				    files:
@@ -1023,13 +1018,12 @@ class AutoExpGeneratorTest {
 			val applicationDescriptor = '''
 				---
 				name: "ssearch36"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				  keys:
-				    key:
 				    - name: "key"
 				applications:
-				  application:
 				  - name: "FACTORIAL_query_query1_O60341"
 				    command-line: "ssearch36 -d 0 ${query} ${database} >> ${score_table}"
 				    files:
@@ -1126,13 +1120,12 @@ Experiment reanaSpl {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
 				user:
 				  username: "user"
 				  keys:
-				    key:
 				    - name: "key"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
 				    command-line: "docker exec -dt scalabilityAnalysis1 /reana-evaluation/run_analysis.sh 'Feature-family-based' 'intercloud' 1 11 'mongodb://localhost:27017/'"
 				  - name: "FACTORIAL_strategy_featureFamily_lift"
@@ -1180,7 +1173,7 @@ Experiment reanaSpl {
 Experiment reanaSpl {
 
 	
-	 description "Reliability Analysis" 
+	 
 	 				 
 	 Research Hypotheses {
 	 	rh1 {time featureFamily = product description ""},
@@ -1264,10 +1257,10 @@ Experiment reanaSpl {
 			val applicationDescriptor = '''
 				---
 				name: "reanaSpl"
+				description: ""
 				user:
 				  username: "vagrant"
 				applications:
-				  application:
 				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
 				    command-line: "java -jar reanaSpl.jar --analysis-strategy='arg' --feature-model='intercloud/0.txt' --uml-model='intercloud/0_behavioral_model.xml'"
 				  - name: "FACTORIAL_strategy_featureFamily_intercloud"
