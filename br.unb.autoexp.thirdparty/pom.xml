@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.unb.autoexp</groupId>
-	<artifactId>br.unb.autoexp.thirdparty</artifactId>
-	<version>0.7.0-SNAPSHOT</version>
+	<artifactId>thirdparty</artifactId>
+	<version>0.12.0-SNAPSHOT</version>
 
 	<build>
 		<plugins>
@@ -63,16 +63,41 @@
 								</artifact>
 
 								<artifact>
-									<id>com.fasterxml.jackson.core:jackson-annotations:2.9.1</id>
+									<id>com.fasterxml.jackson.core:jackson-annotations:2.9.2</id>
 								</artifact>
 								<artifact>
-									<id>com.fasterxml.jackson.core:jackson-core:2.9.1</id>
+									<id>com.fasterxml.jackson.core:jackson-core:2.9.2</id>
 								</artifact>
 								<artifact>
-									<id>com.fasterxml.jackson.core:jackson-databind:2.9.1</id>
+									<id>com.fasterxml.jackson.core:jackson-databind:2.9.2</id>
+								</artifact>
+								<artifact>
+									<id>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2</id>
 								</artifact>
 								<artifact>
 									<id>org.mongojack:mongojack:2.7.0</id>
+								</artifact>
+								<artifact>
+									<id>org.excalibur:client:1.0.0-SNAPSHOT</id>
+								</artifact>
+								<artifact>
+									<id>org.excalibur:discovery:1.0.0-SNAPSHOT</id>
+								</artifact>
+								<artifact>
+									<id>org.excalibur:discovery-client:1.0.0-SNAPSHOT</id>
+								</artifact>
+								<artifact>
+									<id>org.excalibur:excalibur-services:1.0.0-SNAPSHOT</id>
+								</artifact>
+								<artifact>
+									<id>org.excalibur:excalibur-core:1.0.0-SNAPSHOT</id>
+								</artifact>
+								<artifact>
+									<id>org.yaml:snakeyaml:1.19</id>
+								</artifact>
+		
+								<artifact>
+									<id>com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.2</id>
 								</artifact>
 							</artifacts>
 						</configuration>
@@ -96,6 +121,16 @@
 
 		</plugins>
 	</build>
+	
+	<distributionManagement>
+    <repository>
+        <id>bintray-eneiascs-autoexp</id>
+        <name>eneiascs-autoexp</name>
+       
+        <url>https://api.bintray.com/maven/eneiascs/eneiascs/autoexp/thirdparty/repository/${project.version};publish=1</url>
+    </repository>
+</distributionManagement>
+
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -103,5 +138,21 @@
 			<url>http://repo.reficio.org/maven/</url>
 		</pluginRepository>
 	</pluginRepositories>
+<repositories>
+	<repository>
+		<id>eneiascs-snapshot-repository</id>
+		<url>https://github.com/eneiascs/maven-repository/raw/master/snapshots</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+	</repository>
 
+	<repository>
+		<id>eneiascs-releases-repo</id>
+		<url>https://github.com/eneiascs/maven-repository/raw/master/releases</url>
+		<snapshots>
+			<enabled>false</enabled>
+		</snapshots>
+	</repository>
+</repositories>
 </project>
