@@ -28,23 +28,33 @@
       <plugin id="br.unb.autoexp.example"/>
       <plugin id="br.unb.autoexp.template"/>
       <plugin id="br.unb.autoexp.web"/>
+      <plugin id="com.beust.jcommander"/>
       <plugin id="com.fasterxml.jackson.core.jackson-annotations"/>
       <plugin id="com.fasterxml.jackson.core.jackson-core"/>
       <plugin id="com.fasterxml.jackson.core.jackson-databind"/>
+      <plugin id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml"/>
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
       <plugin id="com.google.guava"/>
       <plugin id="com.google.inject"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="de.undercouch.bson4jackson"/>
+      <plugin id="javassist"/>
+      <plugin id="javax.annotation-api"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>
+      <plugin id="javax.servlet"/>
       <plugin id="javax.ws.rs"/>
       <plugin id="javax.ws.rs-api"/>
       <plugin id="javax.xml"/>
+      <plugin id="log4j"/>
       <plugin id="org.antlr.runtime"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
       <plugin id="org.apache.felix.gogo.shell"/>
       <plugin id="org.apache.log4j"/>
+      <plugin id="org.apache.logging.log4j.api"/>
+      <plugin id="org.apache.logging.log4j.core"/>
+      <plugin id="org.apache.logging.log4j.slf4j-impl"/>
       <plugin id="org.dslforge.common.logging" fragment="true"/>
       <plugin id="org.dslforge.styledtext"/>
       <plugin id="org.dslforge.texteditor"/>
@@ -110,6 +120,22 @@
       <plugin id="org.eclipse.xtext.util"/>
       <plugin id="org.eclipse.xtext.xbase"/>
       <plugin id="org.eclipse.xtext.xbase.lib"/>
+      <plugin id="org.excalibur.client"/>
+      <plugin id="org.excalibur.core"/>
+      <plugin id="org.excalibur.discovery"/>
+      <plugin id="org.excalibur.services"/>
+      <plugin id="org.glassfish.hk2.api"/>
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged"/>
+      <plugin id="org.glassfish.hk2.locator"/>
+      <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
+      <plugin id="org.glassfish.hk2.utils"/>
+      <plugin id="org.glassfish.jersey.core.jersey-client"/>
+      <plugin id="org.glassfish.jersey.core.jersey-common"/>
+      <plugin id="org.glassfish.jersey.core.jersey-server"/>
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering"/>
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2"/>
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb"/>
+      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
       <plugin id="org.hamcrest.core"/>
       <plugin id="org.junit"/>
       <plugin id="org.mongodb.bson"/>
@@ -119,7 +145,10 @@
       <plugin id="org.objectweb.asm"/>
       <plugin id="org.osgi.service.jdbc"/>
       <plugin id="org.osgi.service.jndi"/>
+      <plugin id="org.yaml.snakeyaml"/>
       <plugin id="osgi.enterprise"/>
+      <plugin id="slf4j.api"/>
+      <plugin id="slf4j.log4j12" fragment="true"/>
    </plugins>
 
    <configurations>
@@ -127,23 +156,33 @@
       <plugin id="br.unb.autoexp.example" autoStart="false" startLevel="5" />
       <plugin id="br.unb.autoexp.template" autoStart="false" startLevel="0" />
       <plugin id="br.unb.autoexp.web" autoStart="true" startLevel="5" />
+      <plugin id="com.beust.jcommander" autoStart="false" startLevel="0" />
       <plugin id="com.fasterxml.jackson.core.jackson-annotations" autoStart="true" startLevel="5" />
       <plugin id="com.fasterxml.jackson.core.jackson-core" autoStart="true" startLevel="5" />
       <plugin id="com.fasterxml.jackson.core.jackson-databind" autoStart="false" startLevel="5" />
+      <plugin id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml" autoStart="false" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="false" startLevel="0" />
       <plugin id="com.google.guava" autoStart="true" startLevel="5" />
       <plugin id="com.google.inject" autoStart="true" startLevel="5" />
       <plugin id="com.ibm.icu" autoStart="true" startLevel="5" />
       <plugin id="de.undercouch.bson4jackson" autoStart="false" startLevel="5" />
+      <plugin id="javassist" autoStart="false" startLevel="0" />
+      <plugin id="javax.annotation-api" autoStart="false" startLevel="0" />
       <plugin id="javax.inject" autoStart="true" startLevel="5" />
       <plugin id="javax.persistence" autoStart="true" startLevel="5" />
+      <plugin id="javax.servlet" autoStart="false" startLevel="0" />
       <plugin id="javax.ws.rs" autoStart="true" startLevel="5" />
       <plugin id="javax.ws.rs-api" autoStart="false" startLevel="0" />
       <plugin id="javax.xml" autoStart="true" startLevel="5" />
+      <plugin id="log4j" autoStart="false" startLevel="0" />
       <plugin id="org.antlr.runtime" autoStart="true" startLevel="5" />
       <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="5" />
       <plugin id="org.apache.felix.gogo.runtime" autoStart="true" startLevel="5" />
       <plugin id="org.apache.felix.gogo.shell" autoStart="true" startLevel="5" />
       <plugin id="org.apache.log4j" autoStart="true" startLevel="5" />
+      <plugin id="org.apache.logging.log4j.api" autoStart="false" startLevel="0" />
+      <plugin id="org.apache.logging.log4j.core" autoStart="false" startLevel="0" />
+      <plugin id="org.apache.logging.log4j.slf4j-impl" autoStart="false" startLevel="0" />
       <plugin id="org.dslforge.common.logging" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.styledtext" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.texteditor" autoStart="true" startLevel="5" />
@@ -205,6 +244,22 @@
       <plugin id="org.eclipse.xtext.util" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtext.xbase" autoStart="false" startLevel="5" />
       <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="5" />
+      <plugin id="org.excalibur.client" autoStart="false" startLevel="0" />
+      <plugin id="org.excalibur.core" autoStart="false" startLevel="0" />
+      <plugin id="org.excalibur.discovery" autoStart="false" startLevel="0" />
+      <plugin id="org.excalibur.services" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.hk2.api" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.hk2.locator" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.hk2.osgi-resource-locator" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.hk2.utils" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-client" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-common" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-server" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="false" startLevel="0" />
       <plugin id="org.hamcrest.core" autoStart="false" startLevel="0" />
       <plugin id="org.junit" autoStart="false" startLevel="0" />
       <plugin id="org.mongodb.bson" autoStart="true" startLevel="5" />
@@ -214,7 +269,9 @@
       <plugin id="org.objectweb.asm" autoStart="true" startLevel="5" />
       <plugin id="org.osgi.service.jdbc" autoStart="false" startLevel="0" />
       <plugin id="org.osgi.service.jndi" autoStart="false" startLevel="0" />
+      <plugin id="org.yaml.snakeyaml" autoStart="false" startLevel="0" />
       <plugin id="osgi.enterprise" autoStart="true" startLevel="5" />
+      <plugin id="slf4j.api" autoStart="false" startLevel="0" />
    </configurations>
 
    <preferencesInfo>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="hk2.ut" sequenceNumber="101">
+<?pde version="3.8"?><target name="guava" sequenceNumber="103">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.dslforge.runtime.feature.feature.group" version="0.0.0"/>
@@ -71,6 +71,69 @@
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.xtext.sdk.feature.group" version="2.11.0.v20170201-0242"/>
 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.11.0/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.persistence.sdk.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.glassfish.hk2.utils" version="2.5.0.b42"/>
+<unit id="org.glassfish.hk2.external.aopalliance-repackaged" version="2.5.0.b42"/>
+<unit id="javax.validation.api" version="1.1.0.Final"/>
+<unit id="org.glassfish.jersey.media.jersey-media-json-jackson" version="2.26.0"/>
+<unit id="org.glassfish.hk2.api" version="2.4.0"/>
+<unit id="org.glassfish.hk2.osgi-resource-locator" version="1.0.1"/>
+<unit id="org.glassfish.jersey.media.jersey-media-jaxb" version="2.26.0"/>
+<unit id="org.glassfish.jersey.inject.jersey-hk2" version="2.26.0"/>
+<unit id="com.fasterxml.jackson.core.jackson-databind" version="2.8.4"/>
+<unit id="javax.inject.javax.inject" version="1.0.0"/>
+<unit id="org.glassfish.jersey.core.jersey-client" version="2.26.0"/>
+<unit id="org.glassfish.jersey.core.jersey-server" version="2.26.0"/>
+<unit id="org.glassfish.hk2.locator" version="2.5.0.b42"/>
+<unit id="org.glassfish.jersey.core.jersey-common" version="2.26.0"/>
+<unit id="javassist" version="3.18.1.GA"/>
+<unit id="org.glassfish.hk2.external.aopalliance-repackaged" version="2.4.0"/>
+<unit id="javassist" version="3.22.0.CR2"/>
+<unit id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" version="2.8.4"/>
+<unit id="org.glassfish.hk2.external.javax.inject" version="2.4.0"/>
+<unit id="org.glassfish.hk2.utils" version="2.4.0"/>
+<unit id="com.fasterxml.jackson.core.jackson-core" version="2.8.4"/>
+<unit id="org.glassfish.jersey.ext.jersey-entity-filtering" version="2.26.0"/>
+<unit id="org.glassfish.hk2.utils" version="2.5.0.b58"/>
+<unit id="org.glassfish.hk2.api" version="2.5.0.b42"/>
+<unit id="javax.ws.rs-api" version="2.1.0"/>
+<unit id="org.glassfish.hk2.external.javax.inject" version="2.5.0.b42"/>
+<unit id="javax.annotation-api" version="1.2.0"/>
+<unit id="org.glassfish.hk2.locator" version="2.4.0"/>
+<unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.8.4"/>
+<repository location="https://dl.bintray.com/eneiascs/autoexp/thirdparty/repository/1.1.0/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.google.guava" version="15.0.0.v201403281430"/>
+<unit id="org.antlr.runtime" version="3.2.0.v201101311130"/>
+<unit id="com.google.inject" version="3.0.0.v201605172100"/>
+<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
+<unit id="javax.inject" version="1.0.0.v20091030"/>
+<unit id="org.apache.commons.logging" version="1.0.4.v201101211617"/>
+<unit id="org.objectweb.asm" version="5.0.1.v201404251740"/>
+<unit id="osgi.enterprise" version="4.2.0.v201108120515"/>
+<unit id="com.ibm.icu" version="0.0.0"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.1.2.20161111-1312"/>
+<unit id="org.eclipse.rap.feature.feature.group" version="3.1.2.20161130-0738"/>
+<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.1.2.20170215-1810"/>
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.1.2.20170308-1815"/>
+<repository location="http://download.eclipse.org/rt/rap/3.1"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.excalibur.services" version="1.0.0.20171018200021"/>
+<unit id="org.excalibur.core" version="1.0.0.20171018200021"/>
+<unit id="org.excalibur.discovery-client" version="1.0.0.20171018200021"/>
+<unit id="org.excalibur.client" version="1.0.0.20171018200020"/>
+<unit id="org.excalibur.discovery" version="1.0.0.20171018200021"/>
+<repository location="https://dl.bintray.com/eneiascs/autoexp/dohko/repository/1.1.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="ch.ethz.ganymed.ssh2" version="262.0.0"/>
@@ -179,7 +242,6 @@
 <unit id="org.reflections" version="0.9.9.RC1"/>
 <unit id="org.glassfish.jersey.core.jersey-client" version="2.8.0"/>
 <unit id="org.eclipse.persistence.antlr" version="3.2.0.v201302191141"/>
-<unit id="com.google.guava" version="23.1.0.jre"/>
 <unit id="jgrapht" version="0.8.1"/>
 <unit id="org.jboss.spec.javax.transaction.jboss-transaction-api_1.1_spec" version="1.0.1.Final"/>
 <unit id="org.apache.vysper.core" version="0.7.0"/>
@@ -215,7 +277,6 @@
 <unit id="org.glassfish.jersey.ext.jersey-spring3" version="2.8.0"/>
 <unit id="org.jboss.netty" version="3.2.2.Final"/>
 <unit id="org.eclipse.persistence.core" version="2.5.0.v20130507-3faac2b"/>
-<unit id="com.google.guava.jdk5" version="13.0.0"/>
 <unit id="org.glassfish.hk2.config" version="2.2.0"/>
 <unit id="ch.qos.logback.core" version="1.1.2"/>
 <unit id="org.jgroups" version="3.4.3.Final"/>
@@ -281,69 +342,6 @@
 <unit id="dk.brics.automaton" version="1.11.0.2"/>
 <repository location="https://dl.bintray.com/eneiascs/autoexp/dohko/repository/1.0.0/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.persistence.sdk.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="com.google.guava" version="15.0.0.v201403281430"/>
-<unit id="org.antlr.runtime" version="3.2.0.v201101311130"/>
-<unit id="com.google.inject" version="3.0.0.v201605172100"/>
-<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
-<unit id="javax.inject" version="1.0.0.v20091030"/>
-<unit id="org.apache.commons.logging" version="1.0.4.v201101211617"/>
-<unit id="org.objectweb.asm" version="5.0.1.v201404251740"/>
-<unit id="osgi.enterprise" version="4.2.0.v201108120515"/>
-<unit id="com.ibm.icu" version="0.0.0"/>
-<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.1.2.20161111-1312"/>
-<unit id="org.eclipse.rap.feature.feature.group" version="3.1.2.20161130-0738"/>
-<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.1.2.20170215-1810"/>
-<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.1.2.20170308-1815"/>
-<repository location="http://download.eclipse.org/rt/rap/3.1"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.excalibur.services" version="1.0.0.20171018200021"/>
-<unit id="org.excalibur.core" version="1.0.0.20171018200021"/>
-<unit id="org.excalibur.discovery-client" version="1.0.0.20171018200021"/>
-<unit id="org.excalibur.client" version="1.0.0.20171018200020"/>
-<unit id="org.excalibur.discovery" version="1.0.0.20171018200021"/>
-<repository location="https://dl.bintray.com/eneiascs/autoexp/dohko/repository/1.1.0/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.glassfish.hk2.utils" version="2.5.0.b42"/>
-<unit id="org.glassfish.hk2.external.aopalliance-repackaged" version="2.5.0.b42"/>
-<unit id="javax.validation.api" version="1.1.0.Final"/>
-<unit id="org.glassfish.jersey.media.jersey-media-json-jackson" version="2.26.0"/>
-<unit id="org.glassfish.hk2.api" version="2.4.0"/>
-<unit id="org.glassfish.hk2.osgi-resource-locator" version="1.0.1"/>
-<unit id="org.glassfish.jersey.media.jersey-media-jaxb" version="2.26.0"/>
-<unit id="org.glassfish.jersey.inject.jersey-hk2" version="2.26.0"/>
-<unit id="com.fasterxml.jackson.core.jackson-databind" version="2.8.4"/>
-<unit id="javax.inject.javax.inject" version="1.0.0"/>
-<unit id="org.glassfish.jersey.core.jersey-client" version="2.26.0"/>
-<unit id="org.glassfish.jersey.core.jersey-server" version="2.26.0"/>
-<unit id="org.glassfish.hk2.locator" version="2.5.0.b42"/>
-<unit id="org.glassfish.jersey.core.jersey-common" version="2.26.0"/>
-<unit id="javassist" version="3.18.1.GA"/>
-<unit id="org.glassfish.hk2.external.aopalliance-repackaged" version="2.4.0"/>
-<unit id="javassist" version="3.22.0.CR2"/>
-<unit id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" version="2.8.4"/>
-<unit id="org.glassfish.hk2.external.javax.inject" version="2.4.0"/>
-<unit id="org.glassfish.hk2.utils" version="2.4.0"/>
-<unit id="com.fasterxml.jackson.core.jackson-core" version="2.8.4"/>
-<unit id="org.glassfish.jersey.ext.jersey-entity-filtering" version="2.26.0"/>
-<unit id="org.glassfish.hk2.utils" version="2.5.0.b58"/>
-<unit id="org.glassfish.hk2.api" version="2.5.0.b42"/>
-<unit id="javax.ws.rs-api" version="2.1.0"/>
-<unit id="org.glassfish.hk2.external.javax.inject" version="2.5.0.b42"/>
-<unit id="javax.annotation-api" version="1.2.0"/>
-<unit id="org.glassfish.hk2.locator" version="2.4.0"/>
-<unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.8.4"/>
-<repository location="https://dl.bintray.com/eneiascs/autoexp/thirdparty/repository/1.1.0/"/>
-</location>
 </locations>
 <includeBundles>
 <plugin id="aopalliance"/>
@@ -362,8 +360,8 @@
 <plugin id="com.dropbox.core.dropbox-core-sdk"/>
 <plugin id="com.fasterxml.jackson.core.jackson-annotations" version="2.9.2"/>
 <plugin id="com.fasterxml.jackson.core.jackson-core" version="2.9.2"/>
-<plugin id="com.fasterxml.jackson.core.jackson-databind" version="2.8.4"/>
 <plugin id="com.fasterxml.jackson.core.jackson-databind" version="2.9.2"/>
+<plugin id="com.fasterxml.jackson.core.jackson-databind" version="2.8.4"/>
 <plugin id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml" version="2.9.2"/>
 <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
 <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" version="2.9.2"/>
@@ -372,9 +370,7 @@
 <plugin id="com.google.code.findbugs.jsr305"/>
 <plugin id="com.google.errorprone.error_prone_annotations"/>
 <plugin id="com.google.gson"/>
-<plugin id="com.google.guava" version="23.1.0.jre"/>
 <plugin id="com.google.guava" version="15.0.0.v201403281430"/>
-<plugin id="com.google.guava.jdk5"/>
 <plugin id="com.google.guava.source"/>
 <plugin id="com.google.http-client.google-http-client"/>
 <plugin id="com.google.http-client.google-http-client-jackson2"/>
@@ -462,8 +458,8 @@
 <plugin id="org.apache.commons.dbcp"/>
 <plugin id="org.apache.commons.exec"/>
 <plugin id="org.apache.commons.fileupload" version="1.3.1.201405120000"/>
-<plugin id="org.apache.commons.io" version="2.4.0"/>
 <plugin id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+<plugin id="org.apache.commons.io" version="2.4.0"/>
 <plugin id="org.apache.commons.io.source" version="2.2.0.v201405211200"/>
 <plugin id="org.apache.commons.lang" version="2.6"/>
 <plugin id="org.apache.commons.lang" version="2.6.0.v201404270220"/>
@@ -507,8 +503,8 @@
 <plugin id="org.dslforge.workspace.ui"/>
 <plugin id="org.dslforge.xtext.common"/>
 <plugin id="org.eclipse.core.commands" version="3.8.0.v20160316-1921"/>
-<plugin id="org.eclipse.core.commands.source" version="3.8.0.v20160316-1921"/>
 <plugin id="org.eclipse.core.commands.source" version="3.8.1.v20161221-1651"/>
+<plugin id="org.eclipse.core.commands.source" version="3.8.0.v20160316-1921"/>
 <plugin id="org.eclipse.core.contenttype" version="3.5.100.v20160418-1621"/>
 <plugin id="org.eclipse.core.contenttype.source" version="3.5.100.v20160418-1621"/>
 <plugin id="org.eclipse.core.databinding" version="1.6.0.v20160412-0910"/>
@@ -581,8 +577,8 @@
 <plugin id="org.eclipse.equinox.http.registry" version="1.1.400.v20150715-1528"/>
 <plugin id="org.eclipse.equinox.http.registry.source" version="1.1.400.v20150715-1528"/>
 <plugin id="org.eclipse.equinox.http.servlet" version="1.3.0.v20160517-1559"/>
-<plugin id="org.eclipse.equinox.http.servlet.source" version="1.3.1.v20160808-1329"/>
 <plugin id="org.eclipse.equinox.http.servlet.source" version="1.3.0.v20160517-1559"/>
+<plugin id="org.eclipse.equinox.http.servlet.source" version="1.3.1.v20160808-1329"/>
 <plugin id="org.eclipse.equinox.http.servletbridge" version="1.0.300.v20130327-1442"/>
 <plugin id="org.eclipse.equinox.http.servletbridge.source" version="1.0.300.v20130327-1442"/>
 <plugin id="org.eclipse.equinox.preferences" version="3.6.0.v20160120-1756"/>
@@ -599,11 +595,11 @@
 <plugin id="org.eclipse.help.source" version="3.7.0.v20160602-1307"/>
 <plugin id="org.eclipse.jdt.junit.runtime" version="3.4.600.v20160505-0715"/>
 <plugin id="org.eclipse.jdt.junit.runtime.source" version="3.4.600.v20160505-0715"/>
-<plugin id="org.eclipse.jetty.continuation" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.continuation" version="8.1.14.v20131031"/>
+<plugin id="org.eclipse.jetty.continuation" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.continuation.source" version="9.3.9.v20160517"/>
-<plugin id="org.eclipse.jetty.http" version="8.1.14.v20131031"/>
 <plugin id="org.eclipse.jetty.http" version="9.3.9.v20160517"/>
+<plugin id="org.eclipse.jetty.http" version="8.1.14.v20131031"/>
 <plugin id="org.eclipse.jetty.http.source" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.io" version="8.1.14.v20131031"/>
 <plugin id="org.eclipse.jetty.io" version="9.3.9.v20160517"/>
@@ -611,11 +607,11 @@
 <plugin id="org.eclipse.jetty.security" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.security" version="8.1.14.v20131031"/>
 <plugin id="org.eclipse.jetty.security.source" version="9.3.9.v20160517"/>
-<plugin id="org.eclipse.jetty.server" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.server" version="8.1.14.v20131031"/>
+<plugin id="org.eclipse.jetty.server" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.server.source" version="9.3.9.v20160517"/>
-<plugin id="org.eclipse.jetty.servlet" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.servlet" version="8.1.14.v20131031"/>
+<plugin id="org.eclipse.jetty.servlet" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.servlet.source" version="9.3.9.v20160517"/>
 <plugin id="org.eclipse.jetty.util" version="8.1.14.v20131031"/>
 <plugin id="org.eclipse.jetty.util" version="9.3.9.v20160517"/>
@@ -632,10 +628,10 @@
 <plugin id="org.eclipse.persistence.antlr.source" version="3.5.2.v201605171345"/>
 <plugin id="org.eclipse.persistence.asm" version="6.0.0.v201702131300"/>
 <plugin id="org.eclipse.persistence.asm" version="3.3.1.v201302191223"/>
-<plugin id="org.eclipse.persistence.asm.source" version="3.3.1.v201302191223"/>
 <plugin id="org.eclipse.persistence.asm.source" version="6.0.0.v201702131300"/>
-<plugin id="org.eclipse.persistence.core" version="2.5.0.v20130507-3faac2b"/>
+<plugin id="org.eclipse.persistence.asm.source" version="3.3.1.v201302191223"/>
 <plugin id="org.eclipse.persistence.core" version="2.7.0.v20170811-d680af5"/>
+<plugin id="org.eclipse.persistence.core" version="2.5.0.v20130507-3faac2b"/>
 <plugin id="org.eclipse.persistence.core.source" version="2.5.0.v20130507-3faac2b"/>
 <plugin id="org.eclipse.persistence.core.source" version="2.7.0.v20170811-d680af5"/>
 <plugin id="org.eclipse.persistence.dbws"/>
@@ -646,8 +642,8 @@
 <plugin id="org.eclipse.persistence.jpa.jpql"/>
 <plugin id="org.eclipse.persistence.jpa.jpql.source"/>
 <plugin id="org.eclipse.persistence.jpa.source"/>
-<plugin id="org.eclipse.persistence.moxy" version="2.5.0.v20130507-3faac2b"/>
 <plugin id="org.eclipse.persistence.moxy" version="2.7.0.v20170811-d680af5"/>
+<plugin id="org.eclipse.persistence.moxy" version="2.5.0.v20130507-3faac2b"/>
 <plugin id="org.eclipse.persistence.moxy.source" version="2.5.0.v20130507-3faac2b"/>
 <plugin id="org.eclipse.persistence.moxy.source" version="2.7.0.v20170811-d680af5"/>
 <plugin id="org.eclipse.persistence.nosql"/>
@@ -672,12 +668,12 @@
 <plugin id="org.eclipse.rap.examples.pages"/>
 <plugin id="org.eclipse.rap.examples.pages.source"/>
 <plugin id="org.eclipse.rap.examples.source"/>
-<plugin id="org.eclipse.rap.filedialog" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.filedialog" version="3.1.0.20160422-2018"/>
+<plugin id="org.eclipse.rap.filedialog" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.filedialog.demo.examples"/>
 <plugin id="org.eclipse.rap.filedialog.demo.examples.source"/>
-<plugin id="org.eclipse.rap.filedialog.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.filedialog.source" version="3.1.0.20160422-2018"/>
+<plugin id="org.eclipse.rap.filedialog.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.fileupload" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.fileupload" version="3.1.0.20150813-1927"/>
 <plugin id="org.eclipse.rap.fileupload.source" version="3.1.2.20161108-1505"/>
@@ -693,38 +689,38 @@
 <plugin id="org.eclipse.rap.jface" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.jface.databinding" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.jface.databinding" version="3.1.0.20160401-1253"/>
-<plugin id="org.eclipse.rap.jface.databinding.source" version="3.1.0.20160401-1253"/>
 <plugin id="org.eclipse.rap.jface.databinding.source" version="3.1.2.20161108-1505"/>
-<plugin id="org.eclipse.rap.jface.source" version="3.1.2.20161108-1505"/>
+<plugin id="org.eclipse.rap.jface.databinding.source" version="3.1.0.20160401-1253"/>
 <plugin id="org.eclipse.rap.jface.source" version="3.1.0.20160425-0854"/>
-<plugin id="org.eclipse.rap.nebula.jface.gridviewer" version="3.1.0.20160129-1409"/>
+<plugin id="org.eclipse.rap.jface.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.nebula.jface.gridviewer" version="3.1.2.20161108-1505"/>
-<plugin id="org.eclipse.rap.nebula.jface.gridviewer.source" version="3.1.0.20160129-1409"/>
+<plugin id="org.eclipse.rap.nebula.jface.gridviewer" version="3.1.0.20160129-1409"/>
 <plugin id="org.eclipse.rap.nebula.jface.gridviewer.source" version="3.1.2.20161108-1505"/>
-<plugin id="org.eclipse.rap.nebula.widgets.grid" version="3.1.0.20160503-0744"/>
+<plugin id="org.eclipse.rap.nebula.jface.gridviewer.source" version="3.1.0.20160129-1409"/>
 <plugin id="org.eclipse.rap.nebula.widgets.grid" version="3.1.2.20161108-1505"/>
+<plugin id="org.eclipse.rap.nebula.widgets.grid" version="3.1.0.20160503-0744"/>
 <plugin id="org.eclipse.rap.nebula.widgets.grid.demo.examples"/>
 <plugin id="org.eclipse.rap.nebula.widgets.grid.demo.examples.source"/>
 <plugin id="org.eclipse.rap.nebula.widgets.grid.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.nebula.widgets.grid.source" version="3.1.0.20160503-0744"/>
-<plugin id="org.eclipse.rap.nebula.widgets.richtext" version="3.1.0.20160126-0812"/>
 <plugin id="org.eclipse.rap.nebula.widgets.richtext" version="3.1.2.20161108-1505"/>
+<plugin id="org.eclipse.rap.nebula.widgets.richtext" version="3.1.0.20160126-0812"/>
 <plugin id="org.eclipse.rap.nebula.widgets.richtext.demo.examples"/>
 <plugin id="org.eclipse.rap.nebula.widgets.richtext.demo.examples.source"/>
-<plugin id="org.eclipse.rap.nebula.widgets.richtext.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.nebula.widgets.richtext.source" version="3.1.0.20160126-0812"/>
-<plugin id="org.eclipse.rap.rwt" version="3.1.0.20160527-1719"/>
+<plugin id="org.eclipse.rap.nebula.widgets.richtext.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.rwt" version="3.1.2.20161130-0738"/>
-<plugin id="org.eclipse.rap.rwt.osgi" version="3.1.0.20150813-1927"/>
+<plugin id="org.eclipse.rap.rwt" version="3.1.0.20160527-1719"/>
 <plugin id="org.eclipse.rap.rwt.osgi" version="3.1.2.20161108-1505"/>
+<plugin id="org.eclipse.rap.rwt.osgi" version="3.1.0.20150813-1927"/>
 <plugin id="org.eclipse.rap.rwt.osgi.source" version="3.1.0.20150813-1927"/>
 <plugin id="org.eclipse.rap.rwt.osgi.source" version="3.1.2.20161108-1505"/>
-<plugin id="org.eclipse.rap.rwt.source" version="3.1.2.20161130-0738"/>
 <plugin id="org.eclipse.rap.rwt.source" version="3.1.0.20160527-1719"/>
+<plugin id="org.eclipse.rap.rwt.source" version="3.1.2.20161130-0738"/>
 <plugin id="org.eclipse.rap.rwt.testfixture" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.rwt.testfixture" version="3.1.0.20160115-1140"/>
-<plugin id="org.eclipse.rap.rwt.testfixture.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.rwt.testfixture.source" version="3.1.0.20160115-1140"/>
+<plugin id="org.eclipse.rap.rwt.testfixture.source" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.ui" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.ui.cheatsheets" version="3.1.2.20161108-1505"/>
 <plugin id="org.eclipse.rap.ui.cheatsheets.source" version="3.1.2.20161108-1505"/>
@@ -852,8 +848,8 @@
 <plugin id="org.glassfish.jersey.containers.jersey-container-servlet"/>
 <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core"/>
 <plugin id="org.glassfish.jersey.core.jersey-client" version="2.26.0"/>
-<plugin id="org.glassfish.jersey.core.jersey-common" version="2.8.0"/>
 <plugin id="org.glassfish.jersey.core.jersey-common" version="2.26.0"/>
+<plugin id="org.glassfish.jersey.core.jersey-common" version="2.8.0"/>
 <plugin id="org.glassfish.jersey.core.jersey-server" version="2.26.0"/>
 <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" version="2.8.0"/>
 <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" version="2.26.0"/>
