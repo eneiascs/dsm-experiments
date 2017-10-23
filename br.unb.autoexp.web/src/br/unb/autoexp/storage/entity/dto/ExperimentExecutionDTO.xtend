@@ -1,8 +1,11 @@
 package br.unb.autoexp.storage.entity.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.math.BigDecimal
 import java.util.Date
 import org.eclipse.xtend.lib.annotations.Accessors
+
+import static extension java.lang.String.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Accessors
@@ -15,9 +18,9 @@ class ExperimentExecutionDTO {
 	String factor
 	String treatment
 	String object
-	Long cpu
-	Long memory
-	Long time
+	Double cpu
+	Double memory
+	Double time
 	ExecutionStatusDTO executionStatus
 	Date creationDate
 	Date lastUpdateDate
@@ -61,9 +64,9 @@ class ExperimentExecutionDTO {
 		String factor
 		String treatment
 		String object
-		Long cpu
-		Long memory
-		Long time
+		Double cpu
+		Double memory
+		Double time
 		Date creationDate
 		Date lastUpdateDate
 		ExecutionStatusDTO executionStatus
@@ -106,17 +109,17 @@ class ExperimentExecutionDTO {
 			this
 		}
 
-		def Builder cpu(Long cpu) {
+		def Builder cpu(Double cpu) {
 			this.cpu = cpu
 			this
 		}
 
-		def Builder memory(Long memory) {
+		def Builder memory(Double memory) {
 			this.memory = memory
 			this
 		}
 
-		def Builder time(Long time) {
+		def Builder time(Double time) {
 			this.time = time
 			this
 		}

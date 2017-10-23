@@ -24,11 +24,11 @@ class ExperimentExecution {
 	@JsonProperty
 	String object
 	@JsonProperty
-	Long cpu
+	Double cpu
 	@JsonProperty
-	Long memory
+	Double memory
 	@JsonProperty
-	Long time
+	Double time
 	@JsonProperty
 	Date creationDate
 	@JsonProperty
@@ -59,8 +59,8 @@ class ExperimentExecution {
 		new Builder()
 	}
 
-	def update(String jobId, String taskId, String taskName, String factor, String treatment, String object, Long cpu,
-		Long memory, Long time, Date lastUpdateDate, ExecutionStatus executionStatus) {
+	def update(String jobId, String taskId, String taskName, String factor, String treatment, String object, Double cpu,
+		Double memory, Double time, Date lastUpdateDate, ExecutionStatus executionStatus) {
 
 		this.jobId = jobId
 		this.taskId = taskId
@@ -87,9 +87,9 @@ class ExperimentExecution {
 		String factor
 		String treatment
 		String object
-		Long cpu
-		Long memory
-		Long time
+		Double cpu
+		Double memory
+		Double time
 		Date creationDate
 		Date lastUpdateDate
 		ExecutionStatus executionStatus
@@ -132,17 +132,17 @@ class ExperimentExecution {
 			this
 		}
 
-		def Builder cpu(Long cpu) {
+		def Builder cpu(Double cpu) {
 			this.cpu = cpu
 			this
 		}
 
-		def Builder memory(Long memory) {
+		def Builder memory(Double memory) {
 			this.memory = memory
 			this
 		}
 
-		def Builder time(Long time) {
+		def Builder time(Double time) {
 			this.time = time
 			this
 		}
