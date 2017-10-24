@@ -1,4 +1,4 @@
-package br.unb.autoexp.web.handlers;
+package br.unb.autoexp.web.command;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_XML_TYPE;
 
@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +40,7 @@ import org.excalibur.core.execution.domain.ApplicationDescriptor;
 import org.excalibur.discovery.ws.ext.YamlMapperProvider;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Injector;
 
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO;
@@ -103,8 +106,6 @@ public class RunCommand extends AbstractWorkspaceCommand {
 							file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER
 									+ File.separator + file.getName().replaceFirst("[.][^.]+$", ".Rnw"));
 
-					String host = getDohkoAddress();
-
 					ApplicationDescriptor applicationDescriptor = getApplicationDescriptor(applicationDescriptorFile);
 					Response response = runDohko(applicationDescriptor);
 
@@ -114,10 +115,13 @@ public class RunCommand extends AbstractWorkspaceCommand {
 					if (response.getStatus() == 202) {
 						String jobId = applicationDescriptor.getId();
 
+						SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss");
 						File executionFolder = new File(
 								String.format("%s%s%s%s%s", specificationFile.getParentFile().getAbsolutePath(),
-										File.separator, "executions", File.separator, jobId));
+										File.separator, "executions", File.separator, sdf.format(new Date())));
 						executionFolder.mkdirs();
+
+						File dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
 
 						copyToFolder(applicationDescriptorFile, executionFolder);
 						copyToFolder(jsonFile, executionFolder);
@@ -144,6 +148,12 @@ public class RunCommand extends AbstractWorkspaceCommand {
 											.treatment(mapping.getTreatment()).jobId(jobId).build());
 
 						});
+
+						List<ExperimentExecutionDTO> tasks = experimentExecutionService.findByJobId(jobId);
+
+						ObjectMapper mapper = new ObjectMapper();
+
+						mapper.writeValue(dataFile, tasks);
 
 					}
 

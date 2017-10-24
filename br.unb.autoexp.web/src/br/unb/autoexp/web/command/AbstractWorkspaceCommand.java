@@ -1,4 +1,4 @@
-package br.unb.autoexp.web.handlers;
+package br.unb.autoexp.web.command;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.runtime.IAdaptable;

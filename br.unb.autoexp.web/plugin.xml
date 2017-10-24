@@ -94,19 +94,19 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="br.unb.autoexp.web.handlers.RunAnalysisCommand"
+            class="br.unb.autoexp.web.command.RunAnalysisCommand"
             commandId="br.unb.autoexp.web.commands.runAnalysisCommand">
       </handler>
       <handler
-            class="br.unb.autoexp.web.handlers.RunCommand"
+            class="br.unb.autoexp.web.command.RunCommand"
             commandId="br.unb.autoexp.web.runCommand">
       </handler>
       <handler
-            class="br.unb.autoexp.web.handlers.StatusCommand"
+            class="br.unb.autoexp.web.command.StatusCommand"
             commandId="br.unb.autoexp.web.statusCommand">
       </handler>
       <handler
-            class="br.unb.autoexp.web.handlers.DownloadHandler"
+            class="br.unb.autoexp.web.command.DownloadHandler"
             commandId="br.unb.autoexp.web.downloadCommand">
       </handler>
      
@@ -174,7 +174,7 @@
    <extension
          point="org.eclipse.rap.ui.serviceHandler">
       <serviceHandler
-            class="br.unb.autoexp.web.handlers.DownloadServiceHandler"
+            class="br.unb.autoexp.web.command.DownloadServiceHandler"
             id="br.unb.autoexp.web.downloadServiceHandler">
       </serviceHandler>
    </extension>

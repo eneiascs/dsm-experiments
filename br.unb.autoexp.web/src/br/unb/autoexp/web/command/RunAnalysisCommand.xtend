@@ -1,4 +1,4 @@
-package br.unb.autoexp.web.handlers;
+package br.unb.autoexp.web.command;
 
 import br.unb.autoexp.rBaseApi.dto.ResultDTO
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
@@ -79,27 +79,43 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 					val message = String.format(
 						"Analysis must be run from a execution folder.\nExecution data not found for %s.",
 						file.getName())
-						val design = experimentDesignService.findByJobId(file.getName())
+
+						
+						val dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
+						if (!dataFile.exists) {
+
+							
+							throw new RuntimeException(message)
+						}
+						
+						val mapper = new ObjectMapper();
+
+						val List<ExperimentExecutionDTO> tasks = mapper.readValue(
+							dataFile,
+							mapper.getTypeFactory().constructCollectionType(List, ExperimentExecutionDTO)
+						)
+						if (tasks.isNullOrEmpty) {
+
+							MessageDialog.openError(window.getShell(), "Status Error", message)
+							throw new RuntimeException(message)
+						}
+
+						val design = experimentDesignService.findByJobId(tasks.head.jobId)
 
 						if (design === null) {
 
-							MessageDialog.openError(window.getShell(), "Run Error", message)
+							MessageDialog.openError(window.getShell(), "Status Error", message)
 							throw new RuntimeException(message)
 						}
+
 						val specificationFile = new File(file.getAbsolutePath() + File.separator + design.getFileName())
 						val jsonFile = new File(file.getAbsolutePath() + File.separator +
 							design.getFileName().replaceFirst("[.][^.]+$", ".json"))
 						val applicationDescriptorFile = new File(file.getAbsolutePath() + File.separator +
 							design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
-						val dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
-						val rFile = new File(file.getAbsolutePath() + File.separator +
-							design.getFileName().replaceFirst("[.][^.]+$", ".R"))
+						
 						val rnwFile = new File(file.getAbsolutePath() + File.separator +
 							design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
-						val texFile = new File(file.getAbsolutePath() + File.separator +
-							design.getFileName().replaceFirst("[.][^.]+$", ".tex"))
-						val pdfFile = new File(file.getAbsolutePath() + File.separator +
-							design.getFileName().replaceFirst("[.][^.]+$", ".pdf"))
 						val executionFolder = file
 
 						checkFile(applicationDescriptorFile, executionFolder)
@@ -107,15 +123,11 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 						checkFile(specificationFile, executionFolder)
 						// checkFile(rFile, executionFolder)
 						checkFile(rnwFile, executionFolder)
-							
-						val executions = experimentExecutionService.findByJobId(executionFolder.getName()).updateStatus
 
 						
 
 
-						val mapper = new ObjectMapper()
-
-						mapper.writeValue(dataFile, executions)
+						mapper.writeValue(dataFile, experimentExecutionService.findByJobId(design.jobId).updateStatus)
 
 						var rBaseUrl = "http://localhost:8080/r-base/command"
 
@@ -140,17 +152,17 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 						os.write(out)
 
 						val responseCode = httpConnection.responseCode
-						
+
 						switch (responseCode) {
 							case 202:
 								logger.info("Accepted")
 							case 404:
-								throw new RuntimeException("URL %s not available".format(url.toString)) 
+								throw new RuntimeException("URL %s not available".format(url.toString))
 							default:
-								throw new RuntimeException("Error code calling analyis: %s".format(responseCode.toString)) 
-							 
+								throw new RuntimeException(
+									"Error code calling analyis: %s".format(responseCode.toString))
 						}
-					
+
 						val in = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()))
 						var String inputLine
 						val response = new StringBuffer();
@@ -163,7 +175,7 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 						val resultMapper = new ObjectMapper()
 
 						val res = resultMapper.readerFor(ResultDTO).readValue(response.toString) as ResultDTO
-						
+
 						if (res.error) {
 							throw new RuntimeException(res.message)
 						}
@@ -172,7 +184,8 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 							"Analysis finished. Check generated files.")
 
 					} catch (Exception ex) {
-						MessageDialog.openError(window.getShell(), "Analysis", "An error occurred during analysis: \n %s".format(ex.message))
+						MessageDialog.openError(window.getShell(), "Analysis",
+							"An error occurred during analysis: \n %s".format(ex.message))
 						logger.error(ex.getMessage(), ex)
 					} finally {
 
@@ -195,58 +208,64 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 			}
 			return null;
 		}
-def updateStatus(List<ExperimentExecutionDTO> tasks) {
 
-		tasks.filter[executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED)||executionStatus.equals(ExecutionStatusDTO.PENDING)||executionStatus.equals(ExecutionStatusDTO.RUNNING)].forEach [ task |
-			try {
+		def updateStatus(List<ExperimentExecutionDTO> tasks) {
 
-				val target = getTarget(task.taskId, "status")
-				System.out.println(target.toString())
-				val response = target.request(APPLICATION_XML_TYPE)
-				val status = response.get(TaskStatus)
-				switch (status.type) {
-					case TaskStatusType.PENDING: task.executionStatus = ExecutionStatusDTO.PENDING
-					case TaskStatusType.RUNNING: task.executionStatus = ExecutionStatusDTO.RUNNING
-					case TaskStatusType.FINISHED: task.executionStatus = ExecutionStatusDTO.FINISHED
-					case TaskStatusType.FAILED: task.executionStatus = ExecutionStatusDTO.FAILED
+			tasks.filter [
+				executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED) ||
+					executionStatus.equals(ExecutionStatusDTO.PENDING) ||
+					executionStatus.equals(ExecutionStatusDTO.RUNNING)
+			].forEach [ task |
+				try {
+
+					val target = getTarget(task.taskId, "status")
+					System.out.println(target.toString())
+					val response = target.request(APPLICATION_XML_TYPE)
+					val status = response.get(TaskStatus)
+					switch (status.type) {
+						case TaskStatusType.PENDING: task.executionStatus = ExecutionStatusDTO.PENDING
+						case TaskStatusType.RUNNING: task.executionStatus = ExecutionStatusDTO.RUNNING
+						case TaskStatusType.FINISHED: task.executionStatus = ExecutionStatusDTO.FINISHED
+						case TaskStatusType.FAILED: task.executionStatus = ExecutionStatusDTO.FAILED
+					}
+
+					val targetResources = getTarget(task.taskId, "resources")
+					System.out.println(targetResources.toString())
+					val resources = targetResources.request(MediaType.APPLICATION_JSON).get(
+						new GenericType<List<TaskResourceUsage>>() {
+						})
+					if (!resources.filter[resourceType.equals(ResourceType.CPU)].isNullOrEmpty)
+						task.cpu = resources.filter[resourceType.equals(ResourceType.CPU)].maxBy[value].value.
+							doubleValue
+					if (!resources.filter[resourceType.equals(ResourceType.RAM)].isNullOrEmpty)
+						task.memory = resources.filter[resourceType.equals(ResourceType.RAM)].maxBy[value].value.
+							doubleValue
+					task.time = Math.random().doubleValue
+
+					experimentExecutionService.update(task)
+				} catch (NotFoundException e) {
+					logger.error(e.getMessage(), e)
+					e.printStackTrace
+
 				}
 
-				val targetResources = getTarget(task.taskId, "resources")
-				System.out.println(targetResources.toString())
-				val resources = targetResources.request(MediaType.APPLICATION_JSON).get(
-					new GenericType<List<TaskResourceUsage>>() {
-					})
-				if (!resources.filter[resourceType.equals(ResourceType.CPU)].isNullOrEmpty)
-					task.cpu = resources.filter[resourceType.equals(ResourceType.CPU)].maxBy[value].value.doubleValue
-				if (!resources.filter[resourceType.equals(ResourceType.RAM)].isNullOrEmpty)
-					task.memory = resources.filter[resourceType.equals(ResourceType.RAM)].maxBy[value].value.doubleValue
-				task.time = Math.random().doubleValue
+			]
+			tasks
 
-				experimentExecutionService.update(task)
-			} catch (NotFoundException e) {
-				logger.error(e.getMessage(), e)
-				e.printStackTrace
-
-			}
-
-		]
-		tasks
-
-	}
-
-
-	def String getDohkoAddress() {
-		var host = "10.10.3.10:8080"
-		if (System.getenv("DOHKO_ADDRESS") !== null) {
-			host = System.getenv("DOHKO_ADDRESS");
 		}
-		return host;
-	}
 
-	def WebTarget getTarget(String taskId, String command) {
-		val client = ClientBuilder.newClient();
-		client.target(String.format("http://%s/task/%s/%s", getDohkoAddress(), taskId, command));
-	}
+		def String getDohkoAddress() {
+			var host = "10.10.3.10:8080"
+			if (System.getenv("DOHKO_ADDRESS") !== null) {
+				host = System.getenv("DOHKO_ADDRESS");
+			}
+			return host;
+		}
+
+		def WebTarget getTarget(String taskId, String command) {
+			val client = ClientBuilder.newClient();
+			client.target(String.format("http://%s/task/%s/%s", getDohkoAddress(), taskId, command));
+		}
 
 		def void checkFile(File file, File executionFolder) throws IOException {
 			if (!file.exists()) {

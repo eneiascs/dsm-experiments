@@ -1,4 +1,4 @@
-package br.unb.autoexp.web.handlers;
+package br.unb.autoexp.web.command;
 
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
@@ -64,13 +64,41 @@ class StatusCommand extends AbstractWorkspaceCommand {
 
 					val message = String.format(
 						"Status must be run from a execution folder.\nExecution data not found for %s.", file.getName())
-					val design = experimentDesignService.findByJobId(file.getName())
+					
+					val dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
+					if (!dataFile.exists) {
+
+							
+							throw new RuntimeException(message)
+						}	
+					val executionFolder = file
+
+
+
+						val mapper = new ObjectMapper();
+
+						var List<ExperimentExecutionDTO> tasks=mapper.readValue(dataFile,
+							mapper.getTypeFactory().constructCollectionType(List, ExperimentExecutionDTO)
+							
+						)
+					if (tasks.isNullOrEmpty) {
+
+						MessageDialog.openError(window.getShell(), "Status Error", message)
+						throw new RuntimeException(message)
+					}
+					
+					
+					
+					val design = experimentDesignService.findByJobId(tasks.head.jobId)
 
 					if (design === null) {
 
 						MessageDialog.openError(window.getShell(), "Status Error", message)
 						throw new RuntimeException(message)
 					}
+					
+					
+					
 					val specificationFile = new File(file.getAbsolutePath() + File.separator + design.getFileName())
 					val jsonFile = new File(file.getAbsolutePath() + File.separator +
 						design.getFileName().replaceFirst("[.][^.]+$", ".json"))
@@ -78,19 +106,22 @@ class StatusCommand extends AbstractWorkspaceCommand {
 						design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
 					val rnwFile = new File(file.getAbsolutePath() + File.separator +
 						design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
-					val dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
+					
+				
 
-					val executionFolder = file
+
+
+
 
 					checkFile(applicationDescriptorFile, executionFolder)
 					checkFile(jsonFile, executionFolder)
 					checkFile(specificationFile, executionFolder)
 					checkFile(rnwFile, executionFolder)
 
-					var tasks = experimentExecutionService.findByJobId(executionFolder.getName()).updateStatus
+					
 
-					val mapper = new ObjectMapper()
-
+					
+					tasks=experimentExecutionService.findByJobId(design.jobId).updateStatus
 					mapper.writeValue(dataFile, tasks)
 
 					result = '''
