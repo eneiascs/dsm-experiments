@@ -38,9 +38,6 @@
       <plugin id="com.google.inject"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="de.undercouch.bson4jackson"/>
-      <plugin id="jackson-core-asl"/>
-      <plugin id="jackson-jaxrs"/>
-      <plugin id="jackson-mapper-asl"/>
       <plugin id="javassist"/>
       <plugin id="javax.annotation-api"/>
       <plugin id="javax.inject"/>
@@ -51,7 +48,6 @@
       <plugin id="javax.xml"/>
       <plugin id="log4j"/>
       <plugin id="org.antlr.runtime"/>
-      <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
       <plugin id="org.apache.felix.gogo.shell"/>
@@ -86,14 +82,12 @@
       <plugin id="org.eclipse.equinox.cm"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.console"/>
-      <plugin id="org.eclipse.equinox.ds"/>
       <plugin id="org.eclipse.equinox.http.registry"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.http.servletbridge"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.servletbridge"/>
-<plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.gemini.jpa"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.osgi"/>
@@ -103,9 +97,6 @@
       <plugin id="org.eclipse.persistence.core"/>
       <plugin id="org.eclipse.persistence.jpa"/>
       <plugin id="org.eclipse.persistence.jpa.jpql"/>
-      <plugin id="org.eclipse.persistence.nosql" fragment="true"/>
-      <plugin id="org.eclipse.persistence.oracle" fragment="true"/>
-      <plugin id="org.eclipse.persistence.oracle.nosql" fragment="true"/>
       <plugin id="org.eclipse.rap.jface"/>
       <plugin id="org.eclipse.rap.jface.databinding"/>
       <plugin id="org.eclipse.rap.rwt"/>
@@ -121,7 +112,7 @@
       <plugin id="org.eclipse.xtext.common.types"/>
       <plugin id="org.eclipse.xtext.ide"/>
       <plugin id="org.eclipse.xtext.logging" fragment="true"/>
-    <plugin id="org.eclipse.xtext.logging" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.xtext.smap"/>
       <plugin id="org.eclipse.xtext.testing"/>
       <plugin id="org.eclipse.xtext.util"/>
       <plugin id="org.eclipse.xtext.xbase"/>
@@ -135,7 +126,6 @@
       <plugin id="org.glassfish.hk2.locator"/>
       <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
       <plugin id="org.glassfish.hk2.utils"/>
-      <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava"/>
       <plugin id="org.glassfish.jersey.core.jersey-client"/>
       <plugin id="org.glassfish.jersey.core.jersey-common"/>
       <plugin id="org.glassfish.jersey.core.jersey-server"/>
@@ -159,133 +149,126 @@
    </plugins>
 
    <configurations>
-      <plugin id="br.unb.autoexp" autoStart="true" startLevel="4" />
-      <plugin id="br.unb.autoexp.example" autoStart="true" startLevel="4" />
-      <plugin id="br.unb.autoexp.template" autoStart="true" startLevel="4" />
-      <plugin id="br.unb.autoexp.web" autoStart="true" startLevel="4" />
-      <plugin id="com.beust.jcommander" autoStart="true" startLevel="4" />
-      <plugin id="com.fasterxml.jackson.core.jackson-annotations" autoStart="true" startLevel="4" />
-      <plugin id="com.fasterxml.jackson.core.jackson-core" autoStart="true" startLevel="4"/>
-      <plugin id="com.fasterxml.jackson.core.jackson-databind" autoStart="true" startLevel="4" />
-      <plugin id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml" autoStart="true" startLevel="4" />
-      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="4" />
-      <plugin id="com.google.guava" autoStart="true" startLevel="4" />
-      <plugin id="com.google.inject" autoStart="true" startLevel="4" />
-      <plugin id="com.ibm.icu" autoStart="true" startLevel="4" />
-      <plugin id="de.undercouch.bson4jackson" autoStart="true" startLevel="4" />
-      <plugin id="jackson-core-asl" autoStart="true" startLevel="4" />
-      <plugin id="jackson-jaxrs" autoStart="true" startLevel="4" />
-      <plugin id="jackson-mapper-asl" autoStart="true" startLevel="4" />
-      <plugin id="javassist" autoStart="true" startLevel="4" />
-      <plugin id="javax.annotation-api" autoStart="true" startLevel="4" />
-      <plugin id="javax.inject" autoStart="true" startLevel="4" />
-      <plugin id="javax.persistence" autoStart="true" startLevel="4" />
-      <plugin id="javax.servlet" autoStart="true" startLevel="4" />
-      <plugin id="javax.ws.rs" autoStart="true" startLevel="4" />
-      <plugin id="javax.ws.rs-api" autoStart="true" startLevel="4" />
-      <plugin id="javax.xml" autoStart="true" startLevel="4" />
-      <plugin id="log4j" autoStart="true" startLevel="4" />
-      <plugin id="org.antlr.runtime" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.commons.logging" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="4"/>
-      <plugin id="org.apache.felix.gogo.runtime" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.felix.gogo.shell" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.log4j" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.logging.log4j.api" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.logging.log4j.core" autoStart="true" startLevel="4" />
-      <plugin id="org.apache.logging.log4j.slf4j-impl" autoStart="true" startLevel="4" />
-      <plugin id="org.dslforge.common.logging" autoStart="false" startLevel="4" />
-      <plugin id="org.dslforge.styledtext" autoStart="true" startLevel="4" />
-      <plugin id="org.dslforge.texteditor" autoStart="true" startLevel="4" />
-      <plugin id="org.dslforge.texteditor.demo" autoStart="true" startLevel="4" />
-      <plugin id="org.dslforge.workspace" autoStart="true" startLevel="4" />
-      <plugin id="org.dslforge.workspace.config" autoStart="true" startLevel="4" />
+      <plugin id="br.unb.autoexp" autoStart="true" startLevel="5" />
+      <plugin id="br.unb.autoexp.example" autoStart="true" startLevel="5" />
+      <plugin id="br.unb.autoexp.template" autoStart="true" startLevel="0" />
+      <plugin id="br.unb.autoexp.web" autoStart="true" startLevel="5" />
+      <plugin id="com.beust.jcommander" autoStart="false" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.core.jackson-annotations" autoStart="true" startLevel="5" />
+      <plugin id="com.fasterxml.jackson.core.jackson-core" autoStart="true" startLevel="5" />
+      <plugin id="com.fasterxml.jackson.core.jackson-databind" autoStart="true" startLevel="5" />
+      <plugin id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="0" />
+      <plugin id="com.google.guava" autoStart="true" startLevel="5" />
+      <plugin id="com.google.inject" autoStart="true" startLevel="5" />
+      <plugin id="com.ibm.icu" autoStart="true" startLevel="5" />
+      <plugin id="de.undercouch.bson4jackson" autoStart="true" startLevel="5" />
+      <plugin id="javassist" autoStart="true" startLevel="0" />
+      <plugin id="javax.annotation-api" autoStart="true" startLevel="0" />
+      <plugin id="javax.inject" autoStart="true" startLevel="5" />
+      <plugin id="javax.persistence" autoStart="true" startLevel="5" />
+      <plugin id="javax.servlet" autoStart="false" startLevel="0" />
+      <plugin id="javax.ws.rs" autoStart="true" startLevel="5" />
+      <plugin id="javax.ws.rs-api" autoStart="true" startLevel="0" />
+      <plugin id="javax.xml" autoStart="true" startLevel="5" />
+      <plugin id="log4j" autoStart="false" startLevel="0" />
+      <plugin id="org.antlr.runtime" autoStart="true" startLevel="5" />
+      <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="5" />
+      <plugin id="org.apache.felix.gogo.runtime" autoStart="true" startLevel="5" />
+      <plugin id="org.apache.felix.gogo.shell" autoStart="true" startLevel="5" />
+      <plugin id="org.apache.log4j" autoStart="true" startLevel="5" />
+      <plugin id="org.apache.logging.log4j.api" autoStart="false" startLevel="0" />
+      <plugin id="org.apache.logging.log4j.core" autoStart="false" startLevel="0" />
+      <plugin id="org.apache.logging.log4j.slf4j-impl" autoStart="false" startLevel="0" />
+      <plugin id="org.dslforge.common.logging" autoStart="true" startLevel="5" />
+      <plugin id="org.dslforge.styledtext" autoStart="true" startLevel="5" />
+      <plugin id="org.dslforge.texteditor" autoStart="true" startLevel="5" />
+      <plugin id="org.dslforge.texteditor.demo" autoStart="true" startLevel="5" />
+      <plugin id="org.dslforge.workspace" autoStart="true" startLevel="5" />
+      <plugin id="org.dslforge.workspace.config" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.workspace.jpa" autoStart="true" startLevel="3" />
-      <plugin id="org.dslforge.workspace.ui" autoStart="true" startLevel="4" />
-      <plugin id="org.dslforge.xtext.common" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.databinding" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.databinding.observable" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.databinding.property" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.expressions" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.emf.common" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.emf.ecore" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.emf.ecore.xmi" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.emf.edit" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.emf.rap.common.ui" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.emf.rap.edit.ui" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.equinox.app" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.equinox.cm" autoStart="true" startLevel="4" />
+      <plugin id="org.dslforge.workspace.ui" autoStart="true" startLevel="5" />
+      <plugin id="org.dslforge.xtext.common" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.databinding" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.databinding.observable" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.databinding.property" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.expressions" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.emf.common" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.emf.ecore" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.emf.ecore.xmi" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.emf.edit" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.emf.rap.common.ui" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.emf.rap.edit.ui" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.app" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.cm" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.console" autoStart="true" startLevel="4" />
-   <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
-      <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.equinox.http.servletbridge" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.console" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.http.servletbridge" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="false" startLevel="0" />
-<plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.gemini.jpa" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.help" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.help" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
-      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.persistence.antlr" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.persistence.asm" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.persistence.core" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.persistence.jpa" autoStart="true" startLevel="4"/>
-      <plugin id="org.eclipse.persistence.jpa.jpql" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.jface" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.jface.databinding" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.rwt" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.rwt.osgi" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.ui" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.ui.forms" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.ui.navigator" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.ui.views" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.rap.ui.workbench" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtend.lib" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtend.lib.macro" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext.common.types" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext.ide" autoStart="true" startLevel="4" />
- <plugin id="org.eclipse.xtext.logging" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext.testing" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext.util" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext.xbase" autoStart="true" startLevel="4" />
-      <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="4" />
-      <plugin id="org.excalibur.client" autoStart="true" startLevel="4" />
-      <plugin id="org.excalibur.core" autoStart="true" startLevel="4" />
-      <plugin id="org.excalibur.discovery" autoStart="true" startLevel="4" />
-      <plugin id="org.excalibur.services" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="4"/>
-      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.hk2.locator" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.hk2.osgi-resource-locator" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.hk2.utils" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.core.jersey-client" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.core.jersey-common" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.core.jersey-server" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="true" startLevel="4" />
-      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="true" startLevel="4" />
-      <plugin id="org.hamcrest.core" autoStart="true" startLevel="4" />
-      <plugin id="org.junit" autoStart="true" startLevel="4" />
-      <plugin id="org.mongodb.bson" autoStart="true" startLevel="4"/>
-      <plugin id="org.mongodb.driver-core" autoStart="true" startLevel="4" />
-      <plugin id="org.mongodb.mongo-java-driver" autoStart="true" startLevel="4" />
-      <plugin id="org.mongojack" autoStart="true" startLevel="4" />
-      <plugin id="org.objectweb.asm" autoStart="true" startLevel="4" />
-      <plugin id="org.osgi.service.jdbc" autoStart="true" startLevel="4" />
-      <plugin id="org.osgi.service.jndi" autoStart="true" startLevel="4" />
-      <plugin id="org.yaml.snakeyaml" autoStart="true" startLevel="4" />
-      <plugin id="osgi.enterprise" autoStart="true" startLevel="4" />
-      <plugin id="slf4j.api" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.persistence.antlr" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.persistence.asm" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.persistence.core" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.persistence.jpa" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.persistence.jpa.jpql" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.jface" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.jface.databinding" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.rwt" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.rwt.osgi" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.ui" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.ui.forms" autoStart="false" startLevel="5" />
+      <plugin id="org.eclipse.rap.ui.navigator" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.ui.views" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.rap.ui.workbench" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtend.lib" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtend.lib.macro" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext.common.types" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext.ide" autoStart="false" startLevel="0" />
+      <plugin id="org.eclipse.xtext.smap" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext.testing" autoStart="false" startLevel="0" />
+      <plugin id="org.eclipse.xtext.util" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.xtext.xbase" autoStart="false" startLevel="5" />
+      <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="5" />
+      <plugin id="org.excalibur.client" autoStart="true" startLevel="0" />
+      <plugin id="org.excalibur.core" autoStart="true" startLevel="0" />
+      <plugin id="org.excalibur.discovery" autoStart="true" startLevel="0" />
+      <plugin id="org.excalibur.services" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.locator" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.osgi-resource-locator" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.utils" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-client" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-common" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-server" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="true" startLevel="0" />
+      <plugin id="org.hamcrest.core" autoStart="true" startLevel="0" />
+      <plugin id="org.junit" autoStart="true" startLevel="0" />
+      <plugin id="org.mongodb.bson" autoStart="true" startLevel="5" />
+      <plugin id="org.mongodb.driver-core" autoStart="true" startLevel="5" />
+      <plugin id="org.mongodb.mongo-java-driver" autoStart="true" startLevel="5" />
+      <plugin id="org.mongojack" autoStart="true" startLevel="5" />
+      <plugin id="org.objectweb.asm" autoStart="true" startLevel="5" />
+      <plugin id="org.osgi.service.jdbc" autoStart="false" startLevel="0" />
+      <plugin id="org.osgi.service.jndi" autoStart="false" startLevel="0" />
+      <plugin id="org.yaml.snakeyaml" autoStart="false" startLevel="0" />
+      <plugin id="osgi.enterprise" autoStart="true" startLevel="5" />
+      <plugin id="slf4j.api" autoStart="false" startLevel="0" />
    </configurations>
 
    <preferencesInfo>
