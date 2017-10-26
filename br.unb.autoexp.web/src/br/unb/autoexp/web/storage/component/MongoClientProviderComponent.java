@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.mongodb.MongoClient;
@@ -14,92 +15,102 @@ import com.mongodb.ServerAddress;
 import br.unb.autoexp.web.storage.MongoClientProvider;
 
 public class MongoClientProviderComponent implements MongoClientProvider {
-	
+
 	private volatile String clientId;
+
+	@Override
 	public String getClientId() {
 		return clientId;
 	}
 
-	
 	private volatile Collection<String> uris;
 	private volatile MongoClient mongoClient;
 
-    
-    
-    public MongoClientProvider activate(Map<String, Object> properties)
-	{
-		
+	public MongoClientProviderComponent() {
 
-		// The uriProperty is a single string containing one or more server URIs.
+		Map<String, Object> properties = new HashMap<String, Object>();
+
+		String uri = "mongodb://localhost:27017";
+		String user = "";
+		String password = "";
+		if (System.getenv("DATABASE_URI") != null) {
+			uri = System.getenv("DATABASE_URI");
+		}
+		if (System.getenv("DATABASE_USER") != null) {
+			user = System.getenv("DATABASE_USER");
+		}
+		if (System.getenv("DATABASE_PASSWORD") != null) {
+			password = System.getenv("DATABASE_PASSWORD");
+		}
+		properties.put(MongoClientProvider.PROP_URI, uri);
+		properties.put(MongoClientProvider.PROP_USER, user);
+		properties.put(MongoClientProvider.PROP_PASSWORD, password);
+		this.activate(properties);
+	}
+
+	public MongoClientProvider activate(Map<String, Object> properties) {
+
+		// The uriProperty is a single string containing one or more server
+		// URIs.
 		// When more than one URI is specified, it denotes a replica set and the
 		// URIs must be separated by a comma (CSV).
 
 		String uriProperty = (String) properties.get(PROP_URI);
 		uris = new ArrayList<String>();
-		
+
 		validateURI(uriProperty, uris);
 		MongoClientOptions options = createMongoClientOptions(properties);
 		String currentURI = null;
 
-		try
-		{
-			if (uris.size() == 1)
-			{
+		try {
+			if (uris.size() == 1) {
 				currentURI = uris.iterator().next();
 				ServerAddress serverAddress = createServerAddress(currentURI);
 				mongoClient = createMongoClient(options, serverAddress);
-			}
-			else
-			{
+			} else {
 				ArrayList<ServerAddress> serverAddresses = new ArrayList<ServerAddress>(uris.size());
 
-				for (String uri : uris)
-				{
+				for (String uri : uris) {
 					currentURI = uri;
 					serverAddresses.add(createServerAddress(currentURI));
 				}
 
 				mongoClient = createMongoClient(options, serverAddresses);
 			}
-		}
-		catch (UnknownHostException e)
-		{
-			//handleConfigurationException("The URI: '" + currentURI + "' has a bad hostname", e);
-		}
-		catch (URISyntaxException e)
-		{
-			//handleConfigurationException("The URI: '" + currentURI + "' is not a proper URI", e);
+		} catch (UnknownHostException e) {
+			// handleConfigurationException("The URI: '" + currentURI + "' has a
+			// bad hostname", e);
+		} catch (URISyntaxException e) {
+			// handleConfigurationException("The URI: '" + currentURI + "' is
+			// not a proper URI", e);
 		}
 		return this;
 	}
 
-	public void deactivate()
-	{
+	public void deactivate() {
 		if (mongoClient != null)
 			mongoClient.close();
 	}
 
-	protected MongoClient createMongoClient(MongoClientOptions options, ArrayList<ServerAddress> serverAddresses)
-	{
+	protected MongoClient createMongoClient(MongoClientOptions options, ArrayList<ServerAddress> serverAddresses) {
 		return new MongoClient(serverAddresses, options);
 	}
 
-	protected MongoClient createMongoClient(MongoClientOptions options, ServerAddress serverAddress)
-	{
+	protected MongoClient createMongoClient(MongoClientOptions options, ServerAddress serverAddress) {
 		return new MongoClient(serverAddress, options);
 	}
 
-	private static String validateURI(String value, Collection<String> uris)
-	{
+	private static String validateURI(String value, Collection<String> uris) {
 		if (value == null || value.isEmpty())
 			return "The MongoDB URI was not found in the configuration properties";
 
-		// The regex \s matches whitepsace. The extra \ is needed because of how it's treated in java
-		// strings. The split is done on any number of whitespace chars followed by a comma followed by
+		// The regex \s matches whitepsace. The extra \ is needed because of how
+		// it's treated in java
+		// strings. The split is done on any number of whitespace chars followed
+		// by a comma followed by
 		// any number of whitespace chars. What is left is the URI(s).
 
-		for (String targetURI : value.split("\\s*,\\s*"))
-		{
+		for (String targetURI : value.split("\\s*,\\s*")) {
 			String uri = targetURI.trim();
 
 			if (!uri.startsWith("mongodb://") || uri.endsWith("/") || uri.split("/").length != 3)
@@ -112,8 +123,7 @@ public class MongoClientProviderComponent implements MongoClientProvider {
 		return null;
 	}
 
-	private MongoClientOptions createMongoClientOptions(Map<String, Object> properties)
-	{
+	private MongoClientOptions createMongoClientOptions(Map<String, Object> properties) {
 		MongoClientOptions.Builder optionsBuilder = new MongoClientOptions.Builder();
 
 		String description = (String) properties.get(PROP_DESCRIPTION);
@@ -126,7 +136,8 @@ public class MongoClientProviderComponent implements MongoClientProvider {
 		if (connectionsPerHost != null)
 			optionsBuilder.connectionsPerHost(connectionsPerHost);
 
-		Integer threadsAllowedToBlockForConnectionMultiplier = (Integer) properties.get(PROP_THREADS_ALLOWED_TO_BLOCK_FOR_CONNECTION_MULTIPLIER);
+		Integer threadsAllowedToBlockForConnectionMultiplier = (Integer) properties
+				.get(PROP_THREADS_ALLOWED_TO_BLOCK_FOR_CONNECTION_MULTIPLIER);
 
 		if (threadsAllowedToBlockForConnectionMultiplier != null)
 			optionsBuilder.threadsAllowedToBlockForConnectionMultiplier(threadsAllowedToBlockForConnectionMultiplier);
@@ -153,13 +164,13 @@ public class MongoClientProviderComponent implements MongoClientProvider {
 
 		Boolean autoConnectRetry = (Boolean) properties.get(PROP_AUTO_CONNECT_RETRY);
 
-		//if (autoConnectRetry != null)
-			//optionsBuilder.autoConnectRetry(autoConnectRetry);
+		// if (autoConnectRetry != null)
+		// optionsBuilder.autoConnectRetry(autoConnectRetry);
 
 		Long maxAutoConnectRetryTime = (Long) properties.get(PROP_MAX_AUTO_CONNECT_RETRY_TIME);
 
-		//if (maxAutoConnectRetryTime != null)
-			//optionsBuilder.maxAutoConnectRetryTime(maxAutoConnectRetryTime);
+		// if (maxAutoConnectRetryTime != null)
+		// optionsBuilder.maxAutoConnectRetryTime(maxAutoConnectRetryTime);
 
 		Boolean continueOnInsertError = (Boolean) properties.get(PROP_CONTINUE_ON_INSERT_ERROR);
 
@@ -186,17 +197,18 @@ public class MongoClientProviderComponent implements MongoClientProvider {
 		if (j == null)
 			j = Boolean.FALSE;
 
-		//WriteConcern writeConcern = new WriteConcern(w, wtimeout, fsync, j, continueOnInsertError);
-		//optionsBuilder.writeConcern(writeConcern);
+		// WriteConcern writeConcern = new WriteConcern(w, wtimeout, fsync, j,
+		// continueOnInsertError);
+		// optionsBuilder.writeConcern(writeConcern);
 
 		return optionsBuilder.build();
 	}
 
-	private ServerAddress createServerAddress(String uriProperty) throws URISyntaxException, UnknownHostException
-	{
+	private ServerAddress createServerAddress(String uriProperty) throws URISyntaxException, UnknownHostException {
 		URI uri = new URI(uriProperty);
 		int port = uri.getPort();
-		ServerAddress serverAddress = port == -1 ? new ServerAddress(uri.getHost()) : new ServerAddress(uri.getHost(), uri.getPort());
+		ServerAddress serverAddress = port == -1 ? new ServerAddress(uri.getHost())
+				: new ServerAddress(uri.getHost(), uri.getPort());
 		return serverAddress;
 	}
 
@@ -204,9 +216,10 @@ public class MongoClientProviderComponent implements MongoClientProvider {
 	public String[] getURIs() {
 		return uris.toArray(new String[0]);
 	}
+
+	@Override
 	public MongoClient getMongoClient() {
 		return mongoClient;
 	}
-	
 
 }

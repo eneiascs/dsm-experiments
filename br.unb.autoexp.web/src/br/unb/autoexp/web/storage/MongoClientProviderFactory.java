@@ -3,11 +3,6 @@ package br.unb.autoexp.web.storage;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.RegistryFactory;
-
 import br.unb.autoexp.web.storage.component.MongoClientProviderComponent;
 
 public class MongoClientProviderFactory {

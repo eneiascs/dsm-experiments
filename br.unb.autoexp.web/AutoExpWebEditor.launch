@@ -14,6 +14,7 @@
 <intAttribute key="default_start_level" value="4"/>
 <booleanAttribute key="includeOptional" value="false"/>
 <mapAttribute key="org.eclipse.debug.core.environmentVariables">
+<mapEntry key="DATABASE_URI" value="http://localhost:8090/api"/>
 <mapEntry key="DOHKO_ADDRESS" value="localhost:8081"/>
 <mapEntry key="R_BASE_URL" value="http://localhost:8091/r-base/command"/>
 </mapAttribute>

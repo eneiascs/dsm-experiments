@@ -6,20 +6,56 @@ package br.unb.autoexp.web.module;
 import org.apache.log4j.Logger;
 
 import com.google.inject.Binder;
+
+import br.unb.autoexp.rBaseApi.client.RBaseApiClient;
+import br.unb.autoexp.rBaseApi.client.RBaseApiClientImpl;
 import br.unb.autoexp.storage.service.ExperimentDesignStorageService;
+import br.unb.autoexp.storage.service.ExperimentExecutionStorageService;
+import br.unb.autoexp.web.dohko.service.DohkoService;
+import br.unb.autoexp.web.dohko.service.impl.DohkoServiceImpl;
+import br.unb.autoexp.web.storage.MongoClientProvider;
+import br.unb.autoexp.web.storage.component.MongoClientProviderComponent;
 import br.unb.autoexp.web.ws.client.ExperimentDesignClient;
+import br.unb.autoexp.web.ws.client.ExperimentExecutionClient;
 
 public class WebAutoExpRuntimeModule extends AbstractWebAutoExpRuntimeModule {
 
 	static final Logger logger = Logger.getLogger(WebAutoExpRuntimeModule.class);
-	
+
 	/**
 	 * Add Custom bindings here
 	 */
 	@Override
 	public void configure(Binder binder) {
-		super.configure(binder);
-		binder.bind(ExperimentDesignStorageService.class).to(ExperimentDesignClient.class);
+
 		logger.info("Configuring web module " + this.getClass().getName());
+		super.configure(binder);
+		binder.bind(MongoClientProvider.class).to(bindMongoClientProvider());
+		binder.bind(ExperimentDesignStorageService.class).to(bindExperimentDesignStorageService());
+
+		binder.bind(DohkoService.class).to(bindDohkoService());
+		binder.bind(ExperimentExecutionStorageService.class).to(bindExperimentExecutionStorageService());
+		binder.bind(RBaseApiClient.class).to(bindRBaseApiClient());
+
+	}
+
+	private Class<RBaseApiClientImpl> bindRBaseApiClient() {
+		return RBaseApiClientImpl.class;
+	}
+
+	public Class<? extends MongoClientProvider> bindMongoClientProvider() {
+		return MongoClientProviderComponent.class;
+	}
+
+	public Class<? extends ExperimentDesignStorageService> bindExperimentDesignStorageService() {
+		return ExperimentDesignClient.class;
+	}
+
+	public Class<? extends ExperimentExecutionStorageService> bindExperimentExecutionStorageService() {
+		return ExperimentExecutionClient.class;
+	}
+
+	public Class<? extends DohkoService> bindDohkoService() {
+		return DohkoServiceImpl.class;
 	}
 }

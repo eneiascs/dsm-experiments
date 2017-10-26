@@ -94,15 +94,15 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="br.unb.autoexp.web.command.RunAnalysisCommand"
+            class="br.unb.autoexp.web.AutoExpExecutableExtensionFactory:br.unb.autoexp.web.command.RunAnalysisCommand"
             commandId="br.unb.autoexp.web.commands.runAnalysisCommand">
       </handler>
       <handler
-            class="br.unb.autoexp.web.command.RunCommand"
+            class="br.unb.autoexp.web.AutoExpExecutableExtensionFactory:br.unb.autoexp.web.command.RunCommand"
             commandId="br.unb.autoexp.web.runCommand">
       </handler>
       <handler
-            class="br.unb.autoexp.web.command.StatusCommand"
+            class="br.unb.autoexp.web.AutoExpExecutableExtensionFactory:br.unb.autoexp.web.command.StatusCommand"
             commandId="br.unb.autoexp.web.statusCommand">
       </handler>
       <handler

@@ -8,14 +8,29 @@ import br.unb.autoexp.web.storage.component.entity.ExperimentDesign
 import com.mongodb.DBCollection
 import java.util.ArrayList
 import java.util.Date
+import java.util.HashMap
 import java.util.Map
 import org.mongojack.DBQuery
 import org.mongojack.JacksonDBCollection
 
 class ExperimentDesignStorageComponent implements ExperimentDesignStorageService {
 
+
 	DBCollection dbCollection
 	volatile JacksonDBCollection<ExperimentDesign, String> experimentsCollection
+
+	new() {
+		var databaseName = "experiments";
+
+		if (System.getenv("DATABASE_NAME") !== null) {
+			databaseName = System.getenv("DATABASE_NAME");
+		}
+
+		val properties = new HashMap<String, Object>();
+		properties.put(MongoClientProvider.PROP_DATABASE, databaseName);
+
+		this.activate(properties);
+	}
 
 	def activate(Map<String, Object> properties) {
 
