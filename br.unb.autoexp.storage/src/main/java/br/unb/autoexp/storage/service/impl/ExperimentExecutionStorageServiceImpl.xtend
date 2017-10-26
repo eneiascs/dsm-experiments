@@ -68,20 +68,22 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	def ExecutionStatusDTO convert(ExecutionStatus model) {
 		switch (model) {
-			case RECEIVED: ExecutionStatusDTO.RECEIVED
-			case STARTED: ExecutionStatusDTO.STARTED
+			case NOT_RECEIVED: ExecutionStatusDTO.NOT_RECEIVED
+			case PENDING: ExecutionStatusDTO.PENDING
+			case RUNNING: ExecutionStatusDTO.RUNNING
 			case FINISHED: ExecutionStatusDTO.FINISHED
-			case ERROR: ExecutionStatusDTO.ERROR
+			case FAILED: ExecutionStatusDTO.FAILED
 		}
 
 	}
 
 	def convertToEntity(ExecutionStatusDTO dto) {
 		switch (dto) {
-			case RECEIVED: ExecutionStatus.RECEIVED
-			case STARTED: ExecutionStatus.STARTED
+			case NOT_RECEIVED: ExecutionStatus.NOT_RECEIVED
+			case PENDING: ExecutionStatus.PENDING
+			case RUNNING: ExecutionStatus.RUNNING
 			case FINISHED: ExecutionStatus.FINISHED
-			case ERROR: ExecutionStatus.ERROR
+			case FAILED: ExecutionStatus.FAILED
 		}
 	}
 

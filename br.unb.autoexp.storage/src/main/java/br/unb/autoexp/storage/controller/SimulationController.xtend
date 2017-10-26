@@ -25,11 +25,11 @@ class SimulationController {
 	@ResponseBody
 	def List<ExperimentExecutionDTO> findAll() {
 		storageService.findAll().filter[!executionStatus.name.equals(ExecutionStatusDTO.FINISHED.name)].forEach [
-			it.setCpu(ThreadLocalRandom.current().nextLong(1L, 1000L))
-			it.setTime(ThreadLocalRandom.current().nextLong(1L, 1000L))
-			it.setMemory(ThreadLocalRandom.current().nextLong(1L, 1000L))
-			it.setExecutionStatus(ExecutionStatusDTO.FINISHED)
-			storageService.update(it)
+//			it.setCpu(ThreadLocalRandom.current().nextLong(1L, 1000L))
+//			it.setTime(ThreadLocalRandom.current().nextLong(1L, 1000L))
+//			it.setMemory(ThreadLocalRandom.current().nextLong(1L, 1000L))
+//			it.setExecutionStatus(ExecutionStatusDTO.FINISHED)
+//			storageService.update(it)
 		]
 		storageService.findAll()
 	}
