@@ -45,7 +45,7 @@ class DohkoServiceImpl implements DohkoService {
 	
 	
 	override updateTaskStatus(List<ExperimentExecutionDTO> tasks) {
- 		
+ 		logger.info("Updating tasks status for jobId %s".format(tasks.head.jobId))
 		tasks.filter[executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED)||executionStatus.equals(ExecutionStatusDTO.PENDING)||executionStatus.equals(ExecutionStatusDTO.RUNNING)].forEach [ task |
 			try {
 
@@ -61,7 +61,7 @@ class DohkoServiceImpl implements DohkoService {
 				}
 
 				val targetResources = getTaskTarget(task.taskId, "resources")
-				System.out.println(targetResources.toString())
+				
 				val resources = targetResources.request(MediaType.APPLICATION_JSON).get(
 					new GenericType<List<TaskResourceUsage>>() {
 					})

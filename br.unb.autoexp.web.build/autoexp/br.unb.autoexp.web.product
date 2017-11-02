@@ -26,6 +26,7 @@
    <plugins>
       <plugin id="br.unb.autoexp"/>
       <plugin id="br.unb.autoexp.example"/>
+      <plugin id="br.unb.autoexp.storage.mongodb.client"/>
       <plugin id="br.unb.autoexp.template"/>
       <plugin id="br.unb.autoexp.web"/>
       <plugin id="com.beust.jcommander"/>
@@ -151,6 +152,7 @@
    <configurations>
       <plugin id="br.unb.autoexp" autoStart="true" startLevel="5" />
       <plugin id="br.unb.autoexp.example" autoStart="true" startLevel="5" />
+      <plugin id="br.unb.autoexp.storage.mongodb.client" autoStart="true" startLevel="4" />
       <plugin id="br.unb.autoexp.template" autoStart="true" startLevel="0" />
       <plugin id="br.unb.autoexp.web" autoStart="true" startLevel="5" />
       <plugin id="com.beust.jcommander" autoStart="false" startLevel="0" />
@@ -266,7 +268,7 @@
       <plugin id="org.objectweb.asm" autoStart="true" startLevel="5" />
       <plugin id="org.osgi.service.jdbc" autoStart="false" startLevel="0" />
       <plugin id="org.osgi.service.jndi" autoStart="false" startLevel="0" />
-      <plugin id="org.yaml.snakeyaml" autoStart="false" startLevel="0" />
+      <plugin id="org.yaml.snakeyaml" autoStart="false" startLevel="1" />
       <plugin id="osgi.enterprise" autoStart="true" startLevel="5" />
       <plugin id="slf4j.api" autoStart="false" startLevel="0" />
    </configurations>

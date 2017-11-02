@@ -4,6 +4,9 @@
 package br.unb.autoexp.web.module;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 
 import com.google.inject.Binder;
 
@@ -13,10 +16,6 @@ import br.unb.autoexp.storage.service.ExperimentDesignStorageService;
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService;
 import br.unb.autoexp.web.dohko.service.DohkoService;
 import br.unb.autoexp.web.dohko.service.impl.DohkoServiceImpl;
-import br.unb.autoexp.web.storage.MongoClientProvider;
-import br.unb.autoexp.web.storage.component.MongoClientProviderComponent;
-import br.unb.autoexp.web.ws.client.ExperimentDesignClient;
-import br.unb.autoexp.web.ws.client.ExperimentExecutionClient;
 
 public class WebAutoExpRuntimeModule extends AbstractWebAutoExpRuntimeModule {
 
@@ -30,29 +29,79 @@ public class WebAutoExpRuntimeModule extends AbstractWebAutoExpRuntimeModule {
 
 		logger.info("Configuring web module " + this.getClass().getName());
 		super.configure(binder);
-		binder.bind(MongoClientProvider.class).to(bindMongoClientProvider());
+
 		binder.bind(ExperimentDesignStorageService.class).to(bindExperimentDesignStorageService());
+		binder.bind(ExperimentExecutionStorageService.class).to(bindExperimentExecutionStorageService());
 
 		binder.bind(DohkoService.class).to(bindDohkoService());
-		binder.bind(ExperimentExecutionStorageService.class).to(bindExperimentExecutionStorageService());
 		binder.bind(RBaseApiClient.class).to(bindRBaseApiClient());
+
+	}
+
+	private Class<? extends ExperimentDesignStorageService> bindExperimentDesignStorageService() {
+		IConfigurationElement[] elements = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor("br.unb.autoexp.storage");
+
+		if (elements.length == 0) {
+			throw new RuntimeException("No extension defined for 'br.unb.autoexp.storage'extension point");
+		}
+		if (elements.length > 1) {
+			throw new RuntimeException("More than one extension defined for 'br.unb.autoexp.storage'extension point");
+		}
+		for (IConfigurationElement element : elements) {
+
+			try {
+				String pluginId = element.getContributor().getName();
+				Bundle bundle = Platform.getBundle(pluginId);
+
+				String className = element.getAttribute("designStorageImpl");
+				Class<? extends ExperimentDesignStorageService> theClass = (Class<? extends ExperimentDesignStorageService>) bundle
+						.loadClass(className);
+
+				return theClass;
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+				throw new RuntimeException("No extension defined for 'br.unb.autoexp.storage'extension point");
+			}
+		}
+		return null;
+	}
+
+	private Class<? extends ExperimentExecutionStorageService> bindExperimentExecutionStorageService() {
+
+		IConfigurationElement[] elements = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor("br.unb.autoexp.storage");
+
+		if (elements.length == 0) {
+			throw new RuntimeException("No extension defined for 'br.unb.autoexp.storage'extension point");
+		}
+		if (elements.length > 1) {
+			throw new RuntimeException("More than one extension defined for 'br.unb.autoexp.storage'extension point");
+		}
+		for (IConfigurationElement element : elements) {
+
+			try {
+				String pluginId = element.getContributor().getName();
+				Bundle bundle = Platform.getBundle(pluginId);
+
+				String className = element.getAttribute("executionStorageImpl");
+				Class<? extends ExperimentExecutionStorageService> theClass = (Class<? extends ExperimentExecutionStorageService>) bundle
+						.loadClass(className);
+
+				return theClass;
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+				throw new RuntimeException("No extension defined for 'br.unb.autoexp.storage'extension point");
+			}
+		}
+		return null;
 
 	}
 
 	private Class<RBaseApiClientImpl> bindRBaseApiClient() {
 		return RBaseApiClientImpl.class;
-	}
-
-	public Class<? extends MongoClientProvider> bindMongoClientProvider() {
-		return MongoClientProviderComponent.class;
-	}
-
-	public Class<? extends ExperimentDesignStorageService> bindExperimentDesignStorageService() {
-		return ExperimentDesignClient.class;
-	}
-
-	public Class<? extends ExperimentExecutionStorageService> bindExperimentExecutionStorageService() {
-		return ExperimentExecutionClient.class;
 	}
 
 	public Class<? extends DohkoService> bindDohkoService() {

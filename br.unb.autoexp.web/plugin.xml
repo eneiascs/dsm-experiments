@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <!-- @generated dslforge -->
 <plugin>
+   <extension-point id="br.unb.autoexp.storage" name="br.unb.autoexp.storage" schema="schema/br.unb.autoexp.storage.exsd"/>
 
      <extension
            id="helloServlet"

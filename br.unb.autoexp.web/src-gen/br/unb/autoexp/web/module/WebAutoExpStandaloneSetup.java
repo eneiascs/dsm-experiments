@@ -4,12 +4,13 @@
 package br.unb.autoexp.web.module;
 
 import org.eclipse.xtext.util.Modules2;
-import br.unb.autoexp.AutoExpRuntimeModule;
-import br.unb.autoexp.AutoExpStandaloneSetup;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+
+import br.unb.autoexp.AutoExpRuntimeModule;
+import br.unb.autoexp.AutoExpStandaloneSetup;
 
 public class WebAutoExpStandaloneSetup extends AutoExpStandaloneSetup {
 
@@ -25,8 +26,7 @@ public class WebAutoExpStandaloneSetup extends AutoExpStandaloneSetup {
 			return injector;
 		} catch (Exception e) {
 			System.err.println("Failed to create injector for " + language);
-			throw new RuntimeException("Failed to create injector for "
-					+ language, e);
+			throw new RuntimeException("Failed to create injector for " + language, e);
 		}
 	}
 
@@ -34,7 +34,7 @@ public class WebAutoExpStandaloneSetup extends AutoExpStandaloneSetup {
 		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
 		AutoExpRuntimeModule original = new AutoExpRuntimeModule();
 		WebAutoExpRuntimeModule module = new WebAutoExpRuntimeModule();
-		Module mergedModule = Modules2.mixin((Module) original, module);
+		Module mergedModule = Modules2.mixin(original, module);
 		return mergedModule;
 	}
 }

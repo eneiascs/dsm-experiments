@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dslforge.xtext.common.commands.BasicGenerateCommand;
 import org.dslforge.xtext.common.registry.LanguageRegistry;
@@ -45,7 +46,7 @@ import br.unb.autoexp.web.mapping.dto.MappingDTO;
 
 public class RunCommand extends AbstractWorkspaceCommand {
 	private static final String DEFAULT_OUTPUT_FOLDER = "src-gen";
-	static final Logger logger = Logger.getLogger(RunCommand.class);
+	static final Logger logger = LogManager.getLogger(RunCommand.class);
 	@Inject
 	private DohkoService dohkoService;
 	@Inject
@@ -58,7 +59,7 @@ public class RunCommand extends AbstractWorkspaceCommand {
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		final File file = unwrap(event, File.class);
-
+		logger.info(String.format("Generating artifacts for %s", file.getName()));
 		BasicGenerateCommand generateCommand = new BasicGenerateCommand();
 
 		generateCommand.execute(event);
@@ -87,13 +88,15 @@ public class RunCommand extends AbstractWorkspaceCommand {
 					File rnwFile = new File(
 							file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER
 									+ File.separator + file.getName().replaceFirst("[.][^.]+$", ".Rnw"));
-
+					logger.info(String.format("Converting file %s to application descriptor object",
+							applicationDescriptorFile.getName()));
 					ApplicationDescriptor applicationDescriptor = dohkoService
 							.getApplicationDescriptor(applicationDescriptorFile);
+					logger.info(String.format("Sending application descriptor to dohko"));
 					Response response = dohkoService.runDohko(applicationDescriptor);
 
 					result = String.format("Response status: %s", response.getStatusInfo());
-					System.out.println(result);
+					logger.info(result);
 
 					if (response.getStatus() == 202) {
 						String jobId = applicationDescriptor.getId();

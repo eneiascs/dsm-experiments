@@ -49,5 +49,9 @@ Service-Component: OSGI-INF/br.unb.autoexp.web.storage.component.MongoClientProv
  OSGI-INF/br.unb.autoexp.web.ws.client.ExperimentDesignClient.xml,
  OSGI-INF/br.unb.autoexp.web.storage.component.ExperimentDesignStorageComponent.xml,
  OSGI-INF/br.unb.autoexp.web.storage.component.ExperimentExecutionStorageComponent.xml
-Export-Package: br.unb.autoexp.web,
+Export-Package: br.unb.autoexp.storage.entity.dto,
+ br.unb.autoexp.storage.service,
+ br.unb.autoexp.web,
  br.unb.autoexp.web.module
+Bundle-ClassPath: resources/,
+ .
