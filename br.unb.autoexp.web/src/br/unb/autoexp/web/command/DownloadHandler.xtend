@@ -87,18 +87,7 @@ class DownloadHandler extends AbstractWorkspaceCommand {
 
 	}
 
-	def File createTempScript(String clientPath, String host, String filePath) throws IOException {
-		val tempScript = File.createTempFile("script", null)
-		val streamWriter = new OutputStreamWriter(new FileOutputStream(tempScript))
-		val printWriter = new PrintWriter(streamWriter)
-
-		printWriter.println("#!/bin/bash")
-		printWriter.println(String.format("java -jar %s deploy  --host %s --df %s", clientPath, host, filePath))
-
-		printWriter.close()
-
-		tempScript
-	}
+	
 
 	def String getLanguageName(String fileExtension) {
 		val contributions = LanguageRegistry.INSTANCE.getLanguageByExtension(fileExtension);

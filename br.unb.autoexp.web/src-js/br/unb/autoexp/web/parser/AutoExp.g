@@ -204,13 +204,14 @@ rule_ExperimentalDesign :
 	('runs' runs_1=INT )?
 	
 	'Dependent Variables' '{' dependentvariables_2+=rule_CustomDependentVariable (',' dependentvariables_3+=rule_CustomDependentVariable)* '}'
-	'Factors' '{' factors_4+=rule_Factor (',' factors_5+=rule_Factor)* '}'
-	'Treatments' '{' treatments_6+=rule_Treatment (',' treatments_7+=rule_Treatment)* '}'
-	('Groups' '{' groups_8+=rule_ObjectGroup (',' groups_9+=rule_ObjectGroup)* '}')?
-	'Objects' '{' experimentalobjects_10+=rule_ExperimentalObject (',' experimentalobjects_11+=rule_ExperimentalObject)* '}'
-	('Restrictions' '{' restrictions_12+=rule_Restriction (',' restrictions_13+=rule_Restriction)* '}')?
+	('Instruments' '{' instruments_4+=rule_Instrument (',' instruments_5+=rule_Instrument)* '}')?
+	'Factors' '{' factors_6+=rule_Factor (',' factors_7+=rule_Factor)* '}'
+	'Treatments' '{' treatments_8+=rule_Treatment (',' treatments_9+=rule_Treatment)* '}'
+	('Groups' '{' groups_10+=rule_ObjectGroup (',' groups_11+=rule_ObjectGroup)* '}')?
+	'Objects' '{' experimentalobjects_12+=rule_ExperimentalObject (',' experimentalobjects_13+=rule_ExperimentalObject)* '}'
+	('Restrictions' '{' restrictions_14+=rule_Restriction (',' restrictions_15+=rule_Restriction)* '}')?
 	
-	('Context Variables' '{' contextvariables_14+=rule_ContextVariable (',' contextvariables_15+=rule_ContextVariable)* '}')?
+	('Context Variables' '{' contextvariables_16+=rule_ContextVariable (',' contextvariables_17+=rule_ContextVariable)* '}')?
 	'}';
 
 
@@ -225,9 +226,10 @@ rule_Execution :
 	name_0=ID
 	'{'
 	('command' cmd_1=STRING)?
-	('preconditions' preconditions_2=rule_Preconditions)?
-	('result' result_3=rule_File)?
-	('files' '{' files_4+=rule_File (',' files_5+=rule_File)* '}')?
+	('timeout' timeout_2=rule_BigDecimalType)?
+	('preconditions' preconditions_3=rule_Preconditions)?
+	('result' result_4=rule_File)?
+	('files' '{' files_5+=rule_File (',' files_6+=rule_File)* '}')?
 	'}';
 
 
@@ -352,9 +354,21 @@ rule_CustomDependentVariable :
 	'{'
 	'description' description_1=STRING
 	('scaleType' scaletype_2=rule_ScaleType)?
-	('range' '{' range_3+=rule_Range (',' range_4+=rule_Range)* '}')?
+	('unit' unit_3=STRING)?
+	('range' '{' range_4+=rule_Range (',' range_5+=rule_Range)* '}')?
+	('instrument' instrument_6=ID)?
 	'}';
 
+
+rule_Instrument :
+	
+	name_0=ID
+	'{'
+	'command' command_1=STRING
+	'valueExpression' valueexpression_2=STRING
+	('conversionFactor' conversionfactor_3=rule_BigDecimalType)?
+	'}'
+;
 
 
 rule_Factor :

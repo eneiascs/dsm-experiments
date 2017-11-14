@@ -14,6 +14,8 @@ import br.unb.autoexp.rBaseApi.client.RBaseApiClient;
 import br.unb.autoexp.rBaseApi.client.RBaseApiClientImpl;
 import br.unb.autoexp.storage.service.ExperimentDesignStorageService;
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService;
+import br.unb.autoexp.web.data.DataFileGeneratorService;
+import br.unb.autoexp.web.data.DataFileGeneratorServiceImpl;
 import br.unb.autoexp.web.dohko.service.DohkoService;
 import br.unb.autoexp.web.dohko.service.impl.DohkoServiceImpl;
 
@@ -29,7 +31,7 @@ public class WebAutoExpRuntimeModule extends AbstractWebAutoExpRuntimeModule {
 
 		logger.info("Configuring web module " + this.getClass().getName());
 		super.configure(binder);
-
+		binder.bind(DataFileGeneratorService.class).to(DataFileGeneratorServiceImpl.class);
 		binder.bind(ExperimentDesignStorageService.class).to(bindExperimentDesignStorageService());
 		binder.bind(ExperimentExecutionStorageService.class).to(bindExperimentExecutionStorageService());
 

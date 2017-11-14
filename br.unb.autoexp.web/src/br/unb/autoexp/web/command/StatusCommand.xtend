@@ -1,11 +1,11 @@
 package br.unb.autoexp.web.command;
 
-import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
+import br.unb.autoexp.storage.entity.dto.ExperimentDesignDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
 import br.unb.autoexp.storage.service.ExperimentDesignStorageService
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
+import br.unb.autoexp.web.data.DataFileGeneratorService
 import br.unb.autoexp.web.dohko.service.DohkoService
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.inject.Inject
 import java.io.File
 import java.io.IOException
@@ -18,8 +18,12 @@ import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
 import org.eclipse.core.commands.IHandler
 import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.Status
+import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.dialogs.MessageDialog
+import org.eclipse.jface.dialogs.ProgressMonitorDialog
 import org.eclipse.jface.operation.IRunnableWithProgress
+import org.eclipse.swt.widgets.Shell
 import org.eclipse.ui.IWorkbenchWindow
 import org.eclipse.ui.handlers.HandlerUtil
 
@@ -32,126 +36,177 @@ import org.eclipse.ui.handlers.HandlerUtil
 class StatusCommand extends AbstractWorkspaceCommand {
 	private static final String DEFAULT_OUTPUT_FOLDER = "src-gen"
 	static final Logger logger = Logger.getLogger(StatusCommand)
-	
+
 	@Inject
-	private extension DohkoService 
+	private extension DohkoService
 	@Inject
-	private ExperimentDesignStorageService experimentDesignService 
+	private ExperimentDesignStorageService experimentDesignService
 	@Inject
 	private ExperimentExecutionStorageService experimentExecutionService
 	private IWorkbenchWindow window
-	
-	
+
+	private String message
+	private boolean isError
+	@Inject
+	private DataFileGeneratorService dataFileGenerator
+
+	private File dataFile
+	private File specificationFile
+
+	private File file
+
+	String jobId
+
+	private IRunnableWithProgress operation
+	ExperimentDesignDTO design
+
 	override execute(ExecutionEvent event) throws ExecutionException {
+		try {
+			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+			file = unwrap(event, File);
+			message = ""
+			isError = false
+			operation = new IRunnableWithProgress() {
+				override run(IProgressMonitor progressMonitor) {
+					try {
 
-		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		val file = unwrap(event, File);
+						val fetchData = new Job("Fetching data from database ...") {
 
-		val IRunnableWithProgress operation = new IRunnableWithProgress() {
-			override void run(IProgressMonitor progressMonitor) {
-				var result = ""
+							override run(IProgressMonitor progressMonitor) {
+								val message = String.format(
+									"Status must be run from a execution folder.\nExecution data not found for %s.",
+									file.getName())
 
-				try {
-					
-					val message = String.format(
-						"Status must be run from a execution folder.\nExecution data not found for %s.", file.getName())
-					
-					val dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
-					if (!dataFile.exists) {
+								dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
+								if (!dataFile.exists) {
 
-							
-							throw new RuntimeException(message)
-						}	
-					val executionFolder = file
+									throw new RuntimeException(message)
+								}
+								val executionFolder = file
 
+								jobId = dataFileGenerator.getJobIdFromFile(dataFile)
+								var List<ExperimentExecutionDTO> tasks = experimentExecutionService.findByJobId(jobId)
 
+								if (tasks.isNullOrEmpty) {
 
-						val mapper = new ObjectMapper();
+									throw new RuntimeException(message)
+								}
 
-						var List<ExperimentExecutionDTO> tasks=mapper.readValue(dataFile,
-							mapper.getTypeFactory().constructCollectionType(List, ExperimentExecutionDTO)
-							
-						)
-					if (tasks.isNullOrEmpty) {
+								design = experimentDesignService.findByJobId(tasks.head.jobId)
 
-						MessageDialog.openError(window.getShell(), "Status Error", message)
-						throw new RuntimeException(message)
+								if (design === null) {
+
+									throw new RuntimeException(message)
+								}
+
+								specificationFile = new File(file.getAbsolutePath() + File.separator +
+									design.getFileName())
+								val jsonFile = new File(file.getAbsolutePath() + File.separator +
+									design.getFileName().replaceFirst("[.][^.]+$", ".json"))
+								val applicationDescriptorFile = new File(file.getAbsolutePath() + File.separator +
+									design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
+								val rnwFile = new File(file.getAbsolutePath() + File.separator +
+									design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
+
+								checkFile(applicationDescriptorFile, executionFolder)
+								checkFile(jsonFile, executionFolder)
+								checkFile(specificationFile, executionFolder)
+								checkFile(rnwFile, executionFolder)
+
+								// progressMonitor.subTask("Writing data to file %s".format(dataFile.name));
+								// dataFileGenerator.writeToFile(dataFile, tasks);
+								// progressMonitor.worked(1);
+								progressMonitor.done()
+								Status.OK_STATUS
+							}
+						}
+
+						fetchData.system = true
+						fetchData.schedule
+						fetchData.join
+						
+						progressMonitor.beginTask("Running experiment ...", design.numberOfTasks)
+						progressMonitor.worked(design.finished + design.failed)
+						while (!design.isFinished) {
+							if (progressMonitor.isCanceled()) {
+								progressMonitor.done()
+								return
+
+							}
+							fetchData.schedule
+							fetchData.join
+							progressMonitor.beginTask("Running experiment ...", design.numberOfTasks)
+							progressMonitor.worked(design.finished + design.failed)
+							Thread.sleep(5000)
+
+						}
+
+					} catch (Exception e) {
+					} finally {
+						progressMonitor.done
 					}
-					tasks.updateTaskStatus
-					
-					
-					val design = experimentDesignService.findByJobId(tasks.head.jobId)
 
-					if (design === null) {
-
-						MessageDialog.openError(window.getShell(), "Status Error", message)
-						throw new RuntimeException(message)
-					}
-					
-					
-					
-					val specificationFile = new File(file.getAbsolutePath() + File.separator + design.getFileName())
-					val jsonFile = new File(file.getAbsolutePath() + File.separator +
-						design.getFileName().replaceFirst("[.][^.]+$", ".json"))
-					val applicationDescriptorFile = new File(file.getAbsolutePath() + File.separator +
-						design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
-					val rnwFile = new File(file.getAbsolutePath() + File.separator +
-						design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
-					
-				
-
-
-
-
-
-					checkFile(applicationDescriptorFile, executionFolder)
-					checkFile(jsonFile, executionFolder)
-					checkFile(specificationFile, executionFolder)
-					checkFile(rnwFile, executionFolder)
-
-					
-
-					
-					tasks=experimentExecutionService.findByJobId(design.jobId).updateTaskStatus
-					mapper.writeValue(dataFile, tasks)
-
-					result = '''
-						Execution Status:
-											
-						Tasks: «tasks.size»
-						Not Received: «tasks.filter[executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED)].size»
-						Pending: «tasks.filter[executionStatus.equals(ExecutionStatusDTO.PENDING)].size»
-						Running: «tasks.filter[executionStatus.equals(ExecutionStatusDTO.RUNNING)].size»
-						Finished: «tasks.filter[executionStatus.equals(ExecutionStatusDTO.FINISHED)].size»
-						Failed: «tasks.filter[executionStatus.equals(ExecutionStatusDTO.FAILED)].size»
-												
-					'''
-					MessageDialog.openInformation(window.getShell(), "Execution Status", result)
-
-				} catch (Exception ex) {
-					result = "An error has occurred: " + ex.getMessage();
-					logger.error(ex.getMessage(), ex)
-					ex.printStackTrace
-					MessageDialog.openError(window.getShell(), "Execution Status", result)
-				} finally {
-					progressMonitor.done()
 				}
 			}
 
-		};
-		try {
-			getWindow().run(false, false, operation)
+			new ProgressMonitorDialog(new Shell()).run(true, true, operation);
+			message = '''
+				Execution Status:
+									
+				Tasks: «design.numberOfTasks»
+				Not Received: «design.notReceived»
+				Pending: «design.pending»
+				Running: «design.running»
+				Finished: «design.finished»
+				Failed: «design.failed»
+										
+			'''
+			displayResult
 		} catch (InvocationTargetException ex) {
+			message = "An error has occurred: " + ex.getMessage();
+			displayResult
 			logger.error(ex.getMessage(), ex)
-		} catch (InterruptedException ex) {
+		} catch (Exception ex) {
+			message = "An error has occurred: " + ex.getMessage();
+			displayResult
 			logger.error(ex.getMessage(), ex)
+			ex.printStackTrace
+
 		}
 		return null;
 	}
 
-	
+	def boolean isFinished(ExperimentDesignDTO design) {
 
-	
+		((design.finished + design.failed) == design.numberOfTasks && design.numberOfTasks != 0)
+
+	}
+
+	def createUpdateTaskJob(ExperimentExecutionDTO task, String jobName) {
+		new Job(jobName) {
+			override run(IProgressMonitor progressMonitor) {
+
+				task.updateTaskStatus(specificationFile)
+				// progressMonitor.done();
+				Status.OK_STATUS
+			}
+
+		};
+	}
+
+	def displayResult() {
+		window.shell.display.syncExec(new Runnable() {
+
+			override run() {
+
+				if (isError) {
+					MessageDialog.openError(window.getShell(), "Execution Status", message)
+				} else {
+					MessageDialog.openInformation(window.getShell(), "Execution Status", message)
+				}
+			}
+		})
+	}
 
 	def void checkFile(File file, File executionFolder) throws IOException {
 		if (!file.exists()) {

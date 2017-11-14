@@ -2,6 +2,15 @@
 <?eclipse version="3.4"?>
 <!-- @generated dslforge -->
 <plugin>
+<extension point="org.eclipse.ui.views">
+
+<view name="Progress View" icon="icons/pview.gif"
+  category="org.eclipse.ui"
+	class="org.eclipse.ui.internal.progress.ProgressView"
+	id="org.eclipse.ui.views.ProgressView">
+</view>
+
+</extension>
    <extension-point id="br.unb.autoexp.storage" name="br.unb.autoexp.storage" schema="schema/br.unb.autoexp.storage.exsd"/>
 
      <extension
@@ -87,6 +96,10 @@
             id="br.unb.autoexp.web.statusCommand"
             name="status">
       </command>
+        <command
+            id="br.unb.autoexp.web.updateStatusCommand"
+            name="updateStatus">
+      </command>
       <command
             id="br.unb.autoexp.web.downloadCommand"
             name="download">
@@ -105,6 +118,10 @@
       <handler
             class="br.unb.autoexp.web.AutoExpExecutableExtensionFactory:br.unb.autoexp.web.command.StatusCommand"
             commandId="br.unb.autoexp.web.statusCommand">
+      </handler>
+       <handler
+            class="br.unb.autoexp.web.AutoExpExecutableExtensionFactory:br.unb.autoexp.web.command.UpdateStatusCommand"
+            commandId="br.unb.autoexp.web.updateStatusCommand">
       </handler>
       <handler
             class="br.unb.autoexp.web.command.DownloadHandler"
@@ -144,9 +161,20 @@
               style="push">
         </command>
      </menuContribution>
+      <menuContribution
+           allPopups="false"
+           locationURI="popup:org.dslforge.navigator.view?after=status">
+        <command
+              commandId="br.unb.autoexp.web.updateStatusCommand"
+              icon="icons/status.ico"
+              id="updateStatus"
+              label="Update Execution Status"
+              style="push">
+        </command>
+     </menuContribution>
     <menuContribution
             allPopups="false"
-            locationURI="popup:org.dslforge.navigator.view?after=status">
+            locationURI="popup:org.dslforge.navigator.view?after=updateStatus">
             
          <command
          	   commandId="br.unb.autoexp.web.commands.runAnalysisCommand"
