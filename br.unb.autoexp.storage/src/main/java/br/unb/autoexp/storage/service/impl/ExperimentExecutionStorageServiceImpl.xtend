@@ -5,6 +5,7 @@ import br.unb.autoexp.storage.entity.ExperimentExecution
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
 import br.unb.autoexp.storage.repository.ExperimentExecutionRepository
+import br.unb.autoexp.storage.service.ExperimentDesignStorageService
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
 import java.util.Date
 import java.util.List
@@ -19,19 +20,19 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	@Autowired
 	ExperimentExecutionRepository repository;
-
+	
+	
 	override create(ExperimentExecutionDTO experimentExecution) {
 		LOGGER.info("Creating a new todo entry with information: {}", experimentExecution);
 
 		var persisted = ExperimentExecution.getBuilder().jobId(experimentExecution.jobId).taskId(
 			experimentExecution.taskId).taskName(experimentExecution.taskName).factor(experimentExecution.factor).
-			treatment(experimentExecution.treatment).object(experimentExecution.object).cpu(experimentExecution.cpu).memory(experimentExecution.memory).time(
-				experimentExecution.time).creationDate(new Date()).lastUpdateDate(new Date()).executionStatus(
+			treatment(experimentExecution.treatment).object(experimentExecution.object).dependentvariables(experimentExecution.dependentVariables).creationDate(new Date()).lastUpdateDate(new Date()).executionStatus(
 				experimentExecution.executionStatus.convertToEntity).build();
 
 		persisted = repository.save(persisted);
 		LOGGER.info("Created a new experimentExecution entry with information: {}", persisted);
-
+		
 		convertToDTO(persisted)
 	}
 
@@ -51,13 +52,13 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
         var updated = repository.findOne(experimentExecution.id);
         
-        updated.update(experimentExecution.jobId,experimentExecution.taskId,experimentExecution.taskName,experimentExecution.factor, experimentExecution.treatment,experimentExecution.object,experimentExecution.cpu,experimentExecution.memory,experimentExecution.time, new Date(),experimentExecution.executionStatus.convertToEntity)
+        updated.update(experimentExecution.jobId,experimentExecution.taskId,experimentExecution.taskName,experimentExecution.factor, experimentExecution.treatment,experimentExecution.object,experimentExecution.dependentVariables, new Date(),experimentExecution.executionStatus.convertToEntity)
                
         		
         updated = repository.save(updated);
 
-        LOGGER.info("Updated experimentExecution entry with information: {}", updated);
-
+        LOGGER.info("Updated experimentExecution entry with information: {}", updated.toString);
+			
         return convertToDTO(updated);
 		
 	}
@@ -89,6 +90,7 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	override create(List<ExperimentExecutionDTO> experimentExecution) {
 		experimentExecution.map[create]
+		
 	}
 
 	override findByJobId(String jobId) {
@@ -97,8 +99,7 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	def ExperimentExecutionDTO convertToDTO(ExperimentExecution model) {
 		ExperimentExecutionDTO.builder.id(model.id).jobId(model.jobId).taskId(model.taskId).taskName(model.taskName).
-			factor(model.factor).treatment(model.treatment).object(model.object).cpu(model.cpu).
-			memory(model.memory).time(model.time).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).executionStatus(model.executionStatus.convert).
+			factor(model.factor).treatment(model.treatment).object(model.object).dependentVariables(model.dependentVariables).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).executionStatus(model.executionStatus.convert).
 			build()
 	}
 

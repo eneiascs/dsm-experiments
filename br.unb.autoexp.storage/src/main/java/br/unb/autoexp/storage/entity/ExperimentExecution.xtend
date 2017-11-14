@@ -1,6 +1,8 @@
 package br.unb.autoexp.storage.entity
 
 import java.util.Date
+import java.util.HashMap
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.springframework.data.annotation.Id
 
@@ -14,9 +16,7 @@ class ExperimentExecution {
 	String factor
 	String treatment
 	String object
-	Double cpu
-	Double memory
-	Double time
+	HashMap<String,Double> dependentVariables
 	Date creationDate
 	Date lastUpdateDate
 	ExecutionStatus executionStatus
@@ -32,9 +32,7 @@ class ExperimentExecution {
 		this.factor = builder.factor
 		this.treatment = builder.treatment
 		this.object = builder.object
-		this.cpu = builder.cpu
-		this.memory = builder.memory
-		this.time = builder.time
+		this.dependentVariables=builder.dependentVariables
 		this.creationDate=builder.creationDate
 		this.lastUpdateDate=builder.lastUpdateDate
 		this.executionStatus = builder.executionStatus
@@ -44,8 +42,8 @@ class ExperimentExecution {
 		new Builder()
 	}
 
-	def update(String jobId, String taskId, String taskName, String factor, String treatment, String object, Double cpu,
-		Double memory, Double time, Date lastUpdateDate, ExecutionStatus executionStatus) {
+	def update(String jobId, String taskId, String taskName, String factor, String treatment, String object, HashMap<String,Double> depVariables, Date lastUpdateDate, ExecutionStatus executionStatus) {
+		
 
 		this.jobId = jobId
 		this.taskId = taskId
@@ -53,9 +51,7 @@ class ExperimentExecution {
 		this.factor = factor
 		this.treatment = treatment
 		this.object = object
-		this.cpu = cpu
-		this.memory = memory
-		this.time = time
+		this.dependentVariables = depVariables 
 		this.lastUpdateDate = lastUpdateDate
 		this.executionStatus = executionStatus
 	}
@@ -69,9 +65,7 @@ class ExperimentExecution {
 		String factor
 		String treatment
 		String object
-		Double cpu
-		Double memory
-		Double time
+		HashMap<String,Double> dependentVariables
 		Date creationDate
 		Date lastUpdateDate
 		ExecutionStatus executionStatus
@@ -114,21 +108,10 @@ class ExperimentExecution {
 			this
 		}
 
-		def Builder cpu(Double cpu) {
-			this.cpu = cpu
+		def Builder dependentvariables(HashMap<String,Double> dependentVariables) {
+			this.dependentVariables = dependentVariables
 			this
 		}
-
-		def Builder memory(Double memory) {
-			this.memory = memory
-			this
-		}
-
-		def Builder time(Double time) {
-			this.time = time
-			this
-		}
-
 		def Builder executionStatus(ExecutionStatus executionStatus) {
 			this.executionStatus = executionStatus
 			this

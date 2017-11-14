@@ -61,6 +61,12 @@ class ExperimentDesignController {
        
         return storageService.update(dto)
     }
+    @RequestMapping(value="/jobId/{jobId}", method=RequestMethod.PUT)
+	@ResponseBody
+	def update(@RequestBody @Valid String jobId) {
+
+		return storageService.update(jobId)
+	}
 	
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.NOT_FOUND)

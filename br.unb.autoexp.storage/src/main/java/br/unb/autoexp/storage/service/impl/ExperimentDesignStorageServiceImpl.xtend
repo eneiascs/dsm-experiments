@@ -1,9 +1,12 @@
 package br.unb.autoexp.storage.service.impl
 
+import br.unb.autoexp.storage.entity.ExecutionStatus
 import br.unb.autoexp.storage.entity.ExperimentDesign
+import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentDesignDTO
 import br.unb.autoexp.storage.repository.ExperimentDesignRepository
 import br.unb.autoexp.storage.service.ExperimentDesignStorageService
+import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
 import java.util.Date
 import java.util.List
 import org.slf4j.Logger
@@ -17,61 +20,96 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 
 	@Autowired
 	ExperimentDesignRepository repository;
-	
+
+	@Autowired
+	ExperimentExecutionStorageService executionService;
+
 	override create(ExperimentDesignDTO experimentDesign) {
 		LOGGER.info("Creating a new experimentDesign entry with information: {}", experimentDesign);
 
-		var persisted = ExperimentDesign.getBuilder().jobId(experimentDesign.jobId).name(experimentDesign.name).fileName(experimentDesign.fileName).runs(experimentDesign.runs).design(experimentDesign.design).creationDate(new Date()).lastUpdateDate(new Date()).build();
+		var persisted = ExperimentDesign.getBuilder().jobId(experimentDesign.jobId).name(experimentDesign.name).
+			fileName(experimentDesign.fileName).runs(experimentDesign.runs).design(experimentDesign.design).
+			creationDate(new Date()).lastUpdateDate(new Date()).build();
 
-		persisted = repository.save(persisted);
+		persisted = repository.save(persisted.updateDesignSummary);
 		LOGGER.info("Created a new experimentDesign entry with information: {}", persisted);
 
 		convertToDTO(persisted)
 	}
-	
+
 	override findAll() {
 		repository.findAll.convertToDTO
 	}
-	
+
 	override findById(String id) {
 		repository.findOne(id).convertToDTO
 	}
-	 
+
 	override update(ExperimentDesignDTO experimentDesign) {
-		 LOGGER.info("Updating experimentDesign entry with information: {}", experimentDesign);
+		LOGGER.info("Updating experimentDesign entry with information: {}", experimentDesign);
+		
+		var updated = repository.findOne(experimentDesign.id).updateDesignSummary
+ 
+		updated.update(
+			experimentDesign.jobId,
+			experimentDesign.name,
+			experimentDesign.design,
+			experimentDesign.fileName,
+			experimentDesign.runs,
+			updated.numberOfTasks,
+			updated.notReceived,
+			updated.pending,
+			updated.running,
+			updated.finished,
+			updated.failed,
+			new Date()
+		)
+		updated = repository.save(updated);
 
-        var updated = repository.findOne(experimentDesign.id);
-        
-        updated.update(
-                experimentDesign.jobId,
-                experimentDesign.name,
-                experimentDesign.design,
-                 experimentDesign.fileName,
-                experimentDesign.runs,
-                new Date()
-        		)
-        updated = repository.save(updated);
+		LOGGER.info("Updated experimentDesign entry with information: {}", updated);
 
-        LOGGER.info("Updated experimentDesign entry with information: {}", updated);
-
-        return convertToDTO(updated);
+		convertToDTO(updated) 
 	}
-	
+ 
+	def ExperimentDesign updateDesignSummary(ExperimentDesign experimentDesign) {
+		val tasks = executionService.findByJobId(experimentDesign.jobId)
+		if (!tasks.isNullOrEmpty) {
+			experimentDesign.numberOfTasks = tasks.size
+			experimentDesign.notReceived = tasks.filter[executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED)].toList.size
+			experimentDesign.pending = tasks.filter[executionStatus.equals(ExecutionStatusDTO.PENDING)].toList.size
+			experimentDesign.running = tasks.filter[executionStatus.equals(ExecutionStatusDTO.RUNNING)].toList.size
+			experimentDesign.finished =tasks.filter[executionStatus.equals(ExecutionStatusDTO.FINISHED)].toList.size
+			experimentDesign.failed = tasks.filter[executionStatus.equals(ExecutionStatusDTO.FAILED)].toList.size
+
+		}
+		experimentDesign
+	}
+
 	override findByJobId(String id) {
+		LOGGER.info("Finding by jobId: {}", id);
 		repository.findByJobId(id).convertToDTO
 	}
+
 	def List<ExperimentDesignDTO> convertToDTO(List<ExperimentDesign> model) {
 		model.map[convertToDTO]
 	}
 
 	def ExperimentDesignDTO convertToDTO(ExperimentDesign model) {
-		ExperimentDesignDTO.builder.id(model.id).jobId(model.jobId).name(model.name).fileName(model.fileName).design(model.design).runs(model.runs).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).
-			build()
+		if (model===null){
+			null
+		}else{
+		ExperimentDesignDTO.builder.id(model.id).jobId(model.jobId).name(model.name).fileName(model.fileName).design(
+			model.design).runs(model.runs).numberOfTasks(model.numberOfTasks).notReceived(model.notReceived).pending(model.pending).running(model.running).finished(model.finished).failed(model.failed).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).build()
+			
+			}
 	}
-	
+
 	override findByName(String name) {
 		repository.findByName(name).convertToDTO
 	}
+	
+	override update(String jobId) {
+		findByJobId(jobId).update
+	}
 
-		
 }

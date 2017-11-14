@@ -42,6 +42,15 @@ interface ExperimentDesignStorageService {
 	 * @throws br.unb.autoexp.storage.exception.experimentDesignNotFoundException if no experimentDesign entry is found.
 	 */
 	def ExperimentDesignDTO update(ExperimentDesignDTO experimentDesign)
+	
+	
+	/**
+	 * Updates the information of a experimentDesign entry.
+	 * @param jobId  jobId  of the updated experimentDesign entry.
+	 * @return      The information of the updated experimentDesign entry.
+	 * @throws br.unb.autoexp.storage.exception.experimentDesignNotFoundException if no experimentDesign entry is found.
+	 */
+	def ExperimentDesignDTO update(String jobId)
 
 /**
 	 * Finds a single experimentDesign entry.

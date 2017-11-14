@@ -13,6 +13,13 @@ class ExperimentDesign {
 	String design
 	String fileName
 	int runs
+	int numberOfTasks
+	int notReceived
+	int pending
+	int running
+	int finished
+	int failed
+	
 	Date creationDate
 	Date lastUpdateDate
 
@@ -26,16 +33,30 @@ class ExperimentDesign {
 		this.design = builder.design
 		this.fileName=builder.fileName
 		this.runs = builder.runs
+		this.numberOfTasks = builder.numberOfTasks
+
+		this.notReceived = builder.notReceived
+		this.pending = builder.pending
+		this.running = builder.running
+		this.finished = builder.finished
+		this.failed = builder.failed
 		this.creationDate = builder.creationDate
 		this.lastUpdateDate=builder.lastUpdateDate
 	}
 
-	def update(String jobId, String name, String design, String fileName,int runs, Date lastUpdateDate) {
+	def update(String jobId, String name, String design, String fileName,int runs,int numberOfTasks,int notReceived,int pending,int running,int finished,int failed, Date lastUpdateDate) {
 		this.jobId = jobId
 		this.name = name
 		this.design = design
 		this.fileName=fileName
 		this.runs = runs
+		this.numberOfTasks = numberOfTasks
+
+		this.notReceived = notReceived
+		this.pending = pending
+		this.running = running
+		this.finished =finished
+		this.failed = failed
 		this.lastUpdateDate = lastUpdateDate
 
 	}
@@ -52,7 +73,15 @@ class ExperimentDesign {
 		String jobId
 		String design
 		String fileName
+		
 		int runs
+		int numberOfTasks
+
+		int notReceived
+		int pending
+		int running
+		int finished
+		int failed
 		Date creationDate
 		Date lastUpdateDate
 
@@ -86,7 +115,30 @@ class ExperimentDesign {
 			this.runs = runs
 			this
 		}
-
+		def Builder numberOfTasks(int numberOfTasks) {
+			this.numberOfTasks = numberOfTasks
+			this
+		}
+		def Builder notReceived(int notReceived) {
+			this.notReceived = notReceived
+			this
+		}
+		def Builder pending(int pending) {
+			this.pending = pending
+			this
+		}
+		def Builder running(int running) {
+			this.running = running
+			this
+		}
+		def Builder finished(int finished) {
+			this.finished = finished
+			this
+		}
+		def Builder failed(int failed) {
+			this.failed = failed
+			this
+		}
 		def Builder lastUpdateDate(Date lastUpdateDate) {
 			this.lastUpdateDate = lastUpdateDate
 			this
