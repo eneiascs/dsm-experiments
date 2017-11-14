@@ -165,13 +165,20 @@
 
 
 								<!-- Version 1.1.0 -->
-								<artifact>
-									<id>org.apache.logging.log4j:log4j-core:2.9.1</id>
+<!-- 								<artifact> -->
+<!-- 									<id>org.apache.logging.log4j:log4j-core:2.9.1</id> -->
 									
-								</artifact>
-								<artifact>
-									<id>org.apache.logging.log4j:log4j-api:2.9.1</id>
+<!-- 								</artifact> -->
+<!-- 								<artifact> -->
+<!-- 									<id>org.apache.logging.log4j:log4j-api:2.9.1</id> -->
 									
+<!-- 								</artifact> -->
+
+
+						<!-- Dohko Version 1.2.0 -->
+								 <artifact> 
+								<id>org.excalibur:excalibur-core:1.0.0-SNAPSHOT</id>
+								
 								</artifact>
 								
 							</artifacts>

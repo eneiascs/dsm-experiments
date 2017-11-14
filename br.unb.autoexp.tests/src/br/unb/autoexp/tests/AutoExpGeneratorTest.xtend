@@ -14,6 +14,182 @@ class AutoExpGeneratorTest {
 	@Inject extension AutoExpGeneratorTestHelper
 	@Inject extension ApplicationDescriptorConverter
 	
+	
+	@Test
+	def void testInstruments() {
+		'''
+			Experiment reanaSpl {
+			
+				
+				 description "Reliability Analysis" 
+				 				 
+				 Research Hypotheses {
+				 	RH1 {analysisTime featureFamily = product description "Analysis time for Feature Family is equals than analysis time for Product"},
+				 	RH2 {analysisTime featureFamily = featureProduct description "Analysis time for Feature Family is equals than analysis time for Feature Product"},
+				 	RH3 {analysisTime featureFamily = family description "Analysis time for Feature Family is equals than analysis time for Family"},
+				 	RH4 {analysisTime featureFamily = familyProduct description "Analysis time for Feature Family is equals than analysis time for Family Product"},
+				 	RH5 {memoryConsumption featureFamily = product description "Memory consumption for Feature Family is equals than memory consumption for Product"},
+				 	RH6 {memoryConsumption featureFamily = featureProduct description "Memory consumption for Feature Family is equals than memory consumption for Feature Product"},
+				 	RH7 {memoryConsumption featureFamily = family description "Memory consumption for Feature Family is equals than memory consumption for Family"},
+				 	RH8 {memoryConsumption featureFamily = familyProduct description "Memory consumption for Feature Family is equals than memory consumption for Family Product"}
+				 	 
+				 	
+				 	}
+				 	
+				 	Experimental Design {
+				 	   runs 1 
+				 	  Dependent Variables {
+				 	  analysisTime { description "Analysis time" scaleType Absolute instrument analysisTimeCommand },
+				 	  memoryConsumption { description "Memory consumption" scaleType Absolute instrument memoryCommand }
+				 	  }
+				 	 Instruments 
+				     {
+				        analysisTimeCommand {command  "/usr/bin/time -v"  valueExpression "Total analysis time:"},
+				        memoryCommand {command  "/usr/bin/time -v"  valueExpression "Maximum resident set size (kbytes):"}
+				         
+				     }
+				 	  
+				     
+				  
+				 Factors {
+				 	strategy { description "Analysis Strategy" scaleType Nominal}
+				 	
+				 	} 
+				 	
+				 	Treatments {
+				 	featureFamily description "Feature Family"  factor strategy parameters{argument "FEATURE_FAMILY"} execution reanaEvaluator,	
+				 	featureProduct description "Feature Product"  factor strategy parameters{argument "FEATURE_PRODUCT"} execution reanaEvaluator,	
+				 	family description "Family"  factor strategy parameters{argument "FAMILY"} execution reanaEvaluator,	
+				 	familyProduct description "Family Product"  factor strategy parameters{argument "FAMILY_PRODUCT"} execution reanaEvaluator,
+				 	product description "Product"  factor strategy parameters{argument "PRODUCT"} execution reanaEvaluator	
+				 	}
+				 Objects { 
+				 	intercloud0 description "Intercloud"  parameters {
+				 		spl "intercloud", evolution "0"},
+				 	lift0 description "Lift"  parameters {
+				 		spl "lift", evolution "0"}, 
+				 		
+				 	bsn0 description "BSN"  parameters {
+				 		spl "bsn", evolution "0"} , 	 
+				 	eMail0 description "Email"  parameters {
+				 		spl "email", evolution "0"}, 	 
+				 	tankwar0 description "Tank War"  parameters {
+				 		spl "tankwar", evolution "0"}, 	 
+				 	minepump0 description "Minepump" parameters {
+				 		spl "minepump", evolution "0"} 	 
+				 			
+				 }
+				 	    
+				  
+				 	}
+				 Executions { 
+				 	reanaEvaluator { 
+				 		command "java -Xss100m -Xmx8g -jar /home/eneiascs/reana-evaluator/tools/reana-spl.jar --all-configurations --suppress-report --stats --param-path=/home/eneiascs/reana-evaluator/tools/param --analysis-strategy=FEATURE_FAMILY --feature-model=/home/eneiascs/reana-evaluator/models/sequential/${object.parameter.spl}/models/${object.parameter.evolution}.txt --uml-models=/home/eneiascs/reana-evaluator/models/sequential/${object.parameter.spl}/models/${object.parameter.evolution}_behavioral_model.xml"
+				 	
+				 	    timeout 1
+				 	}
+				 		
+				 		
+				 }
+				 Infrastructure {
+				 	user{
+				 	  username "vagrant"
+				 	  	 
+				 	  	    
+				 	}
+				 	 
+				 }
+				}
+		''' => [
+			val applicationDescriptor = '''
+				---
+				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
+				user:
+				  username: "user"
+				  keys:
+				    - name: "key"
+				      private-key-material: "xxx"
+				      public-key-material: "yyy"
+				      fingerprint: "zzz"
+				    - name: "key2"
+				      private-key-material: "xxx2"
+				      public-key-material: "yyy2"
+				      fingerprint: "zzz2"
+				requirements:
+				  cpu: 1
+				  memory: 2
+				  platform: "LINUX"
+				  cost: 0.2
+				  number-of-instances-per-cloud: 1
+				preconditions:
+				  packages:
+				  - docker
+				  - java
+				clouds:
+				  - name: "ec2"
+				    provider:
+				      name: "amazon"
+				      max-resource-per-type: 2
+				      description: "description"
+				      service-class: "Service class"
+				    access-key:
+				      access-key: "65AA31A0E92741A2"
+				      secret-key: "619770ECE1D5492886D80B44E3AA2970"
+				    regions:
+				    - name: "us-east-1"
+				      endpoint: "endpoint"
+				      status: UP
+				      city: "City"
+				      geographic-region: 5
+				      zone:
+				      - name: "name"
+				        status: "status"
+				    instance-types:
+				      - name: "micro"
+				        number-of-instances: 1
+				      - name: "large"
+				        number-of-instances: 1
+				  - name: "ec3"
+				    provider:
+				      name: "amazon3"
+				    access-key:
+				      access-key: "65AA31A0E92741A2"
+				      secret-key: "619770ECE1D5492886D80B44E3AA2970"
+				applications:
+				  - name: "FACTORIAL_strategy_featureFamily_lift"
+				    command-line: "cat /proc/cpuinfo"
+				    preconditions:
+				      packages:
+				      - reana-spl
+				      - param
+				  - name: "FACTORIAL_strategy_featureFamily_bsn"
+				    command-line: "cat /proc/cpuinfo"
+				    preconditions:
+				      packages:
+				      - reana-spl
+				      - param
+				  - name: "FACTORIAL_strategy_featureProduct_lift"
+				    command-line: "cat /proc/cpuinfo"
+				    preconditions:
+				      packages:
+				      - reana-spl
+				      - param
+				  - name: "FACTORIAL_strategy_featureProduct_bsn"
+				    command-line: "cat /proc/cpuinfo"
+				    preconditions:
+				      packages:
+				      - reana-spl
+				      - param
+				on-finish: "NONE"
+			'''
+			assertCompilesToWithFileExtension(applicationDescriptor,".yml")
+			applicationDescriptor.convert
+
+		]
+	}
+	
+	
 	@Test
 	def void testGeneratedDohkoCode() {
 		'''
@@ -27,6 +203,7 @@ class AutoExpGeneratorTest {
 			  	
 			  }
 			  Experimental Design {
+			  	runs 2
 			    Dependent Variables {
 			      time { description "Analysis time" scaleType Absolute },
 			      memoryConsumption { description "Memory Consumption" scaleType Absolute }
