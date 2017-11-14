@@ -108,7 +108,10 @@ class DohkoGenerator {
 				applications:
 				  «FOR execution:experiment.designExecutionsRepeatedWithNumberOfRuns»				  	
 				  - name: "«execution.taskName»"
-				    command-line: "«execution.cmd»«IF !execution.files.filter[generated].isNullOrEmpty» >> ${«execution.files.filter[generated].head.name»}«ENDIF»"
+				    command-line: "«execution.cmd»"
+				    «IF execution.timeout!==null» 
+				    timeout: «execution.timeout»
+				    «ENDIF»
 				    «IF execution.preconditions!==null»
 				    preconditions:
 				      packages:

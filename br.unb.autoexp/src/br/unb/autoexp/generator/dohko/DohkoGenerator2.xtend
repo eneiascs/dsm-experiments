@@ -10,22 +10,21 @@ class DohkoGenerator2 {
 def compileDohko(Experiment experiment) {
 	'''
 	---
-	name: "«experiment.name»"
+	name: "Â«experiment.nameÂ»"
 	user:
-	  username: "«experiment.infrastructure.user.username»"
+	  username: "Â«experiment.infrastructure.user.usernameÂ»"
 	requirements:
-	  cpu: «experiment.infrastructure.requirements.cpu»
-	  memory: «experiment.infrastructure.requirements.memory»
-	  platform: "«experiment.infrastructure.requirements.platform.typeName»"
-	  cost: «experiment.infrastructure.requirements.cost»
-	  number-of-instances-per-cloud: «experiment.infrastructure.
-	  									requirements.instancesPerCloud»
+	  cpu: Â«experiment.infrastructure.requirements.cpuÂ»
+	  memory: Â«experiment.infrastructure.requirements.memoryÂ»
+	  platform: "Â«experiment.infrastructure.requirements.platform.typeNameÂ»"
+	  cost: Â«experiment.infrastructure.requirements.costÂ»
+	  number-of-instances-per-cloud: Â«experiment.infrastructure.
+	  									requirements.instancesPerCloudÂ»
 	applications:
-	  application:
-	    «FOR execution:experiment.designExecutionsRepeatedWithNumberOfRuns»				  	
-	    - name: "«execution.taskName»"
-	      command-line: "«execution.cmd»"
-	    «ENDFOR»  
+	  Â«FOR execution:experiment.designExecutionsRepeatedWithNumberOfRunsÂ»				  	
+	  - name: "Â«execution.taskNameÂ»"
+	    command-line: "Â«execution.cmdÂ»"
+	  Â«ENDFORÂ»  
 	'''
 }
 

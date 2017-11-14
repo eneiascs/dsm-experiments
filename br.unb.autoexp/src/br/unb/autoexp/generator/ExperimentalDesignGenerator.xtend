@@ -1,5 +1,6 @@
 package br.unb.autoexp.generator
 
+import br.unb.autoexp.autoExp.CustomDependentVariable
 import br.unb.autoexp.autoExp.DesignType
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalDesign
@@ -19,15 +20,22 @@ import static extension br.unb.autoexp.design.ExecutionDesignGeneratorFactory.*
 import static extension java.lang.String.*
 
 class ExperimentalDesignGenerator {
-@Inject FactorialExecutionDesignGenerator factorialGenerator
+@Inject extension FactorialExecutionDesignGenerator factorialGenerator
 
 	def treatments(Experiment experiment) {
 
 		Lists.newArrayList(experiment.researchHypotheses.map[formula.treatment1] + experiment.researchHypotheses.map [
 			formula.treatment2
-		]).removeDuplicates
+		]).removeDuplicates.sortBy[name]
 	}
+	def List<CustomDependentVariable> getDependentVariables(Experiment experiment) {
 
+		Lists.newArrayList(experiment.researchHypotheses.map[formula.depVariable]).removeDuplicates
+	}
+	def List<ExperimentalObject> getObjectsInUse(Experiment experiment){
+		experiment.treatments.map[experimentalObjects].flatten.toList.removeDuplicates
+		
+	}
 	def designExecutions(Experiment experiment) {
 		
 		DesignType.FACTORIAL.register(factorialGenerator)
@@ -44,14 +52,15 @@ class ExperimentalDesignGenerator {
 		val executions = new ArrayList<ExecutionDTO>()
 		experiment.designExecutions.forEach [ execution |
 			for (i : 0 ..< experiment.experimentalDesign.runs) {
-				executions.add(execution.copy)
+				
+				executions.add(execution.copy(execution.taskName+"_"+i))
 			}
 		]
 		executions
 
 	}
 
-	def replaceParameter(Treatment treatment, ExperimentalObject object) {
+	def applyTreatmentToObject(Treatment treatment, ExperimentalObject object) {
 
 		val execution = new ExecutionDTO()
 	
@@ -59,6 +68,7 @@ class ExperimentalDesignGenerator {
 		execution.cmd = treatment.execution.cmd.replaceParameter(treatment, object)
 		execution.name=treatment.execution.name
 		execution.taskName="%s_%s_%s_%s".format((treatment.eContainer as ExperimentalDesign).type,treatment.factor.name,treatment.name,object.name)
+		execution.timeout=treatment.execution.timeout
 		execution.treatment = treatment
 		execution.object = object
 	    execution.preconditions = treatment.execution.preconditions
@@ -75,84 +85,6 @@ class ExperimentalDesignGenerator {
 		]
 		execution.resolveFiles(treatment, object)
 	}
-//	def resolveFiles(ExecutionDTO execution, Treatment treatment, ExperimentalObject object) {
-//		var result = new String(execution.cmd)
-//		val pattern = "\\$\\{[^\\}]*\\}"
-//		var m = Pattern.compile(pattern).matcher(result)
-//
-//		while (m.find) {
-//
-//			val actualParameter = m.group.substring(2, m.group.length - 1)
-//			val split = actualParameter.split("\\.")
-//			switch split.head {
-//				case "treatment": {
-//					switch split.tail?.head {
-//						case "file": {
-//
-//							if (treatment.files.filter[split.tail.tail.head.equals(name)].isNullOrEmpty) {
-//								println("invalid")
-//								execution.invalidParameters.put(m.group, "cmd")
-//							} else {
-//								var file = new FileDTO()
-//								file.setGenerated(false)
-//								file.name = treatment.files.filter[split.tail.tail.head.equals(name)]?.head.name
-//								file.path = treatment.files.filter[split.tail.tail.head.equals(name)]?.head.path
-//								execution.files.add(file)
-//								execution.cmd = execution.cmd.replaceFirst(actualParameter, "%s".format(file.name))
-//
-//							}
-//						}
-//						default:
-//							execution.invalidParameters.put(m.group, "cmd")
-//					}
-//				}
-//				case "object":
-//					switch split.tail?.head {
-//						case "file": {
-//
-//							if (object.files.filter[split.tail.tail.head.equals(name)].isNullOrEmpty) {
-//								execution.invalidParameters.put(m.group, "cmd")
-//							} else {
-//								var file = new FileDTO()
-//								file.setGenerated(false)
-//								file.name = object.files.filter[split.tail.tail.head.equals(name)]?.head.name
-//								file.path = object.files.filter[split.tail.tail.head.equals(name)]?.head.path
-//								execution.files.add(file)
-//								execution.cmd = execution.cmd.replaceFirst(actualParameter, "%s".format(file.name))
-//							}
-//
-//						}
-//						default:
-//							execution.invalidParameters.put(m.group, "cmd")
-//					}
-//				case "execution":
-//					switch split.tail?.head {
-//						case "file": {
-//							if (treatment.execution.files.filter[split.tail.tail.head.equals(name)].isNullOrEmpty) {
-//								execution.invalidParameters.put(m.group, "cmd")
-//							} else {
-//								var file = new FileDTO()
-//								file.setGenerated(false)
-//								file.name = treatment.execution.files.filter[split.tail.tail.head.equals(name)]?.head.
-//									name
-//								file.path = treatment.execution.files.filter[split.tail.tail.head.equals(name)]?.head.
-//									path
-//								execution.files.add(file)
-//								execution.cmd = execution.cmd.replaceFirst(actualParameter, "%s".format(file.name))
-//
-//							}
-//						}
-//						default:
-//							execution.invalidParameters.put(m.group, "cmd")
-//					}
-//				default:
-//					execution.invalidParameters.put(m.group, "cmd")
-//			}
-//
-//		}
-//
-//		execution
-//	}
 
 	def resolveFiles(ExecutionDTO execution, Treatment treatment, ExperimentalObject object) {
 		var result = new String(execution.cmd)

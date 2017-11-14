@@ -150,6 +150,7 @@ ExperimentalDesign returns ExperimentalDesign:
 	('runs' runs=INT )?
 	
 	'Dependent Variables' '{' dependentVariables+=CustomDependentVariable ("," dependentVariables+=CustomDependentVariable)* '}'
+	('Instruments' '{' instruments+=Instrument ("," instruments+=Instrument)* '}')?
 	'Factors' '{' factors+=Factor ("," factors+=Factor)* '}'
 	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
 	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
@@ -167,6 +168,7 @@ Execution returns Execution:
 	name=ID
 	'{'
 	('command' cmd=STRING)?
+	('timeout' timeout=BigDecimalType)?
 	('preconditions' preconditions=Preconditions)?
 	('result' result=File)?
 	('files' '{' files+=File ("," files+=File)* '}')?
@@ -265,9 +267,19 @@ CustomDependentVariable returns CustomDependentVariable:
 	'{'
 	'description' description=STRING
 	('scaleType' scaleType=ScaleType)?
+	('unit' unit=STRING)?
 	('range' '{' range+=Range ("," range+=Range)* '}')?
+	('instrument' instrument=[Instrument|ID])?
 	'}';
-
+Instrument returns Instrument:
+	{Instrument}
+	name=ID
+	'{'
+	'command' command=STRING
+	'valueExpression' valueExpression=STRING
+	('conversionFactor' conversionFactor=BigDecimalType)?
+	'}'
+;
 Factor returns Factor:
 	{Factor}
 	name=ID

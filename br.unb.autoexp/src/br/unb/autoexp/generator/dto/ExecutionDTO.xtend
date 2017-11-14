@@ -4,6 +4,7 @@ import br.unb.autoexp.autoExp.DesignType
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.Preconditions
 import br.unb.autoexp.autoExp.Treatment
+import java.math.BigDecimal
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
@@ -15,6 +16,7 @@ class ExecutionDTO {
 	String name
 	String taskName
 	String cmd
+	BigDecimal timeout
 	Preconditions preconditions
 	List<FileDTO> files=new ArrayList<FileDTO>()
 	Treatment treatment
@@ -30,20 +32,38 @@ class ExecutionDTO {
 			this.name.equals(exec.name)
 			&&this.taskName.equals(exec.taskName)
 			&&this.cmd.equals(exec.cmd)
+			&&((this.timeout===null&&exec.timeout===null)||(this.timeout.equals(exec.timeout)))	
 			&&((this.preconditions===null&&exec.preconditions===null)||(this.preconditions.equals(exec.preconditions)))			
 			&&this.files.equals(exec.files)
 		}
 		
 	}
-	def create execution: new ExecutionDTO copy() {
-		execution.name = this.name
-		execution.taskName = this.taskName
-		execution.cmd = this.cmd
-		execution.preconditions = this.preconditions
-		execution.treatment = this.treatment
-		execution.object = this.object
-		execution.designType=this.designType
-		execution.files = this.files?.map[copy]
+	def ExecutionDTO copy() {
+		var copy=new ExecutionDTO()
+		copy.name = this.name
+		copy.taskName = this.taskName
+		copy.cmd = this.cmd
+		copy.timeout=this.timeout
+		copy.preconditions = this.preconditions
+		copy.treatment = this.treatment
+		copy.object = this.object
+		copy.designType=this.designType
+		copy.files = this.files?.map[copy()]
+		copy
+
+	}
+	def ExecutionDTO copy(String taskName) {
+		var copy=new ExecutionDTO()
+		copy.name = this.name
+		copy.taskName = taskName
+		copy.cmd = this.cmd
+		copy.timeout=this.timeout
+		copy.preconditions = this.preconditions
+		copy.treatment = this.treatment
+		copy.object = this.object
+		copy.designType=this.designType
+		copy.files = this.files?.map[copy()]
+		copy
 
 	}
 

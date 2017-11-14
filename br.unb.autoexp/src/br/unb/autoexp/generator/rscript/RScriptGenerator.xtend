@@ -37,12 +37,15 @@ class RScriptGenerator {
 		alpha<-«IF experiment.analysis?.significanceLevel!==null»«experiment.analysis.significanceLevel»«ELSE»0.05«ENDIF»
 		 
 		json_data <- fromJSON("data.json")
+		
+		
+		
 		@
 		\section{Description}
 		«experiment.description»
-		\section{Goals}
+		
 		«experiment.generateGoals»
-		\section{Research Questions}
+		
 		«experiment.generateQuestions»
 		
 		\section{Research Hypotheses}
@@ -50,7 +53,7 @@ class RScriptGenerator {
 
 		«experiment.generateOverview»
 		 
-		«FOR object:experiment.experimentalDesign.experimentalObjects»
+		«FOR object:experiment.objectsInUse»
 			\subsection{«object.description»}
 			«experiment.generateObjectOverview(object)»	
 		«ENDFOR»
@@ -158,9 +161,9 @@ class RScriptGenerator {
 			boxplot_«hypothesis.name» <- ggplot(json_data[json_data$treatment=='«hypothesis.formula.treatment1.name»'|json_data$treatment=='«hypothesis.formula.treatment2.name»',], aes(x =treatment , y = «hypothesis.formula.depVariable.name.convert»)) +
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
-				scale_x_discrete(name = "«hypothesis.formula.treatment1.factor.description»",labels=c("«hypothesis.formula.treatment1.description»","«hypothesis.formula.treatment2.description»"))+
-				ggtitle("«hypothesis.formula.depVariable.description» by «hypothesis.formula.treatment1.factor.description»")
-							   
+				scale_x_discrete(name = "«hypothesis.formula.treatment1.factor.description»",labels=c(«FOR treatment:hypothesis.formula.hyphotesisTreatments»"«treatment.description»"«IF !treatment.name.equals(hypothesis.formula.hyphotesisTreatments.last.name)»,«ENDIF»«ENDFOR»))+
+				ggtitle("«hypothesis.formula.depVariable.description» by «hypothesis.formula.treatment1.factor.description»") + 
+				ylab("«hypothesis.formula.depVariable.description» «IF hypothesis.formula.depVariable.unit!==null»(«hypothesis.formula.depVariable.unit»)«ENDIF»")			   
 			boxplot_«hypothesis.name»
 		'''
 	
@@ -238,6 +241,7 @@ class RScriptGenerator {
 	def String generateGoals(Experiment experiment)
 		'''
 		«IF !experiment.goals.isNullOrEmpty»
+		\section{Goals}
 		\begin{itemize}
 		«FOR goal:experiment.goals»
 			«IF goal.class.equals(SimpleGoalImpl)»
@@ -270,6 +274,7 @@ class RScriptGenerator {
 	def String generateQuestions(Experiment experiment)
 		'''
 		«IF !experiment.researchQuestions.isNullOrEmpty»
+		\section{Research Questions}
 		\begin{itemize}
 		
 		«FOR question:experiment.researchQuestions»
@@ -283,7 +288,7 @@ class RScriptGenerator {
 		'''
 		<<overview, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, results='markup', cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
 
-		«FOR variable:experiment.experimentalDesign.dependentVariables»
+		«FOR variable:experiment.dependentVariables»
 			«FOR treatment:experiment.treatments»
 				«variable.name.convert»_«treatment.name»<-subset(json_data,treatment=='«treatment.name»')$«variable.name.convert»
 			«ENDFOR»
@@ -291,8 +296,8 @@ class RScriptGenerator {
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
 				scale_x_discrete(name = "«experiment.treatments.head.factor.description»",labels=c(«FOR treatment:experiment.treatments»'«treatment.description»'«IF !treatment.name.equals(experiment.treatments.last.name)»,«ENDIF»«ENDFOR»))+
-				ggtitle("«variable.description» by «experiment.treatments.head.factor.description»")
-				   
+				ggtitle("«variable.description» by «experiment.treatments.head.factor.description»") + 
+				ylab("«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»")   
 				boxplot_«variable.name.convert»
 				
 		«ENDFOR»
@@ -309,8 +314,8 @@ class RScriptGenerator {
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
 				scale_x_discrete(name = "«experiment.treatments.head.factor.description»",labels=c(«FOR treatment:experiment.treatments»'«treatment.description»'«IF !treatment.name.equals(experiment.treatments.last.name)»,«ENDIF»«ENDFOR»))+
-				ggtitle("«variable.description» by «experiment.treatments.head.factor.description» for «object.name»")
-				   
+				ggtitle("«variable.description» by «experiment.treatments.head.factor.description» for «object.name»") + 
+				ylab("«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»")   
 				boxplot_«object.name»_«variable.name.convert»
 				
 		«ENDFOR»		
@@ -327,7 +332,7 @@ class RScriptGenerator {
 		treatments.add(formula.treatment1)
 		treatments.add(formula.treatment2)
 		
-		treatments
+		treatments.sortBy[name]
 	}
 	
 	
