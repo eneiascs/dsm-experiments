@@ -62,4 +62,10 @@ class ExperimentDesignClient implements ExperimentDesignStorageService {
 		}
 		
 	}
+	
+	override update(String jobId) {
+		ClientBuilder.newClient().target("%s/experiment/jobId/%s".format(getBaseUrl(),jobId)).request(MediaType.APPLICATION_JSON).put(
+			Entity.entity(jobId, MediaType.APPLICATION_JSON)).readEntity(ExperimentDesignDTO)
+	}
+	
 }
