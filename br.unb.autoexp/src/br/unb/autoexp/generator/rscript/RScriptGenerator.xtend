@@ -3,15 +3,12 @@ package br.unb.autoexp.generator.rscript
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.ResearchHypothesis
-import br.unb.autoexp.autoExp.ResearchHypothesisFormula
 import br.unb.autoexp.autoExp.SimpleGoal
-import br.unb.autoexp.autoExp.Treatment
 import br.unb.autoexp.autoExp.impl.SimpleAbstractImpl
 import br.unb.autoexp.autoExp.impl.SimpleGoalImpl
 import br.unb.autoexp.autoExp.impl.StructuredAbstractImpl
 import br.unb.autoexp.autoExp.impl.StructuredGoalImpl
 import br.unb.autoexp.generator.ExperimentalDesignGenerator
-import java.util.ArrayList
 import java.util.List
 import javax.inject.Inject
 
@@ -22,6 +19,8 @@ class RScriptGenerator {
 		'''
 		\documentclass{article}
 		\usepackage{authblk}
+		\usepackage{float}
+		\usepackage{multirow}
 		\usepackage[utf8]{inputenc}
 		\begin{document}
 		«experiment.generateTitle»
@@ -29,14 +28,14 @@ class RScriptGenerator {
 		\maketitle
 		«experiment.generateAbstract»
 		«experiment.generateKeywords»
-		<<setup, include=FALSE>>=
+		<<setup, include=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
 		library(reproducer) # R package incl. software engineering data sets
 		library(ggplot2) # R package to create high-quality graphics
 		library(jsonlite)
 		 
-		alpha<-«IF experiment.analysis?.significanceLevel!==null»«experiment.analysis.significanceLevel»«ELSE»0.05«ENDIF»
+		alpha=«IF experiment.analysis?.significanceLevel!==null»«experiment.analysis.significanceLevel»«ELSE»0.05«ENDIF»
 		 
-		json_data <- fromJSON("data.json")
+		json_data = fromJSON("data.json")
 		
 		
 		
@@ -49,22 +48,26 @@ class RScriptGenerator {
 		«experiment.generateQuestions»
 		
 		\section{Research Hypotheses}
-		\subsection{Overview}
 
-		«experiment.generateOverview»
-		 
-		«FOR object:experiment.objectsInUse»
-			\subsection{«object.description»}
+«««		«experiment.generateOverview»
+«««		 
+    	«FOR object:experiment.objectsInUse»
+			\subsection{Overview for «object.description»}
 			«experiment.generateObjectOverview(object)»	
 		«ENDFOR»
-		
-		
 		«FOR hypothesis:experiment.researchHypotheses»
 
 		\subsection{«hypothesis.name»: «hypothesis.description»}
 		«hypothesis.generate»
 		
 		«ENDFOR»
+		
+		\section{Result Summary}
+		\subsection{Research Hypotheses}
+		
+		«experiment.generateResultsSummary»
+		
+		«experiment.generateResultsFile»
 			
 		«generateSessionInformation»
 		
@@ -72,12 +75,20 @@ class RScriptGenerator {
 		'''
 	}
 	
+	def String generateResultsSummary(Experiment experiment)
+		'''
+		«FOR hypothesis:experiment.researchHypotheses»
+			«hypothesis.generateSummary»
+		«ENDFOR»
+				
+		'''
+	
 	def String generateSessionInformation() {
 		'''
-			\newpage
+			\clearpage
 			\appendix
 			\section{Session Information}
-			<<echo=TRUE>>=
+			<<echo=FALSE, warning=FALSE , message=FALSE >>=
 			sessionInfo()
 			@
 		'''
@@ -85,103 +96,219 @@ class RScriptGenerator {
 	
 	def String generate(ResearchHypothesis hypothesis)
 		'''
-		Research hypothesis «hypothesis.name»: «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description» is «IF hypothesis.formula.operator.typeName.equals("=")»equals«ENDIF»«IF hypothesis.formula.operator.typeName.equals("<")»lower«ENDIF»«IF hypothesis.formula.operator.typeName.equals(">")»greater«ENDIF» than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description». «IF hypothesis.goal!==null» Related to «hypothesis.goal.name».«ENDIF» 
+«««		Research hypothesis «hypothesis.name»: «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description» is «IF hypothesis.formula.operator.typeName.equals("=")»equals«ENDIF»«IF hypothesis.formula.operator.typeName.equals("<")»lower«ENDIF»«IF hypothesis.formula.operator.typeName.equals(">")»greater«ENDIF» than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description». «IF hypothesis.goal!==null» Related to «hypothesis.goal.name».«ENDIF» 
 							
-		«hypothesis.generateTreatmentsData»
+		 «hypothesis.initializeResults»	
+		«FOR obj:hypothesis.objects»
+		
+		\subsubsection{«hypothesis.name».«hypothesis.objects.indexOf(obj)+1»: Object «obj.description»}
+		«hypothesis.generate(obj)»
+		
+		«ENDFOR»
 		
 		 
-		<<«hypothesis.name», include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-		 
-		«hypothesis.generateBoxplot»
-		 
-		«hypothesis.generateParametricTest» 
-		 
-		«hypothesis.generateNonParametricTest» 
-		 
-		«hypothesis.generateComparison»
+		«hypothesis.generateSummary»
 		
+		
+	
+				
+		'''
+	
+	def String generateResultsFile(Experiment experiment)
+		'''
+		<<echo=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+		experimentResults=list(«FOR hypothesis:experiment.researchHypotheses»«hypothesis.name»_result«IF !hypothesis.name.equals(experiment.researchHypotheses.last.name)»,«ENDIF»«ENDFOR»)
+		write(toJSON(experimentResults,pretty = TRUE, auto_unbox = TRUE), "experimentResults.json")
+
 		@
 		'''
 	
-	def String generateComparison(ResearchHypothesis hypothesis)
+	def String generateSummary(ResearchHypothesis hypothesis)
+		'''
+		<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+		«hypothesis.name»_result=list(hypothesis="«hypothesis.name»",results=c(result_«hypothesis.name»_less/result_«hypothesis.name»_objects,result_«hypothesis.name»_greater/result_«hypothesis.name»_objects,result_«hypothesis.name»_«hypothesis.formula.treatment1.name»/result_«hypothesis.name»_objects,result_«hypothesis.name»_«hypothesis.formula.treatment2.name»/result_«hypothesis.name»_objects,result_«hypothesis.name»_none/result_«hypothesis.name»_objects,result_«hypothesis.name»_inconclusive/result_«hypothesis.name»_objects),objectResults =list(«FOR object:hypothesis.objects» list(object='«object.name»',result=result_object_«hypothesis.name»_«object.name»)«IF !object.name.equals(hypothesis.objects.last.name)»,«ENDIF»«ENDFOR» ))	
+		@
+		
+		\subsubsection{«hypothesis.name» Results: «hypothesis.formula.depVariable.description» «hypothesis.formula.treatment1.description» «hypothesis.formula.operator.typeName» «hypothesis.formula.treatment2.description»}
+		
+		
+		\begin{table}[H]
+		\centering
+		\caption{«hypothesis.name» Results per Object}
+		\begin{tabular}{ll}
+		«FOR object:hypothesis.objects»
+		\textbf{«object.description»} & \Sexpr{result_«hypothesis.name»_«object.name»} \\
+		«ENDFOR»                            
+		\end{tabular}
+		\end{table}
+	
+		\begin{table}[H]
+		\centering
+		\caption{«hypothesis.name» Results Summary}
+		\begin{tabular}{ll}
+		\textbf{«hypothesis.formula.treatment1.description» \textless{} «hypothesis.formula.treatment2.description»:}& \Sexpr{100*result_«hypothesis.name»_less/result_«hypothesis.name»_objects}\% \\
+		\textbf{«hypothesis.formula.treatment1.description» \textgreater{} «hypothesis.formula.treatment2.description»:}& \Sexpr{100*result_«hypothesis.name»_greater/result_«hypothesis.name»_objects}\%\\
+		\textbf{«hypothesis.formula.treatment1.description»:}& \Sexpr{100*result_«hypothesis.name»_«hypothesis.formula.treatment1.name»/result_«hypothesis.name»_objects}\%\\
+		\textbf{«hypothesis.formula.treatment2.description»:}& \Sexpr{100*result_«hypothesis.name»_«hypothesis.formula.treatment2.name»/result_«hypothesis.name»_objects}\%\\
+		\textbf{None:}& \Sexpr{100*result_«hypothesis.name»_none/result_«hypothesis.name»_objects}\%\\
+		\textbf{Inconclusive:}& \Sexpr{100*result_«hypothesis.name»_inconclusive/result_«hypothesis.name»_objects}\%
+				
+		
+		\end{tabular}
+		\end{table}
+		
+		
+		
+		'''
+	
+	def String generate(ResearchHypothesis hypothesis, ExperimentalObject object){
+		'''
+		 
+		  «hypothesis.generateTreatmentsData(object)»
+		   
+		  \textbf{Comparison}
+		   
+		  <<«hypothesis.name»_«object.name», include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+		  «hypothesis.generateBoxplot(object)»
+		  «hypothesis.generateParametricTest(object)»
+		  «hypothesis.generateNonParametricTest(object)»
+		  «hypothesis.generateComparison(object)»
+		  @  
+		'''	
+		}
+	
+	def String initializeResults(ResearchHypothesis hypothesis)
+		'''
+		<<«hypothesis.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+		
+		result_«hypothesis.name»_objects=«hypothesis.objects.size»
+		result_«hypothesis.name»_less=0
+		result_«hypothesis.name»_greater=0
+		result_«hypothesis.name»_«hypothesis.formula.treatment1.name»=0
+		result_«hypothesis.name»_«hypothesis.formula.treatment2.name»=0
+		result_«hypothesis.name»_none=0
+		result_«hypothesis.name»_inconclusive=0
+		@
+		'''
+	def String generateComparison(ResearchHypothesis hypothesis, ExperimentalObject  object)
 		'''
 		print("")
 		print("Means comparison")
-		print(paste("Mean «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description»: ",mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»)))
-		print(paste("Mean «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description»: ",mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)))
-		print(paste("Absolute difference: ",abs(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)-mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»))))
-		if(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»)>mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)){
-		    print(paste("«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description» is ",100*(abs(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)-mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»))/mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)),"% greater than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description»"))
+		print(paste("Mean «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description»: ",mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)))
+		print(paste("Mean «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description»: ",mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)))
+		print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)-mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»))))
+		if (result_«hypothesis.name»_«object.name»_tTest | result_«hypothesis.name»_«object.name»_wTest){
+			if(mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)>mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)){
+			  result_«hypothesis.name»_«object.name»="«hypothesis.formula.treatment1.description» \\textgreater{} «hypothesis.formula.treatment2.description»"
+			  result_object_«hypothesis.name»_«object.name»=1
+			  result_«hypothesis.name»_greater=result_«hypothesis.name»_greater+1
+			}else {
+			  result_«hypothesis.name»_«object.name»="«hypothesis.formula.treatment1.description» \\textless{} «hypothesis.formula.treatment2.description»"
+			  result_object_«hypothesis.name»_«object.name»=0
+			  result_«hypothesis.name»_less=result_«hypothesis.name»_less +1
+			}	
+			
+		}else{
+		  result_object_«hypothesis.name»_«object.name»=5
+		  result_«hypothesis.name»_«object.name»="Inconclusive"
+		  result_«hypothesis.name»_inconclusive=result_«hypothesis.name»_inconclusive+1
+		}
+		
+		if(mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)>mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)){
+		    cat(paste("«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description» is ",100*(abs(mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)-mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»))/mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)),"% greater than \n«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description»"))
 		
 		}else{
-		    print(paste("«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description» is ",100*(abs(mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)-mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»))/mean(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»)),"% greater than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description»"))
+		    cat(paste("«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description» is ",100*(abs(mean(subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)-mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»))/mean(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)),"% greater than \n«hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description»"))
 		
 		}
 		'''
 	
-	def String generateNonParametricTest(ResearchHypothesis hypothesis)
+	def String generateNonParametricTest(ResearchHypothesis hypothesis, ExperimentalObject  object)
 		'''
-			 
-			wTest<-wilcox.test(«hypothesis.formula.depVariable.name.convert»~treatment,data=json_data[json_data$treatment=='«hypothesis.formula.treatment1.name»'|json_data$treatment=='«hypothesis.formula.treatment2.name»',]) 
-			 
-			print(wTest)
-			 
-			if(wTest$p.value>alpha){
-				print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
-			}else{
-				print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+			subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment1.name»=subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')
+			subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment2.name»=subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')
+			if (nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment1.name») == 0 & nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment2.name») == 0){
+				result_object_«hypothesis.name»_«object.name»=4
+				result_«hypothesis.name»_«object.name»="None"
+				result_«hypothesis.name»_none = result_«hypothesis.name»_none +1
 			}
+			if (nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment1.name») != 0 & nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment2.name») == 0){
+				result_object_«hypothesis.name»_«object.name»=2
+				result_«hypothesis.name»_«object.name»="«hypothesis.formula.treatment1.description»"
+				result_«hypothesis.name»_«hypothesis.formula.treatment1.name» = result_«hypothesis.name»_«hypothesis.formula.treatment1.name» +1			
+			}
+			if (nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment1.name») == 0 & nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment2.name») != 0){
+				result_object_«hypothesis.name»_«object.name»=3
+				result_«hypothesis.name»_«object.name»="«hypothesis.formula.treatment2.description»"
+				result_«hypothesis.name»_«hypothesis.formula.treatment2.name» = result_«hypothesis.name»_«hypothesis.formula.treatment2.name» +1			
+							
+			}
+			if (nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment1.name») != 0 & nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment2.name») != 0){
+							
+				wTest=wilcox.test(«hypothesis.formula.depVariable.name.convert»~treatment,data=subset(json_data,(treatment=='«hypothesis.formula.treatment1.name»'|treatment=='«hypothesis.formula.treatment2.name»') & object=='«object.name»')) 
 			 
+				print(wTest)
+			 
+				if(wTest$p.value>alpha){
+					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+					result_«hypothesis.name»_«object.name»_wTest = FALSE
+				}else{
+					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+					result_«hypothesis.name»_«object.name»_wTest = TRUE
+				}
+			} 
 		'''
 	
-	def String generateParametricTest(ResearchHypothesis hypothesis)
-		'''
-			if(shap_«hypothesis.formula.treatment1.name»$p.value>alpha&shap_«hypothesis.formula.treatment2.name»$p.value>alpha){
+	def String generateParametricTest(ResearchHypothesis hypothesis, ExperimentalObject  object)
+		''' 
+			result_«hypothesis.name»_«object.name»_tTest = FALSE
+			if(shap_«hypothesis.formula.treatment1.name»_«object.name»$p.value>alpha&shap_«hypothesis.formula.treatment2.name»_«object.name»$p.value>alpha){
 			  
 				print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
 				
-				fTest<-var.test(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»,«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name»)
+				fTest=var.test(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»,subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)
 				print(fTest)
 					  
 				print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
 					  
 				print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
-				tTest<-t.test(«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment1.name»,«hypothesis.formula.depVariable.name.convert»_«hypothesis.formula.treatment2.name», var.equal=fTest$p.value>alpha, paired=FALSE)
+				tTest=t.test(subset(json_data,treatment=='«hypothesis.formula.treatment1.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»,subset(json_data,treatment=='«hypothesis.formula.treatment2.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert», var.equal=fTest$p.value>alpha, paired=FALSE)
 				print(tTest)
-				
 				if(tTest$p.value>alpha){
 					print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+					
 				}else{
 				    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				    result_«hypothesis.name»_«object.name»_tTest = TRUE
 				}
 			}
 		'''
-	def String generateBoxplot(ResearchHypothesis hypothesis)
+	def String generateBoxplot(ResearchHypothesis hypothesis, ExperimentalObject  object)
 		'''
-			boxplot_«hypothesis.name» <- ggplot(json_data[json_data$treatment=='«hypothesis.formula.treatment1.name»'|json_data$treatment=='«hypothesis.formula.treatment2.name»',], aes(x =treatment , y = «hypothesis.formula.depVariable.name.convert»)) +
+			boxplot_«hypothesis.name»_«object.name» = ggplot(subset(json_data,(treatment=='«hypothesis.formula.treatment1.name»'|treatment=='«hypothesis.formula.treatment2.name»') & object=='«object.name»'), aes(x =treatment , y = «hypothesis.formula.depVariable.name.convert»)) +
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
-				scale_x_discrete(name = "«hypothesis.formula.treatment1.factor.description»",labels=c(«FOR treatment:hypothesis.formula.hyphotesisTreatments»"«treatment.description»"«IF !treatment.name.equals(hypothesis.formula.hyphotesisTreatments.last.name)»,«ENDIF»«ENDFOR»))+
-				ggtitle("«hypothesis.formula.depVariable.description» by «hypothesis.formula.treatment1.factor.description»") + 
+				scale_x_discrete(name = "«hypothesis.formula.treatment1.factor.description»",labels=c(«FOR treatment:hypothesis.getTreatments»"«treatment.description»"«IF !treatment.name.equals(hypothesis.getTreatments.last.name)»,«ENDIF»«ENDFOR»))+
+				ggtitle("«hypothesis.formula.depVariable.description» by «hypothesis.formula.treatment1.factor.description» for «object.description»") + 
 				ylab("«hypothesis.formula.depVariable.description» «IF hypothesis.formula.depVariable.unit!==null»(«hypothesis.formula.depVariable.unit»)«ENDIF»")			   
-			boxplot_«hypothesis.name»
+			boxplot_«hypothesis.name»_«object.name»
 		'''
 	
-	def String generateTreatmentsData(ResearchHypothesis hypothesis)
+	def String generateTreatmentsData(ResearchHypothesis hypothesis, ExperimentalObject  object)
 		'''
-			«FOR treatment:hypothesis.formula.hyphotesisTreatments»
-				\subsubsection{«hypothesis.formula.depVariable.description» for «treatment.description»}
-				<<«hypothesis.name»_«treatment.name», include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(«hypothesis.formula.depVariable.name.convert»_«treatment.name»)))					
-				summary(«hypothesis.formula.depVariable.name.convert»_«treatment.name»)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='«treatment.name»'), "«hypothesis.formula.depVariable.name.convert»", min(subset(json_data,treatment=='«treatment.name»')$«hypothesis.formula.depVariable.name.convert»), max(subset(json_data,treatment=='«treatment.name»')$«hypothesis.formula.depVariable.name.convert»))
+			«FOR treatment:hypothesis.getTreatments»
+				\textbf{«hypothesis.formula.depVariable.description» for «treatment.description»}
+				<<«hypothesis.name»_«treatment.name»_«object.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				print(paste("Sample size: ",length(subset(json_data,treatment=='«treatment.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)))					
+				summary(subset(json_data,treatment=='«treatment.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)
+				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='«treatment.name»' & object=='«object.name»'), "«hypothesis.formula.depVariable.name.convert»", min(subset(json_data,treatment=='«treatment.name»'& object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»), max(subset(json_data,treatment=='«treatment.name»'& object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»))
 
-				shap_«treatment.name»<-shapiro.test(«hypothesis.formula.depVariable.name.convert»_«treatment.name»)
-				print(shap_«treatment.name»)
-				if(shap_«treatment.name»$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_«treatment.name»$p.value, sep = " "))
+				shap_«treatment.name»_«object.name»=shapiro.test(subset(json_data,treatment=='«treatment.name»' & object=='«object.name»')$«hypothesis.formula.depVariable.name.convert»)
+				print(shap_«treatment.name»_«object.name»)
+				if(shap_«treatment.name»_«object.name»$p.value>alpha){
+					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_«treatment.name»_«object.name»$p.value, sep = " "))
 				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_«treatment.name»$p.value, sep = " "))
+					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_«treatment.name»_«object.name»$p.value, sep = " "))
 				}
 				@
 			«ENDFOR»		
@@ -284,33 +411,15 @@ class RScriptGenerator {
 		\end{itemize}
 		«ENDIF»			
 		'''
-	def String generateOverview(Experiment experiment)
-		'''
-		<<overview, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, results='markup', cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-
-		«FOR variable:experiment.dependentVariables»
-			«FOR treatment:experiment.treatments»
-				«variable.name.convert»_«treatment.name»<-subset(json_data,treatment=='«treatment.name»')$«variable.name.convert»
-			«ENDFOR»
-			boxplot_«variable.name.convert» <- ggplot(json_data, aes(x =treatment , y = «variable.name.convert»)) +
-				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-				theme_bw() +    
-				scale_x_discrete(name = "«experiment.treatments.head.factor.description»",labels=c(«FOR treatment:experiment.treatments»'«treatment.description»'«IF !treatment.name.equals(experiment.treatments.last.name)»,«ENDIF»«ENDFOR»))+
-				ggtitle("«variable.description» by «experiment.treatments.head.factor.description»") + 
-				ylab("«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»")   
-				boxplot_«variable.name.convert»
-				
-		«ENDFOR»
-		@					
-		'''
+	
 	
 	
 		
 	def String generateObjectOverview(Experiment experiment,ExperimentalObject object)
 	'''
-		<<«object.name», include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-		«FOR variable:experiment.experimentalDesign.dependentVariables»
-			boxplot_«object.name»_«variable.name.convert» <- ggplot(json_data[json_data$object=='«object.name»',], aes(x =treatment , y = «variable.name.convert»)) +
+		<<«object.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable]»
+			boxplot_«object.name»_«variable.name.convert» = ggplot(subset(json_data,(«FOR treatment:experiment.treatments»treatment=='«treatment.name»' «IF !treatment.name.equals(experiment.treatments.last.name)»|«ENDIF»«ENDFOR»)& object=='«object.name»'), aes(x =treatment , y = «variable.name.convert»)) +
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
 				scale_x_discrete(name = "«experiment.treatments.head.factor.description»",labels=c(«FOR treatment:experiment.treatments»'«treatment.description»'«IF !treatment.name.equals(experiment.treatments.last.name)»,«ENDIF»«ENDFOR»))+
@@ -327,13 +436,7 @@ class RScriptGenerator {
 	
 			
 	
-	def List<Treatment> getHyphotesisTreatments(ResearchHypothesisFormula formula){
-		val treatments=new ArrayList<Treatment>()
-		treatments.add(formula.treatment1)
-		treatments.add(formula.treatment2)
-		
-		treatments.sortBy[name]
-	}
+	
 	
 	
 	def convert(String depVariable) {

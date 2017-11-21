@@ -6,6 +6,7 @@ import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalDesign
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.File
+import br.unb.autoexp.autoExp.ResearchHypothesis
 import br.unb.autoexp.autoExp.Treatment
 import br.unb.autoexp.design.factorial.FactorialExecutionDesignGenerator
 import br.unb.autoexp.generator.dto.ExecutionDTO
@@ -22,6 +23,34 @@ import static extension java.lang.String.*
 class ExperimentalDesignGenerator {
 @Inject extension FactorialExecutionDesignGenerator factorialGenerator
 
+	def List<CustomDependentVariable> getDependentVariables(Treatment treatment) {
+		val experiment=(treatment.eContainer.eContainer) as Experiment
+		experiment.researchHypotheses.filter[formula.treatment1.name.equals(treatment.name)||formula.treatment2.name.equals(treatment.name)].map[formula.depVariable].toList
+		
+	}
+	
+	def getExperimentalObjects(Treatment treatment){
+		val design=(treatment.eContainer as ExperimentalDesign)
+		val restrictions=design.restrictions.filter[it.treatment.name.equals(treatment.name)].toList
+		if (restrictions.isNullOrEmpty){
+			design.experimentalObjects
+		
+		}else{
+			
+			design.experimentalObjects.filter[restrictions.map[objects].flatten.map[object|object.name].toList.contains(name)]
+		}
+	}
+
+	def List<ExperimentalObject> getObjects(ResearchHypothesis hypothesis){
+		hypothesis.treatments.map[experimentalObjects].flatten.toList.removeDuplicates
+	}
+	def List<Treatment> getTreatments(ResearchHypothesis hypothesis){
+		val treatments=new ArrayList<Treatment>()
+		treatments.add(hypothesis.formula.treatment1)
+		treatments.add(hypothesis.formula.treatment2)
+		
+		treatments.sortBy[name]
+	}
 	def treatments(Experiment experiment) {
 
 		Lists.newArrayList(experiment.researchHypotheses.map[formula.treatment1] + experiment.researchHypotheses.map [
@@ -33,7 +62,7 @@ class ExperimentalDesignGenerator {
 		Lists.newArrayList(experiment.researchHypotheses.map[formula.depVariable]).removeDuplicates
 	}
 	def List<ExperimentalObject> getObjectsInUse(Experiment experiment){
-		experiment.treatments.map[experimentalObjects].flatten.toList.removeDuplicates
+		experiment.researchHypotheses.map[treatments].flatten.map[experimentalObjects].flatten.toList.removeDuplicates
 		
 	}
 	def designExecutions(Experiment experiment) {
