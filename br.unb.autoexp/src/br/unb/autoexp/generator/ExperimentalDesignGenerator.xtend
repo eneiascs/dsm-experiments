@@ -96,7 +96,7 @@ class ExperimentalDesignGenerator {
 		
 		execution.cmd = treatment.execution.cmd.replaceParameter(treatment, object)
 		execution.name=treatment.execution.name
-		execution.taskName="%s_%s_%s_%s".format((treatment.eContainer as ExperimentalDesign).type,treatment.factor.name,treatment.name,object.name)
+		execution.taskName="%s_%s".format(treatment.name,object.name)
 		execution.timeout=treatment.execution.timeout
 		execution.treatment = treatment
 		execution.object = object
