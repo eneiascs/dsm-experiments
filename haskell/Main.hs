@@ -1,35 +1,34 @@
-import Common 
+
 import Experiment 
 import Dohko
-import DohkoGenerator
+import ExperimentFunctions
 import RScript
-import RScriptGenerator 
+
+func:: [Treatment]->[ExperimentalObject]->[(Treatment,ExperimentalObject)]
+func treatments objects =[(treatment,object) | treatment <- treatments, object<-objects]
 main = do
-  let result = File "result" "/opt/result.txt"
-  let reanaSpl = Execution "reanaSpl" "java -jar reanaSpl.jar --analysis-strategy=${treatment.name} --spl=${object.name}" [] result []
-  let strategy = Factor "strategy" "Analysis Strategy"
-  let featureFamily= Treatment "featureFamily" "Feature Family" strategy reanaSpl
-  let featureProduct= Treatment "featureProduct" "Feature Product" strategy reanaSpl
-  let time = DependentVariable "time" "Analysis time" Absolute
-  let memory = DependentVariable "memory" "Memory Consumption" Absolute
-  let rh1 = ResearchHypothesis "RH1" (ResearchHypothesisFormula time featureFamily Equals featureProduct)
-  let rh2 = ResearchHypothesis "RH2" (ResearchHypothesisFormula memory featureFamily Equals featureProduct)
-  let bsn = ExperimentalObject "bsn" "BSN SPL"
-  let email = ExperimentalObject "email" "Email SPL"
-  let lift = ExperimentalObject "lift" "Lift SPL"
-  let intercloud = ExperimentalObject "intercloud" "Intercloud SPL"
-  let minepump = ExperimentalObject "minepump" "Minepump SPL"
-  let tankwar = ExperimentalObject "tankwar" "Tankwar SPL"
-  let rest1 = Restriction featureFamily [bsn,email,lift,intercloud]
-  let rest2 = Restriction featureProduct [bsn,email,lift]
-  let design = ExperimentalDesign 2 [bsn,email,lift,intercloud,minepump,tankwar] [rest1,rest2]
-  let infrastructure=Infrastructure (Requirement 2 4 "LINUX" 0.2 1) [] 
-  let experiment = Experiment [rh1,rh2] design infrastructure
-  let applicationDescriptor = compileDohko experiment
- 
+  
+  let featureFamily= Treatment "featureFamily" "java -jar reanaSpl.jar --analysis-strategy='FEATURE_FAMILY'" 
+  let featureProduct= Treatment "featureProduct" "java -jar reanaSpl.jar --analysis-strategy='FEATURE_PRODUCT'" 
+  let memoryInstrument = Instrument "time"
+  let timeInstrument = Instrument "memory"
+  let time = DependentVariable "time" timeInstrument
+  let memory = DependentVariable "memory" memoryInstrument
+  let rh1 = ResearchHypothesis "RH1" time featureFamily featureProduct
+  let rh2 = ResearchHypothesis "RH2" memory featureFamily featureProduct
+  let bsn = ExperimentalObject "bsn" "--feature-model='bsn.txt' ----uml-models='bsn_behavioral_model.xml'"
+  let email = ExperimentalObject "email" "--feature-model='email.txt' ----uml-models='email_behavioral_model.xml'"
+  let lift = ExperimentalObject "lift" "--feature-model='lift.txt' ----uml-models='lift_behavioral_model.xml'"
+  let intercloud = ExperimentalObject "intercloud" "--feature-model='intercloud.txt' ----uml-models='intercloud_behavioral_model.xml'"
+  let minepump = ExperimentalObject "minepump" "--feature-model='minepump.txt' ----uml-models='minepump_behavioral_model.xml'"
+  let tankwar = ExperimentalObject "tankwar" "--feature-model='tankwar.txt' ----uml-models='tankwar_behavioral_model.xml'"
+  let design = ExperimentalDesign 2 func 
+  let exp = Experiment [rh1,rh2] design [featureFamily,featureProduct] [bsn,email,lift,intercloud,minepump,tankwar] [time,memory] [timeInstrument,memoryInstrument]
+  let applicationDescriptor = compileDohko exp
+  let rscript = generateRScript exp
+  let executionResults = dohko applicationDescriptor
+  let experimentResults= experiment exp
   print applicationDescriptor
-  let applications = adApplications applicationDescriptor
-  print (length applications)
-  let rscript = compileRScript experiment
-  print rscript
+  print experimentResults
+  
  

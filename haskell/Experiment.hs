@@ -1,48 +1,20 @@
 module Experiment where
-import Common
 
-data Experiment = Experiment {researchHypotheses :: [ResearchHypothesis], design :: ExperimentalDesign,infrastructure :: Infrastructure}
-  deriving (Show, Eq, Ord) 
+data Experiment = Experiment {researchHypotheses :: [ResearchHypothesis], design :: ExperimentalDesign, treatments:: [Treatment], objects:: [ExperimentalObject], dependentVariables :: [DependentVariable], instruments :: [Instrument]} 
+data ResearchHypothesis = ResearchHypothesis {hypothesisName :: String, dependentVariable :: DependentVariable, treatment1 :: Treatment, treatment2 :: Treatment} deriving (Show, Eq, Ord) 
+data DependentVariable = DependentVariable {dvName :: String, instrument :: Instrument} deriving (Show, Eq, Ord) 
+data Instrument = Instrument { instrumentCommand :: String} deriving (Show, Eq, Ord) 
+data ExperimentalDesign =  ExperimentalDesign {runs :: Int, designFunction :: [Treatment]->[ExperimentalObject] ->[(Treatment,ExperimentalObject)] } 
+data Treatment = Treatment {treatmentName :: String, treatmentCommand :: String} deriving (Show, Eq, Ord) 
+data ExperimentalObject = ExperimentalObject {objectName :: String, argument:: String} deriving (Show, Eq, Ord)
 
-
-data ResearchHypothesis = ResearchHypothesis {hName :: Name, formula :: ResearchHypothesisFormula}
-  deriving (Show, Eq, Ord) 
-
-data ResearchHypothesisFormula = ResearchHypothesisFormula {dependentVariable :: DependentVariable, treatment1 :: Treatment, operator :: Operator, treatment2 :: Treatment}
-  deriving (Show, Eq, Ord) 
-
-data ExperimentalDesign =  ExperimentalDesign {runs :: Runs, objects :: [ExperimentalObject], restrictions :: [Restriction]}
-  deriving (Show, Eq, Ord) 
-
-data DependentVariable = DependentVariable {dvName :: Name, dvDescription :: Description, scaleType :: ScaleType}
-  deriving (Show, Eq, Ord) 
-
-data Factor = Factor {fName :: Name, fDescription :: Description}
-  deriving (Show, Eq, Ord) 
-
-data Treatment = Treatment {tName :: Name, tDescription :: Description, factor :: Factor, execution :: Execution}
-  deriving (Show, Eq, Ord) 
-
-data ExperimentalObject = ExperimentalObject {oName :: Name, oDescription :: Description}
-  deriving (Show, Eq, Ord) 
-
-data Restriction = Restriction {rTreatment :: Treatment, rObjects :: [ExperimentalObject]}
-  deriving (Show, Eq, Ord) 
-
-data Execution = Execution {eName :: Name, eCommand :: Command, ePreconditions :: [Precondition], eResult :: Result, eFiles :: [File]}
-  deriving (Show, Eq, Ord) 
+data HypothesisResult = HypothesisResult {objectResults :: [HypothesisObjectResult]} deriving (Show, Eq, Ord)  
+data HypothesisObjectResult = HypothesisObjectResult {objectResult :: String}  deriving (Show, Eq, Ord) 
 
 
-
-data Operator = Equals
-  deriving (Show, Eq, Ord) 
+ 
 
 
-type Runs=Int
-
-
-data ScaleType = Absolute | Ratio | Interval | Ordinal | Nominal
-  deriving (Show, Eq, Ord) 
 
 
 
