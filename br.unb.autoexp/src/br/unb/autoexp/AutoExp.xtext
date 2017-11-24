@@ -24,6 +24,12 @@ Experiment returns Experiment:
 	('Research Hypotheses' '{' researchHypotheses+=ResearchHypothesis ("," researchHypotheses+=ResearchHypothesis)* '}')?
 	('Threat' '{' threats+=Threat ("," threats+=Threat)* '}')?
 	'Experimental Design' experimentalDesign=ExperimentalDesign
+	'Dependent Variables' '{' dependentVariables+=CustomDependentVariable ("," dependentVariables+=CustomDependentVariable)* '}'
+	('Instruments' '{' instruments+=Instrument ("," instruments+=Instrument)* '}')?
+	'Factors' '{' factors+=Factor ("," factors+=Factor)* '}'
+	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
+	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
+	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
 	('Executions' '{' executions+=Execution ("," executions+=Execution)* '}')?
 	('Analysis' analysis=Analysis)?
 	('Infrastructure' infrastructure=Infrastructure)?
@@ -148,13 +154,7 @@ ExperimentalDesign returns ExperimentalDesign:
 	'{'
 	('type' type=DesignType)?
 	('runs' runs=INT )?
-	
-	'Dependent Variables' '{' dependentVariables+=CustomDependentVariable ("," dependentVariables+=CustomDependentVariable)* '}'
-	('Instruments' '{' instruments+=Instrument ("," instruments+=Instrument)* '}')?
-	'Factors' '{' factors+=Factor ("," factors+=Factor)* '}'
-	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
-	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
-	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
+
 	('Restrictions' '{' restrictions+=Restriction ("," restrictions+=Restriction)* '}')?
 	
 	('Context Variables' '{' contextVariables+=ContextVariable ("," contextVariables+=ContextVariable)* '}')?

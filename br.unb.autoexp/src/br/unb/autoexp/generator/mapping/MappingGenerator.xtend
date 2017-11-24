@@ -30,7 +30,7 @@ class MappingGenerator {
 	}
 
 	def List<MappingDTO> getMappings(Experiment experiment) {
-		experiment.designExecutionsRepeatedWithNumberOfRuns.map[
+		experiment.designExecutions.map[
 			MappingDTO.builder.experimentName(experiment.name).runs(experiment.experimentalDesign.runs).taskName(taskName).executionName(name).treatment(treatment.name).factor(treatment.factor.name).object(object.name).designType(designType).build
 		]
 		

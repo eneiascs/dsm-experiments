@@ -42,9 +42,15 @@ rule_Experiment :
 	('Research Hypotheses' '{' researchhypotheses_11+=rule_ResearchHypothesis (',' researchhypotheses_12+=rule_ResearchHypothesis)* '}')?
 	('Threat' '{' threats_13+=rule_Threat (',' threats_14+=rule_Threat)* '}')?
 	'Experimental Design' experimentaldesign_15=rule_ExperimentalDesign
-	('Executions' '{' executions_16+=rule_Execution (',' executions_17+=rule_Execution)* '}')?
-	('Analysis' analysis_18=rule_Analysis)?
-	('Infrastructure' infrastructure_19=rule_Infrastructure)?
+	'Dependent Variables' '{' dependentvariables_16+=rule_CustomDependentVariable (',' dependentvariables_17+=rule_CustomDependentVariable)* '}'
+	('Instruments' '{' instruments_18+=rule_Instrument (',' instruments_19+=rule_Instrument)* '}')?
+	'Factors' '{' factors_20+=rule_Factor (',' factors_21+=rule_Factor)* '}'
+	'Treatments' '{' treatments_22+=rule_Treatment (',' treatments_23+=rule_Treatment)* '}'
+	('Groups' '{' groups_24+=rule_ObjectGroup (',' groups_25+=rule_ObjectGroup)* '}')?
+	'Objects' '{' experimentalobjects_26+=rule_ExperimentalObject (',' experimentalobjects_27+=rule_ExperimentalObject)* '}'
+	('Executions' '{' executions_28+=rule_Execution (',' executions_29+=rule_Execution)* '}')?
+	('Analysis' analysis_30=rule_Analysis)?
+	('Infrastructure' infrastructure_31=rule_Infrastructure)?
 	'}';
 
 
@@ -202,16 +208,10 @@ rule_ExperimentalDesign :
 	'{'
 	('type' type_0=rule_DesignType)?
 	('runs' runs_1=INT )?
+
+	('Restrictions' '{' restrictions_2+=rule_Restriction (',' restrictions_3+=rule_Restriction)* '}')?
 	
-	'Dependent Variables' '{' dependentvariables_2+=rule_CustomDependentVariable (',' dependentvariables_3+=rule_CustomDependentVariable)* '}'
-	('Instruments' '{' instruments_4+=rule_Instrument (',' instruments_5+=rule_Instrument)* '}')?
-	'Factors' '{' factors_6+=rule_Factor (',' factors_7+=rule_Factor)* '}'
-	'Treatments' '{' treatments_8+=rule_Treatment (',' treatments_9+=rule_Treatment)* '}'
-	('Groups' '{' groups_10+=rule_ObjectGroup (',' groups_11+=rule_ObjectGroup)* '}')?
-	'Objects' '{' experimentalobjects_12+=rule_ExperimentalObject (',' experimentalobjects_13+=rule_ExperimentalObject)* '}'
-	('Restrictions' '{' restrictions_14+=rule_Restriction (',' restrictions_15+=rule_Restriction)* '}')?
-	
-	('Context Variables' '{' contextvariables_16+=rule_ContextVariable (',' contextvariables_17+=rule_ContextVariable)* '}')?
+	('Context Variables' '{' contextvariables_4+=rule_ContextVariable (',' contextvariables_5+=rule_ContextVariable)* '}')?
 	'}';
 
 

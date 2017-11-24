@@ -103,31 +103,37 @@ class DohkoGenerator {
 				  	      «ENDIF»
 				  	    «ENDFOR»					  	
 				  «ENDFOR»
-			«ENDIF» 
-			«IF !experiment.designExecutionsRepeatedWithNumberOfRuns.isNullOrEmpty»				
+			«ENDIF»
+			 
+			«IF !experiment.designExecutions.isNullOrEmpty»
 				applications:
-				  «FOR execution:experiment.designExecutionsRepeatedWithNumberOfRuns»				  	
-				  - name: "«execution.taskName»"
-				    command-line: "«execution.cmd»"
-				    «IF execution.timeout!==null» 
-				    timeout: «execution.timeout»
-				    «ENDIF»
-				    «IF execution.preconditions!==null»
-				    preconditions:
-				      packages:
-				      «FOR pack:execution.preconditions.packages»
-				      - «pack»
-				      «ENDFOR»
-				    «ENDIF»
-				    «IF!execution.files.isNullOrEmpty»				    
-				    files:
-				    «ENDIF»
-				    «FOR file:execution.files»
-				    - name: "«file.name»"
-				      path: "«file.path»"
-				      generated: «IF file.generated»"Y"«ELSE»"N"«ENDIF»
-				   «ENDFOR»
-				  «ENDFOR»  
+				  - name: "test"
+				    command-line: "echo 'test'"
+				blocks:
+				«FOR execution:experiment.designExecutions»				
+				  - repeat: «experiment.experimentalDesign.runs»
+				    applications:
+				      - name: "«execution.taskName»"
+				        command-line: "«execution.cmd»"
+				        «IF execution.timeout!==null» 
+				        timeout: «execution.timeout»
+				        «ENDIF»
+				        «IF execution.preconditions!==null»
+				        preconditions:
+				          packages:
+				          «FOR pack:execution.preconditions.packages»
+				          - «pack»
+				          «ENDFOR»
+				        «ENDIF»
+				        «IF!execution.files.isNullOrEmpty»				    
+				        files:
+				        «ENDIF»
+				        «FOR file:execution.files»
+				        - name: "«file.name»"
+				          path: "«file.path»"
+				          generated: «IF file.generated»"Y"«ELSE»"N"«ENDIF»
+				       «ENDFOR»
+				«ENDFOR»  
 			«ENDIF»
 			«IF experiment.infrastructure.onFinish!==null»
 				on-finish: "«experiment.infrastructure.onFinish.typeName»"

@@ -24,20 +24,22 @@ class ExperimentalDesignGenerator {
 @Inject extension FactorialExecutionDesignGenerator factorialGenerator
 
 	def List<CustomDependentVariable> getDependentVariables(Treatment treatment) {
-		val experiment=(treatment.eContainer.eContainer) as Experiment
+		val experiment=(treatment.eContainer) as Experiment
 		experiment.researchHypotheses.filter[formula.treatment1.name.equals(treatment.name)||formula.treatment2.name.equals(treatment.name)].map[formula.depVariable].toList
 		
 	}
 	
 	def getExperimentalObjects(Treatment treatment){
-		val design=(treatment.eContainer as ExperimentalDesign)
-		val restrictions=design.restrictions.filter[it.treatment.name.equals(treatment.name)].toList
+		val experiment=(treatment.eContainer as Experiment)
+		
+		
+		val restrictions=experiment.experimentalDesign.restrictions.filter[it.treatment.name.equals(treatment.name)].toList
 		if (restrictions.isNullOrEmpty){
-			design.experimentalObjects
+			experiment.experimentalObjects
 		
 		}else{
 			
-			design.experimentalObjects.filter[restrictions.map[objects].flatten.map[object|object.name].toList.contains(name)]
+			experiment.experimentalObjects.filter[restrictions.map[objects].flatten.map[object|object.name].toList.contains(name)]
 		}
 	}
 
@@ -88,7 +90,7 @@ class ExperimentalDesignGenerator {
 		executions
 
 	}
-
+	
 	def applyTreatmentToObject(Treatment treatment, ExperimentalObject object) {
 
 		val execution = new ExecutionDTO()
@@ -101,7 +103,7 @@ class ExperimentalDesignGenerator {
 		execution.treatment = treatment
 		execution.object = object
 	    execution.preconditions = treatment.execution.preconditions
-		execution.designType=(treatment.eContainer as ExperimentalDesign).type	
+		execution.designType=(treatment.eContainer as Experiment).experimentalDesign.type	
 		if (treatment.execution.result !== null) {
 			var result = new FileDTO()
 			result.setGenerated(true)

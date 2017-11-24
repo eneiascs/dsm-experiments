@@ -89,7 +89,7 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 
 	@Check
 	def checkDependentVariableNeverUsed(DependentVariable variable) {
-		val experiment = variable.eContainer.eContainer as Experiment
+		val experiment = variable.eContainer as Experiment
 		if (!experiment.researchHypotheses.map[formula.depVariable].contains(variable)) {
 			warning("Dependent variable '%s' is never used".format(variable.name),
 				AutoExpPackage.eINSTANCE.dependentVariable_Name, AutoExpValidator.DEPENDENT_VARIABLE_NEVER_USED,
@@ -99,7 +99,7 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 
 		@Check
 		def checkFactorNeverUsed(Factor factor) {
-			val experiment = factor.eContainer.eContainer as Experiment
+			val experiment = factor.eContainer as Experiment
 			if (!experiment.researchHypotheses.map[formula.treatment1.factor].contains(factor) &&
 				!experiment.researchHypotheses.map[formula.treatment2.factor].contains(factor)) {
 				warning("Factor '%s' is never used".format(factor.name), AutoExpPackage.eINSTANCE.factor_Name,
@@ -109,7 +109,7 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 
 		@Check
 		def checkTreatmentNeverUsed(Treatment treatment) {
-			val experiment = treatment.eContainer.eContainer as Experiment
+			val experiment = treatment.eContainer as Experiment
 			if (!experiment.researchHypotheses.map[formula.treatment1].contains(treatment) &&
 				!experiment.researchHypotheses.map[formula.treatment2].contains(treatment)) {
 				warning("Treatment '%s' is never used".format(treatment.name), AutoExpPackage.eINSTANCE.treatment_Name,

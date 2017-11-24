@@ -123,7 +123,8 @@ class NewModelExampleWizard extends NewModelFileWizard {
 				  }
 				  
 				  Experimental Design {
-				     runs 8 
+				     runs 8
+				  }    
 				    Dependent Variables {
 				      time { description "Analysis time" scaleType Absolute },
 				      memoryConsumption { description "Memory Consumption" scaleType Absolute }
@@ -157,7 +158,7 @@ class NewModelExampleWizard extends NewModelFileWizard {
 				 	minepump description "Minepump" parameters {
 				 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"} 	 
 				 			
-				 }}
+				 }
 				 Executions { 
 				 	reanaEvaluator { 
 				 		command "java -jar reanaSpl.jar --analysis-strategy='${treatment.parameter.argument}' --feature-model='${object.parameter.featureModel}' --uml-model='${object.parameter.umlModel}'" 

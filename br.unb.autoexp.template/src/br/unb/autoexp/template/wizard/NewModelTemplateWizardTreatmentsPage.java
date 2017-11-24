@@ -169,12 +169,12 @@ public class NewModelTemplateWizardTreatmentsPage extends AbstractNewResourceWiz
 
 			experiment.getResearchHypotheses().add(rh);
 
-			experiment.getExperimentalDesign().getDependentVariables().add(depVariable);
+			experiment.getDependentVariables().add(depVariable);
 
-			experiment.getExperimentalDesign().getFactors().add(factor);
+			experiment.getFactors().add(factor);
 
-			experiment.getExperimentalDesign().getTreatments().add(firstTreatment);
-			experiment.getExperimentalDesign().getTreatments().add(secondTreatment);
+			experiment.getTreatments().add(firstTreatment);
+			experiment.getTreatments().add(secondTreatment);
 		}
 	}
 

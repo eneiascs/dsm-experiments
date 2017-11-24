@@ -145,23 +145,24 @@ class NewModelTemplateWizard extends AbstractNewResourceWizard {
 				 	}
 				 	
 				 	Experimental Design {
-				 	   runs 8 
+				 	   runs 8
+				 	}    
 				 	  Dependent Variables {
-				 	  «FOR depVariable : experiment.experimentalDesign.dependentVariables»	
-				 	  	«depVariable.name» { description "«depVariable.description»" scaleType Absolute }«IF !experiment.experimentalDesign.dependentVariables.last.name.equals(depVariable.name)»,«ENDIF»
+				 	  «FOR depVariable : experiment.dependentVariables»	
+				 	  	«depVariable.name» { description "«depVariable.description»" scaleType Absolute }«IF !experiment.dependentVariables.last.name.equals(depVariable.name)»,«ENDIF»
 				 	  «ENDFOR»   
 				 }    
 				  
 				 Factors {
-				 	«FOR factor : experiment.experimentalDesign.factors»
-				 		«factor.name» { description "«factor.description»" scaleType Nominal}«IF !experiment.experimentalDesign.factors.last.name.equals(factor.name)»,«ENDIF»
+				 	«FOR factor : experiment.factors»
+				 		«factor.name» { description "«factor.description»" scaleType Nominal}«IF !experiment.factors.last.name.equals(factor.name)»,«ENDIF»
 				 	«ENDFOR»    
 				 	
 				 	} 
 				 	
 				 	Treatments {
-				 	«FOR treatment : experiment.experimentalDesign.treatments»
-				 		«treatment.name» description "«treatment.description»"  factor «treatment.factor.name» parameters{argument "arg"} execution reanaEvaluator«IF !experiment.experimentalDesign.treatments.last.name.equals(treatment.name)»,«ENDIF»	
+				 	«FOR treatment : experiment.treatments»
+				 		«treatment.name» description "«treatment.description»"  factor «treatment.factor.name» parameters{argument "arg"} execution reanaEvaluator«IF !experiment.treatments.last.name.equals(treatment.name)»,«ENDIF»	
 				 	«ENDFOR»   	 		 
 				 	}
 				 Objects { 
@@ -179,7 +180,7 @@ class NewModelTemplateWizard extends AbstractNewResourceWizard {
 				 	minepump description "Minepump" parameters {
 				 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"} 	 
 				 			
-				 }}
+				 }
 				 Executions { 
 				 	reanaEvaluator { 
 				 		command "java -jar reanaSpl.jar --analysis-strategy='${treatment.parameter.argument}' --feature-model='${object.parameter.featureModel}' --uml-model='${object.parameter.umlModel}'" 
