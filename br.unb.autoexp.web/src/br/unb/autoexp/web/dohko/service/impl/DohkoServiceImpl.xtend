@@ -41,8 +41,11 @@ class DohkoServiceImpl implements DohkoService {
 
 	override Response runDohko(ApplicationDescriptor applicationDescriptor) throws IOException {
 
+		val entity = Entity.entity(applicationDescriptor, MediaType.APPLICATION_JSON)
+		//logger.info(entity.toString)
+		
 		getJobTarget(applicationDescriptor.user.username).request(MediaType.APPLICATION_JSON).accept(
-			MediaType.APPLICATION_JSON).post(Entity.entity(applicationDescriptor, MediaType.APPLICATION_JSON))
+			MediaType.APPLICATION_JSON).post(entity)
 
 	}
 

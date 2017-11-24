@@ -190,7 +190,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 									ExperimentDesignDTO.getBuilder().design(design).jobId(jobId).runs(runs).name(
 										experimentName).fileName(specificationFile.getName()).numberOfTasks(applicationDescriptor.getApplications().size).pending(applicationDescriptor.getApplications().size).build());
 
-								tasks = applicationDescriptor.getApplications().map [
+								tasks = (applicationDescriptor.getApplications() + applicationDescriptor.getBlocks().map[getApplications()].flatten).toList.map [
 									val mapping = mappingService.findByTaskName(name);
 									ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).
 										taskId(id).factor(if(mapping === null) null else mapping.factor).object(
