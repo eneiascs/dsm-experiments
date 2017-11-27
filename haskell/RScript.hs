@@ -1,22 +1,14 @@
 module RScript where
-import Experiment
 import Dohko
-data RScript = RScript {hypothesesTests :: [HypothesisTest], expObjects :: [ExperimentalObject]} 
-
-data HypothesisTest = HypothesisTest {researchHypothesis :: ResearchHypothesis, analysisFunction :: AnalysisFunction} 
-data AnalysisFunction = AnalysisFunction {functionName :: String, function :: [ExecutionResult]->[ExecutionResult]->HypothesisObjectResult} 
-
-
-analyze :: RScript -> [ExecutionResult] -> [HypothesisResult]
-analyze rscript executionResults = map (testHypothesis executionResults (expObjects rscript)) (hypothesesTests rscript)
-
-testHypothesis :: [ExecutionResult] -> [ExperimentalObject]->HypothesisTest -> HypothesisResult
-testHypothesis executionResults objs hypothesisTest = HypothesisResult (map (applyAnalysisFunction executionResults hypothesisTest)  objs)
+data RScript = RScript {analysisTests :: [AnalysisTest]} 
+data AnalysisTest = AnalysisTest {analysisFunction :: [ExecutionResult]->[ExecutionResult]->TestResult, argument1 :: Argument, argument2::Argument} 
+data Argument = Argument {argDvName :: String, argTreatmentName :: String, argObjectName ::String} deriving (Show, Eq, Ord)
+data TestResult = TestResult {testResult :: String}  deriving (Show, Eq, Ord) 
 
 
-applyAnalysisFunction :: [ExecutionResult] ->HypothesisTest -> ExperimentalObject -> HypothesisObjectResult
-applyAnalysisFunction executionResults (HypothesisTest researchHypothesis analysisFunction) obj= 
-  (function analysisFunction) sample1 sample2
-  where sample1 = ([ result | result <- executionResults, (resDependentVariable result) == (dependentVariable researchHypothesis) && (object result)==obj && (treatment result)==(treatment1 researchHypothesis)])
-        sample2 = ([ result | result <- executionResults, (resDependentVariable result) == (dependentVariable researchHypothesis) && (object result)==obj && (treatment result)==(treatment2 researchHypothesis)])
-		
+analyze :: [ExecutionResult] -> RScript -> [TestResult]
+analyze executionResults rscript = map ((\results test ->(analysisFunction test) (filterResults results (argument1 test)) (filterResults results (argument2 test) )) executionResults) (analysisTests rscript)
+
+filterResults :: [ExecutionResult] -> Argument -> [ExecutionResult]
+filterResults results (Argument dependentVariableName treatmentName objectName) = ([ result | result <- results, (resDependentVariableName result) == dependentVariableName && (resTreatmentName result)==treatmentName && (resObjectName result)==objectName])
+
