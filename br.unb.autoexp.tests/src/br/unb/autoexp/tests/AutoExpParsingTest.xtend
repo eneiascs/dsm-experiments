@@ -78,10 +78,10 @@ class AutoExpParsingTest {
 			      command-line: "ssearch36 -d 0 ${query} ${database}"
 			      files:
 			      - name: "query"
-			        path: "$HOME/sequences/O60341.fasta"
+			        source: "$HOME/sequences/O60341.fasta"
 			        generated: "N"
 			      - name: "database"
-			        path: "$HOME/uniprot_sprot.fasta"
+			        source: "$HOME/uniprot_sprot.fasta"
 			        generated: "N"
 			      preconditions:
 			        packages:
@@ -91,28 +91,28 @@ class AutoExpParsingTest {
 			      command-line: "ssearch36 -d 0 ${query} ${database}"
 			      files:
 			      - name: "query"
-			        path: "$HOME/sequences/O60342.fasta"
+			        source: "$HOME/sequences/O60342.fasta"
 			        generated: "N"
 			      - name: "database"
-			        path: "$HOME/uniprot_sprot.fasta"
+			        source: "$HOME/uniprot_sprot.fasta"
 			        generated: "N"
 			    - name: "ssearch36"
 			      command-line: "ssearch36 -d 0 ${query} ${database}"
 			      files:
 			      - name: "query"
-			        path: "$HOME/sequences/O60341.fasta"
+			        source: "$HOME/sequences/O60341.fasta"
 			        generated: "N"
 			      - name: "database"
-			        path: "$HOME/uniprot_sprot2.fasta"
+			        source: "$HOME/uniprot_sprot2.fasta"
 			        generated: "N"
 			    - name: "ssearch36"
 			      command-line: "ssearch36 -d 0 ${query} ${database}"
 			      files:
 			      - name: "query"
-			        path: "$HOME/sequences/O60342.fasta"
+			        source: "$HOME/sequences/O60342.fasta"
 			        generated: "N"
 			      - name: "database"
-			        path: "$HOME/uniprot_sprot2.fasta"
+			        source: "$HOME/uniprot_sprot2.fasta"
 			        generated: "N"
 			on-finish: "NONE"
 		'''.toString.convert
@@ -210,13 +210,13 @@ class AutoExpParsingTest {
 	def void testApplications() {
 
 	
-		4.assertEquals(applicationDescriptor.applications.size)
-		"ssearch36".assertEquals(applicationDescriptor.applications.head.name)
-		"ssearch36 -d 0 ${query} ${database}".assertEquals(applicationDescriptor.applications.head.commandLine)
-		2.assertEquals(applicationDescriptor.applications.head.files.size)
-		"query".assertEquals(applicationDescriptor.applications.head.files.head.name)
-		"$HOME/sequences/O60341.fasta".assertEquals(applicationDescriptor.applications.head.files.head.path)
-		"NO".assertEquals(applicationDescriptor.applications.head.files.head.generated.name)
+		4.assertEquals(applicationDescriptor.getApplications().size)
+		"ssearch36".assertEquals(applicationDescriptor.getApplications().head.name)
+		"ssearch36 -d 0 ${query} ${database}".assertEquals(applicationDescriptor.getApplications().head.commandLine)
+		2.assertEquals(applicationDescriptor.getApplications().head.files.size)
+		"query".assertEquals(applicationDescriptor.getApplications().head.files.head.name)
+		"$HOME/sequences/O60341.fasta".assertEquals(applicationDescriptor.getApplications().head.files.head.source)
+		"NO".assertEquals(applicationDescriptor.getApplications().head.files.head.generated.name)
 	}		
 	@Test
 	def void testOnFinish() {
@@ -225,15 +225,15 @@ class AutoExpParsingTest {
 		
 	@Test
 	def void testPreconditionsGlobal() {
-		"docker".assertEquals(applicationDescriptor.preconditions.head.packages.head)
-		"java".assertEquals(applicationDescriptor.preconditions.head.packages.tail.head)
+		"docker".assertEquals(applicationDescriptor.getPreconditions.head.packages.head)
+		"java".assertEquals(applicationDescriptor.getPreconditions.head.packages.tail.head)
 	}	
 	
 		
 	@Test
 	def void testPreconditionApplication() {
-		"reana-spl".assertEquals(applicationDescriptor.applications.head.preconditions.head.packages.head)
-		"param".assertEquals(applicationDescriptor.applications.head.preconditions.head.packages.tail.head)
+		"reana-spl".assertEquals(applicationDescriptor.getApplications().head.preconditions.head.packages.head)
+		"param".assertEquals(applicationDescriptor.getApplications().head.preconditions.head.packages.tail.head)
 		
 		
 	}				  

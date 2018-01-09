@@ -25,7 +25,7 @@ class AutoExpValidatorTest {
 		'''
 			Experiment reanaSpl {
 			
-				Authors {author1 {fullName "Author1 Full Name" institution "University of Brasília" email "author1@unb.br"},author2 {fullName "Author2 Full Name" institution "University of Brasília" email "author2@unb.br"}}
+				Authors {author1 {fullName "Author1 Full Name" institution "University of Brasï¿½lia" email "author1@unb.br"},author2 {fullName "Author2 Full Name" institution "University of Brasï¿½lia" email "author2@unb.br"}}
 			
 			  description "Reliability Analysis of Software Product Lines" 
 			 Abstract {
@@ -48,6 +48,8 @@ class AutoExpValidatorTest {
 			  }
 			  Experimental Design {
 			    type FACTORIAL
+			    runs 1
+			  }
 			    Dependent Variables {
 			      time { description "Analysis time" scaleType Absolute },
 			      memoryConsumption { description "Memory Consumption" scaleType Absolute }
@@ -68,7 +70,7 @@ class AutoExpValidatorTest {
 				
 				}
 				Objects { intercloud description "",lift description "",bsn description ""} 	
-				}
+				
 				Executions { 
 					cpuinfo { 
 						command "cat /proc/cpuinfo"
@@ -126,6 +128,8 @@ class AutoExpValidatorTest {
 					RH4 {memoryConsumption micro > large}
 					}
 					Experimental Design {
+						runs 1
+					}
 						Dependent Variables {
 						  time { description "Analysis time" scaleType Absolute },
 						  memoryConsumption { description "Memory Consumption" scaleType Absolute }
@@ -145,7 +149,7 @@ class AutoExpValidatorTest {
 							
 						}
 							Objects { intercloud description "",lift description "",bsn description ""} 	
-							}
+							
 							Executions { 
 								cpuinfo { 
 									command "cat /proc/cpuinfo"
@@ -173,6 +177,8 @@ class AutoExpValidatorTest {
 			  	RH1 {time featureFamily = featureProduct}
 			  }
 			  Experimental Design {
+			   runs 1
+			  }
 			    Dependent Variables {
 			      time { description "Analysis time" scaleType Absolute }
 				}    
@@ -193,12 +199,18 @@ class AutoExpValidatorTest {
 					lift description "" parameters {
 						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 					} 	
-				}
+				
 				Executions { helloWorld { 
 					command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 					}
 													 
 				}
+				Infrastructure {
+												user{
+													username "user"
+												}
+												
+											}
 			}
 		'''
 		testInput.parse.assertNoIssues
@@ -215,6 +227,8 @@ class AutoExpValidatorTest {
 			  	RH1 {time featureFamily = featureFamily}
 			  }
 			  Experimental Design {
+			   runs 1
+			  }
 			    Dependent Variables {
 			      time { description "Analysis time" scaleType Absolute },
 			      memoryConsumption { description "Memory Consumption" scaleType Absolute }
@@ -236,8 +250,8 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-				}
+				Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+				
 				Executions { 
 					cpuinfo { 
 					 	command "cat /proc/cpuinfo"
@@ -271,6 +285,8 @@ class AutoExpValidatorTest {
 			  	RH1 {time featureFamily = micro}
 			  }
 			  Experimental Design {
+			   runs 1
+			  }  
 			    Dependent Variables {
 			      time { description "Analysis time" scaleType Absolute },
 			      memoryConsumption { description "Memory Consumption" scaleType Absolute }
@@ -292,8 +308,8 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-								}
+				Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+								
 				Executions { 
 				  cpuinfo { 
 				  command "cat /proc/cpuinfo"
@@ -324,6 +340,8 @@ class AutoExpValidatorTest {
 				  	RH2 {time featureFamily = featureProduct}
 				  }
 				  Experimental Design {
+				  	runs 1
+				  }
 				    Dependent Variables {
 				      time { description "Analysis time" scaleType Absolute }
 					}    
@@ -338,8 +356,8 @@ class AutoExpValidatorTest {
 						   	  		
 					
 					}
-					Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-							}
+					Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+							
 					Executions { 
 					  cpuinfo { 
 					  command "cat /proc/cpuinfo"
@@ -366,32 +384,40 @@ class AutoExpValidatorTest {
 			def void testDependentVariableNeverUsed() {
 				val testInput = '''
 					Experiment reanaSpl {
-					
-					  description "Reliability Analysis of Software Product Lines" 
-					     
-					  Research Hypotheses {
-					  	RH1 {time featureFamily = featureProduct}
-					  }
-					  Experimental Design {
-					    Dependent Variables {
-					      time { description "Analysis time" scaleType Absolute },
-					      memoryConsumption { description "Memory Consumption" scaleType Absolute }
-						}    
-						 
-						Factors { 
-							strategy { description "Analysis Strategy" scaleType Nominal},
-							computer { description "Computer" scaleType Nominal}  
-							} 
-							
-							Treatments { 
-							  featureFamily description ""  factor strategy,
-							  featureProduct description "" factor strategy
-							   	  		
-						
-						}
-						Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-						}
-					}
+										
+										  description "Reliability Analysis of Software Product Lines" 
+										     
+										  Research Hypotheses {
+										  	RH1 {time featureFamily = featureProduct}
+										  }
+										  Experimental Design {
+										  	runs 1
+										  } 
+										   Dependent Variables {
+										      time { description "Analysis time" scaleType Absolute },
+										      memoryConsumption { description "Memory Consumption" scaleType Absolute }
+											}    
+											 
+											Factors { 
+												strategy { description "Analysis Strategy" scaleType Nominal},
+												computer { description "Computer" scaleType Nominal}  
+												} 
+												
+												Treatments { 
+												  featureFamily description ""  factor strategy execution cpuinfo,
+												  featureProduct description "" factor strategy execution cpuinfo
+												   	  		
+											
+											}
+											Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+											
+												
+										Executions { 
+										  cpuinfo { 
+										  command "cat /proc/cpuinfo"
+											}
+										}
+										}
 				'''
 				testInput.parse => [
 					assertWarning(AutoExpPackage.eINSTANCE.dependentVariable, AutoExpValidator.DEPENDENT_VARIABLE_NEVER_USED,
@@ -413,6 +439,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }  
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute },
 					      memoryConsumption { description "Memory Consumption" scaleType Absolute }
@@ -424,14 +452,19 @@ class AutoExpValidatorTest {
 							} 
 							
 							Treatments { 
-							  featureFamily description "" factor strategy,
-							  featureProduct description "" factor strategy
+							  featureFamily description "" factor strategy execution cpuinfo,
+							  featureProduct description "" factor strategy execution cpuinfo
 							   	  		
 						
 						}
 						Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-						}
+					Executions { 
+					  cpuinfo { 
+					  command "cat /proc/cpuinfo"
 					}
+					}
+					}
+					
 				'''
 				testInput.parse => [
 					assertWarning(AutoExpPackage.eINSTANCE.factor, AutoExpValidator.FACTOR_NEVER_USED,
@@ -453,6 +486,9 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  
+					  }  
+					    
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -462,15 +498,19 @@ class AutoExpValidatorTest {
 							} 
 							
 							Treatments { 
-							  featureFamily description "" factor strategy,
-							  featureProduct description "" factor strategy,
-							  product description "" factor strategy
+							  featureFamily description "" factor strategy execution cpuinfo,
+							  featureProduct description "" factor strategy execution cpuinfo,
+							  product description "" factor strategy execution cpuinfo
 							   	  		
 						
 						}
 						Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-						}
-					}
+					Executions { 
+										  cpuinfo { 
+										  command "cat /proc/cpuinfo"
+										}
+										}
+										}
 				'''
 				testInput.parse => [
 					assertWarning(AutoExpPackage.eINSTANCE.treatment, AutoExpValidator.TREATMENT_NEVER_USED,
@@ -484,38 +524,40 @@ class AutoExpValidatorTest {
 			def void testExecutionNeverUsed() {
 				val testInput = '''
 					Experiment reanaSpl {
-					
-					  description "Reliability Analysis of Software Product Lines" 
-					     
-					  Research Hypotheses {
-					  	RH1 {time featureFamily = featureProduct}
-					  }
-					  Experimental Design {
-					    Dependent Variable {
-					      time { description "Analysis time" scaleType Absolute }
-						}    
-						 
-						Factors { 
-							strategy { description "Analysis Strategy" scaleType Nominal}
-							} 
-							
-							Treatments{ 
-							   featureFamily description "" factor strategy parameters{ argument "Feature Family"} execution helloWorld,
-							   featureProduct description "" factor strategy parameters{ argument "Feature Product"} execution helloWorld
-							   	  		
-						
-						}
-						Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
-						}
-						Executions { helloWorld { 
+										
+										  description "Reliability Analysis of Software Product Lines" 
+										     
+										  Research Hypotheses {
+										  	RH1 {time featureFamily = featureProduct}
+										  }
+										  Experimental Design {
+										      runs 1
+										  }  
+										    Dependent Variables {
+										      time { description "Analysis time" scaleType Absolute }
+											}    
+											 
+											Factors { 
+												strategy { description "Analysis Strategy" scaleType Nominal}
+												} 
 												
-						 	command "echo 'Hello World ${treatment.parameter.argument}'"
-						 	 },
-						 	 cpuinfo { 
-						 	    command "cat /proc/cpuinfo"
-						 	 }	 
-						 	}
-					}
+												Treatments{ 
+												   featureFamily description "" factor strategy parameters{ argument "Feature Family"} execution helloWorld,
+												   featureProduct description "" factor strategy parameters{ argument "Feature Product"} execution helloWorld
+												   	  		
+											
+											}
+											Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+											
+											Executions { helloWorld { 
+																	
+											 	command "echo 'Hello World ${treatment.parameter.argument}'"
+											 	 },
+											 	 cpuinfo { 
+											 	    command "cat /proc/cpuinfo"
+											 	 }	 
+											 	}
+										}
 				'''
 				testInput.parse => [
 					assertWarning(AutoExpPackage.eINSTANCE.execution, AutoExpValidator.EXECUTION_NEVER_USED,
@@ -536,8 +578,10 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					    runs 1
+					  }  
 					    Dependent Variables {
-					      timeConsumption { description "Analysis time" scaleType Absolute }
+					      time { description "Analysis time" scaleType Absolute }
 						}    
 						 
 						Factors { 
@@ -556,7 +600,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment2.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'"
 							},
@@ -589,6 +633,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -609,12 +655,20 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+					
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel} ${treatment.description} ${object.description}'"
 							}
 															 
-						}			}
+						}			
+						
+					Infrastructure {
+													user{
+														username "user"
+													}
+													
+												}	
+						}
 				'''
 				testInput.parse.assertNoIssues
 			}
@@ -630,6 +684,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  runs 1
+					  }
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -650,7 +706,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name2}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -679,6 +735,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }  
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -699,7 +757,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter2.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -729,6 +787,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }	
 					    Dependent Variables {
 					      timeConsumption { description "Analysis time" scaleType Absolute }
 						}    
@@ -749,7 +809,7 @@ class AutoExpValidatorTest {
 							lift description "Lift" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument2} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -779,6 +839,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }	
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -799,7 +861,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object2.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -829,6 +891,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }	
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -849,7 +913,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name2} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -879,6 +943,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					    runs 1
+					  }	
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -899,7 +965,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter2.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -927,6 +993,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					    runs 1
+					  }	
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -947,7 +1015,7 @@ class AutoExpValidatorTest {
 							lift description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
 							} 	
-						}
+						
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel2} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -977,6 +1045,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }	
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -994,9 +1064,9 @@ class AutoExpValidatorTest {
 						Objects { 
 							intercloud description "", lift description ""  	
 							}
-						}
+						
 						Executions { helloWorld { 
-							command "echo 'Hello World ${treatment.name}'" result {name 'results' path '$HOME/results/${object.name2}_results.json'}
+							command "echo 'Hello World ${treatment.name}'" result {name 'results' source '$HOME/results/${object.name2}_results.json'}
 											 }
 											 
 											
@@ -1014,7 +1084,7 @@ class AutoExpValidatorTest {
 						"Parameter '${object.name2}' cannot be resolved")
 					assertError(AutoExpPackage.eINSTANCE.execution, AutoExpValidator.INVALID_PARAMETER,
 						testInput.indexOf("{name 'results'"),
-						"{name 'results' path '$HOME/results/${object.name2}_results.json}'".length)
+						"{name 'results' source '$HOME/results/${object.name2}_results.json}'".length)
 				]
 			}
 
@@ -1029,6 +1099,8 @@ class AutoExpValidatorTest {
 					  	RH1 {time featureFamily = featureProduct}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }	
 					    Dependent Variables {
 					      time { description "Analysis time" scaleType Absolute }
 						}    
@@ -1046,9 +1118,9 @@ class AutoExpValidatorTest {
 						Objects { 
 							intercloud description "", lift  description ""	
 							}
-						}
+						
 						Executions { helloWorld { 
-							command "echo 'Hello World ${treatment.name}'" result {name 'results' path '$HOME/results/${object.name}_results.json'}
+							command "echo 'Hello World ${treatment.name}'" result {name 'results' source '$HOME/results/${object.name}_results.json'}
 											 }
 											 
 											
@@ -1075,6 +1147,8 @@ class AutoExpValidatorTest {
 							  	RH1 {score query1 = query2}
 							  }
 							  Experimental Design {
+							  	runs 1
+							  }	
 							    Dependent Variables {
 							      score { description "Analysis time" scaleType Absolute }
 							}    
@@ -1084,19 +1158,19 @@ class AutoExpValidatorTest {
 								} 
 								
 								Treatments { 
-								 query1 description "Query 1" factor query files {{name "database" path "$HOME/uniprot_sprot.fasta"}} execution ssearch36,
-								 query2 description "" factor query files {{name "database" path "$HOME/uniprot_sprot.fasta"}} execution ssearch36
+								 query1 description "Query 1" factor query files {{name "database" source "$HOME/uniprot_sprot.fasta"}} execution ssearch36,
+								 query2 description "" factor query files {{name "database" source "$HOME/uniprot_sprot.fasta"}} execution ssearch36
 								 
 							
 							}
 							Objects { 
-								O60341 description "" files {{name "query" path "$HOME/sequences/O60341.fasta"}} 
+								O60341 description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}} 
 							}
 							
-							}
+							
 							Executions { 
 								ssearch36 { 
-									command "ssearch36 -d 0 ${object.file.query} ${treatment.file.database}" result {name "score_table" path "$HOME/scores/${object.name}_scores.txt"}
+									command "ssearch36 -d 0 ${object.file.query} ${treatment.file.database}" result {name "score_table" source "$HOME/scores/${object.name}_scores.txt"}
 									}
 							}
 							Infrastructure {
@@ -1121,6 +1195,8 @@ class AutoExpValidatorTest {
 						  	RH1 {score query1 = query2}
 						  }
 						  Experimental Design {
+						  	runs 1
+						  }
 						    Dependent Variables {
 						      score { description "Analysis time" scaleType Absolute }
 							}    
@@ -1130,19 +1206,19 @@ class AutoExpValidatorTest {
 								} 
 								
 								Treatments { 
-								 query1 description "" factor query files {{name "database" path "$HOME/uniprot_sprot.fasta"}} execution ssearch36,
-								 query2 description "" factor query files {{name "database" path "$HOME/uniprot_sprot.fasta"}} execution ssearch36
+								 query1 description "" factor query files {{name "database" source "$HOME/uniprot_sprot.fasta"}} execution ssearch36,
+								 query2 description "" factor query files {{name "database" source "$HOME/uniprot_sprot.fasta"}} execution ssearch36
 								 
 							
 							}
 							Objects { 
-								O60341 description "" files {{name "query" path "$HOME/sequences/O60341.fasta"}} 
+								O60341 description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}} 
 							}
 							
-							}
+							
 							Executions { 
 								ssearch36 { 
-									command "ssearch36 -d 0 ${object.file.query2} ${treatment.file.database}" result {name "score_table" path "$HOME/scores/${object.name}_scores.txt"}
+									command "ssearch36 -d 0 ${object.file.query2} ${treatment.file.database}" result {name "score_table" source "$HOME/scores/${object.name}_scores.txt"}
 									}
 							}
 							Infrastructure {
@@ -1172,6 +1248,8 @@ class AutoExpValidatorTest {
 						  	RH1 {score query1 = query2}
 						  }
 						  Experimental Design {
+						  	runs 1
+						  }	
 						    Dependent Variables {
 						      score { description "Analysis time" scaleType Absolute }
 							}    
@@ -1190,14 +1268,14 @@ class AutoExpValidatorTest {
 								O60341  description ""
 							}
 							
-							}
+							
 							Executions { 
 								ssearch36 { 
 									command "ssearch36 -d 0 ${execution.file.query} ${execution.file.database}" 
-									result {name "score_table" path "$HOME/scores/${object.name}_scores.txt"}
+									result {name "score_table" source "$HOME/scores/${object.name}_scores.txt"}
 									files {
-										{name "database" path "$HOME/uniprot_sprot.fasta"},
-										{name "query" path "$HOME/sequences/O60341.fasta"}
+										{name "database" source "$HOME/uniprot_sprot.fasta"},
+										{name "query" source "$HOME/sequences/O60341.fasta"}
 									}
 									}
 							}
@@ -1223,6 +1301,8 @@ class AutoExpValidatorTest {
 					  	RH1 {score query1 = query2}
 					  }
 					  Experimental Design {
+					  	runs 1
+					  }	
 					    Dependent Variables {
 					      score { description "Analysis time" scaleType Absolute }
 						}    
@@ -1241,14 +1321,14 @@ class AutoExpValidatorTest {
 							O60341 description ""
 						}
 						
-						}
+						
 						Executions { 
 							ssearch36 { 
 								command "ssearch36 -d 0 ${execution.file.query2} ${execution.file.database}" 
-								result {name "score_table" path "$HOME/scores/${object.name}_scores.txt"}
+								result {name "score_table" source "$HOME/scores/${object.name}_scores.txt"}
 								files {
-									{name "database" path "$HOME/uniprot_sprot.fasta"},
-									{name "query" path "$HOME/sequences/O60341.fasta"}
+									{name "database" source "$HOME/uniprot_sprot.fasta"},
+									{name "query" source "$HOME/sequences/O60341.fasta"}
 								}
 								}
 						}
@@ -1268,57 +1348,5 @@ class AutoExpValidatorTest {
 						"ssearch36 -d 0 ${execution.file.query2} ${execution.file.database}".length + 2)
 				]
 			}
-//	@Test
-//	def void testEntityExtendsItself() {
-//		'''
-//			entity MyEntity extends MyEntity {
-//			
-//			}
-//		'''.parse.assertCycleInHierarchy("MyEntity")
-//	}
-//
-//	@Test
-//	def void testCycleInEntityHierarchy() {
-//		'''    
-//			entity A extends B {}    
-//			entity B extends C {}    
-//			entity C extends A {}  
-//		'''.parse => [
-//			assertCycleInHierarchy("A")
-//			assertCycleInHierarchy("B")
-//			assertCycleInHierarchy("C")
-//		]
-//	}
-//
-//	def private assertCycleInHierarchy(Model m, String entityName) {
-//		m.assertError(
-//			AutoExpPackage.eINSTANCE.entity,
-//			AutoExpValidator.HIERARCHY_CYCLE,
-//			"cycle in hierarchy of entity '" + entityName + "'"
-//		)
-//
-//	}
-//
-//	@Test
-//	def void testCycleInHierarchyErrorPosition() {
-//		val testInput = '''
-//			entity MyEntity extends MyEntity {
-//			}
-//		'''
-//		testInput.parse.assertError(
-//			AutoExpPackage.eINSTANCE.entity,
-//			AutoExpValidator.HIERARCHY_CYCLE,
-//			testInput.lastIndexOf("MyEntity"), // offset
-//			"MyEntity".length // length
-//		)
-//	}
-//
-//	@Test
-//	def void testValidHierarchy() {
-//		'''
-//			entity FirstEntity {}
-//			entity SecondEntity extends FirstEntity {}
-//		'''.parse.assertNoErrors
-//	}
-		}
-		
+			
+			}

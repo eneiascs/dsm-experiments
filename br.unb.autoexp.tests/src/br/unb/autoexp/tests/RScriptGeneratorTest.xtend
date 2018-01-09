@@ -19,7 +19,7 @@ class RScriptGeneratorTest {
 		'''
 			Experiment reanaSpl {
 			
-				Authors {author1 {fullName "Author1 Full Name" institution "University of Brasília" email "author1@unb.br"},author2 {fullName "Author2 Full Name" institution "University of Brasília" email "author2@unb.br"}}
+				Authors {author1 {fullName "Author1 Full Name" institution "University of Brasï¿½lia" email "author1@unb.br"},author2 {fullName "Author2 Full Name" institution "University of Brasï¿½lia" email "author2@unb.br"}}
 			
 			  description "Reliability Analysis of Software Product Lines" 
 			 Abstract {
@@ -41,6 +41,7 @@ class RScriptGeneratorTest {
 			  }
 			  Experimental Design {
 			    type FACTORIAL
+			  }  
 			    Dependent Variables {
 			      time { description "Analysis time" scaleType Absolute },
 			      memoryConsumption { description "Memory Consumption" scaleType Absolute },
@@ -58,7 +59,7 @@ class RScriptGeneratorTest {
 				
 				}
 				Objects { intercloud description "Intercloud SPL",lift description "Lift SPL"} 	
-				}
+				
 				Executions { 
 					cpuinfo { 
 						command "cat /proc/cpuinfo"
@@ -77,6 +78,8 @@ class RScriptGeneratorTest {
 			val rScript = '''
 				\documentclass{article}
 				\usepackage{authblk}
+				\usepackage{float}
+				\usepackage{multirow}
 				\usepackage[utf8]{inputenc}
 				\begin{document}
 				\title{Reliability Analysis of Software Product Lines}
@@ -98,17 +101,21 @@ class RScriptGeneratorTest {
 				
 				%\keywords{SPL,Software Product Lines}
 				
-				<<setup, include=FALSE>>=
+				<<setup, include=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				library(reproducer) # R package incl. software engineering data sets
 				library(ggplot2) # R package to create high-quality graphics
 				library(jsonlite)
 				 
-				alpha<-0.01
+				alpha=0.01
 				 
-				json_data <- fromJSON("data.json")
+				json_data = fromJSON("data.json")
+				
+				
+				
 				@
 				\section{Description}
 				Reliability Analysis of Software Product Lines
+				
 				\section{Goals}
 				\begin{itemize}
 				\item{goal1: 
@@ -121,6 +128,7 @@ class RScriptGeneratorTest {
 				
 				\item{goal2: Goal 2}
 				\end{itemize}
+				
 				\section{Research Questions}
 				\begin{itemize}
 				
@@ -130,96 +138,61 @@ class RScriptGeneratorTest {
 				\end{itemize}
 				
 				\section{Research Hypotheses}
-				\subsection{Overview}
 				
-				<<overview, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, results='markup', cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				
-				time_featureFamily<-subset(json_data,treatment=='featureFamily')$time
-				time_featureProduct<-subset(json_data,treatment=='featureProduct')$time
-				boxplot_time <- ggplot(json_data, aes(x =treatment , y = time)) +
+				\subsection{Overview for Intercloud SPL}
+				<<intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				boxplot_intercloud_time = ggplot(subset(json_data,(treatment=='featureFamily' |treatment=='featureProduct' )& object=='intercloud'), aes(x =treatment , y = time)) +
 					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 					theme_bw() +    
 					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Analysis time by Analysis Strategy")
-					   
-					boxplot_time
-					
-				memory_featureFamily<-subset(json_data,treatment=='featureFamily')$memory
-				memory_featureProduct<-subset(json_data,treatment=='featureProduct')$memory
-				boxplot_memory <- ggplot(json_data, aes(x =treatment , y = memory)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Memory Consumption by Analysis Strategy")
-					   
-					boxplot_memory
-					
-				cpu_featureFamily<-subset(json_data,treatment=='featureFamily')$cpu
-				cpu_featureProduct<-subset(json_data,treatment=='featureProduct')$cpu
-				boxplot_cpu <- ggplot(json_data, aes(x =treatment , y = cpu)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Cpu Consumption by Analysis Strategy")
-					   
-					boxplot_cpu
-					
-				@					
-				 
-				\subsection{Intercloud SPL}
-				<<intercloud, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				boxplot_intercloud_time <- ggplot(json_data[json_data$object=='intercloud',], aes(x =treatment , y = time)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Analysis time by Analysis Strategy for intercloud")
-					   
+					ggtitle("Analysis time by Analysis Strategy for intercloud") + 
+					ylab("Analysis time ")   
 					boxplot_intercloud_time
 					
-				boxplot_intercloud_memory <- ggplot(json_data[json_data$object=='intercloud',], aes(x =treatment , y = memory)) +
+				boxplot_intercloud_memory = ggplot(subset(json_data,(treatment=='featureFamily' |treatment=='featureProduct' )& object=='intercloud'), aes(x =treatment , y = memory)) +
 					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 					theme_bw() +    
 					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Memory Consumption by Analysis Strategy for intercloud")
-					   
+					ggtitle("Memory Consumption by Analysis Strategy for intercloud") + 
+					ylab("Memory Consumption ")   
 					boxplot_intercloud_memory
 					
-				boxplot_intercloud_cpu <- ggplot(json_data[json_data$object=='intercloud',], aes(x =treatment , y = cpu)) +
+				boxplot_intercloud_cpu = ggplot(subset(json_data,(treatment=='featureFamily' |treatment=='featureProduct' )& object=='intercloud'), aes(x =treatment , y = cpu)) +
 					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 					theme_bw() +    
 					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Cpu Consumption by Analysis Strategy for intercloud")
-					   
+					ggtitle("Cpu Consumption by Analysis Strategy for intercloud") + 
+					ylab("Cpu Consumption ")   
 					boxplot_intercloud_cpu
 					
 				
 				
 				
 				@	
-				\subsection{Lift SPL}
-				<<lift, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				boxplot_lift_time <- ggplot(json_data[json_data$object=='lift',], aes(x =treatment , y = time)) +
+				\subsection{Overview for Lift SPL}
+				<<lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				boxplot_lift_time = ggplot(subset(json_data,(treatment=='featureFamily' |treatment=='featureProduct' )& object=='lift'), aes(x =treatment , y = time)) +
 					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 					theme_bw() +    
 					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Analysis time by Analysis Strategy for lift")
-					   
+					ggtitle("Analysis time by Analysis Strategy for lift") + 
+					ylab("Analysis time ")   
 					boxplot_lift_time
 					
-				boxplot_lift_memory <- ggplot(json_data[json_data$object=='lift',], aes(x =treatment , y = memory)) +
+				boxplot_lift_memory = ggplot(subset(json_data,(treatment=='featureFamily' |treatment=='featureProduct' )& object=='lift'), aes(x =treatment , y = memory)) +
 					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 					theme_bw() +    
 					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Memory Consumption by Analysis Strategy for lift")
-					   
+					ggtitle("Memory Consumption by Analysis Strategy for lift") + 
+					ylab("Memory Consumption ")   
 					boxplot_lift_memory
 					
-				boxplot_lift_cpu <- ggplot(json_data[json_data$object=='lift',], aes(x =treatment , y = cpu)) +
+				boxplot_lift_cpu = ggplot(subset(json_data,(treatment=='featureFamily' |treatment=='featureProduct' )& object=='lift'), aes(x =treatment , y = cpu)) +
 					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 					theme_bw() +    
 					scale_x_discrete(name = "Analysis Strategy",labels=c('Feature Family','Feature Product'))+
-					ggtitle("Cpu Consumption by Analysis Strategy for lift")
-					   
+					ggtitle("Cpu Consumption by Analysis Strategy for lift") + 
+					ylab("Cpu Consumption ")   
 					boxplot_lift_cpu
 					
 				
@@ -227,285 +200,1035 @@ class RScriptGeneratorTest {
 				
 				@	
 				
-				
-				
 				\subsection{RH1: }
-				Research hypothesis RH1: Analysis time for Feature Family is equals than Analysis time for Feature Product.  
 									
-				\subsubsection{Analysis time for Feature Family}
-				<<RH1_featureFamily, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(time_featureFamily)))					
-				summary(time_featureFamily)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily'), "time", min(subset(json_data,treatment=='featureFamily')$time), max(subset(json_data,treatment=='featureFamily')$time))
-				
-				shap_featureFamily<-shapiro.test(time_featureFamily)
-				print(shap_featureFamily)
-				if(shap_featureFamily$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily$p.value, sep = " "))
-				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily$p.value, sep = " "))
-				}
-				@
-				\subsubsection{Analysis time for Feature Product}
-				<<RH1_featureProduct, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(time_featureProduct)))					
-				summary(time_featureProduct)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct'), "time", min(subset(json_data,treatment=='featureProduct')$time), max(subset(json_data,treatment=='featureProduct')$time))
-				
-				shap_featureProduct<-shapiro.test(time_featureProduct)
-				print(shap_featureProduct)
-				if(shap_featureProduct$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct$p.value, sep = " "))
-				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct$p.value, sep = " "))
-				}
-				@
-				
+				 <<RH1, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 
-				<<RH1, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
+				 result_RH1_objects=2
+				 result_RH1_less=0
+				 result_RH1_greater=0
+				 result_RH1_featureFamily=0
+				 result_RH1_featureProduct=0
+				 result_RH1_none=0
+				 result_RH1_inconclusive=0
+				 @
+				
+				\subsubsection{RH1.1: Object Intercloud SPL}
+				
+				 \textbf{Analysis time for Feature Family}
+				 <<RH1_featureFamily_intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)))					
+				 summary(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily' & object=='intercloud'), "time", min(subset(json_data,treatment=='featureFamily'& object=='intercloud')$time), max(subset(json_data,treatment=='featureFamily'& object=='intercloud')$time))
 				 
-				boxplot_RH1 <- ggplot(json_data[json_data$treatment=='featureFamily'|json_data$treatment=='featureProduct',], aes(x =treatment , y = time)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
-					ggtitle("Analysis time by Analysis Strategy")
-								   
-				boxplot_RH1
+				 shap_featureFamily_intercloud=shapiro.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)
+				 print(shap_featureFamily_intercloud)
+				 if(shap_featureFamily_intercloud$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily_intercloud$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily_intercloud$p.value, sep = " "))
+				 }
+				 @
+				 \textbf{Analysis time for Feature Product}
+				 <<RH1_featureProduct_intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)))					
+				 summary(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct' & object=='intercloud'), "time", min(subset(json_data,treatment=='featureProduct'& object=='intercloud')$time), max(subset(json_data,treatment=='featureProduct'& object=='intercloud')$time))
 				 
-				if(shap_featureFamily$p.value>alpha&shap_featureProduct$p.value>alpha){
+				 shap_featureProduct_intercloud=shapiro.test(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)
+				 print(shap_featureProduct_intercloud)
+				 if(shap_featureProduct_intercloud$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct_intercloud$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct_intercloud$p.value, sep = " "))
+				 }
+				 @
 				  
-					print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
-					
-					fTest<-var.test(time_featureFamily,time_featureProduct)
-					print(fTest)
-						  
-					print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
-						  
-					print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
-					tTest<-t.test(time_featureFamily,time_featureProduct, var.equal=fTest$p.value>alpha, paired=FALSE)
-					print(tTest)
-					
-					if(tTest$p.value>alpha){
-						print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
-					}else{
-					    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
-					}
-				}
+				 \textbf{Comparison}
+				  
+				 <<RH1_intercloud, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+				 boxplot_RH1_intercloud = ggplot(subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='intercloud'), aes(x =treatment , y = time)) +
+				 	geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
+				 	theme_bw() +    
+				 	scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
+				 	ggtitle("Analysis time by Analysis Strategy for Intercloud SPL") + 
+				 	ylab("Analysis time ")			   
+				 boxplot_RH1_intercloud
+				 result_RH1_intercloud_tTest = FALSE
+				 if(shap_featureFamily_intercloud$p.value>alpha&shap_featureProduct_intercloud$p.value>alpha){
+				   
+				 	print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 	
+				 	fTest=var.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time,subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)
+				 	print(fTest)
+				 		  
+				 	print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
+				 		  
+				 	print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
+				 	tTest=t.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time,subset(json_data,treatment=='featureProduct' & object=='intercloud')$time, var.equal=fTest$p.value>alpha, paired=FALSE)
+				 	print(tTest)
+				 	if(tTest$p.value>alpha){
+				 		print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+				 		
+				 	}else{
+				 	    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				 	    result_RH1_intercloud_tTest = TRUE
+				 	}
+				 }
+				 subset_RH1_intercloud_featureFamily=subset(json_data,treatment=='featureFamily' & object=='intercloud')
+				 subset_RH1_intercloud_featureProduct=subset(json_data,treatment=='featureProduct' & object=='intercloud')
+				 if (nrow(subset_RH1_intercloud_featureFamily) == 0 & nrow(subset_RH1_intercloud_featureProduct) == 0){
+				 	result_object_RH1_intercloud=4
+				 	result_RH1_intercloud="None"
+				 	result_RH1_none = result_RH1_none +1
+				 }
+				 if (nrow(subset_RH1_intercloud_featureFamily) != 0 & nrow(subset_RH1_intercloud_featureProduct) == 0){
+				 	result_object_RH1_intercloud=2
+				 	result_RH1_intercloud="Feature Family"
+				 	result_RH1_featureFamily = result_RH1_featureFamily +1			
+				 }
+				 if (nrow(subset_RH1_intercloud_featureFamily) == 0 & nrow(subset_RH1_intercloud_featureProduct) != 0){
+				 	result_object_RH1_intercloud=3
+				 	result_RH1_intercloud="Feature Product"
+				 	result_RH1_featureProduct = result_RH1_featureProduct +1			
+				 				
+				 }
+				 if (nrow(subset_RH1_intercloud_featureFamily) != 0 & nrow(subset_RH1_intercloud_featureProduct) != 0){
+				 	result_RH1_intercloud_wTest = FALSE			
+				 	wTest=wilcox.test(time~treatment,data=subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='intercloud')) 
+				  
+				 	print(wTest)
+				  
+				 	if(wTest$p.value>alpha){
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH1_intercloud_wTest = FALSE
+				 	}else{
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH1_intercloud_wTest = TRUE
+				 	}
+				 } 
+				 print("")
+				 print("Means comparison")
+				 print(paste("Mean Analysis time for Feature Family: ",mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)))
+				 print(paste("Mean Analysis time for Feature Product: ",mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)))
+				 print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)-mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time))))
+				 if (result_RH1_intercloud_tTest | result_RH1_intercloud_wTest){
+				 	if(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)>mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)){
+				 	  result_RH1_intercloud="Feature Family \\textgreater{} Feature Product"
+				 	  result_object_RH1_intercloud=1
+				 	  result_RH1_greater=result_RH1_greater+1
+				 	}else {
+				 	  result_RH1_intercloud="Feature Family \\textless{} Feature Product"
+				 	  result_object_RH1_intercloud=0
+				 	  result_RH1_less=result_RH1_less +1
+				 	}	
+				 	
+				 }else{
+				   result_object_RH1_intercloud=5
+				   result_RH1_intercloud="Inconclusive"
+				   result_RH1_inconclusive=result_RH1_inconclusive+1
+				 }
 				 
+				 if(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)>mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)){
+				     cat(paste("Analysis time for Feature Family is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)-mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time))/mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)),"% greater than \nAnalysis time for Feature Product"))
 				 
-				wTest<-wilcox.test(time~treatment,data=json_data[json_data$treatment=='featureFamily'|json_data$treatment=='featureProduct',]) 
+				 }else{
+				     cat(paste("Analysis time for Feature Product is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$time)-mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time))/mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$time)),"% greater than \nAnalysis time for Feature Family"))
 				 
-				print(wTest)
-				 
-				if(wTest$p.value>alpha){
-					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
-				}else{
-					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
-				}
-				 
-				 
-				print("")
-				print("Means comparison")
-				print(paste("Mean Analysis time for Feature Family: ",mean(time_featureFamily)))
-				print(paste("Mean Analysis time for Feature Product: ",mean(time_featureProduct)))
-				print(paste("Absolute difference: ",abs(mean(time_featureProduct)-mean(time_featureFamily))))
-				if(mean(time_featureFamily)>mean(time_featureProduct)){
-				    print(paste("Analysis time for Feature Family is ",100*(abs(mean(time_featureProduct)-mean(time_featureFamily))/mean(time_featureProduct)),"% greater than Analysis time for Feature Product"))
+				 }
+				 @  
 				
-				}else{
-				    print(paste("Analysis time for Feature Product is ",100*(abs(mean(time_featureProduct)-mean(time_featureFamily))/mean(time_featureFamily)),"% greater than Analysis time for Feature Family"))
 				
-				}
-
-				@
+				\subsubsection{RH1.2: Object Lift SPL}
+				
+				 \textbf{Analysis time for Feature Family}
+				 <<RH1_featureFamily_lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureFamily' & object=='lift')$time)))					
+				 summary(subset(json_data,treatment=='featureFamily' & object=='lift')$time)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily' & object=='lift'), "time", min(subset(json_data,treatment=='featureFamily'& object=='lift')$time), max(subset(json_data,treatment=='featureFamily'& object=='lift')$time))
+				 
+				 shap_featureFamily_lift=shapiro.test(subset(json_data,treatment=='featureFamily' & object=='lift')$time)
+				 print(shap_featureFamily_lift)
+				 if(shap_featureFamily_lift$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily_lift$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily_lift$p.value, sep = " "))
+				 }
+				 @
+				 \textbf{Analysis time for Feature Product}
+				 <<RH1_featureProduct_lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureProduct' & object=='lift')$time)))					
+				 summary(subset(json_data,treatment=='featureProduct' & object=='lift')$time)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct' & object=='lift'), "time", min(subset(json_data,treatment=='featureProduct'& object=='lift')$time), max(subset(json_data,treatment=='featureProduct'& object=='lift')$time))
+				 
+				 shap_featureProduct_lift=shapiro.test(subset(json_data,treatment=='featureProduct' & object=='lift')$time)
+				 print(shap_featureProduct_lift)
+				 if(shap_featureProduct_lift$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct_lift$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct_lift$p.value, sep = " "))
+				 }
+				 @
+				  
+				 \textbf{Comparison}
+				  
+				 <<RH1_lift, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+				 boxplot_RH1_lift = ggplot(subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='lift'), aes(x =treatment , y = time)) +
+				 	geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
+				 	theme_bw() +    
+				 	scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
+				 	ggtitle("Analysis time by Analysis Strategy for Lift SPL") + 
+				 	ylab("Analysis time ")			   
+				 boxplot_RH1_lift
+				 result_RH1_lift_tTest = FALSE
+				 if(shap_featureFamily_lift$p.value>alpha&shap_featureProduct_lift$p.value>alpha){
+				   
+				 	print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 	
+				 	fTest=var.test(subset(json_data,treatment=='featureFamily' & object=='lift')$time,subset(json_data,treatment=='featureProduct' & object=='lift')$time)
+				 	print(fTest)
+				 		  
+				 	print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
+				 		  
+				 	print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
+				 	tTest=t.test(subset(json_data,treatment=='featureFamily' & object=='lift')$time,subset(json_data,treatment=='featureProduct' & object=='lift')$time, var.equal=fTest$p.value>alpha, paired=FALSE)
+				 	print(tTest)
+				 	if(tTest$p.value>alpha){
+				 		print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+				 		
+				 	}else{
+				 	    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				 	    result_RH1_lift_tTest = TRUE
+				 	}
+				 }
+				 subset_RH1_lift_featureFamily=subset(json_data,treatment=='featureFamily' & object=='lift')
+				 subset_RH1_lift_featureProduct=subset(json_data,treatment=='featureProduct' & object=='lift')
+				 if (nrow(subset_RH1_lift_featureFamily) == 0 & nrow(subset_RH1_lift_featureProduct) == 0){
+				 	result_object_RH1_lift=4
+				 	result_RH1_lift="None"
+				 	result_RH1_none = result_RH1_none +1
+				 }
+				 if (nrow(subset_RH1_lift_featureFamily) != 0 & nrow(subset_RH1_lift_featureProduct) == 0){
+				 	result_object_RH1_lift=2
+				 	result_RH1_lift="Feature Family"
+				 	result_RH1_featureFamily = result_RH1_featureFamily +1			
+				 }
+				 if (nrow(subset_RH1_lift_featureFamily) == 0 & nrow(subset_RH1_lift_featureProduct) != 0){
+				 	result_object_RH1_lift=3
+				 	result_RH1_lift="Feature Product"
+				 	result_RH1_featureProduct = result_RH1_featureProduct +1			
+				 				
+				 }
+				 if (nrow(subset_RH1_lift_featureFamily) != 0 & nrow(subset_RH1_lift_featureProduct) != 0){
+				 	result_RH1_lift_wTest = FALSE			
+				 	wTest=wilcox.test(time~treatment,data=subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='lift')) 
+				  
+				 	print(wTest)
+				  
+				 	if(wTest$p.value>alpha){
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH1_lift_wTest = FALSE
+				 	}else{
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH1_lift_wTest = TRUE
+				 	}
+				 } 
+				 print("")
+				 print("Means comparison")
+				 print(paste("Mean Analysis time for Feature Family: ",mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time)))
+				 print(paste("Mean Analysis time for Feature Product: ",mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time)))
+				 print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time)-mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time))))
+				 if (result_RH1_lift_tTest | result_RH1_lift_wTest){
+				 	if(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time)>mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time)){
+				 	  result_RH1_lift="Feature Family \\textgreater{} Feature Product"
+				 	  result_object_RH1_lift=1
+				 	  result_RH1_greater=result_RH1_greater+1
+				 	}else {
+				 	  result_RH1_lift="Feature Family \\textless{} Feature Product"
+				 	  result_object_RH1_lift=0
+				 	  result_RH1_less=result_RH1_less +1
+				 	}	
+				 	
+				 }else{
+				   result_object_RH1_lift=5
+				   result_RH1_lift="Inconclusive"
+				   result_RH1_inconclusive=result_RH1_inconclusive+1
+				 }
+				 
+				 if(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time)>mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time)){
+				     cat(paste("Analysis time for Feature Family is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time)-mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time))/mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time)),"% greater than \nAnalysis time for Feature Product"))
+				 
+				 }else{
+				     cat(paste("Analysis time for Feature Product is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='lift')$time)-mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time))/mean(subset(json_data,treatment=='featureFamily' & object=='lift')$time)),"% greater than \nAnalysis time for Feature Family"))
+				 
+				 }
+				 @  
+				
+				
+				 
+					<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+					RH1_result=list(hypothesis="RH1",results=c(result_RH1_less/result_RH1_objects,result_RH1_greater/result_RH1_objects,result_RH1_featureFamily/result_RH1_objects,result_RH1_featureProduct/result_RH1_objects,result_RH1_none/result_RH1_objects,result_RH1_inconclusive/result_RH1_objects),objectResults =list( list(object='intercloud',result=result_object_RH1_intercloud), list(object='lift',result=result_object_RH1_lift) ))	
+					@
+					
+					\subsubsection{RH1 Results: Analysis time Feature Family = Feature Product}
+					
+					
+					\begin{table}[H]
+					\centering
+					\caption{RH1 Results per Object}
+					\begin{tabular}{ll}
+					\textbf{Intercloud SPL} & \Sexpr{result_RH1_intercloud} \\
+					\textbf{Lift SPL} & \Sexpr{result_RH1_lift} \\
+					\end{tabular}
+					\end{table}
+				
+					\begin{table}[H]
+					\centering
+					\caption{RH1 Results Summary}
+					\begin{tabular}{ll}
+					\textbf{Feature Family \textless{} Feature Product:}& \Sexpr{100*result_RH1_less/result_RH1_objects}\% \\
+					\textbf{Feature Family \textgreater{} Feature Product:}& \Sexpr{100*result_RH1_greater/result_RH1_objects}\%\\
+					\textbf{Feature Family:}& \Sexpr{100*result_RH1_featureFamily/result_RH1_objects}\%\\
+					\textbf{Feature Product:}& \Sexpr{100*result_RH1_featureProduct/result_RH1_objects}\%\\
+					\textbf{None:}& \Sexpr{100*result_RH1_none/result_RH1_objects}\%\\
+					\textbf{Inconclusive:}& \Sexpr{100*result_RH1_inconclusive/result_RH1_objects}\%
+							
+					
+					\end{tabular}
+					\end{table}
+					
+					
+					
+				
+				
+					
+						
 				
 				
 				\subsection{RH2: }
-				Research hypothesis RH2: Memory Consumption for Feature Family is equals than Memory Consumption for Feature Product.  
 									
-				\subsubsection{Memory Consumption for Feature Family}
-				<<RH2_featureFamily, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(memory_featureFamily)))					
-				summary(memory_featureFamily)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily'), "memory", min(subset(json_data,treatment=='featureFamily')$memory), max(subset(json_data,treatment=='featureFamily')$memory))
-				
-				shap_featureFamily<-shapiro.test(memory_featureFamily)
-				print(shap_featureFamily)
-				if(shap_featureFamily$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily$p.value, sep = " "))
-				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily$p.value, sep = " "))
-				}
-				@
-				\subsubsection{Memory Consumption for Feature Product}
-				<<RH2_featureProduct, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(memory_featureProduct)))					
-				summary(memory_featureProduct)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct'), "memory", min(subset(json_data,treatment=='featureProduct')$memory), max(subset(json_data,treatment=='featureProduct')$memory))
-				
-				shap_featureProduct<-shapiro.test(memory_featureProduct)
-				print(shap_featureProduct)
-				if(shap_featureProduct$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct$p.value, sep = " "))
-				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct$p.value, sep = " "))
-				}
-				@
-				
+				 <<RH2, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 
-				<<RH2, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
+				 result_RH2_objects=2
+				 result_RH2_less=0
+				 result_RH2_greater=0
+				 result_RH2_featureFamily=0
+				 result_RH2_featureProduct=0
+				 result_RH2_none=0
+				 result_RH2_inconclusive=0
+				 @
+				
+				\subsubsection{RH2.1: Object Intercloud SPL}
+				
+				 \textbf{Memory Consumption for Feature Family}
+				 <<RH2_featureFamily_intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)))					
+				 summary(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily' & object=='intercloud'), "memory", min(subset(json_data,treatment=='featureFamily'& object=='intercloud')$memory), max(subset(json_data,treatment=='featureFamily'& object=='intercloud')$memory))
 				 
-				boxplot_RH2 <- ggplot(json_data[json_data$treatment=='featureFamily'|json_data$treatment=='featureProduct',], aes(x =treatment , y = memory)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
-					ggtitle("Memory Consumption by Analysis Strategy")
-								   
-				boxplot_RH2
+				 shap_featureFamily_intercloud=shapiro.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)
+				 print(shap_featureFamily_intercloud)
+				 if(shap_featureFamily_intercloud$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily_intercloud$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily_intercloud$p.value, sep = " "))
+				 }
+				 @
+				 \textbf{Memory Consumption for Feature Product}
+				 <<RH2_featureProduct_intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)))					
+				 summary(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct' & object=='intercloud'), "memory", min(subset(json_data,treatment=='featureProduct'& object=='intercloud')$memory), max(subset(json_data,treatment=='featureProduct'& object=='intercloud')$memory))
 				 
-				if(shap_featureFamily$p.value>alpha&shap_featureProduct$p.value>alpha){
+				 shap_featureProduct_intercloud=shapiro.test(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)
+				 print(shap_featureProduct_intercloud)
+				 if(shap_featureProduct_intercloud$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct_intercloud$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct_intercloud$p.value, sep = " "))
+				 }
+				 @
 				  
-					print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 \textbf{Comparison}
+				  
+				 <<RH2_intercloud, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+				 boxplot_RH2_intercloud = ggplot(subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='intercloud'), aes(x =treatment , y = memory)) +
+				 	geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
+				 	theme_bw() +    
+				 	scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
+				 	ggtitle("Memory Consumption by Analysis Strategy for Intercloud SPL") + 
+				 	ylab("Memory Consumption ")			   
+				 boxplot_RH2_intercloud
+				 result_RH2_intercloud_tTest = FALSE
+				 if(shap_featureFamily_intercloud$p.value>alpha&shap_featureProduct_intercloud$p.value>alpha){
+				   
+				 	print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 	
+				 	fTest=var.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory,subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)
+				 	print(fTest)
+				 		  
+				 	print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
+				 		  
+				 	print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
+				 	tTest=t.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory,subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory, var.equal=fTest$p.value>alpha, paired=FALSE)
+				 	print(tTest)
+				 	if(tTest$p.value>alpha){
+				 		print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+				 		
+				 	}else{
+				 	    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				 	    result_RH2_intercloud_tTest = TRUE
+				 	}
+				 }
+				 subset_RH2_intercloud_featureFamily=subset(json_data,treatment=='featureFamily' & object=='intercloud')
+				 subset_RH2_intercloud_featureProduct=subset(json_data,treatment=='featureProduct' & object=='intercloud')
+				 if (nrow(subset_RH2_intercloud_featureFamily) == 0 & nrow(subset_RH2_intercloud_featureProduct) == 0){
+				 	result_object_RH2_intercloud=4
+				 	result_RH2_intercloud="None"
+				 	result_RH2_none = result_RH2_none +1
+				 }
+				 if (nrow(subset_RH2_intercloud_featureFamily) != 0 & nrow(subset_RH2_intercloud_featureProduct) == 0){
+				 	result_object_RH2_intercloud=2
+				 	result_RH2_intercloud="Feature Family"
+				 	result_RH2_featureFamily = result_RH2_featureFamily +1			
+				 }
+				 if (nrow(subset_RH2_intercloud_featureFamily) == 0 & nrow(subset_RH2_intercloud_featureProduct) != 0){
+				 	result_object_RH2_intercloud=3
+				 	result_RH2_intercloud="Feature Product"
+				 	result_RH2_featureProduct = result_RH2_featureProduct +1			
+				 				
+				 }
+				 if (nrow(subset_RH2_intercloud_featureFamily) != 0 & nrow(subset_RH2_intercloud_featureProduct) != 0){
+				 	result_RH2_intercloud_wTest = FALSE			
+				 	wTest=wilcox.test(memory~treatment,data=subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='intercloud')) 
+				  
+				 	print(wTest)
+				  
+				 	if(wTest$p.value>alpha){
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH2_intercloud_wTest = FALSE
+				 	}else{
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH2_intercloud_wTest = TRUE
+				 	}
+				 } 
+				 print("")
+				 print("Means comparison")
+				 print(paste("Mean Memory Consumption for Feature Family: ",mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)))
+				 print(paste("Mean Memory Consumption for Feature Product: ",mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)))
+				 print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)-mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory))))
+				 if (result_RH2_intercloud_tTest | result_RH2_intercloud_wTest){
+				 	if(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)>mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)){
+				 	  result_RH2_intercloud="Feature Family \\textgreater{} Feature Product"
+				 	  result_object_RH2_intercloud=1
+				 	  result_RH2_greater=result_RH2_greater+1
+				 	}else {
+				 	  result_RH2_intercloud="Feature Family \\textless{} Feature Product"
+				 	  result_object_RH2_intercloud=0
+				 	  result_RH2_less=result_RH2_less +1
+				 	}	
+				 	
+				 }else{
+				   result_object_RH2_intercloud=5
+				   result_RH2_intercloud="Inconclusive"
+				   result_RH2_inconclusive=result_RH2_inconclusive+1
+				 }
+				 
+				 if(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)>mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)){
+				     cat(paste("Memory Consumption for Feature Family is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)-mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory))/mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)),"% greater than \nMemory Consumption for Feature Product"))
+				 
+				 }else{
+				     cat(paste("Memory Consumption for Feature Product is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$memory)-mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory))/mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$memory)),"% greater than \nMemory Consumption for Feature Family"))
+				 
+				 }
+				 @  
+				
+				
+				\subsubsection{RH2.2: Object Lift SPL}
+				
+				 \textbf{Memory Consumption for Feature Family}
+				 <<RH2_featureFamily_lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)))					
+				 summary(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily' & object=='lift'), "memory", min(subset(json_data,treatment=='featureFamily'& object=='lift')$memory), max(subset(json_data,treatment=='featureFamily'& object=='lift')$memory))
+				 
+				 shap_featureFamily_lift=shapiro.test(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)
+				 print(shap_featureFamily_lift)
+				 if(shap_featureFamily_lift$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily_lift$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily_lift$p.value, sep = " "))
+				 }
+				 @
+				 \textbf{Memory Consumption for Feature Product}
+				 <<RH2_featureProduct_lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)))					
+				 summary(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct' & object=='lift'), "memory", min(subset(json_data,treatment=='featureProduct'& object=='lift')$memory), max(subset(json_data,treatment=='featureProduct'& object=='lift')$memory))
+				 
+				 shap_featureProduct_lift=shapiro.test(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)
+				 print(shap_featureProduct_lift)
+				 if(shap_featureProduct_lift$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct_lift$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct_lift$p.value, sep = " "))
+				 }
+				 @
+				  
+				 \textbf{Comparison}
+				  
+				 <<RH2_lift, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+				 boxplot_RH2_lift = ggplot(subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='lift'), aes(x =treatment , y = memory)) +
+				 	geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
+				 	theme_bw() +    
+				 	scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
+				 	ggtitle("Memory Consumption by Analysis Strategy for Lift SPL") + 
+				 	ylab("Memory Consumption ")			   
+				 boxplot_RH2_lift
+				 result_RH2_lift_tTest = FALSE
+				 if(shap_featureFamily_lift$p.value>alpha&shap_featureProduct_lift$p.value>alpha){
+				   
+				 	print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 	
+				 	fTest=var.test(subset(json_data,treatment=='featureFamily' & object=='lift')$memory,subset(json_data,treatment=='featureProduct' & object=='lift')$memory)
+				 	print(fTest)
+				 		  
+				 	print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
+				 		  
+				 	print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
+				 	tTest=t.test(subset(json_data,treatment=='featureFamily' & object=='lift')$memory,subset(json_data,treatment=='featureProduct' & object=='lift')$memory, var.equal=fTest$p.value>alpha, paired=FALSE)
+				 	print(tTest)
+				 	if(tTest$p.value>alpha){
+				 		print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+				 		
+				 	}else{
+				 	    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				 	    result_RH2_lift_tTest = TRUE
+				 	}
+				 }
+				 subset_RH2_lift_featureFamily=subset(json_data,treatment=='featureFamily' & object=='lift')
+				 subset_RH2_lift_featureProduct=subset(json_data,treatment=='featureProduct' & object=='lift')
+				 if (nrow(subset_RH2_lift_featureFamily) == 0 & nrow(subset_RH2_lift_featureProduct) == 0){
+				 	result_object_RH2_lift=4
+				 	result_RH2_lift="None"
+				 	result_RH2_none = result_RH2_none +1
+				 }
+				 if (nrow(subset_RH2_lift_featureFamily) != 0 & nrow(subset_RH2_lift_featureProduct) == 0){
+				 	result_object_RH2_lift=2
+				 	result_RH2_lift="Feature Family"
+				 	result_RH2_featureFamily = result_RH2_featureFamily +1			
+				 }
+				 if (nrow(subset_RH2_lift_featureFamily) == 0 & nrow(subset_RH2_lift_featureProduct) != 0){
+				 	result_object_RH2_lift=3
+				 	result_RH2_lift="Feature Product"
+				 	result_RH2_featureProduct = result_RH2_featureProduct +1			
+				 				
+				 }
+				 if (nrow(subset_RH2_lift_featureFamily) != 0 & nrow(subset_RH2_lift_featureProduct) != 0){
+				 	result_RH2_lift_wTest = FALSE			
+				 	wTest=wilcox.test(memory~treatment,data=subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='lift')) 
+				  
+				 	print(wTest)
+				  
+				 	if(wTest$p.value>alpha){
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH2_lift_wTest = FALSE
+				 	}else{
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH2_lift_wTest = TRUE
+				 	}
+				 } 
+				 print("")
+				 print("Means comparison")
+				 print(paste("Mean Memory Consumption for Feature Family: ",mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)))
+				 print(paste("Mean Memory Consumption for Feature Product: ",mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)))
+				 print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)-mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory))))
+				 if (result_RH2_lift_tTest | result_RH2_lift_wTest){
+				 	if(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)>mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)){
+				 	  result_RH2_lift="Feature Family \\textgreater{} Feature Product"
+				 	  result_object_RH2_lift=1
+				 	  result_RH2_greater=result_RH2_greater+1
+				 	}else {
+				 	  result_RH2_lift="Feature Family \\textless{} Feature Product"
+				 	  result_object_RH2_lift=0
+				 	  result_RH2_less=result_RH2_less +1
+				 	}	
+				 	
+				 }else{
+				   result_object_RH2_lift=5
+				   result_RH2_lift="Inconclusive"
+				   result_RH2_inconclusive=result_RH2_inconclusive+1
+				 }
+				 
+				 if(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)>mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)){
+				     cat(paste("Memory Consumption for Feature Family is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)-mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory))/mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)),"% greater than \nMemory Consumption for Feature Product"))
+				 
+				 }else{
+				     cat(paste("Memory Consumption for Feature Product is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='lift')$memory)-mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory))/mean(subset(json_data,treatment=='featureFamily' & object=='lift')$memory)),"% greater than \nMemory Consumption for Feature Family"))
+				 
+				 }
+				 @  
+				
+				
+				 
+					<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+					RH2_result=list(hypothesis="RH2",results=c(result_RH2_less/result_RH2_objects,result_RH2_greater/result_RH2_objects,result_RH2_featureFamily/result_RH2_objects,result_RH2_featureProduct/result_RH2_objects,result_RH2_none/result_RH2_objects,result_RH2_inconclusive/result_RH2_objects),objectResults =list( list(object='intercloud',result=result_object_RH2_intercloud), list(object='lift',result=result_object_RH2_lift) ))	
+					@
 					
-					fTest<-var.test(memory_featureFamily,memory_featureProduct)
-					print(fTest)
-						  
-					print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
-						  
-					print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
-					tTest<-t.test(memory_featureFamily,memory_featureProduct, var.equal=fTest$p.value>alpha, paired=FALSE)
-					print(tTest)
+					\subsubsection{RH2 Results: Memory Consumption Feature Family = Feature Product}
 					
-					if(tTest$p.value>alpha){
-						print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
-					}else{
-					    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
-					}
-				}
-				 
-				 
-				wTest<-wilcox.test(memory~treatment,data=json_data[json_data$treatment=='featureFamily'|json_data$treatment=='featureProduct',]) 
-				 
-				print(wTest)
-				 
-				if(wTest$p.value>alpha){
-					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
-				}else{
-					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
-				}
-				 
-				 
-				print("")
-				print("Means comparison")
-				print(paste("Mean Memory Consumption for Feature Family: ",mean(memory_featureFamily)))
-				print(paste("Mean Memory Consumption for Feature Product: ",mean(memory_featureProduct)))
-				print(paste("Absolute difference: ",abs(mean(memory_featureProduct)-mean(memory_featureFamily))))
-				if(mean(memory_featureFamily)>mean(memory_featureProduct)){
-				    print(paste("Memory Consumption for Feature Family is ",100*(abs(mean(memory_featureProduct)-mean(memory_featureFamily))/mean(memory_featureProduct)),"% greater than Memory Consumption for Feature Product"))
+					
+					\begin{table}[H]
+					\centering
+					\caption{RH2 Results per Object}
+					\begin{tabular}{ll}
+					\textbf{Intercloud SPL} & \Sexpr{result_RH2_intercloud} \\
+					\textbf{Lift SPL} & \Sexpr{result_RH2_lift} \\
+					\end{tabular}
+					\end{table}
 				
-				}else{
-				    print(paste("Memory Consumption for Feature Product is ",100*(abs(mean(memory_featureProduct)-mean(memory_featureFamily))/mean(memory_featureFamily)),"% greater than Memory Consumption for Feature Family"))
+					\begin{table}[H]
+					\centering
+					\caption{RH2 Results Summary}
+					\begin{tabular}{ll}
+					\textbf{Feature Family \textless{} Feature Product:}& \Sexpr{100*result_RH2_less/result_RH2_objects}\% \\
+					\textbf{Feature Family \textgreater{} Feature Product:}& \Sexpr{100*result_RH2_greater/result_RH2_objects}\%\\
+					\textbf{Feature Family:}& \Sexpr{100*result_RH2_featureFamily/result_RH2_objects}\%\\
+					\textbf{Feature Product:}& \Sexpr{100*result_RH2_featureProduct/result_RH2_objects}\%\\
+					\textbf{None:}& \Sexpr{100*result_RH2_none/result_RH2_objects}\%\\
+					\textbf{Inconclusive:}& \Sexpr{100*result_RH2_inconclusive/result_RH2_objects}\%
+							
+					
+					\end{tabular}
+					\end{table}
+					
+					
+					
 				
-				}
 				
-				@
+					
+						
 				
 				
 				\subsection{RH3: }
-				Research hypothesis RH3: Cpu Consumption for Feature Family is equals than Cpu Consumption for Feature Product.  
 									
-				\subsubsection{Cpu Consumption for Feature Family}
-				<<RH3_featureFamily, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(cpu_featureFamily)))					
-				summary(cpu_featureFamily)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily'), "cpu", min(subset(json_data,treatment=='featureFamily')$cpu), max(subset(json_data,treatment=='featureFamily')$cpu))
-				
-				shap_featureFamily<-shapiro.test(cpu_featureFamily)
-				print(shap_featureFamily)
-				if(shap_featureFamily$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily$p.value, sep = " "))
-				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily$p.value, sep = " "))
-				}
-				@
-				\subsubsection{Cpu Consumption for Feature Product}
-				<<RH3_featureProduct, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
-				print(paste("Sample size: ",length(cpu_featureProduct)))					
-				summary(cpu_featureProduct)
-				reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct'), "cpu", min(subset(json_data,treatment=='featureProduct')$cpu), max(subset(json_data,treatment=='featureProduct')$cpu))
-				
-				shap_featureProduct<-shapiro.test(cpu_featureProduct)
-				print(shap_featureProduct)
-				if(shap_featureProduct$p.value>alpha){
-					print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct$p.value, sep = " "))
-				}else{
-					print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct$p.value, sep = " "))
-				}
-				@
-				
+				 <<RH3, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 
-				<<RH3, include=TRUE,echo=FALSE, warning=FALSE, message=FALSE, results='markup',  cache=FALSE, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50), out.height="0.4\\textheight">>=
+				 result_RH3_objects=2
+				 result_RH3_less=0
+				 result_RH3_greater=0
+				 result_RH3_featureFamily=0
+				 result_RH3_featureProduct=0
+				 result_RH3_none=0
+				 result_RH3_inconclusive=0
+				 @
+				
+				\subsubsection{RH3.1: Object Intercloud SPL}
+				
+				 \textbf{Cpu Consumption for Feature Family}
+				 <<RH3_featureFamily_intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)))					
+				 summary(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily' & object=='intercloud'), "cpu", min(subset(json_data,treatment=='featureFamily'& object=='intercloud')$cpu), max(subset(json_data,treatment=='featureFamily'& object=='intercloud')$cpu))
 				 
-				boxplot_RH3 <- ggplot(json_data[json_data$treatment=='featureFamily'|json_data$treatment=='featureProduct',], aes(x =treatment , y = cpu)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
-					ggtitle("Cpu Consumption by Analysis Strategy")
-								   
-				boxplot_RH3
+				 shap_featureFamily_intercloud=shapiro.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)
+				 print(shap_featureFamily_intercloud)
+				 if(shap_featureFamily_intercloud$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily_intercloud$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily_intercloud$p.value, sep = " "))
+				 }
+				 @
+				 \textbf{Cpu Consumption for Feature Product}
+				 <<RH3_featureProduct_intercloud, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)))					
+				 summary(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct' & object=='intercloud'), "cpu", min(subset(json_data,treatment=='featureProduct'& object=='intercloud')$cpu), max(subset(json_data,treatment=='featureProduct'& object=='intercloud')$cpu))
 				 
-				if(shap_featureFamily$p.value>alpha&shap_featureProduct$p.value>alpha){
+				 shap_featureProduct_intercloud=shapiro.test(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)
+				 print(shap_featureProduct_intercloud)
+				 if(shap_featureProduct_intercloud$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct_intercloud$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct_intercloud$p.value, sep = " "))
+				 }
+				 @
 				  
-					print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
-					
-					fTest<-var.test(cpu_featureFamily,cpu_featureProduct)
-					print(fTest)
-						  
-					print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
-						  
-					print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
-					tTest<-t.test(cpu_featureFamily,cpu_featureProduct, var.equal=fTest$p.value>alpha, paired=FALSE)
-					print(tTest)
-					
-					if(tTest$p.value>alpha){
-						print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
-					}else{
-					    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
-					}
-				}
+				 \textbf{Comparison}
+				  
+				 <<RH3_intercloud, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+				 boxplot_RH3_intercloud = ggplot(subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='intercloud'), aes(x =treatment , y = cpu)) +
+				 	geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
+				 	theme_bw() +    
+				 	scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
+				 	ggtitle("Cpu Consumption by Analysis Strategy for Intercloud SPL") + 
+				 	ylab("Cpu Consumption ")			   
+				 boxplot_RH3_intercloud
+				 result_RH3_intercloud_tTest = FALSE
+				 if(shap_featureFamily_intercloud$p.value>alpha&shap_featureProduct_intercloud$p.value>alpha){
+				   
+				 	print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 	
+				 	fTest=var.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu,subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)
+				 	print(fTest)
+				 		  
+				 	print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
+				 		  
+				 	print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
+				 	tTest=t.test(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu,subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu, var.equal=fTest$p.value>alpha, paired=FALSE)
+				 	print(tTest)
+				 	if(tTest$p.value>alpha){
+				 		print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+				 		
+				 	}else{
+				 	    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				 	    result_RH3_intercloud_tTest = TRUE
+				 	}
+				 }
+				 subset_RH3_intercloud_featureFamily=subset(json_data,treatment=='featureFamily' & object=='intercloud')
+				 subset_RH3_intercloud_featureProduct=subset(json_data,treatment=='featureProduct' & object=='intercloud')
+				 if (nrow(subset_RH3_intercloud_featureFamily) == 0 & nrow(subset_RH3_intercloud_featureProduct) == 0){
+				 	result_object_RH3_intercloud=4
+				 	result_RH3_intercloud="None"
+				 	result_RH3_none = result_RH3_none +1
+				 }
+				 if (nrow(subset_RH3_intercloud_featureFamily) != 0 & nrow(subset_RH3_intercloud_featureProduct) == 0){
+				 	result_object_RH3_intercloud=2
+				 	result_RH3_intercloud="Feature Family"
+				 	result_RH3_featureFamily = result_RH3_featureFamily +1			
+				 }
+				 if (nrow(subset_RH3_intercloud_featureFamily) == 0 & nrow(subset_RH3_intercloud_featureProduct) != 0){
+				 	result_object_RH3_intercloud=3
+				 	result_RH3_intercloud="Feature Product"
+				 	result_RH3_featureProduct = result_RH3_featureProduct +1			
+				 				
+				 }
+				 if (nrow(subset_RH3_intercloud_featureFamily) != 0 & nrow(subset_RH3_intercloud_featureProduct) != 0){
+				 	result_RH3_intercloud_wTest = FALSE			
+				 	wTest=wilcox.test(cpu~treatment,data=subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='intercloud')) 
+				  
+				 	print(wTest)
+				  
+				 	if(wTest$p.value>alpha){
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH3_intercloud_wTest = FALSE
+				 	}else{
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH3_intercloud_wTest = TRUE
+				 	}
+				 } 
+				 print("")
+				 print("Means comparison")
+				 print(paste("Mean Cpu Consumption for Feature Family: ",mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)))
+				 print(paste("Mean Cpu Consumption for Feature Product: ",mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)))
+				 print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)-mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu))))
+				 if (result_RH3_intercloud_tTest | result_RH3_intercloud_wTest){
+				 	if(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)>mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)){
+				 	  result_RH3_intercloud="Feature Family \\textgreater{} Feature Product"
+				 	  result_object_RH3_intercloud=1
+				 	  result_RH3_greater=result_RH3_greater+1
+				 	}else {
+				 	  result_RH3_intercloud="Feature Family \\textless{} Feature Product"
+				 	  result_object_RH3_intercloud=0
+				 	  result_RH3_less=result_RH3_less +1
+				 	}	
+				 	
+				 }else{
+				   result_object_RH3_intercloud=5
+				   result_RH3_intercloud="Inconclusive"
+				   result_RH3_inconclusive=result_RH3_inconclusive+1
+				 }
 				 
+				 if(mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)>mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)){
+				     cat(paste("Cpu Consumption for Feature Family is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)-mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu))/mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)),"% greater than \nCpu Consumption for Feature Product"))
 				 
-				wTest<-wilcox.test(cpu~treatment,data=json_data[json_data$treatment=='featureFamily'|json_data$treatment=='featureProduct',]) 
+				 }else{
+				     cat(paste("Cpu Consumption for Feature Product is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='intercloud')$cpu)-mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu))/mean(subset(json_data,treatment=='featureFamily' & object=='intercloud')$cpu)),"% greater than \nCpu Consumption for Feature Family"))
 				 
-				print(wTest)
-				 
-				if(wTest$p.value>alpha){
-					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
-				}else{
-					print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
-				}
-				 
-				 
-				print("")
-				print("Means comparison")
-				print(paste("Mean Cpu Consumption for Feature Family: ",mean(cpu_featureFamily)))
-				print(paste("Mean Cpu Consumption for Feature Product: ",mean(cpu_featureProduct)))
-				print(paste("Absolute difference: ",abs(mean(cpu_featureProduct)-mean(cpu_featureFamily))))
-				if(mean(cpu_featureFamily)>mean(cpu_featureProduct)){
-				    print(paste("Cpu Consumption for Feature Family is ",100*(abs(mean(cpu_featureProduct)-mean(cpu_featureFamily))/mean(cpu_featureProduct)),"% greater than Cpu Consumption for Feature Product"))
+				 }
+				 @  
 				
-				}else{
-				    print(paste("Cpu Consumption for Feature Product is ",100*(abs(mean(cpu_featureProduct)-mean(cpu_featureFamily))/mean(cpu_featureFamily)),"% greater than Cpu Consumption for Feature Family"))
 				
-				}
+				\subsubsection{RH3.2: Object Lift SPL}
+				
+				 \textbf{Cpu Consumption for Feature Family}
+				 <<RH3_featureFamily_lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)))					
+				 summary(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureFamily' & object=='lift'), "cpu", min(subset(json_data,treatment=='featureFamily'& object=='lift')$cpu), max(subset(json_data,treatment=='featureFamily'& object=='lift')$cpu))
+				 
+				 shap_featureFamily_lift=shapiro.test(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)
+				 print(shap_featureFamily_lift)
+				 if(shap_featureFamily_lift$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureFamily_lift$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureFamily_lift$p.value, sep = " "))
+				 }
+				 @
+				 \textbf{Cpu Consumption for Feature Product}
+				 <<RH3_featureProduct_lift, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				 print(paste("Sample size: ",length(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)))					
+				 summary(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)
+				 reproducer::boxplotAndDensityCurveOnHistogram(subset(json_data,treatment=='featureProduct' & object=='lift'), "cpu", min(subset(json_data,treatment=='featureProduct'& object=='lift')$cpu), max(subset(json_data,treatment=='featureProduct'& object=='lift')$cpu))
+				 
+				 shap_featureProduct_lift=shapiro.test(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)
+				 print(shap_featureProduct_lift)
+				 if(shap_featureProduct_lift$p.value>alpha){
+				 	print(paste("Shapiro test: Null Hypothesis (normality) not rejected. P-value:",shap_featureProduct_lift$p.value, sep = " "))
+				 }else{
+				 	print(paste("Shapiro test: Null Hypothesis (normality) rejected. P-value:",shap_featureProduct_lift$p.value, sep = " "))
+				 }
+				 @
+				  
+				 \textbf{Comparison}
+				  
+				 <<RH3_lift, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE >>=
+				 boxplot_RH3_lift = ggplot(subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='lift'), aes(x =treatment , y = cpu)) +
+				 	geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
+				 	theme_bw() +    
+				 	scale_x_discrete(name = "Analysis Strategy",labels=c("Feature Family","Feature Product"))+
+				 	ggtitle("Cpu Consumption by Analysis Strategy for Lift SPL") + 
+				 	ylab("Cpu Consumption ")			   
+				 boxplot_RH3_lift
+				 result_RH3_lift_tTest = FALSE
+				 if(shap_featureFamily_lift$p.value>alpha&shap_featureProduct_lift$p.value>alpha){
+				   
+				 	print("Fisher's F-test to verify the homoskedasticity (homogeneity of variances)")
+				 	
+				 	fTest=var.test(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu,subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)
+				 	print(fTest)
+				 		  
+				 	print(paste("Homogeneity of variances: ",fTest$p.value>alpha, ". P-value: ", fTest$p.value, sep = ""))
+				 		  
+				 	print("Assuming that the two samples are taken from populations that follow a Gaussian distribution (if we cannot assume that, we must solve this problem using the non-parametric test called Wilcoxon-Mann-Whitney test)") 
+				 	tTest=t.test(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu,subset(json_data,treatment=='featureProduct' & object=='lift')$cpu, var.equal=fTest$p.value>alpha, paired=FALSE)
+				 	print(tTest)
+				 	if(tTest$p.value>alpha){
+				 		print(paste("T-test: Null Hypothesis not rejected. P-value:",tTest$p.value, sep = " "))
+				 		
+				 	}else{
+				 	    print(paste("T-test: Null Hypothesis rejected. P-value:",tTest$p.value, sep = " "))
+				 	    result_RH3_lift_tTest = TRUE
+				 	}
+				 }
+				 subset_RH3_lift_featureFamily=subset(json_data,treatment=='featureFamily' & object=='lift')
+				 subset_RH3_lift_featureProduct=subset(json_data,treatment=='featureProduct' & object=='lift')
+				 if (nrow(subset_RH3_lift_featureFamily) == 0 & nrow(subset_RH3_lift_featureProduct) == 0){
+				 	result_object_RH3_lift=4
+				 	result_RH3_lift="None"
+				 	result_RH3_none = result_RH3_none +1
+				 }
+				 if (nrow(subset_RH3_lift_featureFamily) != 0 & nrow(subset_RH3_lift_featureProduct) == 0){
+				 	result_object_RH3_lift=2
+				 	result_RH3_lift="Feature Family"
+				 	result_RH3_featureFamily = result_RH3_featureFamily +1			
+				 }
+				 if (nrow(subset_RH3_lift_featureFamily) == 0 & nrow(subset_RH3_lift_featureProduct) != 0){
+				 	result_object_RH3_lift=3
+				 	result_RH3_lift="Feature Product"
+				 	result_RH3_featureProduct = result_RH3_featureProduct +1			
+				 				
+				 }
+				 if (nrow(subset_RH3_lift_featureFamily) != 0 & nrow(subset_RH3_lift_featureProduct) != 0){
+				 	result_RH3_lift_wTest = FALSE			
+				 	wTest=wilcox.test(cpu~treatment,data=subset(json_data,(treatment=='featureFamily'|treatment=='featureProduct') & object=='lift')) 
+				  
+				 	print(wTest)
+				  
+				 	if(wTest$p.value>alpha){
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis not rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH3_lift_wTest = FALSE
+				 	}else{
+				 		print(paste("Wilcoxon-Mann-Whitney test: Null Hypothesis rejected. P-value:",wTest$p.value, sep = " "))
+				 		result_RH3_lift_wTest = TRUE
+				 	}
+				 } 
+				 print("")
+				 print("Means comparison")
+				 print(paste("Mean Cpu Consumption for Feature Family: ",mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)))
+				 print(paste("Mean Cpu Consumption for Feature Product: ",mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)))
+				 print(paste("Absolute difference: ",abs(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)-mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu))))
+				 if (result_RH3_lift_tTest | result_RH3_lift_wTest){
+				 	if(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)>mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)){
+				 	  result_RH3_lift="Feature Family \\textgreater{} Feature Product"
+				 	  result_object_RH3_lift=1
+				 	  result_RH3_greater=result_RH3_greater+1
+				 	}else {
+				 	  result_RH3_lift="Feature Family \\textless{} Feature Product"
+				 	  result_object_RH3_lift=0
+				 	  result_RH3_less=result_RH3_less +1
+				 	}	
+				 	
+				 }else{
+				   result_object_RH3_lift=5
+				   result_RH3_lift="Inconclusive"
+				   result_RH3_inconclusive=result_RH3_inconclusive+1
+				 }
+				 
+				 if(mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)>mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)){
+				     cat(paste("Cpu Consumption for Feature Family is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)-mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu))/mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)),"% greater than \nCpu Consumption for Feature Product"))
+				 
+				 }else{
+				     cat(paste("Cpu Consumption for Feature Product is ",100*(abs(mean(subset(json_data,treatment=='featureProduct' & object=='lift')$cpu)-mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu))/mean(subset(json_data,treatment=='featureFamily' & object=='lift')$cpu)),"% greater than \nCpu Consumption for Feature Family"))
+				 
+				 }
+				 @  
+				
+				
+				 
+					<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+					RH3_result=list(hypothesis="RH3",results=c(result_RH3_less/result_RH3_objects,result_RH3_greater/result_RH3_objects,result_RH3_featureFamily/result_RH3_objects,result_RH3_featureProduct/result_RH3_objects,result_RH3_none/result_RH3_objects,result_RH3_inconclusive/result_RH3_objects),objectResults =list( list(object='intercloud',result=result_object_RH3_intercloud), list(object='lift',result=result_object_RH3_lift) ))	
+					@
+					
+					\subsubsection{RH3 Results: Cpu Consumption Feature Family = Feature Product}
+					
+					
+					\begin{table}[H]
+					\centering
+					\caption{RH3 Results per Object}
+					\begin{tabular}{ll}
+					\textbf{Intercloud SPL} & \Sexpr{result_RH3_intercloud} \\
+					\textbf{Lift SPL} & \Sexpr{result_RH3_lift} \\
+					\end{tabular}
+					\end{table}
+				
+					\begin{table}[H]
+					\centering
+					\caption{RH3 Results Summary}
+					\begin{tabular}{ll}
+					\textbf{Feature Family \textless{} Feature Product:}& \Sexpr{100*result_RH3_less/result_RH3_objects}\% \\
+					\textbf{Feature Family \textgreater{} Feature Product:}& \Sexpr{100*result_RH3_greater/result_RH3_objects}\%\\
+					\textbf{Feature Family:}& \Sexpr{100*result_RH3_featureFamily/result_RH3_objects}\%\\
+					\textbf{Feature Product:}& \Sexpr{100*result_RH3_featureProduct/result_RH3_objects}\%\\
+					\textbf{None:}& \Sexpr{100*result_RH3_none/result_RH3_objects}\%\\
+					\textbf{Inconclusive:}& \Sexpr{100*result_RH3_inconclusive/result_RH3_objects}\%
+							
+					
+					\end{tabular}
+					\end{table}
+					
+					
+					
+				
+				
+					
+						
+				
+				
+				\section{Result Summary}
+				\subsection{Research Hypotheses}
+				
+					<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+					RH1_result=list(hypothesis="RH1",results=c(result_RH1_less/result_RH1_objects,result_RH1_greater/result_RH1_objects,result_RH1_featureFamily/result_RH1_objects,result_RH1_featureProduct/result_RH1_objects,result_RH1_none/result_RH1_objects,result_RH1_inconclusive/result_RH1_objects),objectResults =list( list(object='intercloud',result=result_object_RH1_intercloud), list(object='lift',result=result_object_RH1_lift) ))	
+					@
+					
+					\subsubsection{RH1 Results: Analysis time Feature Family = Feature Product}
+					
+					
+					\begin{table}[H]
+					\centering
+					\caption{RH1 Results per Object}
+					\begin{tabular}{ll}
+					\textbf{Intercloud SPL} & \Sexpr{result_RH1_intercloud} \\
+					\textbf{Lift SPL} & \Sexpr{result_RH1_lift} \\
+					\end{tabular}
+					\end{table}
+				
+					\begin{table}[H]
+					\centering
+					\caption{RH1 Results Summary}
+					\begin{tabular}{ll}
+					\textbf{Feature Family \textless{} Feature Product:}& \Sexpr{100*result_RH1_less/result_RH1_objects}\% \\
+					\textbf{Feature Family \textgreater{} Feature Product:}& \Sexpr{100*result_RH1_greater/result_RH1_objects}\%\\
+					\textbf{Feature Family:}& \Sexpr{100*result_RH1_featureFamily/result_RH1_objects}\%\\
+					\textbf{Feature Product:}& \Sexpr{100*result_RH1_featureProduct/result_RH1_objects}\%\\
+					\textbf{None:}& \Sexpr{100*result_RH1_none/result_RH1_objects}\%\\
+					\textbf{Inconclusive:}& \Sexpr{100*result_RH1_inconclusive/result_RH1_objects}\%
+							
+					
+					\end{tabular}
+					\end{table}
+					
+					
+					
+					<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+					RH2_result=list(hypothesis="RH2",results=c(result_RH2_less/result_RH2_objects,result_RH2_greater/result_RH2_objects,result_RH2_featureFamily/result_RH2_objects,result_RH2_featureProduct/result_RH2_objects,result_RH2_none/result_RH2_objects,result_RH2_inconclusive/result_RH2_objects),objectResults =list( list(object='intercloud',result=result_object_RH2_intercloud), list(object='lift',result=result_object_RH2_lift) ))	
+					@
+					
+					\subsubsection{RH2 Results: Memory Consumption Feature Family = Feature Product}
+					
+					
+					\begin{table}[H]
+					\centering
+					\caption{RH2 Results per Object}
+					\begin{tabular}{ll}
+					\textbf{Intercloud SPL} & \Sexpr{result_RH2_intercloud} \\
+					\textbf{Lift SPL} & \Sexpr{result_RH2_lift} \\
+					\end{tabular}
+					\end{table}
+				
+					\begin{table}[H]
+					\centering
+					\caption{RH2 Results Summary}
+					\begin{tabular}{ll}
+					\textbf{Feature Family \textless{} Feature Product:}& \Sexpr{100*result_RH2_less/result_RH2_objects}\% \\
+					\textbf{Feature Family \textgreater{} Feature Product:}& \Sexpr{100*result_RH2_greater/result_RH2_objects}\%\\
+					\textbf{Feature Family:}& \Sexpr{100*result_RH2_featureFamily/result_RH2_objects}\%\\
+					\textbf{Feature Product:}& \Sexpr{100*result_RH2_featureProduct/result_RH2_objects}\%\\
+					\textbf{None:}& \Sexpr{100*result_RH2_none/result_RH2_objects}\%\\
+					\textbf{Inconclusive:}& \Sexpr{100*result_RH2_inconclusive/result_RH2_objects}\%
+							
+					
+					\end{tabular}
+					\end{table}
+					
+					
+					
+					<<echo=FALSE, echo=FALSE, warning=FALSE , message=FALSE >>=
+					RH3_result=list(hypothesis="RH3",results=c(result_RH3_less/result_RH3_objects,result_RH3_greater/result_RH3_objects,result_RH3_featureFamily/result_RH3_objects,result_RH3_featureProduct/result_RH3_objects,result_RH3_none/result_RH3_objects,result_RH3_inconclusive/result_RH3_objects),objectResults =list( list(object='intercloud',result=result_object_RH3_intercloud), list(object='lift',result=result_object_RH3_lift) ))	
+					@
+					
+					\subsubsection{RH3 Results: Cpu Consumption Feature Family = Feature Product}
+					
+					
+					\begin{table}[H]
+					\centering
+					\caption{RH3 Results per Object}
+					\begin{tabular}{ll}
+					\textbf{Intercloud SPL} & \Sexpr{result_RH3_intercloud} \\
+					\textbf{Lift SPL} & \Sexpr{result_RH3_lift} \\
+					\end{tabular}
+					\end{table}
+				
+					\begin{table}[H]
+					\centering
+					\caption{RH3 Results Summary}
+					\begin{tabular}{ll}
+					\textbf{Feature Family \textless{} Feature Product:}& \Sexpr{100*result_RH3_less/result_RH3_objects}\% \\
+					\textbf{Feature Family \textgreater{} Feature Product:}& \Sexpr{100*result_RH3_greater/result_RH3_objects}\%\\
+					\textbf{Feature Family:}& \Sexpr{100*result_RH3_featureFamily/result_RH3_objects}\%\\
+					\textbf{Feature Product:}& \Sexpr{100*result_RH3_featureProduct/result_RH3_objects}\%\\
+					\textbf{None:}& \Sexpr{100*result_RH3_none/result_RH3_objects}\%\\
+					\textbf{Inconclusive:}& \Sexpr{100*result_RH3_inconclusive/result_RH3_objects}\%
+							
+					
+					\end{tabular}
+					\end{table}
+					
+					
+					
+						
+				
+				<<echo=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
+				experimentResults=list(RH1_result,RH2_result,RH3_result)
+				write(toJSON(experimentResults,pretty = TRUE, auto_unbox = TRUE), "experimentResults.json")
 				
 				@
-				
 					
-				\newpage
+				\clearpage
 				\appendix
 				\section{Session Information}
-				<<echo=TRUE>>=
+				<<echo=FALSE, warning=FALSE , message=FALSE >>=
 				sessionInfo()
 				@
 				

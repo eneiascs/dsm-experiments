@@ -26,6 +26,7 @@ class AutoExpMappingGeneratorTest {
 			  }
 			  Experimental Design {
 			  	runs 2
+			  }	
 			  	Dependent Variables {
 			  	   timeConsumption { description "Analysis time" scaleType Absolute }
 				}    
@@ -41,7 +42,7 @@ class AutoExpMappingGeneratorTest {
 				
 				}
 				Objects { intercloud description "Intercloud",lift description "Lift"} 	
-				}
+				
 				Executions { helloWorldFeatureFamily { 
 						
 						command "echo 'Hello World Feature Family'"
@@ -80,7 +81,7 @@ class AutoExpMappingGeneratorTest {
 				    "experimentName": "reanaSpl",
 				    "design": "FACTORIAL",
 				    "runs": 2,
-				    "taskName": "FACTORIAL_strategy_featureFamily_intercloud",
+				    "taskName": "featureFamily_intercloud_0",
 				    "executionName": "helloWorldFeatureFamily",
 				    "factor": "strategy",
 				    "treatment": "featureFamily",
@@ -90,7 +91,17 @@ class AutoExpMappingGeneratorTest {
 				    "experimentName": "reanaSpl",
 				    "design": "FACTORIAL",
 				    "runs": 2,
-				    "taskName": "FACTORIAL_strategy_featureFamily_lift",
+				    "taskName": "featureFamily_intercloud_1",
+				    "executionName": "helloWorldFeatureFamily",
+				    "factor": "strategy",
+				    "treatment": "featureFamily",
+				    "object": "intercloud"
+				  },
+				  {
+				    "experimentName": "reanaSpl",
+				    "design": "FACTORIAL",
+				    "runs": 2,
+				    "taskName": "featureFamily_lift_0",
 				    "executionName": "helloWorldFeatureFamily",
 				    "factor": "strategy",
 				    "treatment": "featureFamily",
@@ -100,7 +111,17 @@ class AutoExpMappingGeneratorTest {
 				    "experimentName": "reanaSpl",
 				    "design": "FACTORIAL",
 				    "runs": 2,
-				    "taskName": "FACTORIAL_strategy_featureProduct_intercloud",
+				    "taskName": "featureFamily_lift_1",
+				    "executionName": "helloWorldFeatureFamily",
+				    "factor": "strategy",
+				    "treatment": "featureFamily",
+				    "object": "lift"
+				  },
+				  {
+				    "experimentName": "reanaSpl",
+				    "design": "FACTORIAL",
+				    "runs": 2,
+				    "taskName": "featureProduct_intercloud_0",
 				    "executionName": "helloWorldFeatureProduct",
 				    "factor": "strategy",
 				    "treatment": "featureProduct",
@@ -110,7 +131,27 @@ class AutoExpMappingGeneratorTest {
 				    "experimentName": "reanaSpl",
 				    "design": "FACTORIAL",
 				    "runs": 2,
-				    "taskName": "FACTORIAL_strategy_featureProduct_lift",
+				    "taskName": "featureProduct_intercloud_1",
+				    "executionName": "helloWorldFeatureProduct",
+				    "factor": "strategy",
+				    "treatment": "featureProduct",
+				    "object": "intercloud"
+				  },
+				  {
+				    "experimentName": "reanaSpl",
+				    "design": "FACTORIAL",
+				    "runs": 2,
+				    "taskName": "featureProduct_lift_0",
+				    "executionName": "helloWorldFeatureProduct",
+				    "factor": "strategy",
+				    "treatment": "featureProduct",
+				    "object": "lift"
+				  },
+				  {
+				    "experimentName": "reanaSpl",
+				    "design": "FACTORIAL",
+				    "runs": 2,
+				    "taskName": "featureProduct_lift_1",
 				    "executionName": "helloWorldFeatureProduct",
 				    "factor": "strategy",
 				    "treatment": "featureProduct",
@@ -118,7 +159,7 @@ class AutoExpMappingGeneratorTest {
 				  }
 				]
 			'''
-			assertCompilesToWithFileExtension(jsonMapping,".json")
+			assertCompilesToWithFileExtension(jsonMapping,"MyFile.json")
 
 		]
 	}
