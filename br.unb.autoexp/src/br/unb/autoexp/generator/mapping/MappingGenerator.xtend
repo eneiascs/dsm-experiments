@@ -12,7 +12,7 @@ class MappingGenerator {
 	def compileMapping(Experiment experiment) {
 		'''
 			[
-			  «FOR mapping:experiment.mappings»
+			  «FOR mapping:experiment.mappings SEPARATOR ","»
 			  {
 			    "experimentName": "«mapping.experimentName»",
 			    "design": "«mapping.designType.name()»",
@@ -22,15 +22,15 @@ class MappingGenerator {
 			    "factor": "«mapping.factor»",
 			    "treatment": "«mapping.treatment»",
 			    "object": "«mapping.object»"
-			  }«IF !experiment.mappings.last.taskName.equals(mapping.taskName)»,«ENDIF»
-			  «ENDFOR»		
+			  }
+			  «ENDFOR»
 			]
 		'''
 
 	}
 
 	def List<MappingDTO> getMappings(Experiment experiment) {
-		experiment.designExecutions.map[
+		experiment.designExecutionsRepeatedWithNumberOfRuns.map[
 			MappingDTO.builder.experimentName(experiment.name).runs(experiment.experimentalDesign.runs).taskName(taskName).executionName(name).treatment(treatment.name).factor(treatment.factor.name).object(object.name).designType(designType).build
 		]
 		

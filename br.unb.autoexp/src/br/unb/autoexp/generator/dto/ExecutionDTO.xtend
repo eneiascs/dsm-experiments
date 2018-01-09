@@ -74,7 +74,9 @@ class ExecutionDTO {
 @Accessors
 class FileDTO {
 	String name
-	String path
+	String source
+	String dest
+	String checksum
 	boolean generated
 	override boolean equals(Object obj){
 		if (obj===null||!(obj instanceof FileDTO)){
@@ -82,14 +84,16 @@ class FileDTO {
 		}else{
 			val file=obj as FileDTO
 			this.name.equals(file.name)
-			&&this.path.equals(file.path)
+			&&this.source.equals(file.source)
 			&&this.generated.equals(file.generated)
 		}
 		
 	}
 	def create file: new FileDTO copy() {
 		file.name = this.name
-		file.path = this.path
+		file.source = this.source
+		file.dest=this.dest
+		file.checksum=this.checksum
 		file.generated = this.generated
 	}
 	

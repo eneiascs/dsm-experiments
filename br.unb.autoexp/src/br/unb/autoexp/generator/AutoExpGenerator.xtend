@@ -31,6 +31,7 @@ class AutoExpGenerator extends AbstractGenerator {
 
 			fsa.generateFile("%s.yml".format(resource.URI.path.split("/").last.replaceFirst("[.][^.]+$", "")),
 				e.compileDohko)
+			fsa.generateFile("applicationDescriptor.json",e.compileDohkoJson)	
 			fsa.generateFile("%s.json".format(resource.URI.path.split("/").last.replaceFirst("[.][^.]+$", "")),
 				e.compileMapping)
 			fsa.generateFile("%s.Rnw".format(resource.URI.path.split("/").last.replaceFirst("[.][^.]+$", "")),

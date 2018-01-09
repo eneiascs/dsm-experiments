@@ -32,13 +32,13 @@ Experiment returns Experiment:
 	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
 	('Executions' '{' executions+=Execution ("," executions+=Execution)* '}')?
 	('Analysis' analysis=Analysis)?
-	('Infrastructure' infrastructure=Infrastructure)?
+	'Infrastructure' infrastructure=Infrastructure
 	'}';
 
 Infrastructure:
 	{Infrastructure}
 	'{'
-		(user=User)?
+		user=User
 		('requirements' requirements=Requirements)?
 		('preconditions' preconditions=Preconditions)?
 		('clouds' '{' clouds+=Cloud	 (',' clouds+=Cloud)* '}')?
@@ -153,7 +153,7 @@ Goal returns Goal:
 ExperimentalDesign returns ExperimentalDesign:
 	'{'
 	('type' type=DesignType)?
-	('runs' runs=INT )?
+	'runs' runs=INT 
 
 	('Restrictions' '{' restrictions+=Restriction ("," restrictions+=Restriction)* '}')?
 	
@@ -257,9 +257,7 @@ BuiltinDependentVariable returns BuiltinDependentVariable:
 	{BuiltinDependentVariable}
 	name=STRING
 	;
-//enum BuiltinDependentVariableType returns BuiltinDependentVariableType:
-	
-//	cpu='cpu' |time='CRD' | RCBD='RCBD' | LS='LS' |  OTHER='OTHER';
+
 
 CustomDependentVariable returns CustomDependentVariable:
 	{CustomDependentVariable}
@@ -320,7 +318,9 @@ File returns File:
 	{File}
 	'{'
 	'name' name=STRING
-	'path' path=STRING
+	'source' source=STRING
+	('dest' dest=STRING)?
+	('checksum' checksum=STRING)?
 	'}'
 	
 ;
