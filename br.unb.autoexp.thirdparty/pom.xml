@@ -175,10 +175,10 @@
 <!-- 								</artifact> -->
 
 
-						<!-- Dohko Version 1.2.0 -->
+						<!-- Dohko Version 1.3.0 -->
 								 <artifact> 
 								<id>org.excalibur:excalibur-core:1.0.0-SNAPSHOT</id>
-								
+								<transitive>false</transitive>
 								</artifact>
 								
 							</artifacts>
