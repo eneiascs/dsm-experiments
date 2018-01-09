@@ -42,12 +42,12 @@ class DohkoServiceImpl implements DohkoService {
 	override Response runDohko(ApplicationDescriptor applicationDescriptor) throws IOException {
 
 		val entity = Entity.entity(applicationDescriptor, MediaType.APPLICATION_JSON)
-		//logger.info(entity.toString)
-		
+
 		getJobTarget(applicationDescriptor.user.username).request(MediaType.APPLICATION_JSON).accept(
 			MediaType.APPLICATION_JSON).post(entity)
 
 	}
+
 
 	override updateTaskStatus(List<ExperimentExecutionDTO> tasks, File specificationFile) {
 		logger.info("Updating tasks status for jobId %s".format(tasks.head.jobId))
@@ -82,7 +82,7 @@ class DohkoServiceImpl implements DohkoService {
 		}
 
 	}
-
+	
 	def Experiment parseDomainmodel(File file) {
 
 		val model = parser.parse(readFile(file.absolutePath))
@@ -124,51 +124,53 @@ class DohkoServiceImpl implements DohkoService {
 	override updateTaskStatus(ExperimentExecutionDTO task, File specificationFile) {
 		try {
 
-			
+			try {
 				val targetResources = getTaskTarget(task.jobId, task.taskId, "stats")
 
 				val stats = targetResources.request(MediaType.APPLICATION_JSON).get(TaskStats)
 
 				if (!stats.cpu.isNullOrEmpty) {
 					task.addDependentVariable("cpu", stats.cpu.maxBy[percent].percent.doubleValue)
-					//task.addDependentVariable("time",
-					//	(status.date.time.doubleValue - stats.cpu.minBy[datetime].datetime.time.doubleValue) / 1000)
-
+				// task.addDependentVariable("time",
+				// (status.date.time.doubleValue - stats.cpu.minBy[datetime].datetime.time.doubleValue) / 1000)
 				}
 				if (!stats.memory.isNullOrEmpty) {
 					task.addDependentVariable("memory", stats.memory.maxBy[resident].resident.doubleValue / 1024)
 				}
-				val res = getTaskTarget(task.jobId, task.taskId, "output").request(MediaType.APPLICATION_JSON).get
 
-				val outputs = res.readEntity(new GenericType<List<TaskOutput>>() {
-				})
-				if (!outputs.filter[type.equals(TaskOutputType.SYSOUT)].isNullOrEmpty) {
-					val outputString = outputs.filter[type.equals(TaskOutputType.SYSOUT)].head.value.toString
-					val experiment = parseDomainmodel(specificationFile)
+			} catch (Exception e) {
+				logger.error(e.message,e)
+			}
+			val res = getTaskTarget(task.jobId, task.taskId, "output").request(MediaType.APPLICATION_JSON).get
 
-					val depVariables = experiment.researchHypotheses.filter [
-						formula.treatment1.name.equals(task.treatment) || formula.treatment2.name.equals(task.treatment)
-					].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
+			val outputs = res.readEntity(new GenericType<List<TaskOutput>>() {
+			})
+			if (!outputs.filter[type.equals(TaskOutputType.SYSOUT)].isNullOrEmpty) {
+				val outputString = outputs.filter[type.equals(TaskOutputType.SYSOUT)].head.value.toString
+				val experiment = parseDomainmodel(specificationFile)
 
-					depVariables.forEach [
+				val depVariables = experiment.researchHypotheses.filter [
+					formula.treatment1.name.equals(task.treatment) || formula.treatment2.name.equals(task.treatment)
+				].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
 
-						val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(instrument.valueExpression));
-						val m = p.matcher(outputString);
-						while (m.find) {
-							if (m.groupCount >= 3) {
-								var value = new Double(m.group(3))
-								if (instrument.conversionFactor !== null) {
-									value = (value * instrument.conversionFactor.doubleValue).doubleValue
-								}
-								task.addDependentVariable(name, value)
+				depVariables.forEach [
+					val str=instrument.valueExpression.replaceAll("\\(","\\\\(").replaceAll("\\)","\\\\)")
+					
+					val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(str))
+					val m = p.matcher(outputString);
+					while (m.find) {
+						if (m.groupCount >= 3) {
+							var value = new Double(m.group(3))
+							if (instrument.conversionFactor !== null) {
+								value = (value * instrument.conversionFactor.doubleValue).doubleValue
 							}
-
+							task.addDependentVariable(name.convert, value)
 						}
-					]
 
-				}
+					}
+				]
 
-			
+			}
 
 			experimentExecutionService.update(task)
 
@@ -184,5 +186,11 @@ class DohkoServiceImpl implements DohkoService {
 	override getJobStatus(String jobId) {
 		getJobTarget(jobId, "vagrant", "status").request(MediaType.APPLICATION_JSON).get(JobStatus)
 	}
-
+def convert(String depVariable) {
+		switch(depVariable){
+			case "cpuConsumption":"cpu"
+			case "memoryConsumption":"memory"
+			default: depVariable
+		}
+	}
 }

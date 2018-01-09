@@ -50,7 +50,7 @@ rule_Experiment :
 	'Objects' '{' experimentalobjects_26+=rule_ExperimentalObject (',' experimentalobjects_27+=rule_ExperimentalObject)* '}'
 	('Executions' '{' executions_28+=rule_Execution (',' executions_29+=rule_Execution)* '}')?
 	('Analysis' analysis_30=rule_Analysis)?
-	('Infrastructure' infrastructure_31=rule_Infrastructure)?
+	'Infrastructure' infrastructure_31=rule_Infrastructure
 	'}';
 
 
@@ -58,7 +58,7 @@ rule_Experiment :
 rule_Infrastructure:
 	
 	'{'
-		(user_0=rule_User)?
+		user_0=rule_User
 		('requirements' requirements_1=rule_Requirements)?
 		('preconditions' preconditions_2=rule_Preconditions)?
 		('clouds' '{' clouds_3+=rule_Cloud	 (',' clouds_4+=rule_Cloud)* '}')?
@@ -207,7 +207,7 @@ rule_Goal :
 rule_ExperimentalDesign :
 	'{'
 	('type' type_0=rule_DesignType)?
-	('runs' runs_1=INT )?
+	'runs' runs_1=INT 
 
 	('Restrictions' '{' restrictions_2+=rule_Restriction (',' restrictions_3+=rule_Restriction)* '}')?
 	
@@ -344,9 +344,7 @@ rule_BuiltinDependentVariable :
 	;
 
 
-//enum BuiltinDependentVariableType returns BuiltinDependentVariableType:
-	
-//	cpu='cpu' |time='CRD' | RCBD='RCBD' | LS='LS' |  OTHER='OTHER';
+
 
 rule_CustomDependentVariable :
 	
@@ -412,7 +410,9 @@ rule_File :
 	
 	'{'
 	'name' name_0=STRING
-	'path' path_1=STRING
+	'source' source_1=STRING
+	('dest' dest_2=STRING)?
+	('checksum' checksum_3=STRING)?
 	'}'
 	
 ;

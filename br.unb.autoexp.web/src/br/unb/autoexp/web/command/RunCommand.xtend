@@ -10,17 +10,22 @@ import br.unb.autoexp.web.dohko.service.DohkoService
 import br.unb.autoexp.web.job.RunAnalysisJob
 import br.unb.autoexp.web.job.TaskExecutionJob
 import br.unb.autoexp.web.mapping.MappingServiceFactory
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.inject.Inject
 import java.io.File
 import java.io.IOException
 import java.lang.reflect.InvocationTargetException
+import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.List
 import javax.inject.Provider
+import javax.ws.rs.client.Entity
+import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
+import org.apache.commons.io.FileUtils
 import org.apache.log4j.Logger
 import org.dslforge.xtext.common.commands.BasicGenerateCommand
 import org.eclipse.core.commands.AbstractHandler
@@ -79,6 +84,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 	String jobId
 	File applicationDescriptorFile
 	File executionFolder
+	File jsonApplicationDescriptorFile
 	@Inject
 	private Provider<RunAnalysisJob> runAnalysisJobProvider;
 	Response response
@@ -90,7 +96,6 @@ class RunCommand extends AbstractWorkspaceCommand {
 			file = unwrap(event, File)
 			result = ""
 			isError = false
-			window = HandlerUtil.getActiveWorkbenchWindowChecked(event)
 
 			runExperimentJob = new Job("Running experiment ...") {
 				override run(IProgressMonitor progressMonitor) {
@@ -99,13 +104,19 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 						val sendToDohkoJob = new Job("Sending job to execution ...") {
 
-							override run(IProgressMonitor progressMonitor) {
+	
+	
+	override run(IProgressMonitor progressMonitor) {
 								progressMonitor.beginTask("Sending job to execution ...", 100)
 								logger.info(String.format("Generating artifacts for %s", file.getName()));
 
 								progressMonitor.subTask(String.format("Generating artifacts for %s", file.getName()))
 								val generateCommand = new BasicGenerateCommand();
 								progressMonitor.worked(20)
+								if (generateCommand === null || event === null) {
+
+									throw new RuntimeException("Error getting generate command");
+								}
 								generateCommand.execute(event);
 
 								val message = "Execution must be run from a specification file (*.ae)";
@@ -124,12 +135,17 @@ class RunCommand extends AbstractWorkspaceCommand {
 								rnwFile = new File(
 									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
 										File.separator + file.getName().replaceFirst("[.][^.]+$", ".Rnw"));
+								jsonApplicationDescriptorFile = new File(
+									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
+										File.separator + "applicationDescriptor.json")
+										
 								logger.info(String.format("Converting file %s to application descriptor object",
 									applicationDescriptorFile.getName()));
 
 								progressMonitor.subTask("Converting application descriptor")
 								applicationDescriptor = dohkoService.getApplicationDescriptor(
 									applicationDescriptorFile);
+
 								progressMonitor.worked(20)
 
 								progressMonitor.subTask("Sending application descriptor to Execution")
@@ -160,7 +176,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 						val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
 
-							override run(IProgressMonitor progressMonitor) {
+	
+	override run(IProgressMonitor progressMonitor) {
 								val jobStatus = response.readEntity(JobStatus);
 
 								jobId = jobStatus.getId();
@@ -173,7 +190,9 @@ class RunCommand extends AbstractWorkspaceCommand {
 								executionFolder.mkdirs();
 
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
-
+								
+								
+								copyToFolder(jsonApplicationDescriptorFile, executionFolder);
 								copyToFolder(applicationDescriptorFile, executionFolder);
 								copyToFolder(jsonFile, executionFolder);
 								copyToFolder(specificationFile, executionFolder);
@@ -188,9 +207,13 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 								experimentDesignService.create(
 									ExperimentDesignDTO.getBuilder().design(design).jobId(jobId).runs(runs).name(
-										experimentName).fileName(specificationFile.getName()).numberOfTasks(applicationDescriptor.getApplications().size).pending(applicationDescriptor.getApplications().size).build());
+										experimentName).fileName(specificationFile.getName()).numberOfTasks(
+										applicationDescriptor.getApplications().size).pending(
+										applicationDescriptor.getApplications().size).build());
 
-								tasks = (applicationDescriptor.getApplications() + applicationDescriptor.getBlocks().map[getApplications()].flatten).toList.map [
+								tasks = (applicationDescriptor.getApplications() + applicationDescriptor.getBlocks().map [
+									getApplications()
+								].flatten).toList.map [
 									val mapping = mappingService.findByTaskName(name);
 									ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).
 										taskId(id).factor(if(mapping === null) null else mapping.factor).object(
@@ -200,7 +223,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 								]
 								tasks = experimentExecutionService.create(tasks)
-								
+
 								dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(jobId));
 								Status.OK_STATUS
 							}
@@ -216,7 +239,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 						taskExecutionJob.system = true
 						taskExecutionJob.jobId = jobId
 						taskExecutionJob.specificationFile = specificationFile
-						taskExecutionJob.dataFile=dataFile
+						taskExecutionJob.dataFile = dataFile
 						taskExecutionJob.schedule
 //						tasks.forEach [
 //							val TaskExecutionJob taskExecutionJob = taskExecutionJobProvider.get
@@ -234,9 +257,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 						if (!isError) {
 
 							val runAnalysisJob = runAnalysisJobProvider.get
-							runAnalysisJob.rnwFile = new File(
-								executionFolder.absolutePath + File.separator +
-									file.getName().replaceFirst("[.][^.]+$", ".Rnw"))
+							runAnalysisJob.rnwFile = new File(executionFolder.absolutePath + File.separator +
+								file.getName().replaceFirst("[.][^.]+$", ".Rnw"))
 
 							runAnalysisJob.jobGroup = runExperimentJobGroup
 							runAnalysisJob.system = true

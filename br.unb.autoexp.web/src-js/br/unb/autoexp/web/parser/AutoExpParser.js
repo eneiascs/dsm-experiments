@@ -1,4 +1,4 @@
-// $ANTLR 3.3 avr. 19, 2016 01:13:22 /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g 2017-11-24 16:56:44
+// $ANTLR 3.3 avr. 19, 2016 01:13:22 /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g 2018-01-09 10:28:49
 
 
 
@@ -138,6 +138,8 @@ org.antlr.lang.augmentObject(AutoExpParser, {
     T__119: 119,
     T__120: 120,
     T__121: 121,
+    T__122: 122,
+    T__123: 123,
     ID: 4,
     STRING: 5,
     INT: 6,
@@ -261,6 +263,8 @@ var EOF= -1,
     T__119= 119,
     T__120= 120,
     T__121= 121,
+    T__122= 122,
+    T__123= 123,
     ID= 4,
     STRING= 5,
     INT= 6,
@@ -378,7 +382,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:32:1: rule_Experiment : 'Experiment' name_0= ID '{' ( 'Authors' '{' authors_1+= rule_Author ( ',' authors_2+= rule_Author )* '}' )? ( 'description' description_3= STRING )? ( 'Abstract' abstract_4= rule_Abstract )? ( 'Keywords' '{' keywords_5+= rule_Keyword ( ',' keywords_6+= rule_Keyword )* '}' )? ( 'Goals' '{' goals_7+= rule_Goal ( ',' goals_8+= rule_Goal )* '}' )? ( 'Research Questions' '{' researchquestions_9+= rule_ResearchQuestion ( ',' researchquestions_10+= rule_ResearchQuestion )* '}' )? ( 'Research Hypotheses' '{' researchhypotheses_11+= rule_ResearchHypothesis ( ',' researchhypotheses_12+= rule_ResearchHypothesis )* '}' )? ( 'Threat' '{' threats_13+= rule_Threat ( ',' threats_14+= rule_Threat )* '}' )? 'Experimental Design' experimentaldesign_15= rule_ExperimentalDesign 'Dependent Variables' '{' dependentvariables_16+= rule_CustomDependentVariable ( ',' dependentvariables_17+= rule_CustomDependentVariable )* '}' ( 'Instruments' '{' instruments_18+= rule_Instrument ( ',' instruments_19+= rule_Instrument )* '}' )? 'Factors' '{' factors_20+= rule_Factor ( ',' factors_21+= rule_Factor )* '}' 'Treatments' '{' treatments_22+= rule_Treatment ( ',' treatments_23+= rule_Treatment )* '}' ( 'Groups' '{' groups_24+= rule_ObjectGroup ( ',' groups_25+= rule_ObjectGroup )* '}' )? 'Objects' '{' experimentalobjects_26+= rule_ExperimentalObject ( ',' experimentalobjects_27+= rule_ExperimentalObject )* '}' ( 'Executions' '{' executions_28+= rule_Execution ( ',' executions_29+= rule_Execution )* '}' )? ( 'Analysis' analysis_30= rule_Analysis )? ( 'Infrastructure' infrastructure_31= rule_Infrastructure )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:32:1: rule_Experiment : 'Experiment' name_0= ID '{' ( 'Authors' '{' authors_1+= rule_Author ( ',' authors_2+= rule_Author )* '}' )? ( 'description' description_3= STRING )? ( 'Abstract' abstract_4= rule_Abstract )? ( 'Keywords' '{' keywords_5+= rule_Keyword ( ',' keywords_6+= rule_Keyword )* '}' )? ( 'Goals' '{' goals_7+= rule_Goal ( ',' goals_8+= rule_Goal )* '}' )? ( 'Research Questions' '{' researchquestions_9+= rule_ResearchQuestion ( ',' researchquestions_10+= rule_ResearchQuestion )* '}' )? ( 'Research Hypotheses' '{' researchhypotheses_11+= rule_ResearchHypothesis ( ',' researchhypotheses_12+= rule_ResearchHypothesis )* '}' )? ( 'Threat' '{' threats_13+= rule_Threat ( ',' threats_14+= rule_Threat )* '}' )? 'Experimental Design' experimentaldesign_15= rule_ExperimentalDesign 'Dependent Variables' '{' dependentvariables_16+= rule_CustomDependentVariable ( ',' dependentvariables_17+= rule_CustomDependentVariable )* '}' ( 'Instruments' '{' instruments_18+= rule_Instrument ( ',' instruments_19+= rule_Instrument )* '}' )? 'Factors' '{' factors_20+= rule_Factor ( ',' factors_21+= rule_Factor )* '}' 'Treatments' '{' treatments_22+= rule_Treatment ( ',' treatments_23+= rule_Treatment )* '}' ( 'Groups' '{' groups_24+= rule_ObjectGroup ( ',' groups_25+= rule_ObjectGroup )* '}' )? 'Objects' '{' experimentalobjects_26+= rule_ExperimentalObject ( ',' experimentalobjects_27+= rule_ExperimentalObject )* '}' ( 'Executions' '{' executions_28+= rule_Execution ( ',' executions_29+= rule_Execution )* '}' )? ( 'Analysis' analysis_30= rule_Analysis )? 'Infrastructure' infrastructure_31= rule_Infrastructure '}' ;
     // $ANTLR start "rule_Experiment"
     rule_Experiment: function() {
         var retval = new AutoExpParser.rule_Experiment_return();
@@ -568,8 +572,8 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal61_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:32:17: ( 'Experiment' name_0= ID '{' ( 'Authors' '{' authors_1+= rule_Author ( ',' authors_2+= rule_Author )* '}' )? ( 'description' description_3= STRING )? ( 'Abstract' abstract_4= rule_Abstract )? ( 'Keywords' '{' keywords_5+= rule_Keyword ( ',' keywords_6+= rule_Keyword )* '}' )? ( 'Goals' '{' goals_7+= rule_Goal ( ',' goals_8+= rule_Goal )* '}' )? ( 'Research Questions' '{' researchquestions_9+= rule_ResearchQuestion ( ',' researchquestions_10+= rule_ResearchQuestion )* '}' )? ( 'Research Hypotheses' '{' researchhypotheses_11+= rule_ResearchHypothesis ( ',' researchhypotheses_12+= rule_ResearchHypothesis )* '}' )? ( 'Threat' '{' threats_13+= rule_Threat ( ',' threats_14+= rule_Threat )* '}' )? 'Experimental Design' experimentaldesign_15= rule_ExperimentalDesign 'Dependent Variables' '{' dependentvariables_16+= rule_CustomDependentVariable ( ',' dependentvariables_17+= rule_CustomDependentVariable )* '}' ( 'Instruments' '{' instruments_18+= rule_Instrument ( ',' instruments_19+= rule_Instrument )* '}' )? 'Factors' '{' factors_20+= rule_Factor ( ',' factors_21+= rule_Factor )* '}' 'Treatments' '{' treatments_22+= rule_Treatment ( ',' treatments_23+= rule_Treatment )* '}' ( 'Groups' '{' groups_24+= rule_ObjectGroup ( ',' groups_25+= rule_ObjectGroup )* '}' )? 'Objects' '{' experimentalobjects_26+= rule_ExperimentalObject ( ',' experimentalobjects_27+= rule_ExperimentalObject )* '}' ( 'Executions' '{' executions_28+= rule_Execution ( ',' executions_29+= rule_Execution )* '}' )? ( 'Analysis' analysis_30= rule_Analysis )? ( 'Infrastructure' infrastructure_31= rule_Infrastructure )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:33:2: 'Experiment' name_0= ID '{' ( 'Authors' '{' authors_1+= rule_Author ( ',' authors_2+= rule_Author )* '}' )? ( 'description' description_3= STRING )? ( 'Abstract' abstract_4= rule_Abstract )? ( 'Keywords' '{' keywords_5+= rule_Keyword ( ',' keywords_6+= rule_Keyword )* '}' )? ( 'Goals' '{' goals_7+= rule_Goal ( ',' goals_8+= rule_Goal )* '}' )? ( 'Research Questions' '{' researchquestions_9+= rule_ResearchQuestion ( ',' researchquestions_10+= rule_ResearchQuestion )* '}' )? ( 'Research Hypotheses' '{' researchhypotheses_11+= rule_ResearchHypothesis ( ',' researchhypotheses_12+= rule_ResearchHypothesis )* '}' )? ( 'Threat' '{' threats_13+= rule_Threat ( ',' threats_14+= rule_Threat )* '}' )? 'Experimental Design' experimentaldesign_15= rule_ExperimentalDesign 'Dependent Variables' '{' dependentvariables_16+= rule_CustomDependentVariable ( ',' dependentvariables_17+= rule_CustomDependentVariable )* '}' ( 'Instruments' '{' instruments_18+= rule_Instrument ( ',' instruments_19+= rule_Instrument )* '}' )? 'Factors' '{' factors_20+= rule_Factor ( ',' factors_21+= rule_Factor )* '}' 'Treatments' '{' treatments_22+= rule_Treatment ( ',' treatments_23+= rule_Treatment )* '}' ( 'Groups' '{' groups_24+= rule_ObjectGroup ( ',' groups_25+= rule_ObjectGroup )* '}' )? 'Objects' '{' experimentalobjects_26+= rule_ExperimentalObject ( ',' experimentalobjects_27+= rule_ExperimentalObject )* '}' ( 'Executions' '{' executions_28+= rule_Execution ( ',' executions_29+= rule_Execution )* '}' )? ( 'Analysis' analysis_30= rule_Analysis )? ( 'Infrastructure' infrastructure_31= rule_Infrastructure )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:32:17: ( 'Experiment' name_0= ID '{' ( 'Authors' '{' authors_1+= rule_Author ( ',' authors_2+= rule_Author )* '}' )? ( 'description' description_3= STRING )? ( 'Abstract' abstract_4= rule_Abstract )? ( 'Keywords' '{' keywords_5+= rule_Keyword ( ',' keywords_6+= rule_Keyword )* '}' )? ( 'Goals' '{' goals_7+= rule_Goal ( ',' goals_8+= rule_Goal )* '}' )? ( 'Research Questions' '{' researchquestions_9+= rule_ResearchQuestion ( ',' researchquestions_10+= rule_ResearchQuestion )* '}' )? ( 'Research Hypotheses' '{' researchhypotheses_11+= rule_ResearchHypothesis ( ',' researchhypotheses_12+= rule_ResearchHypothesis )* '}' )? ( 'Threat' '{' threats_13+= rule_Threat ( ',' threats_14+= rule_Threat )* '}' )? 'Experimental Design' experimentaldesign_15= rule_ExperimentalDesign 'Dependent Variables' '{' dependentvariables_16+= rule_CustomDependentVariable ( ',' dependentvariables_17+= rule_CustomDependentVariable )* '}' ( 'Instruments' '{' instruments_18+= rule_Instrument ( ',' instruments_19+= rule_Instrument )* '}' )? 'Factors' '{' factors_20+= rule_Factor ( ',' factors_21+= rule_Factor )* '}' 'Treatments' '{' treatments_22+= rule_Treatment ( ',' treatments_23+= rule_Treatment )* '}' ( 'Groups' '{' groups_24+= rule_ObjectGroup ( ',' groups_25+= rule_ObjectGroup )* '}' )? 'Objects' '{' experimentalobjects_26+= rule_ExperimentalObject ( ',' experimentalobjects_27+= rule_ExperimentalObject )* '}' ( 'Executions' '{' executions_28+= rule_Execution ( ',' executions_29+= rule_Execution )* '}' )? ( 'Analysis' analysis_30= rule_Analysis )? 'Infrastructure' infrastructure_31= rule_Infrastructure '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:33:2: 'Experiment' name_0= ID '{' ( 'Authors' '{' authors_1+= rule_Author ( ',' authors_2+= rule_Author )* '}' )? ( 'description' description_3= STRING )? ( 'Abstract' abstract_4= rule_Abstract )? ( 'Keywords' '{' keywords_5+= rule_Keyword ( ',' keywords_6+= rule_Keyword )* '}' )? ( 'Goals' '{' goals_7+= rule_Goal ( ',' goals_8+= rule_Goal )* '}' )? ( 'Research Questions' '{' researchquestions_9+= rule_ResearchQuestion ( ',' researchquestions_10+= rule_ResearchQuestion )* '}' )? ( 'Research Hypotheses' '{' researchhypotheses_11+= rule_ResearchHypothesis ( ',' researchhypotheses_12+= rule_ResearchHypothesis )* '}' )? ( 'Threat' '{' threats_13+= rule_Threat ( ',' threats_14+= rule_Threat )* '}' )? 'Experimental Design' experimentaldesign_15= rule_ExperimentalDesign 'Dependent Variables' '{' dependentvariables_16+= rule_CustomDependentVariable ( ',' dependentvariables_17+= rule_CustomDependentVariable )* '}' ( 'Instruments' '{' instruments_18+= rule_Instrument ( ',' instruments_19+= rule_Instrument )* '}' )? 'Factors' '{' factors_20+= rule_Factor ( ',' factors_21+= rule_Factor )* '}' 'Treatments' '{' treatments_22+= rule_Treatment ( ',' treatments_23+= rule_Treatment )* '}' ( 'Groups' '{' groups_24+= rule_ObjectGroup ( ',' groups_25+= rule_ObjectGroup )* '}' )? 'Objects' '{' experimentalobjects_26+= rule_ExperimentalObject ( ',' experimentalobjects_27+= rule_ExperimentalObject )* '}' ( 'Executions' '{' executions_28+= rule_Execution ( ',' executions_29+= rule_Execution )* '}' )? ( 'Analysis' analysis_30= rule_Analysis )? 'Infrastructure' infrastructure_31= rule_Infrastructure '}'
             root_0 = this.adaptor.nil();
 
             string_literal2=this.match(this.input,9,AutoExpParser.FOLLOW_9_in_rule_Experiment84); 
@@ -1555,33 +1559,17 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:53:2: ( 'Infrastructure' infrastructure_31= rule_Infrastructure )?
-            var alt27=2;
-            var LA27_0 = this.input.LA(1);
+            string_literal60=this.match(this.input,30,AutoExpParser.FOLLOW_30_in_rule_Experiment419); 
+            string_literal60_tree = this.adaptor.create(string_literal60);
+            this.adaptor.addChild(root_0, string_literal60_tree);
 
-            if ( (LA27_0==30) ) {
-                alt27=1;
-            }
-            switch (alt27) {
-                case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:53:3: 'Infrastructure' infrastructure_31= rule_Infrastructure
-                    string_literal60=this.match(this.input,30,AutoExpParser.FOLLOW_30_in_rule_Experiment420); 
-                    string_literal60_tree = this.adaptor.create(string_literal60);
-                    this.adaptor.addChild(root_0, string_literal60_tree);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_Infrastructure_in_rule_Experiment423);
+            infrastructure_31=this.rule_Infrastructure();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Infrastructure_in_rule_Experiment424);
-                    infrastructure_31=this.rule_Infrastructure();
+            this.state._fsp--;
 
-                    this.state._fsp--;
-
-                    this.adaptor.addChild(root_0, infrastructure_31.getTree());
-
-
-                    break;
-
-            }
-
-            char_literal61=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Experiment429); 
+            this.adaptor.addChild(root_0, infrastructure_31.getTree());
+            char_literal61=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Experiment426); 
             char_literal61_tree = this.adaptor.create(char_literal61);
             this.adaptor.addChild(root_0, char_literal61_tree);
 
@@ -1619,7 +1607,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:58:1: rule_Infrastructure : '{' (user_0= rule_User )? ( 'requirements' requirements_1= rule_Requirements )? ( 'preconditions' preconditions_2= rule_Preconditions )? ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )? ( 'on-finish' onfinish_5= rule_OnFinishType )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:58:1: rule_Infrastructure : '{' user_0= rule_User ( 'requirements' requirements_1= rule_Requirements )? ( 'preconditions' preconditions_2= rule_Preconditions )? ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )? ( 'on-finish' onfinish_5= rule_OnFinishType )? '}' ;
     // $ANTLR start "rule_Infrastructure"
     rule_Infrastructure: function() {
         var retval = new AutoExpParser.rule_Infrastructure_return();
@@ -1655,51 +1643,35 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal70_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:58:20: ( '{' (user_0= rule_User )? ( 'requirements' requirements_1= rule_Requirements )? ( 'preconditions' preconditions_2= rule_Preconditions )? ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )? ( 'on-finish' onfinish_5= rule_OnFinishType )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:60:2: '{' (user_0= rule_User )? ( 'requirements' requirements_1= rule_Requirements )? ( 'preconditions' preconditions_2= rule_Preconditions )? ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )? ( 'on-finish' onfinish_5= rule_OnFinishType )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:58:20: ( '{' user_0= rule_User ( 'requirements' requirements_1= rule_Requirements )? ( 'preconditions' preconditions_2= rule_Preconditions )? ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )? ( 'on-finish' onfinish_5= rule_OnFinishType )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:60:2: '{' user_0= rule_User ( 'requirements' requirements_1= rule_Requirements )? ( 'preconditions' preconditions_2= rule_Preconditions )? ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )? ( 'on-finish' onfinish_5= rule_OnFinishType )? '}'
             root_0 = this.adaptor.nil();
 
-            char_literal62=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Infrastructure441); 
+            char_literal62=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Infrastructure438); 
             char_literal62_tree = this.adaptor.create(char_literal62);
             this.adaptor.addChild(root_0, char_literal62_tree);
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:61:3: (user_0= rule_User )?
-            var alt28=2;
-            var LA28_0 = this.input.LA(1);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_User_in_rule_Infrastructure444);
+            user_0=this.rule_User();
 
-            if ( (LA28_0==35) ) {
-                alt28=1;
-            }
-            switch (alt28) {
-                case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:61:4: user_0= rule_User
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_User_in_rule_Infrastructure448);
-                    user_0=this.rule_User();
+            this.state._fsp--;
 
-                    this.state._fsp--;
-
-                    this.adaptor.addChild(root_0, user_0.getTree());
-
-
-                    break;
-
-            }
-
+            this.adaptor.addChild(root_0, user_0.getTree());
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:62:3: ( 'requirements' requirements_1= rule_Requirements )?
-            var alt29=2;
-            var LA29_0 = this.input.LA(1);
+            var alt27=2;
+            var LA27_0 = this.input.LA(1);
 
-            if ( (LA29_0==31) ) {
-                alt29=1;
+            if ( (LA27_0==31) ) {
+                alt27=1;
             }
-            switch (alt29) {
+            switch (alt27) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:62:4: 'requirements' requirements_1= rule_Requirements
-                    string_literal63=this.match(this.input,31,AutoExpParser.FOLLOW_31_in_rule_Infrastructure455); 
+                    string_literal63=this.match(this.input,31,AutoExpParser.FOLLOW_31_in_rule_Infrastructure449); 
                     string_literal63_tree = this.adaptor.create(string_literal63);
                     this.adaptor.addChild(root_0, string_literal63_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Requirements_in_rule_Infrastructure459);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Requirements_in_rule_Infrastructure453);
                     requirements_1=this.rule_Requirements();
 
                     this.state._fsp--;
@@ -1712,20 +1684,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:63:3: ( 'preconditions' preconditions_2= rule_Preconditions )?
-            var alt30=2;
-            var LA30_0 = this.input.LA(1);
+            var alt28=2;
+            var LA28_0 = this.input.LA(1);
 
-            if ( (LA30_0==32) ) {
-                alt30=1;
+            if ( (LA28_0==32) ) {
+                alt28=1;
             }
-            switch (alt30) {
+            switch (alt28) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:63:4: 'preconditions' preconditions_2= rule_Preconditions
-                    string_literal64=this.match(this.input,32,AutoExpParser.FOLLOW_32_in_rule_Infrastructure466); 
+                    string_literal64=this.match(this.input,32,AutoExpParser.FOLLOW_32_in_rule_Infrastructure460); 
                     string_literal64_tree = this.adaptor.create(string_literal64);
                     this.adaptor.addChild(root_0, string_literal64_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Preconditions_in_rule_Infrastructure470);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Preconditions_in_rule_Infrastructure464);
                     preconditions_2=this.rule_Preconditions();
 
                     this.state._fsp--;
@@ -1738,24 +1710,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:64:3: ( 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}' )?
-            var alt32=2;
-            var LA32_0 = this.input.LA(1);
+            var alt30=2;
+            var LA30_0 = this.input.LA(1);
 
-            if ( (LA32_0==33) ) {
-                alt32=1;
+            if ( (LA30_0==33) ) {
+                alt30=1;
             }
-            switch (alt32) {
+            switch (alt30) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:64:4: 'clouds' '{' clouds_3+= rule_Cloud ( ',' clouds_4+= rule_Cloud )* '}'
-                    string_literal65=this.match(this.input,33,AutoExpParser.FOLLOW_33_in_rule_Infrastructure477); 
+                    string_literal65=this.match(this.input,33,AutoExpParser.FOLLOW_33_in_rule_Infrastructure471); 
                     string_literal65_tree = this.adaptor.create(string_literal65);
                     this.adaptor.addChild(root_0, string_literal65_tree);
 
-                    char_literal66=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Infrastructure479); 
+                    char_literal66=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Infrastructure473); 
                     char_literal66_tree = this.adaptor.create(char_literal66);
                     this.adaptor.addChild(root_0, char_literal66_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Cloud_in_rule_Infrastructure483);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Cloud_in_rule_Infrastructure477);
                     clouds_3=this.rule_Cloud();
 
                     this.state._fsp--;
@@ -1765,24 +1737,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_clouds_3.push(clouds_3.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:64:39: ( ',' clouds_4+= rule_Cloud )*
-                    loop31:
+                    loop29:
                     do {
-                        var alt31=2;
-                        var LA31_0 = this.input.LA(1);
+                        var alt29=2;
+                        var LA29_0 = this.input.LA(1);
 
-                        if ( (LA31_0==12) ) {
-                            alt31=1;
+                        if ( (LA29_0==12) ) {
+                            alt29=1;
                         }
 
 
-                        switch (alt31) {
+                        switch (alt29) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:64:40: ',' clouds_4+= rule_Cloud
-                            char_literal67=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Infrastructure487); 
+                            char_literal67=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Infrastructure481); 
                             char_literal67_tree = this.adaptor.create(char_literal67);
                             this.adaptor.addChild(root_0, char_literal67_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Cloud_in_rule_Infrastructure491);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Cloud_in_rule_Infrastructure485);
                             clouds_4=this.rule_Cloud();
 
                             this.state._fsp--;
@@ -1796,11 +1768,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop31;
+                            break loop29;
                         }
                     } while (true);
 
-                    char_literal68=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Infrastructure495); 
+                    char_literal68=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Infrastructure489); 
                     char_literal68_tree = this.adaptor.create(char_literal68);
                     this.adaptor.addChild(root_0, char_literal68_tree);
 
@@ -1811,20 +1783,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:65:3: ( 'on-finish' onfinish_5= rule_OnFinishType )?
-            var alt33=2;
-            var LA33_0 = this.input.LA(1);
+            var alt31=2;
+            var LA31_0 = this.input.LA(1);
 
-            if ( (LA33_0==34) ) {
-                alt33=1;
+            if ( (LA31_0==34) ) {
+                alt31=1;
             }
-            switch (alt33) {
+            switch (alt31) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:65:4: 'on-finish' onfinish_5= rule_OnFinishType
-                    string_literal69=this.match(this.input,34,AutoExpParser.FOLLOW_34_in_rule_Infrastructure502); 
+                    string_literal69=this.match(this.input,34,AutoExpParser.FOLLOW_34_in_rule_Infrastructure496); 
                     string_literal69_tree = this.adaptor.create(string_literal69);
                     this.adaptor.addChild(root_0, string_literal69_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_OnFinishType_in_rule_Infrastructure506);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_OnFinishType_in_rule_Infrastructure500);
                     onfinish_5=this.rule_OnFinishType();
 
                     this.state._fsp--;
@@ -1836,7 +1808,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal70=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Infrastructure511); 
+            char_literal70=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Infrastructure505); 
             char_literal70_tree = this.adaptor.create(char_literal70);
             this.adaptor.addChild(root_0, char_literal70_tree);
 
@@ -1901,21 +1873,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:73:2: '{' (packages_0+= STRING ( ',' packages_1+= STRING )* )? '}'
             root_0 = this.adaptor.nil();
 
-            char_literal71=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Preconditions524); 
+            char_literal71=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Preconditions518); 
             char_literal71_tree = this.adaptor.create(char_literal71);
             this.adaptor.addChild(root_0, char_literal71_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:74:3: (packages_0+= STRING ( ',' packages_1+= STRING )* )?
-            var alt35=2;
-            var LA35_0 = this.input.LA(1);
+            var alt33=2;
+            var LA33_0 = this.input.LA(1);
 
-            if ( (LA35_0==STRING) ) {
-                alt35=1;
+            if ( (LA33_0==STRING) ) {
+                alt33=1;
             }
-            switch (alt35) {
+            switch (alt33) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:74:4: packages_0+= STRING ( ',' packages_1+= STRING )*
-                    packages_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Preconditions531); 
+                    packages_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Preconditions525); 
                     packages_0_tree = this.adaptor.create(packages_0);
                     this.adaptor.addChild(root_0, packages_0_tree);
 
@@ -1923,24 +1895,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_packages_0.push(packages_0);
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:74:24: ( ',' packages_1+= STRING )*
-                    loop34:
+                    loop32:
                     do {
-                        var alt34=2;
-                        var LA34_0 = this.input.LA(1);
+                        var alt32=2;
+                        var LA32_0 = this.input.LA(1);
 
-                        if ( (LA34_0==12) ) {
-                            alt34=1;
+                        if ( (LA32_0==12) ) {
+                            alt32=1;
                         }
 
 
-                        switch (alt34) {
+                        switch (alt32) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:74:25: ',' packages_1+= STRING
-                            char_literal72=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Preconditions535); 
+                            char_literal72=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Preconditions529); 
                             char_literal72_tree = this.adaptor.create(char_literal72);
                             this.adaptor.addChild(root_0, char_literal72_tree);
 
-                            packages_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Preconditions539); 
+                            packages_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Preconditions533); 
                             packages_1_tree = this.adaptor.create(packages_1);
                             this.adaptor.addChild(root_0, packages_1_tree);
 
@@ -1952,7 +1924,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop34;
+                            break loop32;
                         }
                     } while (true);
 
@@ -1962,7 +1934,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal73=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Preconditions546); 
+            char_literal73=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Preconditions540); 
             char_literal73_tree = this.adaptor.create(char_literal73);
             this.adaptor.addChild(root_0, char_literal73_tree);
 
@@ -2036,41 +2008,41 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:80:2: 'user' '{' 'username' username_0= STRING ( 'keys' '{' keys_1+= rule_UserKey ( ',' keys_2+= rule_UserKey )* '}' )? '}'
             root_0 = this.adaptor.nil();
 
-            string_literal74=this.match(this.input,35,AutoExpParser.FOLLOW_35_in_rule_User557); 
+            string_literal74=this.match(this.input,35,AutoExpParser.FOLLOW_35_in_rule_User551); 
             string_literal74_tree = this.adaptor.create(string_literal74);
             this.adaptor.addChild(root_0, string_literal74_tree);
 
-            char_literal75=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_User559); 
+            char_literal75=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_User553); 
             char_literal75_tree = this.adaptor.create(char_literal75);
             this.adaptor.addChild(root_0, char_literal75_tree);
 
-            string_literal76=this.match(this.input,36,AutoExpParser.FOLLOW_36_in_rule_User563); 
+            string_literal76=this.match(this.input,36,AutoExpParser.FOLLOW_36_in_rule_User557); 
             string_literal76_tree = this.adaptor.create(string_literal76);
             this.adaptor.addChild(root_0, string_literal76_tree);
 
-            username_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_User567); 
+            username_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_User561); 
             username_0_tree = this.adaptor.create(username_0);
             this.adaptor.addChild(root_0, username_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:82:3: ( 'keys' '{' keys_1+= rule_UserKey ( ',' keys_2+= rule_UserKey )* '}' )?
-            var alt37=2;
-            var LA37_0 = this.input.LA(1);
+            var alt35=2;
+            var LA35_0 = this.input.LA(1);
 
-            if ( (LA37_0==37) ) {
-                alt37=1;
+            if ( (LA35_0==37) ) {
+                alt35=1;
             }
-            switch (alt37) {
+            switch (alt35) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:82:4: 'keys' '{' keys_1+= rule_UserKey ( ',' keys_2+= rule_UserKey )* '}'
-                    string_literal77=this.match(this.input,37,AutoExpParser.FOLLOW_37_in_rule_User572); 
+                    string_literal77=this.match(this.input,37,AutoExpParser.FOLLOW_37_in_rule_User566); 
                     string_literal77_tree = this.adaptor.create(string_literal77);
                     this.adaptor.addChild(root_0, string_literal77_tree);
 
-                    char_literal78=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_User574); 
+                    char_literal78=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_User568); 
                     char_literal78_tree = this.adaptor.create(char_literal78);
                     this.adaptor.addChild(root_0, char_literal78_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_UserKey_in_rule_User578);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_UserKey_in_rule_User572);
                     keys_1=this.rule_UserKey();
 
                     this.state._fsp--;
@@ -2080,24 +2052,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_keys_1.push(keys_1.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:82:37: ( ',' keys_2+= rule_UserKey )*
-                    loop36:
+                    loop34:
                     do {
-                        var alt36=2;
-                        var LA36_0 = this.input.LA(1);
+                        var alt34=2;
+                        var LA34_0 = this.input.LA(1);
 
-                        if ( (LA36_0==12) ) {
-                            alt36=1;
+                        if ( (LA34_0==12) ) {
+                            alt34=1;
                         }
 
 
-                        switch (alt36) {
+                        switch (alt34) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:82:38: ',' keys_2+= rule_UserKey
-                            char_literal79=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_User582); 
+                            char_literal79=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_User576); 
                             char_literal79_tree = this.adaptor.create(char_literal79);
                             this.adaptor.addChild(root_0, char_literal79_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_UserKey_in_rule_User586);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_UserKey_in_rule_User580);
                             keys_2=this.rule_UserKey();
 
                             this.state._fsp--;
@@ -2111,11 +2083,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop36;
+                            break loop34;
                         }
                     } while (true);
 
-                    char_literal80=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_User590); 
+                    char_literal80=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_User584); 
                     char_literal80_tree = this.adaptor.create(char_literal80);
                     this.adaptor.addChild(root_0, char_literal80_tree);
 
@@ -2125,7 +2097,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal81=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_User598); 
+            char_literal81=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_User592); 
             char_literal81_tree = this.adaptor.create(char_literal81);
             this.adaptor.addChild(root_0, char_literal81_tree);
 
@@ -2196,39 +2168,39 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:89:2: name_0= STRING ( '{' ( 'privateKey' privatekey_1= STRING )? ( 'publicKey' publickey_2= STRING )? ( 'fingerprint' fingerprint_3= STRING )? '}' )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey610); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey604); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:90:2: ( '{' ( 'privateKey' privatekey_1= STRING )? ( 'publicKey' publickey_2= STRING )? ( 'fingerprint' fingerprint_3= STRING )? '}' )?
-            var alt41=2;
-            var LA41_0 = this.input.LA(1);
+            var alt39=2;
+            var LA39_0 = this.input.LA(1);
 
-            if ( (LA41_0==10) ) {
-                alt41=1;
+            if ( (LA39_0==10) ) {
+                alt39=1;
             }
-            switch (alt41) {
+            switch (alt39) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:90:3: '{' ( 'privateKey' privatekey_1= STRING )? ( 'publicKey' publickey_2= STRING )? ( 'fingerprint' fingerprint_3= STRING )? '}'
-                    char_literal82=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_UserKey614); 
+                    char_literal82=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_UserKey608); 
                     char_literal82_tree = this.adaptor.create(char_literal82);
                     this.adaptor.addChild(root_0, char_literal82_tree);
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:91:3: ( 'privateKey' privatekey_1= STRING )?
-                    var alt38=2;
-                    var LA38_0 = this.input.LA(1);
+                    var alt36=2;
+                    var LA36_0 = this.input.LA(1);
 
-                    if ( (LA38_0==38) ) {
-                        alt38=1;
+                    if ( (LA36_0==38) ) {
+                        alt36=1;
                     }
-                    switch (alt38) {
+                    switch (alt36) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:91:4: 'privateKey' privatekey_1= STRING
-                            string_literal83=this.match(this.input,38,AutoExpParser.FOLLOW_38_in_rule_UserKey619); 
+                            string_literal83=this.match(this.input,38,AutoExpParser.FOLLOW_38_in_rule_UserKey613); 
                             string_literal83_tree = this.adaptor.create(string_literal83);
                             this.adaptor.addChild(root_0, string_literal83_tree);
 
-                            privatekey_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey623); 
+                            privatekey_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey617); 
                             privatekey_1_tree = this.adaptor.create(privatekey_1);
                             this.adaptor.addChild(root_0, privatekey_1_tree);
 
@@ -2239,20 +2211,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:92:3: ( 'publicKey' publickey_2= STRING )?
-                    var alt39=2;
-                    var LA39_0 = this.input.LA(1);
+                    var alt37=2;
+                    var LA37_0 = this.input.LA(1);
 
-                    if ( (LA39_0==39) ) {
-                        alt39=1;
+                    if ( (LA37_0==39) ) {
+                        alt37=1;
                     }
-                    switch (alt39) {
+                    switch (alt37) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:92:4: 'publicKey' publickey_2= STRING
-                            string_literal84=this.match(this.input,39,AutoExpParser.FOLLOW_39_in_rule_UserKey630); 
+                            string_literal84=this.match(this.input,39,AutoExpParser.FOLLOW_39_in_rule_UserKey624); 
                             string_literal84_tree = this.adaptor.create(string_literal84);
                             this.adaptor.addChild(root_0, string_literal84_tree);
 
-                            publickey_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey634); 
+                            publickey_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey628); 
                             publickey_2_tree = this.adaptor.create(publickey_2);
                             this.adaptor.addChild(root_0, publickey_2_tree);
 
@@ -2263,20 +2235,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:93:3: ( 'fingerprint' fingerprint_3= STRING )?
-                    var alt40=2;
-                    var LA40_0 = this.input.LA(1);
+                    var alt38=2;
+                    var LA38_0 = this.input.LA(1);
 
-                    if ( (LA40_0==40) ) {
-                        alt40=1;
+                    if ( (LA38_0==40) ) {
+                        alt38=1;
                     }
-                    switch (alt40) {
+                    switch (alt38) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:93:4: 'fingerprint' fingerprint_3= STRING
-                            string_literal85=this.match(this.input,40,AutoExpParser.FOLLOW_40_in_rule_UserKey641); 
+                            string_literal85=this.match(this.input,40,AutoExpParser.FOLLOW_40_in_rule_UserKey635); 
                             string_literal85_tree = this.adaptor.create(string_literal85);
                             this.adaptor.addChild(root_0, string_literal85_tree);
 
-                            fingerprint_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey645); 
+                            fingerprint_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_UserKey639); 
                             fingerprint_3_tree = this.adaptor.create(fingerprint_3);
                             this.adaptor.addChild(root_0, fingerprint_3_tree);
 
@@ -2286,7 +2258,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
                     }
 
-                    char_literal86=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_UserKey650); 
+                    char_literal86=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_UserKey644); 
                     char_literal86_tree = this.adaptor.create(char_literal86);
                     this.adaptor.addChild(root_0, char_literal86_tree);
 
@@ -2367,55 +2339,55 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:99:2: '{' 'cpu' cpu_0= INT 'memory' memory_1= INT 'platform' platform_2= rule_PlatformType 'cost' cost_3= rule_BigDecimalType 'number-of-instances-per-cloud' instancespercloud_4= INT '}'
             root_0 = this.adaptor.nil();
 
-            char_literal87=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Requirements663); 
+            char_literal87=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Requirements657); 
             char_literal87_tree = this.adaptor.create(char_literal87);
             this.adaptor.addChild(root_0, char_literal87_tree);
 
-            string_literal88=this.match(this.input,41,AutoExpParser.FOLLOW_41_in_rule_Requirements666); 
+            string_literal88=this.match(this.input,41,AutoExpParser.FOLLOW_41_in_rule_Requirements660); 
             string_literal88_tree = this.adaptor.create(string_literal88);
             this.adaptor.addChild(root_0, string_literal88_tree);
 
-            cpu_0=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Requirements670); 
+            cpu_0=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Requirements664); 
             cpu_0_tree = this.adaptor.create(cpu_0);
             this.adaptor.addChild(root_0, cpu_0_tree);
 
-            string_literal89=this.match(this.input,42,AutoExpParser.FOLLOW_42_in_rule_Requirements673); 
+            string_literal89=this.match(this.input,42,AutoExpParser.FOLLOW_42_in_rule_Requirements667); 
             string_literal89_tree = this.adaptor.create(string_literal89);
             this.adaptor.addChild(root_0, string_literal89_tree);
 
-            memory_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Requirements677); 
+            memory_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Requirements671); 
             memory_1_tree = this.adaptor.create(memory_1);
             this.adaptor.addChild(root_0, memory_1_tree);
 
-            string_literal90=this.match(this.input,43,AutoExpParser.FOLLOW_43_in_rule_Requirements680); 
+            string_literal90=this.match(this.input,43,AutoExpParser.FOLLOW_43_in_rule_Requirements674); 
             string_literal90_tree = this.adaptor.create(string_literal90);
             this.adaptor.addChild(root_0, string_literal90_tree);
 
-            this.pushFollow(AutoExpParser.FOLLOW_rule_PlatformType_in_rule_Requirements684);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_PlatformType_in_rule_Requirements678);
             platform_2=this.rule_PlatformType();
 
             this.state._fsp--;
 
             this.adaptor.addChild(root_0, platform_2.getTree());
-            string_literal91=this.match(this.input,44,AutoExpParser.FOLLOW_44_in_rule_Requirements687); 
+            string_literal91=this.match(this.input,44,AutoExpParser.FOLLOW_44_in_rule_Requirements681); 
             string_literal91_tree = this.adaptor.create(string_literal91);
             this.adaptor.addChild(root_0, string_literal91_tree);
 
-            this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Requirements691);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Requirements685);
             cost_3=this.rule_BigDecimalType();
 
             this.state._fsp--;
 
             this.adaptor.addChild(root_0, cost_3.getTree());
-            string_literal92=this.match(this.input,45,AutoExpParser.FOLLOW_45_in_rule_Requirements694); 
+            string_literal92=this.match(this.input,45,AutoExpParser.FOLLOW_45_in_rule_Requirements688); 
             string_literal92_tree = this.adaptor.create(string_literal92);
             this.adaptor.addChild(root_0, string_literal92_tree);
 
-            instancespercloud_4=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Requirements698); 
+            instancespercloud_4=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Requirements692); 
             instancespercloud_4_tree = this.adaptor.create(instancespercloud_4);
             this.adaptor.addChild(root_0, instancespercloud_4_tree);
 
-            char_literal93=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Requirements701); 
+            char_literal93=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Requirements695); 
             char_literal93_tree = this.adaptor.create(char_literal93);
             this.adaptor.addChild(root_0, char_literal93_tree);
 
@@ -2536,25 +2508,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:114:2: INT ( '.' INT )?
             root_0 = this.adaptor.nil();
 
-            INT94=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_BigDecimalType731); 
+            INT94=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_BigDecimalType725); 
             INT94_tree = this.adaptor.create(INT94);
             this.adaptor.addChild(root_0, INT94_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:114:6: ( '.' INT )?
-            var alt42=2;
-            var LA42_0 = this.input.LA(1);
+            var alt40=2;
+            var LA40_0 = this.input.LA(1);
 
-            if ( (LA42_0==48) ) {
-                alt42=1;
+            if ( (LA40_0==48) ) {
+                alt40=1;
             }
-            switch (alt42) {
+            switch (alt40) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:114:7: '.' INT
-                    char_literal95=this.match(this.input,48,AutoExpParser.FOLLOW_48_in_rule_BigDecimalType734); 
+                    char_literal95=this.match(this.input,48,AutoExpParser.FOLLOW_48_in_rule_BigDecimalType728); 
                     char_literal95_tree = this.adaptor.create(char_literal95);
                     this.adaptor.addChild(root_0, char_literal95_tree);
 
-                    INT96=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_BigDecimalType736); 
+                    INT96=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_BigDecimalType730); 
                     INT96_tree = this.adaptor.create(INT96);
                     this.adaptor.addChild(root_0, INT96_tree);
 
@@ -2644,45 +2616,45 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:119:2: name_0= STRING '{' provider_1= rule_CloudProvider accesskey_2= rule_AccessKey ( 'regions' '{' regions_3+= rule_Region ( ',' regions_4+= rule_Region )* '}' )? ( 'instanceTypes' '{' instancetypes_5+= rule_InstanceType ( ',' instancetypes_6+= rule_InstanceType )* '}' )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Cloud750); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Cloud744); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal97=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Cloud753); 
+            char_literal97=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Cloud747); 
             char_literal97_tree = this.adaptor.create(char_literal97);
             this.adaptor.addChild(root_0, char_literal97_tree);
 
-            this.pushFollow(AutoExpParser.FOLLOW_rule_CloudProvider_in_rule_Cloud759);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_CloudProvider_in_rule_Cloud753);
             provider_1=this.rule_CloudProvider();
 
             this.state._fsp--;
 
             this.adaptor.addChild(root_0, provider_1.getTree());
-            this.pushFollow(AutoExpParser.FOLLOW_rule_AccessKey_in_rule_Cloud765);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_AccessKey_in_rule_Cloud759);
             accesskey_2=this.rule_AccessKey();
 
             this.state._fsp--;
 
             this.adaptor.addChild(root_0, accesskey_2.getTree());
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:123:2: ( 'regions' '{' regions_3+= rule_Region ( ',' regions_4+= rule_Region )* '}' )?
-            var alt44=2;
-            var LA44_0 = this.input.LA(1);
+            var alt42=2;
+            var LA42_0 = this.input.LA(1);
 
-            if ( (LA44_0==49) ) {
-                alt44=1;
+            if ( (LA42_0==49) ) {
+                alt42=1;
             }
-            switch (alt44) {
+            switch (alt42) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:123:3: 'regions' '{' regions_3+= rule_Region ( ',' regions_4+= rule_Region )* '}'
-                    string_literal98=this.match(this.input,49,AutoExpParser.FOLLOW_49_in_rule_Cloud769); 
+                    string_literal98=this.match(this.input,49,AutoExpParser.FOLLOW_49_in_rule_Cloud763); 
                     string_literal98_tree = this.adaptor.create(string_literal98);
                     this.adaptor.addChild(root_0, string_literal98_tree);
 
-                    char_literal99=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Cloud771); 
+                    char_literal99=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Cloud765); 
                     char_literal99_tree = this.adaptor.create(char_literal99);
                     this.adaptor.addChild(root_0, char_literal99_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Region_in_rule_Cloud775);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Region_in_rule_Cloud769);
                     regions_3=this.rule_Region();
 
                     this.state._fsp--;
@@ -2692,24 +2664,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_regions_3.push(regions_3.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:123:41: ( ',' regions_4+= rule_Region )*
-                    loop43:
+                    loop41:
                     do {
-                        var alt43=2;
-                        var LA43_0 = this.input.LA(1);
+                        var alt41=2;
+                        var LA41_0 = this.input.LA(1);
 
-                        if ( (LA43_0==12) ) {
-                            alt43=1;
+                        if ( (LA41_0==12) ) {
+                            alt41=1;
                         }
 
 
-                        switch (alt43) {
+                        switch (alt41) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:123:42: ',' regions_4+= rule_Region
-                            char_literal100=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Cloud779); 
+                            char_literal100=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Cloud773); 
                             char_literal100_tree = this.adaptor.create(char_literal100);
                             this.adaptor.addChild(root_0, char_literal100_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Region_in_rule_Cloud783);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Region_in_rule_Cloud777);
                             regions_4=this.rule_Region();
 
                             this.state._fsp--;
@@ -2723,11 +2695,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop43;
+                            break loop41;
                         }
                     } while (true);
 
-                    char_literal101=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Cloud786); 
+                    char_literal101=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Cloud780); 
                     char_literal101_tree = this.adaptor.create(char_literal101);
                     this.adaptor.addChild(root_0, char_literal101_tree);
 
@@ -2738,24 +2710,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:124:2: ( 'instanceTypes' '{' instancetypes_5+= rule_InstanceType ( ',' instancetypes_6+= rule_InstanceType )* '}' )?
-            var alt46=2;
-            var LA46_0 = this.input.LA(1);
+            var alt44=2;
+            var LA44_0 = this.input.LA(1);
 
-            if ( (LA46_0==50) ) {
-                alt46=1;
+            if ( (LA44_0==50) ) {
+                alt44=1;
             }
-            switch (alt46) {
+            switch (alt44) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:124:3: 'instanceTypes' '{' instancetypes_5+= rule_InstanceType ( ',' instancetypes_6+= rule_InstanceType )* '}'
-                    string_literal102=this.match(this.input,50,AutoExpParser.FOLLOW_50_in_rule_Cloud792); 
+                    string_literal102=this.match(this.input,50,AutoExpParser.FOLLOW_50_in_rule_Cloud786); 
                     string_literal102_tree = this.adaptor.create(string_literal102);
                     this.adaptor.addChild(root_0, string_literal102_tree);
 
-                    char_literal103=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Cloud794); 
+                    char_literal103=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Cloud788); 
                     char_literal103_tree = this.adaptor.create(char_literal103);
                     this.adaptor.addChild(root_0, char_literal103_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_InstanceType_in_rule_Cloud798);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_InstanceType_in_rule_Cloud792);
                     instancetypes_5=this.rule_InstanceType();
 
                     this.state._fsp--;
@@ -2765,24 +2737,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_instancetypes_5.push(instancetypes_5.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:124:59: ( ',' instancetypes_6+= rule_InstanceType )*
-                    loop45:
+                    loop43:
                     do {
-                        var alt45=2;
-                        var LA45_0 = this.input.LA(1);
+                        var alt43=2;
+                        var LA43_0 = this.input.LA(1);
 
-                        if ( (LA45_0==12) ) {
-                            alt45=1;
+                        if ( (LA43_0==12) ) {
+                            alt43=1;
                         }
 
 
-                        switch (alt45) {
+                        switch (alt43) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:124:60: ',' instancetypes_6+= rule_InstanceType
-                            char_literal104=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Cloud802); 
+                            char_literal104=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Cloud796); 
                             char_literal104_tree = this.adaptor.create(char_literal104);
                             this.adaptor.addChild(root_0, char_literal104_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_InstanceType_in_rule_Cloud806);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_InstanceType_in_rule_Cloud800);
                             instancetypes_6=this.rule_InstanceType();
 
                             this.state._fsp--;
@@ -2796,11 +2768,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop45;
+                            break loop43;
                         }
                     } while (true);
 
-                    char_literal105=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Cloud809); 
+                    char_literal105=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Cloud803); 
                     char_literal105_tree = this.adaptor.create(char_literal105);
                     this.adaptor.addChild(root_0, char_literal105_tree);
 
@@ -2810,7 +2782,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal106=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Cloud814); 
+            char_literal106=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Cloud808); 
             char_literal106_tree = this.adaptor.create(char_literal106);
             this.adaptor.addChild(root_0, char_literal106_tree);
 
@@ -2883,43 +2855,43 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:131:2: 'provider' name_0= STRING ( '{' ( 'maxResourcePerType' maxresourcepertype_1= INT )? ( 'description' description_2= STRING )? ( 'serviceClass' serviceclass_3= STRING )? '}' )?
             root_0 = this.adaptor.nil();
 
-            string_literal107=this.match(this.input,51,AutoExpParser.FOLLOW_51_in_rule_CloudProvider826); 
+            string_literal107=this.match(this.input,51,AutoExpParser.FOLLOW_51_in_rule_CloudProvider820); 
             string_literal107_tree = this.adaptor.create(string_literal107);
             this.adaptor.addChild(root_0, string_literal107_tree);
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CloudProvider830); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CloudProvider824); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:132:2: ( '{' ( 'maxResourcePerType' maxresourcepertype_1= INT )? ( 'description' description_2= STRING )? ( 'serviceClass' serviceclass_3= STRING )? '}' )?
-            var alt50=2;
-            var LA50_0 = this.input.LA(1);
+            var alt48=2;
+            var LA48_0 = this.input.LA(1);
 
-            if ( (LA50_0==10) ) {
-                alt50=1;
+            if ( (LA48_0==10) ) {
+                alt48=1;
             }
-            switch (alt50) {
+            switch (alt48) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:132:3: '{' ( 'maxResourcePerType' maxresourcepertype_1= INT )? ( 'description' description_2= STRING )? ( 'serviceClass' serviceclass_3= STRING )? '}'
-                    char_literal108=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_CloudProvider834); 
+                    char_literal108=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_CloudProvider828); 
                     char_literal108_tree = this.adaptor.create(char_literal108);
                     this.adaptor.addChild(root_0, char_literal108_tree);
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:133:2: ( 'maxResourcePerType' maxresourcepertype_1= INT )?
-                    var alt47=2;
-                    var LA47_0 = this.input.LA(1);
+                    var alt45=2;
+                    var LA45_0 = this.input.LA(1);
 
-                    if ( (LA47_0==52) ) {
-                        alt47=1;
+                    if ( (LA45_0==52) ) {
+                        alt45=1;
                     }
-                    switch (alt47) {
+                    switch (alt45) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:133:3: 'maxResourcePerType' maxresourcepertype_1= INT
-                            string_literal109=this.match(this.input,52,AutoExpParser.FOLLOW_52_in_rule_CloudProvider838); 
+                            string_literal109=this.match(this.input,52,AutoExpParser.FOLLOW_52_in_rule_CloudProvider832); 
                             string_literal109_tree = this.adaptor.create(string_literal109);
                             this.adaptor.addChild(root_0, string_literal109_tree);
 
-                            maxresourcepertype_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_CloudProvider842); 
+                            maxresourcepertype_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_CloudProvider836); 
                             maxresourcepertype_1_tree = this.adaptor.create(maxresourcepertype_1);
                             this.adaptor.addChild(root_0, maxresourcepertype_1_tree);
 
@@ -2930,20 +2902,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:134:2: ( 'description' description_2= STRING )?
-                    var alt48=2;
-                    var LA48_0 = this.input.LA(1);
+                    var alt46=2;
+                    var LA46_0 = this.input.LA(1);
 
-                    if ( (LA48_0==14) ) {
-                        alt48=1;
+                    if ( (LA46_0==14) ) {
+                        alt46=1;
                     }
-                    switch (alt48) {
+                    switch (alt46) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:134:3: 'description' description_2= STRING
-                            string_literal110=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_CloudProvider850); 
+                            string_literal110=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_CloudProvider844); 
                             string_literal110_tree = this.adaptor.create(string_literal110);
                             this.adaptor.addChild(root_0, string_literal110_tree);
 
-                            description_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CloudProvider854); 
+                            description_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CloudProvider848); 
                             description_2_tree = this.adaptor.create(description_2);
                             this.adaptor.addChild(root_0, description_2_tree);
 
@@ -2954,20 +2926,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:135:3: ( 'serviceClass' serviceclass_3= STRING )?
-                    var alt49=2;
-                    var LA49_0 = this.input.LA(1);
+                    var alt47=2;
+                    var LA47_0 = this.input.LA(1);
 
-                    if ( (LA49_0==53) ) {
-                        alt49=1;
+                    if ( (LA47_0==53) ) {
+                        alt47=1;
                     }
-                    switch (alt49) {
+                    switch (alt47) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:135:4: 'serviceClass' serviceclass_3= STRING
-                            string_literal111=this.match(this.input,53,AutoExpParser.FOLLOW_53_in_rule_CloudProvider862); 
+                            string_literal111=this.match(this.input,53,AutoExpParser.FOLLOW_53_in_rule_CloudProvider856); 
                             string_literal111_tree = this.adaptor.create(string_literal111);
                             this.adaptor.addChild(root_0, string_literal111_tree);
 
-                            serviceclass_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CloudProvider866); 
+                            serviceclass_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CloudProvider860); 
                             serviceclass_3_tree = this.adaptor.create(serviceclass_3);
                             this.adaptor.addChild(root_0, serviceclass_3_tree);
 
@@ -2977,7 +2949,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
                     }
 
-                    char_literal112=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_CloudProvider873); 
+                    char_literal112=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_CloudProvider867); 
                     char_literal112_tree = this.adaptor.create(char_literal112);
                     this.adaptor.addChild(root_0, char_literal112_tree);
 
@@ -3042,25 +3014,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:144:2: name_0= STRING ( 'instances' numberofinstances_1= INT )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_InstanceType892); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_InstanceType886); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:145:2: ( 'instances' numberofinstances_1= INT )?
-            var alt51=2;
-            var LA51_0 = this.input.LA(1);
+            var alt49=2;
+            var LA49_0 = this.input.LA(1);
 
-            if ( (LA51_0==54) ) {
-                alt51=1;
+            if ( (LA49_0==54) ) {
+                alt49=1;
             }
-            switch (alt51) {
+            switch (alt49) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:145:3: 'instances' numberofinstances_1= INT
-                    string_literal113=this.match(this.input,54,AutoExpParser.FOLLOW_54_in_rule_InstanceType896); 
+                    string_literal113=this.match(this.input,54,AutoExpParser.FOLLOW_54_in_rule_InstanceType890); 
                     string_literal113_tree = this.adaptor.create(string_literal113);
                     this.adaptor.addChild(root_0, string_literal113_tree);
 
-                    numberofinstances_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_InstanceType900); 
+                    numberofinstances_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_InstanceType894); 
                     numberofinstances_1_tree = this.adaptor.create(numberofinstances_1);
                     this.adaptor.addChild(root_0, numberofinstances_1_tree);
 
@@ -3151,39 +3123,39 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:151:2: name_0= STRING ( '{' ( 'endpoint' endpoint_1= STRING )? ( 'status' status_2= rule_StatusType )? ( 'city' city_3= STRING )? ( 'geographicRegion' geographicregion_4= INT )? ( 'zones' '{' zones_5+= rule_Zone ( ',' zones_6+= rule_Zone )* '}' )? '}' )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Region915); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Region909); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:152:2: ( '{' ( 'endpoint' endpoint_1= STRING )? ( 'status' status_2= rule_StatusType )? ( 'city' city_3= STRING )? ( 'geographicRegion' geographicregion_4= INT )? ( 'zones' '{' zones_5+= rule_Zone ( ',' zones_6+= rule_Zone )* '}' )? '}' )?
-            var alt58=2;
-            var LA58_0 = this.input.LA(1);
+            var alt56=2;
+            var LA56_0 = this.input.LA(1);
 
-            if ( (LA58_0==10) ) {
-                alt58=1;
+            if ( (LA56_0==10) ) {
+                alt56=1;
             }
-            switch (alt58) {
+            switch (alt56) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:152:3: '{' ( 'endpoint' endpoint_1= STRING )? ( 'status' status_2= rule_StatusType )? ( 'city' city_3= STRING )? ( 'geographicRegion' geographicregion_4= INT )? ( 'zones' '{' zones_5+= rule_Zone ( ',' zones_6+= rule_Zone )* '}' )? '}'
-                    char_literal114=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Region919); 
+                    char_literal114=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Region913); 
                     char_literal114_tree = this.adaptor.create(char_literal114);
                     this.adaptor.addChild(root_0, char_literal114_tree);
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:153:2: ( 'endpoint' endpoint_1= STRING )?
-                    var alt52=2;
-                    var LA52_0 = this.input.LA(1);
+                    var alt50=2;
+                    var LA50_0 = this.input.LA(1);
 
-                    if ( (LA52_0==55) ) {
-                        alt52=1;
+                    if ( (LA50_0==55) ) {
+                        alt50=1;
                     }
-                    switch (alt52) {
+                    switch (alt50) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:153:3: 'endpoint' endpoint_1= STRING
-                            string_literal115=this.match(this.input,55,AutoExpParser.FOLLOW_55_in_rule_Region923); 
+                            string_literal115=this.match(this.input,55,AutoExpParser.FOLLOW_55_in_rule_Region917); 
                             string_literal115_tree = this.adaptor.create(string_literal115);
                             this.adaptor.addChild(root_0, string_literal115_tree);
 
-                            endpoint_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Region927); 
+                            endpoint_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Region921); 
                             endpoint_1_tree = this.adaptor.create(endpoint_1);
                             this.adaptor.addChild(root_0, endpoint_1_tree);
 
@@ -3194,20 +3166,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:154:2: ( 'status' status_2= rule_StatusType )?
-                    var alt53=2;
-                    var LA53_0 = this.input.LA(1);
+                    var alt51=2;
+                    var LA51_0 = this.input.LA(1);
 
-                    if ( (LA53_0==56) ) {
-                        alt53=1;
+                    if ( (LA51_0==56) ) {
+                        alt51=1;
                     }
-                    switch (alt53) {
+                    switch (alt51) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:154:3: 'status' status_2= rule_StatusType
-                            string_literal116=this.match(this.input,56,AutoExpParser.FOLLOW_56_in_rule_Region933); 
+                            string_literal116=this.match(this.input,56,AutoExpParser.FOLLOW_56_in_rule_Region927); 
                             string_literal116_tree = this.adaptor.create(string_literal116);
                             this.adaptor.addChild(root_0, string_literal116_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_StatusType_in_rule_Region937);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_StatusType_in_rule_Region931);
                             status_2=this.rule_StatusType();
 
                             this.state._fsp--;
@@ -3220,20 +3192,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:155:2: ( 'city' city_3= STRING )?
-                    var alt54=2;
-                    var LA54_0 = this.input.LA(1);
+                    var alt52=2;
+                    var LA52_0 = this.input.LA(1);
 
-                    if ( (LA54_0==57) ) {
-                        alt54=1;
+                    if ( (LA52_0==57) ) {
+                        alt52=1;
                     }
-                    switch (alt54) {
+                    switch (alt52) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:155:3: 'city' city_3= STRING
-                            string_literal117=this.match(this.input,57,AutoExpParser.FOLLOW_57_in_rule_Region943); 
+                            string_literal117=this.match(this.input,57,AutoExpParser.FOLLOW_57_in_rule_Region937); 
                             string_literal117_tree = this.adaptor.create(string_literal117);
                             this.adaptor.addChild(root_0, string_literal117_tree);
 
-                            city_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Region947); 
+                            city_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Region941); 
                             city_3_tree = this.adaptor.create(city_3);
                             this.adaptor.addChild(root_0, city_3_tree);
 
@@ -3244,20 +3216,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:156:2: ( 'geographicRegion' geographicregion_4= INT )?
-                    var alt55=2;
-                    var LA55_0 = this.input.LA(1);
+                    var alt53=2;
+                    var LA53_0 = this.input.LA(1);
 
-                    if ( (LA55_0==58) ) {
-                        alt55=1;
+                    if ( (LA53_0==58) ) {
+                        alt53=1;
                     }
-                    switch (alt55) {
+                    switch (alt53) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:156:3: 'geographicRegion' geographicregion_4= INT
-                            string_literal118=this.match(this.input,58,AutoExpParser.FOLLOW_58_in_rule_Region953); 
+                            string_literal118=this.match(this.input,58,AutoExpParser.FOLLOW_58_in_rule_Region947); 
                             string_literal118_tree = this.adaptor.create(string_literal118);
                             this.adaptor.addChild(root_0, string_literal118_tree);
 
-                            geographicregion_4=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Region957); 
+                            geographicregion_4=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_Region951); 
                             geographicregion_4_tree = this.adaptor.create(geographicregion_4);
                             this.adaptor.addChild(root_0, geographicregion_4_tree);
 
@@ -3268,24 +3240,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     }
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:157:2: ( 'zones' '{' zones_5+= rule_Zone ( ',' zones_6+= rule_Zone )* '}' )?
-                    var alt57=2;
-                    var LA57_0 = this.input.LA(1);
+                    var alt55=2;
+                    var LA55_0 = this.input.LA(1);
 
-                    if ( (LA57_0==59) ) {
-                        alt57=1;
+                    if ( (LA55_0==59) ) {
+                        alt55=1;
                     }
-                    switch (alt57) {
+                    switch (alt55) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:157:3: 'zones' '{' zones_5+= rule_Zone ( ',' zones_6+= rule_Zone )* '}'
-                            string_literal119=this.match(this.input,59,AutoExpParser.FOLLOW_59_in_rule_Region963); 
+                            string_literal119=this.match(this.input,59,AutoExpParser.FOLLOW_59_in_rule_Region957); 
                             string_literal119_tree = this.adaptor.create(string_literal119);
                             this.adaptor.addChild(root_0, string_literal119_tree);
 
-                            char_literal120=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Region965); 
+                            char_literal120=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Region959); 
                             char_literal120_tree = this.adaptor.create(char_literal120);
                             this.adaptor.addChild(root_0, char_literal120_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Zone_in_rule_Region969);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Zone_in_rule_Region963);
                             zones_5=this.rule_Zone();
 
                             this.state._fsp--;
@@ -3295,24 +3267,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             list_zones_5.push(zones_5.getTree());
 
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:157:35: ( ',' zones_6+= rule_Zone )*
-                            loop56:
+                            loop54:
                             do {
-                                var alt56=2;
-                                var LA56_0 = this.input.LA(1);
+                                var alt54=2;
+                                var LA54_0 = this.input.LA(1);
 
-                                if ( (LA56_0==12) ) {
-                                    alt56=1;
+                                if ( (LA54_0==12) ) {
+                                    alt54=1;
                                 }
 
 
-                                switch (alt56) {
+                                switch (alt54) {
                                 case 1 :
                                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:157:36: ',' zones_6+= rule_Zone
-                                    char_literal121=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Region973); 
+                                    char_literal121=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Region967); 
                                     char_literal121_tree = this.adaptor.create(char_literal121);
                                     this.adaptor.addChild(root_0, char_literal121_tree);
 
-                                    this.pushFollow(AutoExpParser.FOLLOW_rule_Zone_in_rule_Region977);
+                                    this.pushFollow(AutoExpParser.FOLLOW_rule_Zone_in_rule_Region971);
                                     zones_6=this.rule_Zone();
 
                                     this.state._fsp--;
@@ -3326,11 +3298,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                                     break;
 
                                 default :
-                                    break loop56;
+                                    break loop54;
                                 }
                             } while (true);
 
-                            char_literal122=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Region980); 
+                            char_literal122=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Region974); 
                             char_literal122_tree = this.adaptor.create(char_literal122);
                             this.adaptor.addChild(root_0, char_literal122_tree);
 
@@ -3340,7 +3312,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
                     }
 
-                    char_literal123=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Region985); 
+                    char_literal123=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Region979); 
                     char_literal123_tree = this.adaptor.create(char_literal123);
                     this.adaptor.addChild(root_0, char_literal123_tree);
 
@@ -3465,21 +3437,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:174:2: name_0= STRING (status_1= STRING )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Zone1026); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Zone1020); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:175:2: (status_1= STRING )?
-            var alt59=2;
-            var LA59_0 = this.input.LA(1);
+            var alt57=2;
+            var LA57_0 = this.input.LA(1);
 
-            if ( (LA59_0==STRING) ) {
-                alt59=1;
+            if ( (LA57_0==STRING) ) {
+                alt57=1;
             }
-            switch (alt59) {
+            switch (alt57) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:175:3: status_1= STRING
-                    status_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Zone1032); 
+                    status_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Zone1026); 
                     status_1_tree = this.adaptor.create(status_1);
                     this.adaptor.addChild(root_0, status_1_tree);
 
@@ -3546,19 +3518,19 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:181:2: 'access-key' accesskey_0= STRING 'secret-key' secretkey_1= STRING
             root_0 = this.adaptor.nil();
 
-            string_literal124=this.match(this.input,62,AutoExpParser.FOLLOW_62_in_rule_AccessKey1046); 
+            string_literal124=this.match(this.input,62,AutoExpParser.FOLLOW_62_in_rule_AccessKey1040); 
             string_literal124_tree = this.adaptor.create(string_literal124);
             this.adaptor.addChild(root_0, string_literal124_tree);
 
-            accesskey_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_AccessKey1050); 
+            accesskey_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_AccessKey1044); 
             accesskey_0_tree = this.adaptor.create(accesskey_0);
             this.adaptor.addChild(root_0, accesskey_0_tree);
 
-            string_literal125=this.match(this.input,63,AutoExpParser.FOLLOW_63_in_rule_AccessKey1053); 
+            string_literal125=this.match(this.input,63,AutoExpParser.FOLLOW_63_in_rule_AccessKey1047); 
             string_literal125_tree = this.adaptor.create(string_literal125);
             this.adaptor.addChild(root_0, string_literal125_tree);
 
-            secretkey_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_AccessKey1056); 
+            secretkey_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_AccessKey1050); 
             secretkey_1_tree = this.adaptor.create(secretkey_1);
             this.adaptor.addChild(root_0, secretkey_1_tree);
 
@@ -3673,7 +3645,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:197:15: ( rule_Abstract_Impl | rule_SimpleAbstract | rule_StructuredAbstract )
-            var alt60=3;
+            var alt58=3;
             switch ( this.input.LA(1) ) {
             case 16:
             case 17:
@@ -3681,27 +3653,27 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             case 19:
             case 20:
             case 21:
-                alt60=1;
+                alt58=1;
                 break;
             case STRING:
-                alt60=2;
+                alt58=2;
                 break;
             case 10:
-                alt60=3;
+                alt58=3;
                 break;
             default:
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 60, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 58, 0, this.input);
 
                 throw nvae;
             }
 
-            switch (alt60) {
+            switch (alt58) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:198:2: rule_Abstract_Impl
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Abstract_Impl_in_rule_Abstract1100);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Abstract_Impl_in_rule_Abstract1094);
                     rule_Abstract_Impl126=this.rule_Abstract_Impl();
 
                     this.state._fsp--;
@@ -3714,7 +3686,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:198:23: rule_SimpleAbstract
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_SimpleAbstract_in_rule_Abstract1104);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_SimpleAbstract_in_rule_Abstract1098);
                     rule_SimpleAbstract127=this.rule_SimpleAbstract();
 
                     this.state._fsp--;
@@ -3727,7 +3699,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:198:45: rule_StructuredAbstract
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_StructuredAbstract_in_rule_Abstract1108);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_StructuredAbstract_in_rule_Abstract1102);
                     rule_StructuredAbstract128=this.rule_StructuredAbstract();
 
                     this.state._fsp--;
@@ -3784,24 +3756,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:202:11: ( rule_Goal_Impl | rule_SimpleGoal | rule_StructuredGoal )
-            var alt61=3;
-            var LA61_0 = this.input.LA(1);
+            var alt59=3;
+            var LA59_0 = this.input.LA(1);
 
-            if ( (LA61_0==ID) ) {
+            if ( (LA59_0==ID) ) {
                 switch ( this.input.LA(2) ) {
                 case STRING:
-                    alt61=2;
+                    alt59=2;
                     break;
                 case 10:
-                    alt61=3;
+                    alt59=3;
                     break;
                 case 12:
                 case 13:
-                    alt61=1;
+                    alt59=1;
                     break;
                 default:
                     var nvae =
-                        new org.antlr.runtime.NoViableAltException("", 61, 1, this.input);
+                        new org.antlr.runtime.NoViableAltException("", 59, 1, this.input);
 
                     throw nvae;
                 }
@@ -3809,16 +3781,16 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
             else {
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 61, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 59, 0, this.input);
 
                 throw nvae;
             }
-            switch (alt61) {
+            switch (alt59) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:203:2: rule_Goal_Impl
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Goal_Impl_in_rule_Goal1119);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Goal_Impl_in_rule_Goal1113);
                     rule_Goal_Impl129=this.rule_Goal_Impl();
 
                     this.state._fsp--;
@@ -3831,7 +3803,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:203:19: rule_SimpleGoal
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_SimpleGoal_in_rule_Goal1123);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_SimpleGoal_in_rule_Goal1117);
                     rule_SimpleGoal130=this.rule_SimpleGoal();
 
                     this.state._fsp--;
@@ -3844,7 +3816,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:203:37: rule_StructuredGoal
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_StructuredGoal_in_rule_Goal1127);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_StructuredGoal_in_rule_Goal1121);
                     rule_StructuredGoal131=this.rule_StructuredGoal();
 
                     this.state._fsp--;
@@ -3886,7 +3858,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:207:1: rule_ExperimentalDesign : '{' ( 'type' type_0= rule_DesignType )? ( 'runs' runs_1= INT )? ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )? ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:207:1: rule_ExperimentalDesign : '{' ( 'type' type_0= rule_DesignType )? 'runs' runs_1= INT ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )? ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )? '}' ;
     // $ANTLR start "rule_ExperimentalDesign"
     rule_ExperimentalDesign: function() {
         var retval = new AutoExpParser.rule_ExperimentalDesign_return();
@@ -3931,29 +3903,29 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal143_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:207:25: ( '{' ( 'type' type_0= rule_DesignType )? ( 'runs' runs_1= INT )? ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )? ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:208:2: '{' ( 'type' type_0= rule_DesignType )? ( 'runs' runs_1= INT )? ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )? ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:207:25: ( '{' ( 'type' type_0= rule_DesignType )? 'runs' runs_1= INT ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )? ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:208:2: '{' ( 'type' type_0= rule_DesignType )? 'runs' runs_1= INT ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )? ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )? '}'
             root_0 = this.adaptor.nil();
 
-            char_literal132=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalDesign1138); 
+            char_literal132=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalDesign1132); 
             char_literal132_tree = this.adaptor.create(char_literal132);
             this.adaptor.addChild(root_0, char_literal132_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:209:2: ( 'type' type_0= rule_DesignType )?
-            var alt62=2;
-            var LA62_0 = this.input.LA(1);
+            var alt60=2;
+            var LA60_0 = this.input.LA(1);
 
-            if ( (LA62_0==66) ) {
-                alt62=1;
+            if ( (LA60_0==66) ) {
+                alt60=1;
             }
-            switch (alt62) {
+            switch (alt60) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:209:3: 'type' type_0= rule_DesignType
-                    string_literal133=this.match(this.input,66,AutoExpParser.FOLLOW_66_in_rule_ExperimentalDesign1142); 
+                    string_literal133=this.match(this.input,66,AutoExpParser.FOLLOW_66_in_rule_ExperimentalDesign1136); 
                     string_literal133_tree = this.adaptor.create(string_literal133);
                     this.adaptor.addChild(root_0, string_literal133_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_DesignType_in_rule_ExperimentalDesign1146);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_DesignType_in_rule_ExperimentalDesign1140);
                     type_0=this.rule_DesignType();
 
                     this.state._fsp--;
@@ -3965,49 +3937,33 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:210:2: ( 'runs' runs_1= INT )?
-            var alt63=2;
-            var LA63_0 = this.input.LA(1);
+            string_literal134=this.match(this.input,67,AutoExpParser.FOLLOW_67_in_rule_ExperimentalDesign1145); 
+            string_literal134_tree = this.adaptor.create(string_literal134);
+            this.adaptor.addChild(root_0, string_literal134_tree);
 
-            if ( (LA63_0==67) ) {
-                alt63=1;
-            }
-            switch (alt63) {
-                case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:210:3: 'runs' runs_1= INT
-                    string_literal134=this.match(this.input,67,AutoExpParser.FOLLOW_67_in_rule_ExperimentalDesign1152); 
-                    string_literal134_tree = this.adaptor.create(string_literal134);
-                    this.adaptor.addChild(root_0, string_literal134_tree);
-
-                    runs_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_ExperimentalDesign1156); 
-                    runs_1_tree = this.adaptor.create(runs_1);
-                    this.adaptor.addChild(root_0, runs_1_tree);
-
-
-
-                    break;
-
-            }
+            runs_1=this.match(this.input,INT,AutoExpParser.FOLLOW_INT_in_rule_ExperimentalDesign1149); 
+            runs_1_tree = this.adaptor.create(runs_1);
+            this.adaptor.addChild(root_0, runs_1_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:212:2: ( 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}' )?
-            var alt65=2;
-            var LA65_0 = this.input.LA(1);
+            var alt62=2;
+            var LA62_0 = this.input.LA(1);
 
-            if ( (LA65_0==68) ) {
-                alt65=1;
+            if ( (LA62_0==68) ) {
+                alt62=1;
             }
-            switch (alt65) {
+            switch (alt62) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:212:3: 'Restrictions' '{' restrictions_2+= rule_Restriction ( ',' restrictions_3+= rule_Restriction )* '}'
-                    string_literal135=this.match(this.input,68,AutoExpParser.FOLLOW_68_in_rule_ExperimentalDesign1164); 
+                    string_literal135=this.match(this.input,68,AutoExpParser.FOLLOW_68_in_rule_ExperimentalDesign1155); 
                     string_literal135_tree = this.adaptor.create(string_literal135);
                     this.adaptor.addChild(root_0, string_literal135_tree);
 
-                    char_literal136=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalDesign1166); 
+                    char_literal136=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalDesign1157); 
                     char_literal136_tree = this.adaptor.create(char_literal136);
                     this.adaptor.addChild(root_0, char_literal136_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1170);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1161);
                     restrictions_2=this.rule_Restriction();
 
                     this.state._fsp--;
@@ -4017,24 +3973,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_restrictions_2.push(restrictions_2.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:212:55: ( ',' restrictions_3+= rule_Restriction )*
-                    loop64:
+                    loop61:
                     do {
-                        var alt64=2;
-                        var LA64_0 = this.input.LA(1);
+                        var alt61=2;
+                        var LA61_0 = this.input.LA(1);
 
-                        if ( (LA64_0==12) ) {
-                            alt64=1;
+                        if ( (LA61_0==12) ) {
+                            alt61=1;
                         }
 
 
-                        switch (alt64) {
+                        switch (alt61) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:212:56: ',' restrictions_3+= rule_Restriction
-                            char_literal137=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalDesign1173); 
+                            char_literal137=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalDesign1164); 
                             char_literal137_tree = this.adaptor.create(char_literal137);
                             this.adaptor.addChild(root_0, char_literal137_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1177);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1168);
                             restrictions_3=this.rule_Restriction();
 
                             this.state._fsp--;
@@ -4048,11 +4004,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop64;
+                            break loop61;
                         }
                     } while (true);
 
-                    char_literal138=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalDesign1181); 
+                    char_literal138=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalDesign1172); 
                     char_literal138_tree = this.adaptor.create(char_literal138);
                     this.adaptor.addChild(root_0, char_literal138_tree);
 
@@ -4063,24 +4019,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:214:2: ( 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}' )?
-            var alt67=2;
-            var LA67_0 = this.input.LA(1);
+            var alt64=2;
+            var LA64_0 = this.input.LA(1);
 
-            if ( (LA67_0==69) ) {
-                alt67=1;
+            if ( (LA64_0==69) ) {
+                alt64=1;
             }
-            switch (alt67) {
+            switch (alt64) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:214:3: 'Context Variables' '{' contextvariables_4+= rule_ContextVariable ( ',' contextvariables_5+= rule_ContextVariable )* '}'
-                    string_literal139=this.match(this.input,69,AutoExpParser.FOLLOW_69_in_rule_ExperimentalDesign1189); 
+                    string_literal139=this.match(this.input,69,AutoExpParser.FOLLOW_69_in_rule_ExperimentalDesign1180); 
                     string_literal139_tree = this.adaptor.create(string_literal139);
                     this.adaptor.addChild(root_0, string_literal139_tree);
 
-                    char_literal140=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalDesign1191); 
+                    char_literal140=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalDesign1182); 
                     char_literal140_tree = this.adaptor.create(char_literal140);
                     this.adaptor.addChild(root_0, char_literal140_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1195);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1186);
                     contextvariables_4=this.rule_ContextVariable();
 
                     this.state._fsp--;
@@ -4090,24 +4046,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_contextvariables_4.push(contextvariables_4.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:214:68: ( ',' contextvariables_5+= rule_ContextVariable )*
-                    loop66:
+                    loop63:
                     do {
-                        var alt66=2;
-                        var LA66_0 = this.input.LA(1);
+                        var alt63=2;
+                        var LA63_0 = this.input.LA(1);
 
-                        if ( (LA66_0==12) ) {
-                            alt66=1;
+                        if ( (LA63_0==12) ) {
+                            alt63=1;
                         }
 
 
-                        switch (alt66) {
+                        switch (alt63) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:214:69: ',' contextvariables_5+= rule_ContextVariable
-                            char_literal141=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalDesign1198); 
+                            char_literal141=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalDesign1189); 
                             char_literal141_tree = this.adaptor.create(char_literal141);
                             this.adaptor.addChild(root_0, char_literal141_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1202);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1193);
                             contextvariables_5=this.rule_ContextVariable();
 
                             this.state._fsp--;
@@ -4121,11 +4077,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop66;
+                            break loop63;
                         }
                     } while (true);
 
-                    char_literal142=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalDesign1206); 
+                    char_literal142=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalDesign1197); 
                     char_literal142_tree = this.adaptor.create(char_literal142);
                     this.adaptor.addChild(root_0, char_literal142_tree);
 
@@ -4135,7 +4091,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal143=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalDesign1211); 
+            char_literal143=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalDesign1202); 
             char_literal143_tree = this.adaptor.create(char_literal143);
             this.adaptor.addChild(root_0, char_literal143_tree);
 
@@ -4204,19 +4160,19 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:220:2: treatment_0= ID 'objects' '{' objects_1+= ID ( ',' objects_2+= ID )* '}'
             root_0 = this.adaptor.nil();
 
-            treatment_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Restriction1224); 
+            treatment_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Restriction1215); 
             treatment_0_tree = this.adaptor.create(treatment_0);
             this.adaptor.addChild(root_0, treatment_0_tree);
 
-            string_literal144=this.match(this.input,70,AutoExpParser.FOLLOW_70_in_rule_Restriction1226); 
+            string_literal144=this.match(this.input,70,AutoExpParser.FOLLOW_70_in_rule_Restriction1217); 
             string_literal144_tree = this.adaptor.create(string_literal144);
             this.adaptor.addChild(root_0, string_literal144_tree);
 
-            char_literal145=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Restriction1228); 
+            char_literal145=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Restriction1219); 
             char_literal145_tree = this.adaptor.create(char_literal145);
             this.adaptor.addChild(root_0, char_literal145_tree);
 
-            objects_1=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Restriction1232); 
+            objects_1=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Restriction1223); 
             objects_1_tree = this.adaptor.create(objects_1);
             this.adaptor.addChild(root_0, objects_1_tree);
 
@@ -4224,24 +4180,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             list_objects_1.push(objects_1);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:220:45: ( ',' objects_2+= ID )*
-            loop68:
+            loop65:
             do {
-                var alt68=2;
-                var LA68_0 = this.input.LA(1);
+                var alt65=2;
+                var LA65_0 = this.input.LA(1);
 
-                if ( (LA68_0==12) ) {
-                    alt68=1;
+                if ( (LA65_0==12) ) {
+                    alt65=1;
                 }
 
 
-                switch (alt68) {
+                switch (alt65) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:220:46: ',' objects_2+= ID
-                    char_literal146=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Restriction1235); 
+                    char_literal146=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Restriction1226); 
                     char_literal146_tree = this.adaptor.create(char_literal146);
                     this.adaptor.addChild(root_0, char_literal146_tree);
 
-                    objects_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Restriction1239); 
+                    objects_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Restriction1230); 
                     objects_2_tree = this.adaptor.create(objects_2);
                     this.adaptor.addChild(root_0, objects_2_tree);
 
@@ -4253,11 +4209,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     break;
 
                 default :
-                    break loop68;
+                    break loop65;
                 }
             } while (true);
 
-            char_literal147=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Restriction1243); 
+            char_literal147=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Restriction1234); 
             char_literal147_tree = this.adaptor.create(char_literal147);
             this.adaptor.addChild(root_0, char_literal147_tree);
 
@@ -4340,29 +4296,29 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:226:2: name_0= ID '{' ( 'command' cmd_1= STRING )? ( 'timeout' timeout_2= rule_BigDecimalType )? ( 'preconditions' preconditions_3= rule_Preconditions )? ( 'result' result_4= rule_File )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Execution1258); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Execution1249); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal148=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Execution1261); 
+            char_literal148=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Execution1252); 
             char_literal148_tree = this.adaptor.create(char_literal148);
             this.adaptor.addChild(root_0, char_literal148_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:228:2: ( 'command' cmd_1= STRING )?
-            var alt69=2;
-            var LA69_0 = this.input.LA(1);
+            var alt66=2;
+            var LA66_0 = this.input.LA(1);
 
-            if ( (LA69_0==71) ) {
-                alt69=1;
+            if ( (LA66_0==71) ) {
+                alt66=1;
             }
-            switch (alt69) {
+            switch (alt66) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:228:3: 'command' cmd_1= STRING
-                    string_literal149=this.match(this.input,71,AutoExpParser.FOLLOW_71_in_rule_Execution1265); 
+                    string_literal149=this.match(this.input,71,AutoExpParser.FOLLOW_71_in_rule_Execution1256); 
                     string_literal149_tree = this.adaptor.create(string_literal149);
                     this.adaptor.addChild(root_0, string_literal149_tree);
 
-                    cmd_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Execution1269); 
+                    cmd_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Execution1260); 
                     cmd_1_tree = this.adaptor.create(cmd_1);
                     this.adaptor.addChild(root_0, cmd_1_tree);
 
@@ -4373,20 +4329,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:229:2: ( 'timeout' timeout_2= rule_BigDecimalType )?
-            var alt70=2;
-            var LA70_0 = this.input.LA(1);
+            var alt67=2;
+            var LA67_0 = this.input.LA(1);
 
-            if ( (LA70_0==72) ) {
-                alt70=1;
+            if ( (LA67_0==72) ) {
+                alt67=1;
             }
-            switch (alt70) {
+            switch (alt67) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:229:3: 'timeout' timeout_2= rule_BigDecimalType
-                    string_literal150=this.match(this.input,72,AutoExpParser.FOLLOW_72_in_rule_Execution1275); 
+                    string_literal150=this.match(this.input,72,AutoExpParser.FOLLOW_72_in_rule_Execution1266); 
                     string_literal150_tree = this.adaptor.create(string_literal150);
                     this.adaptor.addChild(root_0, string_literal150_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Execution1279);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Execution1270);
                     timeout_2=this.rule_BigDecimalType();
 
                     this.state._fsp--;
@@ -4399,20 +4355,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:230:2: ( 'preconditions' preconditions_3= rule_Preconditions )?
-            var alt71=2;
-            var LA71_0 = this.input.LA(1);
+            var alt68=2;
+            var LA68_0 = this.input.LA(1);
 
-            if ( (LA71_0==32) ) {
-                alt71=1;
+            if ( (LA68_0==32) ) {
+                alt68=1;
             }
-            switch (alt71) {
+            switch (alt68) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:230:3: 'preconditions' preconditions_3= rule_Preconditions
-                    string_literal151=this.match(this.input,32,AutoExpParser.FOLLOW_32_in_rule_Execution1285); 
+                    string_literal151=this.match(this.input,32,AutoExpParser.FOLLOW_32_in_rule_Execution1276); 
                     string_literal151_tree = this.adaptor.create(string_literal151);
                     this.adaptor.addChild(root_0, string_literal151_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Preconditions_in_rule_Execution1289);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Preconditions_in_rule_Execution1280);
                     preconditions_3=this.rule_Preconditions();
 
                     this.state._fsp--;
@@ -4425,20 +4381,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:231:2: ( 'result' result_4= rule_File )?
-            var alt72=2;
-            var LA72_0 = this.input.LA(1);
+            var alt69=2;
+            var LA69_0 = this.input.LA(1);
 
-            if ( (LA72_0==73) ) {
-                alt72=1;
+            if ( (LA69_0==73) ) {
+                alt69=1;
             }
-            switch (alt72) {
+            switch (alt69) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:231:3: 'result' result_4= rule_File
-                    string_literal152=this.match(this.input,73,AutoExpParser.FOLLOW_73_in_rule_Execution1295); 
+                    string_literal152=this.match(this.input,73,AutoExpParser.FOLLOW_73_in_rule_Execution1286); 
                     string_literal152_tree = this.adaptor.create(string_literal152);
                     this.adaptor.addChild(root_0, string_literal152_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Execution1299);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Execution1290);
                     result_4=this.rule_File();
 
                     this.state._fsp--;
@@ -4451,24 +4407,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:232:2: ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )?
-            var alt74=2;
-            var LA74_0 = this.input.LA(1);
+            var alt71=2;
+            var LA71_0 = this.input.LA(1);
 
-            if ( (LA74_0==74) ) {
-                alt74=1;
+            if ( (LA71_0==74) ) {
+                alt71=1;
             }
-            switch (alt74) {
+            switch (alt71) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:232:3: 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}'
-                    string_literal153=this.match(this.input,74,AutoExpParser.FOLLOW_74_in_rule_Execution1305); 
+                    string_literal153=this.match(this.input,74,AutoExpParser.FOLLOW_74_in_rule_Execution1296); 
                     string_literal153_tree = this.adaptor.create(string_literal153);
                     this.adaptor.addChild(root_0, string_literal153_tree);
 
-                    char_literal154=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Execution1307); 
+                    char_literal154=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Execution1298); 
                     char_literal154_tree = this.adaptor.create(char_literal154);
                     this.adaptor.addChild(root_0, char_literal154_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Execution1311);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Execution1302);
                     files_5=this.rule_File();
 
                     this.state._fsp--;
@@ -4478,24 +4434,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_files_5.push(files_5.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:232:34: ( ',' files_6+= rule_File )*
-                    loop73:
+                    loop70:
                     do {
-                        var alt73=2;
-                        var LA73_0 = this.input.LA(1);
+                        var alt70=2;
+                        var LA70_0 = this.input.LA(1);
 
-                        if ( (LA73_0==12) ) {
-                            alt73=1;
+                        if ( (LA70_0==12) ) {
+                            alt70=1;
                         }
 
 
-                        switch (alt73) {
+                        switch (alt70) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:232:35: ',' files_6+= rule_File
-                            char_literal155=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Execution1314); 
+                            char_literal155=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Execution1305); 
                             char_literal155_tree = this.adaptor.create(char_literal155);
                             this.adaptor.addChild(root_0, char_literal155_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Execution1318);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Execution1309);
                             files_6=this.rule_File();
 
                             this.state._fsp--;
@@ -4509,11 +4465,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop73;
+                            break loop70;
                         }
                     } while (true);
 
-                    char_literal156=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Execution1322); 
+                    char_literal156=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Execution1313); 
                     char_literal156_tree = this.adaptor.create(char_literal156);
                     this.adaptor.addChild(root_0, char_literal156_tree);
 
@@ -4523,7 +4479,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal157=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Execution1327); 
+            char_literal157=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Execution1318); 
             char_literal157_tree = this.adaptor.create(char_literal157);
             this.adaptor.addChild(root_0, char_literal157_tree);
 
@@ -4585,29 +4541,29 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:239:2: name_0= ID '{' ( 'significance' significancelevel_1= rule_BigDecimalType )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Analysis1342); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Analysis1333); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal158=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Analysis1345); 
+            char_literal158=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Analysis1336); 
             char_literal158_tree = this.adaptor.create(char_literal158);
             this.adaptor.addChild(root_0, char_literal158_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:241:2: ( 'significance' significancelevel_1= rule_BigDecimalType )?
-            var alt75=2;
-            var LA75_0 = this.input.LA(1);
+            var alt72=2;
+            var LA72_0 = this.input.LA(1);
 
-            if ( (LA75_0==75) ) {
-                alt75=1;
+            if ( (LA72_0==75) ) {
+                alt72=1;
             }
-            switch (alt75) {
+            switch (alt72) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:241:3: 'significance' significancelevel_1= rule_BigDecimalType
-                    string_literal159=this.match(this.input,75,AutoExpParser.FOLLOW_75_in_rule_Analysis1349); 
+                    string_literal159=this.match(this.input,75,AutoExpParser.FOLLOW_75_in_rule_Analysis1340); 
                     string_literal159_tree = this.adaptor.create(string_literal159);
                     this.adaptor.addChild(root_0, string_literal159_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Analysis1353);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Analysis1344);
                     significancelevel_1=this.rule_BigDecimalType();
 
                     this.state._fsp--;
@@ -4619,7 +4575,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal160=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Analysis1358); 
+            char_literal160=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Analysis1349); 
             char_literal160_tree = this.adaptor.create(char_literal160);
             this.adaptor.addChild(root_0, char_literal160_tree);
 
@@ -4705,33 +4661,33 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:248:2: name_0= ID 'description' description_1= STRING ( 'group' objectgroup_2= ID )? ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ExperimentalObject1373); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ExperimentalObject1364); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            string_literal161=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ExperimentalObject1376); 
+            string_literal161=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ExperimentalObject1367); 
             string_literal161_tree = this.adaptor.create(string_literal161);
             this.adaptor.addChild(root_0, string_literal161_tree);
 
-            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ExperimentalObject1380); 
+            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ExperimentalObject1371); 
             description_1_tree = this.adaptor.create(description_1);
             this.adaptor.addChild(root_0, description_1_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:250:2: ( 'group' objectgroup_2= ID )?
-            var alt76=2;
-            var LA76_0 = this.input.LA(1);
+            var alt73=2;
+            var LA73_0 = this.input.LA(1);
 
-            if ( (LA76_0==76) ) {
-                alt76=1;
+            if ( (LA73_0==76) ) {
+                alt73=1;
             }
-            switch (alt76) {
+            switch (alt73) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:250:3: 'group' objectgroup_2= ID
-                    string_literal162=this.match(this.input,76,AutoExpParser.FOLLOW_76_in_rule_ExperimentalObject1384); 
+                    string_literal162=this.match(this.input,76,AutoExpParser.FOLLOW_76_in_rule_ExperimentalObject1375); 
                     string_literal162_tree = this.adaptor.create(string_literal162);
                     this.adaptor.addChild(root_0, string_literal162_tree);
 
-                    objectgroup_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ExperimentalObject1388); 
+                    objectgroup_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ExperimentalObject1379); 
                     objectgroup_2_tree = this.adaptor.create(objectgroup_2);
                     this.adaptor.addChild(root_0, objectgroup_2_tree);
 
@@ -4742,24 +4698,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:251:2: ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )?
-            var alt78=2;
-            var LA78_0 = this.input.LA(1);
+            var alt75=2;
+            var LA75_0 = this.input.LA(1);
 
-            if ( (LA78_0==77) ) {
-                alt78=1;
+            if ( (LA75_0==77) ) {
+                alt75=1;
             }
-            switch (alt78) {
+            switch (alt75) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:251:3: 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}'
-                    string_literal163=this.match(this.input,77,AutoExpParser.FOLLOW_77_in_rule_ExperimentalObject1394); 
+                    string_literal163=this.match(this.input,77,AutoExpParser.FOLLOW_77_in_rule_ExperimentalObject1385); 
                     string_literal163_tree = this.adaptor.create(string_literal163);
                     this.adaptor.addChild(root_0, string_literal163_tree);
 
-                    char_literal164=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalObject1396); 
+                    char_literal164=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalObject1387); 
                     char_literal164_tree = this.adaptor.create(char_literal164);
                     this.adaptor.addChild(root_0, char_literal164_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_ExperimentalObject1400);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_ExperimentalObject1391);
                     parameters_3=this.rule_Parameter();
 
                     this.state._fsp--;
@@ -4769,24 +4725,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_parameters_3.push(parameters_3.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:251:49: ( ',' parameters_4+= rule_Parameter )*
-                    loop77:
+                    loop74:
                     do {
-                        var alt77=2;
-                        var LA77_0 = this.input.LA(1);
+                        var alt74=2;
+                        var LA74_0 = this.input.LA(1);
 
-                        if ( (LA77_0==12) ) {
-                            alt77=1;
+                        if ( (LA74_0==12) ) {
+                            alt74=1;
                         }
 
 
-                        switch (alt77) {
+                        switch (alt74) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:251:50: ',' parameters_4+= rule_Parameter
-                            char_literal165=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalObject1403); 
+                            char_literal165=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalObject1394); 
                             char_literal165_tree = this.adaptor.create(char_literal165);
                             this.adaptor.addChild(root_0, char_literal165_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_ExperimentalObject1407);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_ExperimentalObject1398);
                             parameters_4=this.rule_Parameter();
 
                             this.state._fsp--;
@@ -4800,11 +4756,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop77;
+                            break loop74;
                         }
                     } while (true);
 
-                    char_literal166=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalObject1411); 
+                    char_literal166=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalObject1402); 
                     char_literal166_tree = this.adaptor.create(char_literal166);
                     this.adaptor.addChild(root_0, char_literal166_tree);
 
@@ -4815,24 +4771,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:252:2: ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )?
-            var alt80=2;
-            var LA80_0 = this.input.LA(1);
+            var alt77=2;
+            var LA77_0 = this.input.LA(1);
 
-            if ( (LA80_0==74) ) {
-                alt80=1;
+            if ( (LA77_0==74) ) {
+                alt77=1;
             }
-            switch (alt80) {
+            switch (alt77) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:252:3: 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}'
-                    string_literal167=this.match(this.input,74,AutoExpParser.FOLLOW_74_in_rule_ExperimentalObject1417); 
+                    string_literal167=this.match(this.input,74,AutoExpParser.FOLLOW_74_in_rule_ExperimentalObject1408); 
                     string_literal167_tree = this.adaptor.create(string_literal167);
                     this.adaptor.addChild(root_0, string_literal167_tree);
 
-                    char_literal168=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalObject1419); 
+                    char_literal168=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ExperimentalObject1410); 
                     char_literal168_tree = this.adaptor.create(char_literal168);
                     this.adaptor.addChild(root_0, char_literal168_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_ExperimentalObject1423);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_ExperimentalObject1414);
                     files_5=this.rule_File();
 
                     this.state._fsp--;
@@ -4842,24 +4798,24 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     list_files_5.push(files_5.getTree());
 
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:252:34: ( ',' files_6+= rule_File )*
-                    loop79:
+                    loop76:
                     do {
-                        var alt79=2;
-                        var LA79_0 = this.input.LA(1);
+                        var alt76=2;
+                        var LA76_0 = this.input.LA(1);
 
-                        if ( (LA79_0==12) ) {
-                            alt79=1;
+                        if ( (LA76_0==12) ) {
+                            alt76=1;
                         }
 
 
-                        switch (alt79) {
+                        switch (alt76) {
                         case 1 :
                             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:252:35: ',' files_6+= rule_File
-                            char_literal169=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalObject1426); 
+                            char_literal169=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ExperimentalObject1417); 
                             char_literal169_tree = this.adaptor.create(char_literal169);
                             this.adaptor.addChild(root_0, char_literal169_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_ExperimentalObject1430);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_ExperimentalObject1421);
                             files_6=this.rule_File();
 
                             this.state._fsp--;
@@ -4873,11 +4829,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop79;
+                            break loop76;
                         }
                     } while (true);
 
-                    char_literal170=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalObject1434); 
+                    char_literal170=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ExperimentalObject1425); 
                     char_literal170_tree = this.adaptor.create(char_literal170);
                     this.adaptor.addChild(root_0, char_literal170_tree);
 
@@ -4991,29 +4947,29 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:263:2: name_0= ID '{' ( 'fullName' fullname_1= STRING )? ( 'institution' institution_2= STRING )? ( 'email' email_3= STRING )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Author1461); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Author1452); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal171=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Author1464); 
+            char_literal171=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Author1455); 
             char_literal171_tree = this.adaptor.create(char_literal171);
             this.adaptor.addChild(root_0, char_literal171_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:265:2: ( 'fullName' fullname_1= STRING )?
-            var alt81=2;
-            var LA81_0 = this.input.LA(1);
+            var alt78=2;
+            var LA78_0 = this.input.LA(1);
 
-            if ( (LA81_0==78) ) {
-                alt81=1;
+            if ( (LA78_0==78) ) {
+                alt78=1;
             }
-            switch (alt81) {
+            switch (alt78) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:265:3: 'fullName' fullname_1= STRING
-                    string_literal172=this.match(this.input,78,AutoExpParser.FOLLOW_78_in_rule_Author1468); 
+                    string_literal172=this.match(this.input,78,AutoExpParser.FOLLOW_78_in_rule_Author1459); 
                     string_literal172_tree = this.adaptor.create(string_literal172);
                     this.adaptor.addChild(root_0, string_literal172_tree);
 
-                    fullname_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Author1472); 
+                    fullname_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Author1463); 
                     fullname_1_tree = this.adaptor.create(fullname_1);
                     this.adaptor.addChild(root_0, fullname_1_tree);
 
@@ -5024,20 +4980,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:266:2: ( 'institution' institution_2= STRING )?
-            var alt82=2;
-            var LA82_0 = this.input.LA(1);
+            var alt79=2;
+            var LA79_0 = this.input.LA(1);
 
-            if ( (LA82_0==79) ) {
-                alt82=1;
+            if ( (LA79_0==79) ) {
+                alt79=1;
             }
-            switch (alt82) {
+            switch (alt79) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:266:3: 'institution' institution_2= STRING
-                    string_literal173=this.match(this.input,79,AutoExpParser.FOLLOW_79_in_rule_Author1478); 
+                    string_literal173=this.match(this.input,79,AutoExpParser.FOLLOW_79_in_rule_Author1469); 
                     string_literal173_tree = this.adaptor.create(string_literal173);
                     this.adaptor.addChild(root_0, string_literal173_tree);
 
-                    institution_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Author1482); 
+                    institution_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Author1473); 
                     institution_2_tree = this.adaptor.create(institution_2);
                     this.adaptor.addChild(root_0, institution_2_tree);
 
@@ -5048,20 +5004,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:267:2: ( 'email' email_3= STRING )?
-            var alt83=2;
-            var LA83_0 = this.input.LA(1);
+            var alt80=2;
+            var LA80_0 = this.input.LA(1);
 
-            if ( (LA83_0==80) ) {
-                alt83=1;
+            if ( (LA80_0==80) ) {
+                alt80=1;
             }
-            switch (alt83) {
+            switch (alt80) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:267:3: 'email' email_3= STRING
-                    string_literal174=this.match(this.input,80,AutoExpParser.FOLLOW_80_in_rule_Author1488); 
+                    string_literal174=this.match(this.input,80,AutoExpParser.FOLLOW_80_in_rule_Author1479); 
                     string_literal174_tree = this.adaptor.create(string_literal174);
                     this.adaptor.addChild(root_0, string_literal174_tree);
 
-                    email_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Author1492); 
+                    email_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Author1483); 
                     email_3_tree = this.adaptor.create(email_3);
                     this.adaptor.addChild(root_0, email_3_tree);
 
@@ -5071,7 +5027,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal175=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Author1499); 
+            char_literal175=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Author1490); 
             char_literal175_tree = this.adaptor.create(char_literal175);
             this.adaptor.addChild(root_0, char_literal175_tree);
 
@@ -5126,7 +5082,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:275:2: description_0= STRING
             root_0 = this.adaptor.nil();
 
-            description_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Keyword1514); 
+            description_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Keyword1505); 
             description_0_tree = this.adaptor.create(description_0);
             this.adaptor.addChild(root_0, description_0_tree);
 
@@ -5196,29 +5152,29 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:282:2: name_0= ID '{' ( 'description' description_1= STRING )? ( 'type' type_2= rule_ThreatType )? ( 'CA' ca_3= STRING )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Threat1531); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Threat1522); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal176=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Threat1534); 
+            char_literal176=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Threat1525); 
             char_literal176_tree = this.adaptor.create(char_literal176);
             this.adaptor.addChild(root_0, char_literal176_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:284:2: ( 'description' description_1= STRING )?
-            var alt84=2;
-            var LA84_0 = this.input.LA(1);
+            var alt81=2;
+            var LA81_0 = this.input.LA(1);
 
-            if ( (LA84_0==14) ) {
-                alt84=1;
+            if ( (LA81_0==14) ) {
+                alt81=1;
             }
-            switch (alt84) {
+            switch (alt81) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:284:3: 'description' description_1= STRING
-                    string_literal177=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_Threat1538); 
+                    string_literal177=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_Threat1529); 
                     string_literal177_tree = this.adaptor.create(string_literal177);
                     this.adaptor.addChild(root_0, string_literal177_tree);
 
-                    description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Threat1542); 
+                    description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Threat1533); 
                     description_1_tree = this.adaptor.create(description_1);
                     this.adaptor.addChild(root_0, description_1_tree);
 
@@ -5229,20 +5185,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:285:2: ( 'type' type_2= rule_ThreatType )?
-            var alt85=2;
-            var LA85_0 = this.input.LA(1);
+            var alt82=2;
+            var LA82_0 = this.input.LA(1);
 
-            if ( (LA85_0==66) ) {
-                alt85=1;
+            if ( (LA82_0==66) ) {
+                alt82=1;
             }
-            switch (alt85) {
+            switch (alt82) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:285:3: 'type' type_2= rule_ThreatType
-                    string_literal178=this.match(this.input,66,AutoExpParser.FOLLOW_66_in_rule_Threat1548); 
+                    string_literal178=this.match(this.input,66,AutoExpParser.FOLLOW_66_in_rule_Threat1539); 
                     string_literal178_tree = this.adaptor.create(string_literal178);
                     this.adaptor.addChild(root_0, string_literal178_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_ThreatType_in_rule_Threat1552);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_ThreatType_in_rule_Threat1543);
                     type_2=this.rule_ThreatType();
 
                     this.state._fsp--;
@@ -5255,20 +5211,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:286:2: ( 'CA' ca_3= STRING )?
-            var alt86=2;
-            var LA86_0 = this.input.LA(1);
+            var alt83=2;
+            var LA83_0 = this.input.LA(1);
 
-            if ( (LA86_0==81) ) {
-                alt86=1;
+            if ( (LA83_0==81) ) {
+                alt83=1;
             }
-            switch (alt86) {
+            switch (alt83) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:286:3: 'CA' ca_3= STRING
-                    string_literal179=this.match(this.input,81,AutoExpParser.FOLLOW_81_in_rule_Threat1558); 
+                    string_literal179=this.match(this.input,81,AutoExpParser.FOLLOW_81_in_rule_Threat1549); 
                     string_literal179_tree = this.adaptor.create(string_literal179);
                     this.adaptor.addChild(root_0, string_literal179_tree);
 
-                    ca_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Threat1562); 
+                    ca_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Threat1553); 
                     ca_3_tree = this.adaptor.create(ca_3);
                     this.adaptor.addChild(root_0, ca_3_tree);
 
@@ -5278,7 +5234,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal180=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Threat1567); 
+            char_literal180=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Threat1558); 
             char_literal180_tree = this.adaptor.create(char_literal180);
             this.adaptor.addChild(root_0, char_literal180_tree);
 
@@ -5333,7 +5289,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:293:2: name_0= ID
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Goal_Impl1582); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Goal_Impl1573); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
@@ -5400,29 +5356,29 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:299:2: name_0= ID '{' ( 'description' description_1= STRING )? ( 'goal' goal_2= ID )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchQuestion1597); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchQuestion1588); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal181=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ResearchQuestion1600); 
+            char_literal181=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ResearchQuestion1591); 
             char_literal181_tree = this.adaptor.create(char_literal181);
             this.adaptor.addChild(root_0, char_literal181_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:301:2: ( 'description' description_1= STRING )?
-            var alt87=2;
-            var LA87_0 = this.input.LA(1);
+            var alt84=2;
+            var LA84_0 = this.input.LA(1);
 
-            if ( (LA87_0==14) ) {
-                alt87=1;
+            if ( (LA84_0==14) ) {
+                alt84=1;
             }
-            switch (alt87) {
+            switch (alt84) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:301:3: 'description' description_1= STRING
-                    string_literal182=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ResearchQuestion1604); 
+                    string_literal182=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ResearchQuestion1595); 
                     string_literal182_tree = this.adaptor.create(string_literal182);
                     this.adaptor.addChild(root_0, string_literal182_tree);
 
-                    description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ResearchQuestion1608); 
+                    description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ResearchQuestion1599); 
                     description_1_tree = this.adaptor.create(description_1);
                     this.adaptor.addChild(root_0, description_1_tree);
 
@@ -5433,20 +5389,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:302:2: ( 'goal' goal_2= ID )?
-            var alt88=2;
-            var LA88_0 = this.input.LA(1);
+            var alt85=2;
+            var LA85_0 = this.input.LA(1);
 
-            if ( (LA88_0==82) ) {
-                alt88=1;
+            if ( (LA85_0==82) ) {
+                alt85=1;
             }
-            switch (alt88) {
+            switch (alt85) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:302:3: 'goal' goal_2= ID
-                    string_literal183=this.match(this.input,82,AutoExpParser.FOLLOW_82_in_rule_ResearchQuestion1614); 
+                    string_literal183=this.match(this.input,82,AutoExpParser.FOLLOW_82_in_rule_ResearchQuestion1605); 
                     string_literal183_tree = this.adaptor.create(string_literal183);
                     this.adaptor.addChild(root_0, string_literal183_tree);
 
-                    goal_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchQuestion1618); 
+                    goal_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchQuestion1609); 
                     goal_2_tree = this.adaptor.create(goal_2);
                     this.adaptor.addChild(root_0, goal_2_tree);
 
@@ -5456,7 +5412,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal184=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ResearchQuestion1623); 
+            char_literal184=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ResearchQuestion1614); 
             char_literal184_tree = this.adaptor.create(char_literal184);
             this.adaptor.addChild(root_0, char_literal184_tree);
 
@@ -5524,35 +5480,35 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:309:2: name_0= ID '{' formula_1= rule_ResearchHypothesisFormula ( 'description' description_2= STRING )? ( 'goal' goal_3= ID )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesis1638); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesis1629); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal185=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ResearchHypothesis1641); 
+            char_literal185=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ResearchHypothesis1632); 
             char_literal185_tree = this.adaptor.create(char_literal185);
             this.adaptor.addChild(root_0, char_literal185_tree);
 
-            this.pushFollow(AutoExpParser.FOLLOW_rule_ResearchHypothesisFormula_in_rule_ResearchHypothesis1646);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_ResearchHypothesisFormula_in_rule_ResearchHypothesis1637);
             formula_1=this.rule_ResearchHypothesisFormula();
 
             this.state._fsp--;
 
             this.adaptor.addChild(root_0, formula_1.getTree());
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:312:2: ( 'description' description_2= STRING )?
-            var alt89=2;
-            var LA89_0 = this.input.LA(1);
+            var alt86=2;
+            var LA86_0 = this.input.LA(1);
 
-            if ( (LA89_0==14) ) {
-                alt89=1;
+            if ( (LA86_0==14) ) {
+                alt86=1;
             }
-            switch (alt89) {
+            switch (alt86) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:312:3: 'description' description_2= STRING
-                    string_literal186=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ResearchHypothesis1650); 
+                    string_literal186=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ResearchHypothesis1641); 
                     string_literal186_tree = this.adaptor.create(string_literal186);
                     this.adaptor.addChild(root_0, string_literal186_tree);
 
-                    description_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ResearchHypothesis1654); 
+                    description_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ResearchHypothesis1645); 
                     description_2_tree = this.adaptor.create(description_2);
                     this.adaptor.addChild(root_0, description_2_tree);
 
@@ -5563,20 +5519,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:313:2: ( 'goal' goal_3= ID )?
-            var alt90=2;
-            var LA90_0 = this.input.LA(1);
+            var alt87=2;
+            var LA87_0 = this.input.LA(1);
 
-            if ( (LA90_0==82) ) {
-                alt90=1;
+            if ( (LA87_0==82) ) {
+                alt87=1;
             }
-            switch (alt90) {
+            switch (alt87) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:313:3: 'goal' goal_3= ID
-                    string_literal187=this.match(this.input,82,AutoExpParser.FOLLOW_82_in_rule_ResearchHypothesis1660); 
+                    string_literal187=this.match(this.input,82,AutoExpParser.FOLLOW_82_in_rule_ResearchHypothesis1651); 
                     string_literal187_tree = this.adaptor.create(string_literal187);
                     this.adaptor.addChild(root_0, string_literal187_tree);
 
-                    goal_3=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesis1664); 
+                    goal_3=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesis1655); 
                     goal_3_tree = this.adaptor.create(goal_3);
                     this.adaptor.addChild(root_0, goal_3_tree);
 
@@ -5586,7 +5542,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal188=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ResearchHypothesis1669); 
+            char_literal188=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ResearchHypothesis1660); 
             char_literal188_tree = this.adaptor.create(char_literal188);
             this.adaptor.addChild(root_0, char_literal188_tree);
 
@@ -5646,21 +5602,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:320:2: depvariable_0= ID treatment1_1= ID operator_2= rule_OperatorType treatment2_3= ID
             root_0 = this.adaptor.nil();
 
-            depvariable_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesisFormula1684); 
+            depvariable_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesisFormula1675); 
             depvariable_0_tree = this.adaptor.create(depvariable_0);
             this.adaptor.addChild(root_0, depvariable_0_tree);
 
-            treatment1_1=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesisFormula1688); 
+            treatment1_1=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesisFormula1679); 
             treatment1_1_tree = this.adaptor.create(treatment1_1);
             this.adaptor.addChild(root_0, treatment1_1_tree);
 
-            this.pushFollow(AutoExpParser.FOLLOW_rule_OperatorType_in_rule_ResearchHypothesisFormula1692);
+            this.pushFollow(AutoExpParser.FOLLOW_rule_OperatorType_in_rule_ResearchHypothesisFormula1683);
             operator_2=this.rule_OperatorType();
 
             this.state._fsp--;
 
             this.adaptor.addChild(root_0, operator_2.getTree());
-            treatment2_3=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesisFormula1696); 
+            treatment2_3=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ResearchHypothesisFormula1687); 
             treatment2_3_tree = this.adaptor.create(treatment2_3);
             this.adaptor.addChild(root_0, treatment2_3_tree);
 
@@ -5775,40 +5731,40 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:329:24: ( rule_DependentVariable_Impl | rule_BuiltinDependentVariable | rule_CustomDependentVariable )
-            var alt91=3;
-            var LA91_0 = this.input.LA(1);
+            var alt88=3;
+            var LA88_0 = this.input.LA(1);
 
-            if ( (LA91_0==ID) ) {
-                var LA91_1 = this.input.LA(2);
+            if ( (LA88_0==ID) ) {
+                var LA88_1 = this.input.LA(2);
 
-                if ( (LA91_1==10) ) {
-                    alt91=3;
+                if ( (LA88_1==10) ) {
+                    alt88=3;
                 }
-                else if ( (LA91_1==EOF) ) {
-                    alt91=1;
+                else if ( (LA88_1==EOF) ) {
+                    alt88=1;
                 }
                 else {
                     var nvae =
-                        new org.antlr.runtime.NoViableAltException("", 91, 1, this.input);
+                        new org.antlr.runtime.NoViableAltException("", 88, 1, this.input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA91_0==STRING) ) {
-                alt91=2;
+            else if ( (LA88_0==STRING) ) {
+                alt88=2;
             }
             else {
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 91, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 88, 0, this.input);
 
                 throw nvae;
             }
-            switch (alt91) {
+            switch (alt88) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:330:2: rule_DependentVariable_Impl
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_DependentVariable_Impl_in_rule_DependentVariable1732);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_DependentVariable_Impl_in_rule_DependentVariable1723);
                     rule_DependentVariable_Impl189=this.rule_DependentVariable_Impl();
 
                     this.state._fsp--;
@@ -5821,7 +5777,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:330:30: rule_BuiltinDependentVariable
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_BuiltinDependentVariable_in_rule_DependentVariable1734);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_BuiltinDependentVariable_in_rule_DependentVariable1725);
                     rule_BuiltinDependentVariable190=this.rule_BuiltinDependentVariable();
 
                     this.state._fsp--;
@@ -5834,7 +5790,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:330:60: rule_CustomDependentVariable
                     root_0 = this.adaptor.nil();
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_CustomDependentVariable_in_rule_DependentVariable1736);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_CustomDependentVariable_in_rule_DependentVariable1727);
                     rule_CustomDependentVariable191=this.rule_CustomDependentVariable();
 
                     this.state._fsp--;
@@ -5893,7 +5849,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:337:2: name_0= ID
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_DependentVariable_Impl1752); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_DependentVariable_Impl1743); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
@@ -5948,7 +5904,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:343:2: name_0= STRING
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_BuiltinDependentVariable1767); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_BuiltinDependentVariable1758); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
@@ -5986,7 +5942,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:351:1: rule_CustomDependentVariable : name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'unit' unit_3= STRING )? ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )? ( 'instrument' instrument_6= ID )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:349:1: rule_CustomDependentVariable : name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'unit' unit_3= STRING )? ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )? ( 'instrument' instrument_6= ID )? '}' ;
     // $ANTLR start "rule_CustomDependentVariable"
     rule_CustomDependentVariable: function() {
         var retval = new AutoExpParser.rule_CustomDependentVariable_return();
@@ -6029,41 +5985,41 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal201_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:351:30: (name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'unit' unit_3= STRING )? ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )? ( 'instrument' instrument_6= ID )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:353:2: name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'unit' unit_3= STRING )? ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )? ( 'instrument' instrument_6= ID )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:349:30: (name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'unit' unit_3= STRING )? ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )? ( 'instrument' instrument_6= ID )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:351:2: name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'unit' unit_3= STRING )? ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )? ( 'instrument' instrument_6= ID )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_CustomDependentVariable1788); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_CustomDependentVariable1776); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal192=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_CustomDependentVariable1791); 
+            char_literal192=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_CustomDependentVariable1779); 
             char_literal192_tree = this.adaptor.create(char_literal192);
             this.adaptor.addChild(root_0, char_literal192_tree);
 
-            string_literal193=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_CustomDependentVariable1794); 
+            string_literal193=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_CustomDependentVariable1782); 
             string_literal193_tree = this.adaptor.create(string_literal193);
             this.adaptor.addChild(root_0, string_literal193_tree);
 
-            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CustomDependentVariable1798); 
+            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CustomDependentVariable1786); 
             description_1_tree = this.adaptor.create(description_1);
             this.adaptor.addChild(root_0, description_1_tree);
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:356:2: ( 'scaleType' scaletype_2= rule_ScaleType )?
-            var alt92=2;
-            var LA92_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:354:2: ( 'scaleType' scaletype_2= rule_ScaleType )?
+            var alt89=2;
+            var LA89_0 = this.input.LA(1);
 
-            if ( (LA92_0==87) ) {
-                alt92=1;
+            if ( (LA89_0==87) ) {
+                alt89=1;
             }
-            switch (alt92) {
+            switch (alt89) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:356:3: 'scaleType' scaletype_2= rule_ScaleType
-                    string_literal194=this.match(this.input,87,AutoExpParser.FOLLOW_87_in_rule_CustomDependentVariable1802); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:354:3: 'scaleType' scaletype_2= rule_ScaleType
+                    string_literal194=this.match(this.input,87,AutoExpParser.FOLLOW_87_in_rule_CustomDependentVariable1790); 
                     string_literal194_tree = this.adaptor.create(string_literal194);
                     this.adaptor.addChild(root_0, string_literal194_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_ScaleType_in_rule_CustomDependentVariable1806);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_ScaleType_in_rule_CustomDependentVariable1794);
                     scaletype_2=this.rule_ScaleType();
 
                     this.state._fsp--;
@@ -6075,21 +6031,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:357:2: ( 'unit' unit_3= STRING )?
-            var alt93=2;
-            var LA93_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:355:2: ( 'unit' unit_3= STRING )?
+            var alt90=2;
+            var LA90_0 = this.input.LA(1);
 
-            if ( (LA93_0==88) ) {
-                alt93=1;
+            if ( (LA90_0==88) ) {
+                alt90=1;
             }
-            switch (alt93) {
+            switch (alt90) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:357:3: 'unit' unit_3= STRING
-                    string_literal195=this.match(this.input,88,AutoExpParser.FOLLOW_88_in_rule_CustomDependentVariable1812); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:355:3: 'unit' unit_3= STRING
+                    string_literal195=this.match(this.input,88,AutoExpParser.FOLLOW_88_in_rule_CustomDependentVariable1800); 
                     string_literal195_tree = this.adaptor.create(string_literal195);
                     this.adaptor.addChild(root_0, string_literal195_tree);
 
-                    unit_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CustomDependentVariable1816); 
+                    unit_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_CustomDependentVariable1804); 
                     unit_3_tree = this.adaptor.create(unit_3);
                     this.adaptor.addChild(root_0, unit_3_tree);
 
@@ -6099,25 +6055,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:358:2: ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )?
-            var alt95=2;
-            var LA95_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:356:2: ( 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}' )?
+            var alt92=2;
+            var LA92_0 = this.input.LA(1);
 
-            if ( (LA95_0==89) ) {
-                alt95=1;
+            if ( (LA92_0==89) ) {
+                alt92=1;
             }
-            switch (alt95) {
+            switch (alt92) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:358:3: 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}'
-                    string_literal196=this.match(this.input,89,AutoExpParser.FOLLOW_89_in_rule_CustomDependentVariable1822); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:356:3: 'range' '{' range_4+= rule_Range ( ',' range_5+= rule_Range )* '}'
+                    string_literal196=this.match(this.input,89,AutoExpParser.FOLLOW_89_in_rule_CustomDependentVariable1810); 
                     string_literal196_tree = this.adaptor.create(string_literal196);
                     this.adaptor.addChild(root_0, string_literal196_tree);
 
-                    char_literal197=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_CustomDependentVariable1824); 
+                    char_literal197=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_CustomDependentVariable1812); 
                     char_literal197_tree = this.adaptor.create(char_literal197);
                     this.adaptor.addChild(root_0, char_literal197_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_CustomDependentVariable1828);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_CustomDependentVariable1816);
                     range_4=this.rule_Range();
 
                     this.state._fsp--;
@@ -6126,25 +6082,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     if (org.antlr.lang.isNull(list_range_4)) list_range_4 = [];
                     list_range_4.push(range_4.getTree());
 
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:358:35: ( ',' range_5+= rule_Range )*
-                    loop94:
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:356:35: ( ',' range_5+= rule_Range )*
+                    loop91:
                     do {
-                        var alt94=2;
-                        var LA94_0 = this.input.LA(1);
+                        var alt91=2;
+                        var LA91_0 = this.input.LA(1);
 
-                        if ( (LA94_0==12) ) {
-                            alt94=1;
+                        if ( (LA91_0==12) ) {
+                            alt91=1;
                         }
 
 
-                        switch (alt94) {
+                        switch (alt91) {
                         case 1 :
-                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:358:36: ',' range_5+= rule_Range
-                            char_literal198=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_CustomDependentVariable1831); 
+                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:356:36: ',' range_5+= rule_Range
+                            char_literal198=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_CustomDependentVariable1819); 
                             char_literal198_tree = this.adaptor.create(char_literal198);
                             this.adaptor.addChild(root_0, char_literal198_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_CustomDependentVariable1835);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_CustomDependentVariable1823);
                             range_5=this.rule_Range();
 
                             this.state._fsp--;
@@ -6158,11 +6114,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop94;
+                            break loop91;
                         }
                     } while (true);
 
-                    char_literal199=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_CustomDependentVariable1839); 
+                    char_literal199=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_CustomDependentVariable1827); 
                     char_literal199_tree = this.adaptor.create(char_literal199);
                     this.adaptor.addChild(root_0, char_literal199_tree);
 
@@ -6172,21 +6128,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:359:2: ( 'instrument' instrument_6= ID )?
-            var alt96=2;
-            var LA96_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:357:2: ( 'instrument' instrument_6= ID )?
+            var alt93=2;
+            var LA93_0 = this.input.LA(1);
 
-            if ( (LA96_0==90) ) {
-                alt96=1;
+            if ( (LA93_0==90) ) {
+                alt93=1;
             }
-            switch (alt96) {
+            switch (alt93) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:359:3: 'instrument' instrument_6= ID
-                    string_literal200=this.match(this.input,90,AutoExpParser.FOLLOW_90_in_rule_CustomDependentVariable1845); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:357:3: 'instrument' instrument_6= ID
+                    string_literal200=this.match(this.input,90,AutoExpParser.FOLLOW_90_in_rule_CustomDependentVariable1833); 
                     string_literal200_tree = this.adaptor.create(string_literal200);
                     this.adaptor.addChild(root_0, string_literal200_tree);
 
-                    instrument_6=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_CustomDependentVariable1849); 
+                    instrument_6=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_CustomDependentVariable1837); 
                     instrument_6_tree = this.adaptor.create(instrument_6);
                     this.adaptor.addChild(root_0, instrument_6_tree);
 
@@ -6196,7 +6152,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal201=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_CustomDependentVariable1854); 
+            char_literal201=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_CustomDependentVariable1842); 
             char_literal201_tree = this.adaptor.create(char_literal201);
             this.adaptor.addChild(root_0, char_literal201_tree);
 
@@ -6234,7 +6190,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:363:1: rule_Instrument : name_0= ID '{' 'command' command_1= STRING 'valueExpression' valueexpression_2= STRING ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:361:1: rule_Instrument : name_0= ID '{' 'command' command_1= STRING 'valueExpression' valueexpression_2= STRING ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )? '}' ;
     // $ANTLR start "rule_Instrument"
     rule_Instrument: function() {
         var retval = new AutoExpParser.rule_Instrument_return();
@@ -6262,49 +6218,49 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal206_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:363:17: (name_0= ID '{' 'command' command_1= STRING 'valueExpression' valueexpression_2= STRING ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:365:2: name_0= ID '{' 'command' command_1= STRING 'valueExpression' valueexpression_2= STRING ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:361:17: (name_0= ID '{' 'command' command_1= STRING 'valueExpression' valueexpression_2= STRING ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:363:2: name_0= ID '{' 'command' command_1= STRING 'valueExpression' valueexpression_2= STRING ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Instrument1868); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Instrument1856); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal202=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Instrument1871); 
+            char_literal202=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Instrument1859); 
             char_literal202_tree = this.adaptor.create(char_literal202);
             this.adaptor.addChild(root_0, char_literal202_tree);
 
-            string_literal203=this.match(this.input,71,AutoExpParser.FOLLOW_71_in_rule_Instrument1874); 
+            string_literal203=this.match(this.input,71,AutoExpParser.FOLLOW_71_in_rule_Instrument1862); 
             string_literal203_tree = this.adaptor.create(string_literal203);
             this.adaptor.addChild(root_0, string_literal203_tree);
 
-            command_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Instrument1878); 
+            command_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Instrument1866); 
             command_1_tree = this.adaptor.create(command_1);
             this.adaptor.addChild(root_0, command_1_tree);
 
-            string_literal204=this.match(this.input,91,AutoExpParser.FOLLOW_91_in_rule_Instrument1881); 
+            string_literal204=this.match(this.input,91,AutoExpParser.FOLLOW_91_in_rule_Instrument1869); 
             string_literal204_tree = this.adaptor.create(string_literal204);
             this.adaptor.addChild(root_0, string_literal204_tree);
 
-            valueexpression_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Instrument1885); 
+            valueexpression_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Instrument1873); 
             valueexpression_2_tree = this.adaptor.create(valueexpression_2);
             this.adaptor.addChild(root_0, valueexpression_2_tree);
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:369:2: ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )?
-            var alt97=2;
-            var LA97_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:367:2: ( 'conversionFactor' conversionfactor_3= rule_BigDecimalType )?
+            var alt94=2;
+            var LA94_0 = this.input.LA(1);
 
-            if ( (LA97_0==92) ) {
-                alt97=1;
+            if ( (LA94_0==92) ) {
+                alt94=1;
             }
-            switch (alt97) {
+            switch (alt94) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:369:3: 'conversionFactor' conversionfactor_3= rule_BigDecimalType
-                    string_literal205=this.match(this.input,92,AutoExpParser.FOLLOW_92_in_rule_Instrument1889); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:367:3: 'conversionFactor' conversionfactor_3= rule_BigDecimalType
+                    string_literal205=this.match(this.input,92,AutoExpParser.FOLLOW_92_in_rule_Instrument1877); 
                     string_literal205_tree = this.adaptor.create(string_literal205);
                     this.adaptor.addChild(root_0, string_literal205_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Instrument1893);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_BigDecimalType_in_rule_Instrument1881);
                     conversionfactor_3=this.rule_BigDecimalType();
 
                     this.state._fsp--;
@@ -6316,7 +6272,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal206=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Instrument1898); 
+            char_literal206=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Instrument1886); 
             char_literal206_tree = this.adaptor.create(char_literal206);
             this.adaptor.addChild(root_0, char_literal206_tree);
 
@@ -6354,7 +6310,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:374:1: rule_Factor : name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:372:1: rule_Factor : name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? '}' ;
     // $ANTLR start "rule_Factor"
     rule_Factor: function() {
         var retval = new AutoExpParser.rule_Factor_return();
@@ -6378,41 +6334,41 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal210_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:374:13: (name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:376:2: name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:372:13: (name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:374:2: name_0= ID '{' 'description' description_1= STRING ( 'scaleType' scaletype_2= rule_ScaleType )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Factor1913); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Factor1901); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal207=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Factor1916); 
+            char_literal207=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Factor1904); 
             char_literal207_tree = this.adaptor.create(char_literal207);
             this.adaptor.addChild(root_0, char_literal207_tree);
 
-            string_literal208=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_Factor1919); 
+            string_literal208=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_Factor1907); 
             string_literal208_tree = this.adaptor.create(string_literal208);
             this.adaptor.addChild(root_0, string_literal208_tree);
 
-            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Factor1923); 
+            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Factor1911); 
             description_1_tree = this.adaptor.create(description_1);
             this.adaptor.addChild(root_0, description_1_tree);
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:379:2: ( 'scaleType' scaletype_2= rule_ScaleType )?
-            var alt98=2;
-            var LA98_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:377:2: ( 'scaleType' scaletype_2= rule_ScaleType )?
+            var alt95=2;
+            var LA95_0 = this.input.LA(1);
 
-            if ( (LA98_0==87) ) {
-                alt98=1;
+            if ( (LA95_0==87) ) {
+                alt95=1;
             }
-            switch (alt98) {
+            switch (alt95) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:379:3: 'scaleType' scaletype_2= rule_ScaleType
-                    string_literal209=this.match(this.input,87,AutoExpParser.FOLLOW_87_in_rule_Factor1927); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:377:3: 'scaleType' scaletype_2= rule_ScaleType
+                    string_literal209=this.match(this.input,87,AutoExpParser.FOLLOW_87_in_rule_Factor1915); 
                     string_literal209_tree = this.adaptor.create(string_literal209);
                     this.adaptor.addChild(root_0, string_literal209_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_ScaleType_in_rule_Factor1931);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_ScaleType_in_rule_Factor1919);
                     scaletype_2=this.rule_ScaleType();
 
                     this.state._fsp--;
@@ -6424,7 +6380,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal210=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Factor1936); 
+            char_literal210=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Factor1924); 
             char_literal210_tree = this.adaptor.create(char_literal210);
             this.adaptor.addChild(root_0, char_literal210_tree);
 
@@ -6462,7 +6418,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:384:1: rule_ContextVariable : name_0= ID '{' ( 'description' description_1= STRING )? ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )? '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:382:1: rule_ContextVariable : name_0= ID '{' ( 'description' description_1= STRING )? ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )? '}' ;
     // $ANTLR start "rule_ContextVariable"
     rule_ContextVariable: function() {
         var retval = new AutoExpParser.rule_ContextVariable_return();
@@ -6497,33 +6453,33 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var char_literal218_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:384:22: (name_0= ID '{' ( 'description' description_1= STRING )? ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )? '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:386:2: name_0= ID '{' ( 'description' description_1= STRING )? ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )? '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:382:22: (name_0= ID '{' ( 'description' description_1= STRING )? ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:384:2: name_0= ID '{' ( 'description' description_1= STRING )? ( 'scaleType' scaletype_2= rule_ScaleType )? ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ContextVariable1951); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ContextVariable1939); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal211=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ContextVariable1954); 
+            char_literal211=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ContextVariable1942); 
             char_literal211_tree = this.adaptor.create(char_literal211);
             this.adaptor.addChild(root_0, char_literal211_tree);
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:388:2: ( 'description' description_1= STRING )?
-            var alt99=2;
-            var LA99_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:386:2: ( 'description' description_1= STRING )?
+            var alt96=2;
+            var LA96_0 = this.input.LA(1);
 
-            if ( (LA99_0==14) ) {
-                alt99=1;
+            if ( (LA96_0==14) ) {
+                alt96=1;
             }
-            switch (alt99) {
+            switch (alt96) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:388:3: 'description' description_1= STRING
-                    string_literal212=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ContextVariable1958); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:386:3: 'description' description_1= STRING
+                    string_literal212=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_ContextVariable1946); 
                     string_literal212_tree = this.adaptor.create(string_literal212);
                     this.adaptor.addChild(root_0, string_literal212_tree);
 
-                    description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ContextVariable1962); 
+                    description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ContextVariable1950); 
                     description_1_tree = this.adaptor.create(description_1);
                     this.adaptor.addChild(root_0, description_1_tree);
 
@@ -6533,21 +6489,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:389:2: ( 'scaleType' scaletype_2= rule_ScaleType )?
-            var alt100=2;
-            var LA100_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:387:2: ( 'scaleType' scaletype_2= rule_ScaleType )?
+            var alt97=2;
+            var LA97_0 = this.input.LA(1);
 
-            if ( (LA100_0==87) ) {
-                alt100=1;
+            if ( (LA97_0==87) ) {
+                alt97=1;
             }
-            switch (alt100) {
+            switch (alt97) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:389:3: 'scaleType' scaletype_2= rule_ScaleType
-                    string_literal213=this.match(this.input,87,AutoExpParser.FOLLOW_87_in_rule_ContextVariable1968); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:387:3: 'scaleType' scaletype_2= rule_ScaleType
+                    string_literal213=this.match(this.input,87,AutoExpParser.FOLLOW_87_in_rule_ContextVariable1956); 
                     string_literal213_tree = this.adaptor.create(string_literal213);
                     this.adaptor.addChild(root_0, string_literal213_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_ScaleType_in_rule_ContextVariable1972);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_ScaleType_in_rule_ContextVariable1960);
                     scaletype_2=this.rule_ScaleType();
 
                     this.state._fsp--;
@@ -6559,25 +6515,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:390:2: ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )?
-            var alt102=2;
-            var LA102_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:388:2: ( 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}' )?
+            var alt99=2;
+            var LA99_0 = this.input.LA(1);
 
-            if ( (LA102_0==89) ) {
-                alt102=1;
+            if ( (LA99_0==89) ) {
+                alt99=1;
             }
-            switch (alt102) {
+            switch (alt99) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:390:3: 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}'
-                    string_literal214=this.match(this.input,89,AutoExpParser.FOLLOW_89_in_rule_ContextVariable1978); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:388:3: 'range' '{' range_3+= rule_Range ( ',' range_4+= rule_Range )* '}'
+                    string_literal214=this.match(this.input,89,AutoExpParser.FOLLOW_89_in_rule_ContextVariable1966); 
                     string_literal214_tree = this.adaptor.create(string_literal214);
                     this.adaptor.addChild(root_0, string_literal214_tree);
 
-                    char_literal215=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ContextVariable1980); 
+                    char_literal215=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_ContextVariable1968); 
                     char_literal215_tree = this.adaptor.create(char_literal215);
                     this.adaptor.addChild(root_0, char_literal215_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_ContextVariable1984);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_ContextVariable1972);
                     range_3=this.rule_Range();
 
                     this.state._fsp--;
@@ -6586,25 +6542,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     if (org.antlr.lang.isNull(list_range_3)) list_range_3 = [];
                     list_range_3.push(range_3.getTree());
 
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:390:35: ( ',' range_4+= rule_Range )*
-                    loop101:
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:388:35: ( ',' range_4+= rule_Range )*
+                    loop98:
                     do {
-                        var alt101=2;
-                        var LA101_0 = this.input.LA(1);
+                        var alt98=2;
+                        var LA98_0 = this.input.LA(1);
 
-                        if ( (LA101_0==12) ) {
-                            alt101=1;
+                        if ( (LA98_0==12) ) {
+                            alt98=1;
                         }
 
 
-                        switch (alt101) {
+                        switch (alt98) {
                         case 1 :
-                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:390:36: ',' range_4+= rule_Range
-                            char_literal216=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ContextVariable1987); 
+                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:388:36: ',' range_4+= rule_Range
+                            char_literal216=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_ContextVariable1975); 
                             char_literal216_tree = this.adaptor.create(char_literal216);
                             this.adaptor.addChild(root_0, char_literal216_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_ContextVariable1991);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Range_in_rule_ContextVariable1979);
                             range_4=this.rule_Range();
 
                             this.state._fsp--;
@@ -6618,11 +6574,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop101;
+                            break loop98;
                         }
                     } while (true);
 
-                    char_literal217=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ContextVariable1995); 
+                    char_literal217=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ContextVariable1983); 
                     char_literal217_tree = this.adaptor.create(char_literal217);
                     this.adaptor.addChild(root_0, char_literal217_tree);
 
@@ -6632,7 +6588,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal218=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ContextVariable2000); 
+            char_literal218=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_ContextVariable1988); 
             char_literal218_tree = this.adaptor.create(char_literal218);
             this.adaptor.addChild(root_0, char_literal218_tree);
 
@@ -6670,7 +6626,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:395:1: rule_Range : name_0= ID ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:393:1: rule_Range : name_0= ID ;
     // $ANTLR start "rule_Range"
     rule_Range: function() {
         var retval = new AutoExpParser.rule_Range_return();
@@ -6683,11 +6639,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var name_0_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:395:12: (name_0= ID )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:397:2: name_0= ID
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:393:12: (name_0= ID )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:395:2: name_0= ID
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Range2015); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Range2003); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
@@ -6725,7 +6681,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:401:1: rule_Treatment : name_0= ID 'description' description_1= STRING 'factor' factor_2= ID ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? 'execution' execution_7= ID ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:399:1: rule_Treatment : name_0= ID 'description' description_1= STRING 'factor' factor_2= ID ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? 'execution' execution_7= ID ;
     // $ANTLR start "rule_Treatment"
     rule_Treatment: function() {
         var retval = new AutoExpParser.rule_Treatment_return();
@@ -6773,49 +6729,49 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var string_literal229_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:401:16: (name_0= ID 'description' description_1= STRING 'factor' factor_2= ID ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? 'execution' execution_7= ID )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:402:2: name_0= ID 'description' description_1= STRING 'factor' factor_2= ID ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? 'execution' execution_7= ID
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:399:16: (name_0= ID 'description' description_1= STRING 'factor' factor_2= ID ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? 'execution' execution_7= ID )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:400:2: name_0= ID 'description' description_1= STRING 'factor' factor_2= ID ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )? ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )? 'execution' execution_7= ID
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Treatment2028); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Treatment2016); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            string_literal219=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_Treatment2031); 
+            string_literal219=this.match(this.input,14,AutoExpParser.FOLLOW_14_in_rule_Treatment2019); 
             string_literal219_tree = this.adaptor.create(string_literal219);
             this.adaptor.addChild(root_0, string_literal219_tree);
 
-            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Treatment2035); 
+            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Treatment2023); 
             description_1_tree = this.adaptor.create(description_1);
             this.adaptor.addChild(root_0, description_1_tree);
 
-            string_literal220=this.match(this.input,93,AutoExpParser.FOLLOW_93_in_rule_Treatment2038); 
+            string_literal220=this.match(this.input,93,AutoExpParser.FOLLOW_93_in_rule_Treatment2026); 
             string_literal220_tree = this.adaptor.create(string_literal220);
             this.adaptor.addChild(root_0, string_literal220_tree);
 
-            factor_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Treatment2042); 
+            factor_2=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Treatment2030); 
             factor_2_tree = this.adaptor.create(factor_2);
             this.adaptor.addChild(root_0, factor_2_tree);
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:405:2: ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )?
-            var alt104=2;
-            var LA104_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:403:2: ( 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}' )?
+            var alt101=2;
+            var LA101_0 = this.input.LA(1);
 
-            if ( (LA104_0==77) ) {
-                alt104=1;
+            if ( (LA101_0==77) ) {
+                alt101=1;
             }
-            switch (alt104) {
+            switch (alt101) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:405:3: 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}'
-                    string_literal221=this.match(this.input,77,AutoExpParser.FOLLOW_77_in_rule_Treatment2046); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:403:3: 'parameters' '{' parameters_3+= rule_Parameter ( ',' parameters_4+= rule_Parameter )* '}'
+                    string_literal221=this.match(this.input,77,AutoExpParser.FOLLOW_77_in_rule_Treatment2034); 
                     string_literal221_tree = this.adaptor.create(string_literal221);
                     this.adaptor.addChild(root_0, string_literal221_tree);
 
-                    char_literal222=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Treatment2048); 
+                    char_literal222=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Treatment2036); 
                     char_literal222_tree = this.adaptor.create(char_literal222);
                     this.adaptor.addChild(root_0, char_literal222_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_Treatment2052);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_Treatment2040);
                     parameters_3=this.rule_Parameter();
 
                     this.state._fsp--;
@@ -6824,25 +6780,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     if (org.antlr.lang.isNull(list_parameters_3)) list_parameters_3 = [];
                     list_parameters_3.push(parameters_3.getTree());
 
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:405:49: ( ',' parameters_4+= rule_Parameter )*
-                    loop103:
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:403:49: ( ',' parameters_4+= rule_Parameter )*
+                    loop100:
                     do {
-                        var alt103=2;
-                        var LA103_0 = this.input.LA(1);
+                        var alt100=2;
+                        var LA100_0 = this.input.LA(1);
 
-                        if ( (LA103_0==12) ) {
-                            alt103=1;
+                        if ( (LA100_0==12) ) {
+                            alt100=1;
                         }
 
 
-                        switch (alt103) {
+                        switch (alt100) {
                         case 1 :
-                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:405:50: ',' parameters_4+= rule_Parameter
-                            char_literal223=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Treatment2055); 
+                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:403:50: ',' parameters_4+= rule_Parameter
+                            char_literal223=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Treatment2043); 
                             char_literal223_tree = this.adaptor.create(char_literal223);
                             this.adaptor.addChild(root_0, char_literal223_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_Treatment2059);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_Parameter_in_rule_Treatment2047);
                             parameters_4=this.rule_Parameter();
 
                             this.state._fsp--;
@@ -6856,11 +6812,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop103;
+                            break loop100;
                         }
                     } while (true);
 
-                    char_literal224=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Treatment2063); 
+                    char_literal224=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Treatment2051); 
                     char_literal224_tree = this.adaptor.create(char_literal224);
                     this.adaptor.addChild(root_0, char_literal224_tree);
 
@@ -6870,25 +6826,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:406:2: ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )?
-            var alt106=2;
-            var LA106_0 = this.input.LA(1);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:404:2: ( 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}' )?
+            var alt103=2;
+            var LA103_0 = this.input.LA(1);
 
-            if ( (LA106_0==74) ) {
-                alt106=1;
+            if ( (LA103_0==74) ) {
+                alt103=1;
             }
-            switch (alt106) {
+            switch (alt103) {
                 case 1 :
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:406:3: 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}'
-                    string_literal225=this.match(this.input,74,AutoExpParser.FOLLOW_74_in_rule_Treatment2069); 
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:404:3: 'files' '{' files_5+= rule_File ( ',' files_6+= rule_File )* '}'
+                    string_literal225=this.match(this.input,74,AutoExpParser.FOLLOW_74_in_rule_Treatment2057); 
                     string_literal225_tree = this.adaptor.create(string_literal225);
                     this.adaptor.addChild(root_0, string_literal225_tree);
 
-                    char_literal226=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Treatment2071); 
+                    char_literal226=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_Treatment2059); 
                     char_literal226_tree = this.adaptor.create(char_literal226);
                     this.adaptor.addChild(root_0, char_literal226_tree);
 
-                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Treatment2075);
+                    this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Treatment2063);
                     files_5=this.rule_File();
 
                     this.state._fsp--;
@@ -6897,25 +6853,25 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     if (org.antlr.lang.isNull(list_files_5)) list_files_5 = [];
                     list_files_5.push(files_5.getTree());
 
-                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:406:34: ( ',' files_6+= rule_File )*
-                    loop105:
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:404:34: ( ',' files_6+= rule_File )*
+                    loop102:
                     do {
-                        var alt105=2;
-                        var LA105_0 = this.input.LA(1);
+                        var alt102=2;
+                        var LA102_0 = this.input.LA(1);
 
-                        if ( (LA105_0==12) ) {
-                            alt105=1;
+                        if ( (LA102_0==12) ) {
+                            alt102=1;
                         }
 
 
-                        switch (alt105) {
+                        switch (alt102) {
                         case 1 :
-                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:406:35: ',' files_6+= rule_File
-                            char_literal227=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Treatment2078); 
+                            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:404:35: ',' files_6+= rule_File
+                            char_literal227=this.match(this.input,12,AutoExpParser.FOLLOW_12_in_rule_Treatment2066); 
                             char_literal227_tree = this.adaptor.create(char_literal227);
                             this.adaptor.addChild(root_0, char_literal227_tree);
 
-                            this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Treatment2082);
+                            this.pushFollow(AutoExpParser.FOLLOW_rule_File_in_rule_Treatment2070);
                             files_6=this.rule_File();
 
                             this.state._fsp--;
@@ -6929,11 +6885,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                             break;
 
                         default :
-                            break loop105;
+                            break loop102;
                         }
                     } while (true);
 
-                    char_literal228=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Treatment2086); 
+                    char_literal228=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_Treatment2074); 
                     char_literal228_tree = this.adaptor.create(char_literal228);
                     this.adaptor.addChild(root_0, char_literal228_tree);
 
@@ -6943,11 +6899,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            string_literal229=this.match(this.input,94,AutoExpParser.FOLLOW_94_in_rule_Treatment2091); 
+            string_literal229=this.match(this.input,94,AutoExpParser.FOLLOW_94_in_rule_Treatment2079); 
             string_literal229_tree = this.adaptor.create(string_literal229);
             this.adaptor.addChild(root_0, string_literal229_tree);
 
-            execution_7=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Treatment2095); 
+            execution_7=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Treatment2083); 
             execution_7_tree = this.adaptor.create(execution_7);
             this.adaptor.addChild(root_0, execution_7_tree);
 
@@ -6985,7 +6941,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         return;
     })(),
 
-    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:411:1: rule_File : '{' 'name' name_0= STRING 'path' path_1= STRING '}' ;
+    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:409:1: rule_File : '{' 'name' name_0= STRING 'source' source_1= STRING ( 'dest' dest_2= STRING )? ( 'checksum' checksum_3= STRING )? '}' ;
     // $ANTLR start "rule_File"
     rule_File: function() {
         var retval = new AutoExpParser.rule_File_return();
@@ -6994,47 +6950,103 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var root_0 = null;
 
         var name_0 = null;
-        var path_1 = null;
+        var source_1 = null;
+        var dest_2 = null;
+        var checksum_3 = null;
         var char_literal230 = null;
         var string_literal231 = null;
         var string_literal232 = null;
-        var char_literal233 = null;
+        var string_literal233 = null;
+        var string_literal234 = null;
+        var char_literal235 = null;
 
         var name_0_tree=null;
-        var path_1_tree=null;
+        var source_1_tree=null;
+        var dest_2_tree=null;
+        var checksum_3_tree=null;
         var char_literal230_tree=null;
         var string_literal231_tree=null;
         var string_literal232_tree=null;
-        var char_literal233_tree=null;
+        var string_literal233_tree=null;
+        var string_literal234_tree=null;
+        var char_literal235_tree=null;
 
         try {
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:411:11: ( '{' 'name' name_0= STRING 'path' path_1= STRING '}' )
-            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:413:2: '{' 'name' name_0= STRING 'path' path_1= STRING '}'
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:409:11: ( '{' 'name' name_0= STRING 'source' source_1= STRING ( 'dest' dest_2= STRING )? ( 'checksum' checksum_3= STRING )? '}' )
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:411:2: '{' 'name' name_0= STRING 'source' source_1= STRING ( 'dest' dest_2= STRING )? ( 'checksum' checksum_3= STRING )? '}'
             root_0 = this.adaptor.nil();
 
-            char_literal230=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_File2108); 
+            char_literal230=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_File2096); 
             char_literal230_tree = this.adaptor.create(char_literal230);
             this.adaptor.addChild(root_0, char_literal230_tree);
 
-            string_literal231=this.match(this.input,95,AutoExpParser.FOLLOW_95_in_rule_File2111); 
+            string_literal231=this.match(this.input,95,AutoExpParser.FOLLOW_95_in_rule_File2099); 
             string_literal231_tree = this.adaptor.create(string_literal231);
             this.adaptor.addChild(root_0, string_literal231_tree);
 
-            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_File2115); 
+            name_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_File2103); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            string_literal232=this.match(this.input,96,AutoExpParser.FOLLOW_96_in_rule_File2118); 
+            string_literal232=this.match(this.input,96,AutoExpParser.FOLLOW_96_in_rule_File2106); 
             string_literal232_tree = this.adaptor.create(string_literal232);
             this.adaptor.addChild(root_0, string_literal232_tree);
 
-            path_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_File2122); 
-            path_1_tree = this.adaptor.create(path_1);
-            this.adaptor.addChild(root_0, path_1_tree);
+            source_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_File2110); 
+            source_1_tree = this.adaptor.create(source_1);
+            this.adaptor.addChild(root_0, source_1_tree);
 
-            char_literal233=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_File2125); 
-            char_literal233_tree = this.adaptor.create(char_literal233);
-            this.adaptor.addChild(root_0, char_literal233_tree);
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:414:2: ( 'dest' dest_2= STRING )?
+            var alt104=2;
+            var LA104_0 = this.input.LA(1);
+
+            if ( (LA104_0==97) ) {
+                alt104=1;
+            }
+            switch (alt104) {
+                case 1 :
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:414:3: 'dest' dest_2= STRING
+                    string_literal233=this.match(this.input,97,AutoExpParser.FOLLOW_97_in_rule_File2114); 
+                    string_literal233_tree = this.adaptor.create(string_literal233);
+                    this.adaptor.addChild(root_0, string_literal233_tree);
+
+                    dest_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_File2118); 
+                    dest_2_tree = this.adaptor.create(dest_2);
+                    this.adaptor.addChild(root_0, dest_2_tree);
+
+
+
+                    break;
+
+            }
+
+            // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:415:2: ( 'checksum' checksum_3= STRING )?
+            var alt105=2;
+            var LA105_0 = this.input.LA(1);
+
+            if ( (LA105_0==98) ) {
+                alt105=1;
+            }
+            switch (alt105) {
+                case 1 :
+                    // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:415:3: 'checksum' checksum_3= STRING
+                    string_literal234=this.match(this.input,98,AutoExpParser.FOLLOW_98_in_rule_File2124); 
+                    string_literal234_tree = this.adaptor.create(string_literal234);
+                    this.adaptor.addChild(root_0, string_literal234_tree);
+
+                    checksum_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_File2128); 
+                    checksum_3_tree = this.adaptor.create(checksum_3);
+                    this.adaptor.addChild(root_0, checksum_3_tree);
+
+
+
+                    break;
+
+            }
+
+            char_literal235=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_File2133); 
+            char_literal235_tree = this.adaptor.create(char_literal235);
+            this.adaptor.addChild(root_0, char_literal235_tree);
 
 
 
@@ -7089,21 +7101,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:423:2: name_0= ID (value_1= STRING )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Parameter2142); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Parameter2150); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:424:2: (value_1= STRING )?
-            var alt107=2;
-            var LA107_0 = this.input.LA(1);
+            var alt106=2;
+            var LA106_0 = this.input.LA(1);
 
-            if ( (LA107_0==STRING) ) {
-                alt107=1;
+            if ( (LA106_0==STRING) ) {
+                alt106=1;
             }
-            switch (alt107) {
+            switch (alt106) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:424:3: value_1= STRING
-                    value_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Parameter2148); 
+                    value_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Parameter2156); 
                     value_1_tree = this.adaptor.create(value_1);
                     this.adaptor.addChild(root_0, value_1_tree);
 
@@ -7165,16 +7177,16 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             root_0 = this.adaptor.nil();
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:430:2: (value_0= STRING )?
-            var alt108=2;
-            var LA108_0 = this.input.LA(1);
+            var alt107=2;
+            var LA107_0 = this.input.LA(1);
 
-            if ( (LA108_0==STRING) ) {
-                alt108=1;
+            if ( (LA107_0==STRING) ) {
+                alt107=1;
             }
-            switch (alt108) {
+            switch (alt107) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:430:3: value_0= STRING
-                    value_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ExecutionParameter2166); 
+                    value_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_ExecutionParameter2174); 
                     value_0_tree = this.adaptor.create(value_0);
                     this.adaptor.addChild(root_0, value_0_tree);
 
@@ -7237,21 +7249,21 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:436:2: name_0= ID (value_1= STRING )?
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Artifact2183); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_Artifact2191); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:437:2: (value_1= STRING )?
-            var alt109=2;
-            var LA109_0 = this.input.LA(1);
+            var alt108=2;
+            var LA108_0 = this.input.LA(1);
 
-            if ( (LA109_0==STRING) ) {
-                alt109=1;
+            if ( (LA108_0==STRING) ) {
+                alt108=1;
             }
-            switch (alt109) {
+            switch (alt108) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:437:3: value_1= STRING
-                    value_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Artifact2189); 
+                    value_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_Artifact2197); 
                     value_1_tree = this.adaptor.create(value_1);
                     this.adaptor.addChild(root_0, value_1_tree);
 
@@ -7312,7 +7324,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:443:2: name_0= ID
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ObjectGroup2206); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_ObjectGroup2214); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
@@ -7369,7 +7381,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:449:2: (description_0= STRING )
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:449:3: description_0= STRING
-            description_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_SimpleAbstract2222); 
+            description_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_SimpleAbstract2230); 
             description_0_tree = this.adaptor.create(description_0);
             this.adaptor.addChild(root_0, description_0_tree);
 
@@ -7423,51 +7435,51 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var method_2 = null;
         var results_3 = null;
         var conclusion_4 = null;
-        var char_literal234 = null;
-        var string_literal235 = null;
-        var string_literal236 = null;
+        var char_literal236 = null;
         var string_literal237 = null;
         var string_literal238 = null;
         var string_literal239 = null;
-        var char_literal240 = null;
+        var string_literal240 = null;
+        var string_literal241 = null;
+        var char_literal242 = null;
 
         var context_0_tree=null;
         var objective_1_tree=null;
         var method_2_tree=null;
         var results_3_tree=null;
         var conclusion_4_tree=null;
-        var char_literal234_tree=null;
-        var string_literal235_tree=null;
-        var string_literal236_tree=null;
+        var char_literal236_tree=null;
         var string_literal237_tree=null;
         var string_literal238_tree=null;
         var string_literal239_tree=null;
-        var char_literal240_tree=null;
+        var string_literal240_tree=null;
+        var string_literal241_tree=null;
+        var char_literal242_tree=null;
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:454:25: ( '{' ( 'context' context_0= STRING )? ( 'objective' objective_1= STRING )? ( 'method' method_2= STRING )? ( 'results' results_3= STRING )? ( 'conclusion' conclusion_4= STRING )? '}' )
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:456:2: '{' ( 'context' context_0= STRING )? ( 'objective' objective_1= STRING )? ( 'method' method_2= STRING )? ( 'results' results_3= STRING )? ( 'conclusion' conclusion_4= STRING )? '}'
             root_0 = this.adaptor.nil();
 
-            char_literal234=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_StructuredAbstract2238); 
-            char_literal234_tree = this.adaptor.create(char_literal234);
-            this.adaptor.addChild(root_0, char_literal234_tree);
+            char_literal236=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_StructuredAbstract2246); 
+            char_literal236_tree = this.adaptor.create(char_literal236);
+            this.adaptor.addChild(root_0, char_literal236_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:457:2: ( 'context' context_0= STRING )?
-            var alt110=2;
-            var LA110_0 = this.input.LA(1);
+            var alt109=2;
+            var LA109_0 = this.input.LA(1);
 
-            if ( (LA110_0==97) ) {
-                alt110=1;
+            if ( (LA109_0==99) ) {
+                alt109=1;
             }
-            switch (alt110) {
+            switch (alt109) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:457:3: 'context' context_0= STRING
-                    string_literal235=this.match(this.input,97,AutoExpParser.FOLLOW_97_in_rule_StructuredAbstract2242); 
-                    string_literal235_tree = this.adaptor.create(string_literal235);
-                    this.adaptor.addChild(root_0, string_literal235_tree);
+                    string_literal237=this.match(this.input,99,AutoExpParser.FOLLOW_99_in_rule_StructuredAbstract2250); 
+                    string_literal237_tree = this.adaptor.create(string_literal237);
+                    this.adaptor.addChild(root_0, string_literal237_tree);
 
-                    context_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2246); 
+                    context_0=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2254); 
                     context_0_tree = this.adaptor.create(context_0);
                     this.adaptor.addChild(root_0, context_0_tree);
 
@@ -7478,20 +7490,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:458:2: ( 'objective' objective_1= STRING )?
-            var alt111=2;
-            var LA111_0 = this.input.LA(1);
+            var alt110=2;
+            var LA110_0 = this.input.LA(1);
 
-            if ( (LA111_0==98) ) {
-                alt111=1;
+            if ( (LA110_0==100) ) {
+                alt110=1;
             }
-            switch (alt111) {
+            switch (alt110) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:458:3: 'objective' objective_1= STRING
-                    string_literal236=this.match(this.input,98,AutoExpParser.FOLLOW_98_in_rule_StructuredAbstract2252); 
-                    string_literal236_tree = this.adaptor.create(string_literal236);
-                    this.adaptor.addChild(root_0, string_literal236_tree);
+                    string_literal238=this.match(this.input,100,AutoExpParser.FOLLOW_100_in_rule_StructuredAbstract2260); 
+                    string_literal238_tree = this.adaptor.create(string_literal238);
+                    this.adaptor.addChild(root_0, string_literal238_tree);
 
-                    objective_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2256); 
+                    objective_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2264); 
                     objective_1_tree = this.adaptor.create(objective_1);
                     this.adaptor.addChild(root_0, objective_1_tree);
 
@@ -7502,20 +7514,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:459:2: ( 'method' method_2= STRING )?
-            var alt112=2;
-            var LA112_0 = this.input.LA(1);
+            var alt111=2;
+            var LA111_0 = this.input.LA(1);
 
-            if ( (LA112_0==99) ) {
-                alt112=1;
+            if ( (LA111_0==101) ) {
+                alt111=1;
             }
-            switch (alt112) {
+            switch (alt111) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:459:3: 'method' method_2= STRING
-                    string_literal237=this.match(this.input,99,AutoExpParser.FOLLOW_99_in_rule_StructuredAbstract2262); 
-                    string_literal237_tree = this.adaptor.create(string_literal237);
-                    this.adaptor.addChild(root_0, string_literal237_tree);
+                    string_literal239=this.match(this.input,101,AutoExpParser.FOLLOW_101_in_rule_StructuredAbstract2270); 
+                    string_literal239_tree = this.adaptor.create(string_literal239);
+                    this.adaptor.addChild(root_0, string_literal239_tree);
 
-                    method_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2266); 
+                    method_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2274); 
                     method_2_tree = this.adaptor.create(method_2);
                     this.adaptor.addChild(root_0, method_2_tree);
 
@@ -7526,20 +7538,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:460:2: ( 'results' results_3= STRING )?
-            var alt113=2;
-            var LA113_0 = this.input.LA(1);
+            var alt112=2;
+            var LA112_0 = this.input.LA(1);
 
-            if ( (LA113_0==100) ) {
-                alt113=1;
+            if ( (LA112_0==102) ) {
+                alt112=1;
             }
-            switch (alt113) {
+            switch (alt112) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:460:3: 'results' results_3= STRING
-                    string_literal238=this.match(this.input,100,AutoExpParser.FOLLOW_100_in_rule_StructuredAbstract2272); 
-                    string_literal238_tree = this.adaptor.create(string_literal238);
-                    this.adaptor.addChild(root_0, string_literal238_tree);
+                    string_literal240=this.match(this.input,102,AutoExpParser.FOLLOW_102_in_rule_StructuredAbstract2280); 
+                    string_literal240_tree = this.adaptor.create(string_literal240);
+                    this.adaptor.addChild(root_0, string_literal240_tree);
 
-                    results_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2276); 
+                    results_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2284); 
                     results_3_tree = this.adaptor.create(results_3);
                     this.adaptor.addChild(root_0, results_3_tree);
 
@@ -7550,20 +7562,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:461:2: ( 'conclusion' conclusion_4= STRING )?
-            var alt114=2;
-            var LA114_0 = this.input.LA(1);
+            var alt113=2;
+            var LA113_0 = this.input.LA(1);
 
-            if ( (LA114_0==101) ) {
-                alt114=1;
+            if ( (LA113_0==103) ) {
+                alt113=1;
             }
-            switch (alt114) {
+            switch (alt113) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:461:3: 'conclusion' conclusion_4= STRING
-                    string_literal239=this.match(this.input,101,AutoExpParser.FOLLOW_101_in_rule_StructuredAbstract2282); 
-                    string_literal239_tree = this.adaptor.create(string_literal239);
-                    this.adaptor.addChild(root_0, string_literal239_tree);
+                    string_literal241=this.match(this.input,103,AutoExpParser.FOLLOW_103_in_rule_StructuredAbstract2290); 
+                    string_literal241_tree = this.adaptor.create(string_literal241);
+                    this.adaptor.addChild(root_0, string_literal241_tree);
 
-                    conclusion_4=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2286); 
+                    conclusion_4=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredAbstract2294); 
                     conclusion_4_tree = this.adaptor.create(conclusion_4);
                     this.adaptor.addChild(root_0, conclusion_4_tree);
 
@@ -7573,9 +7585,9 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal240=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_StructuredAbstract2291); 
-            char_literal240_tree = this.adaptor.create(char_literal240);
-            this.adaptor.addChild(root_0, char_literal240_tree);
+            char_literal242=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_StructuredAbstract2299); 
+            char_literal242_tree = this.adaptor.create(char_literal242);
+            this.adaptor.addChild(root_0, char_literal242_tree);
 
 
 
@@ -7630,11 +7642,11 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:468:2: name_0= ID description_1= STRING
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_SimpleGoal2306); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_SimpleGoal2314); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_SimpleGoal2311); 
+            description_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_SimpleGoal2319); 
             description_1_tree = this.adaptor.create(description_1);
             this.adaptor.addChild(root_0, description_1_tree);
 
@@ -7686,13 +7698,13 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var quality_3 = null;
         var ptview_4 = null;
         var contextof_5 = null;
-        var char_literal241 = null;
-        var string_literal242 = null;
-        var string_literal243 = null;
+        var char_literal243 = null;
         var string_literal244 = null;
         var string_literal245 = null;
         var string_literal246 = null;
-        var char_literal247 = null;
+        var string_literal247 = null;
+        var string_literal248 = null;
+        var char_literal249 = null;
 
         var name_0_tree=null;
         var object_1_tree=null;
@@ -7700,42 +7712,42 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
         var quality_3_tree=null;
         var ptview_4_tree=null;
         var contextof_5_tree=null;
-        var char_literal241_tree=null;
-        var string_literal242_tree=null;
-        var string_literal243_tree=null;
+        var char_literal243_tree=null;
         var string_literal244_tree=null;
         var string_literal245_tree=null;
         var string_literal246_tree=null;
-        var char_literal247_tree=null;
+        var string_literal247_tree=null;
+        var string_literal248_tree=null;
+        var char_literal249_tree=null;
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:474:21: (name_0= ID '{' ( 'object' object_1= STRING )? ( 'technique' technique_2= STRING )? ( 'quality' quality_3= STRING )? ( 'ptView' ptview_4= STRING )? ( 'contextOf' contextof_5= STRING )? '}' )
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:476:2: name_0= ID '{' ( 'object' object_1= STRING )? ( 'technique' technique_2= STRING )? ( 'quality' quality_3= STRING )? ( 'ptView' ptview_4= STRING )? ( 'contextOf' contextof_5= STRING )? '}'
             root_0 = this.adaptor.nil();
 
-            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_StructuredGoal2328); 
+            name_0=this.match(this.input,ID,AutoExpParser.FOLLOW_ID_in_rule_StructuredGoal2336); 
             name_0_tree = this.adaptor.create(name_0);
             this.adaptor.addChild(root_0, name_0_tree);
 
-            char_literal241=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_StructuredGoal2331); 
-            char_literal241_tree = this.adaptor.create(char_literal241);
-            this.adaptor.addChild(root_0, char_literal241_tree);
+            char_literal243=this.match(this.input,10,AutoExpParser.FOLLOW_10_in_rule_StructuredGoal2339); 
+            char_literal243_tree = this.adaptor.create(char_literal243);
+            this.adaptor.addChild(root_0, char_literal243_tree);
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:478:2: ( 'object' object_1= STRING )?
-            var alt115=2;
-            var LA115_0 = this.input.LA(1);
+            var alt114=2;
+            var LA114_0 = this.input.LA(1);
 
-            if ( (LA115_0==102) ) {
-                alt115=1;
+            if ( (LA114_0==104) ) {
+                alt114=1;
             }
-            switch (alt115) {
+            switch (alt114) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:478:3: 'object' object_1= STRING
-                    string_literal242=this.match(this.input,102,AutoExpParser.FOLLOW_102_in_rule_StructuredGoal2335); 
-                    string_literal242_tree = this.adaptor.create(string_literal242);
-                    this.adaptor.addChild(root_0, string_literal242_tree);
+                    string_literal244=this.match(this.input,104,AutoExpParser.FOLLOW_104_in_rule_StructuredGoal2343); 
+                    string_literal244_tree = this.adaptor.create(string_literal244);
+                    this.adaptor.addChild(root_0, string_literal244_tree);
 
-                    object_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2339); 
+                    object_1=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2347); 
                     object_1_tree = this.adaptor.create(object_1);
                     this.adaptor.addChild(root_0, object_1_tree);
 
@@ -7746,20 +7758,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:479:2: ( 'technique' technique_2= STRING )?
-            var alt116=2;
-            var LA116_0 = this.input.LA(1);
+            var alt115=2;
+            var LA115_0 = this.input.LA(1);
 
-            if ( (LA116_0==103) ) {
-                alt116=1;
+            if ( (LA115_0==105) ) {
+                alt115=1;
             }
-            switch (alt116) {
+            switch (alt115) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:479:3: 'technique' technique_2= STRING
-                    string_literal243=this.match(this.input,103,AutoExpParser.FOLLOW_103_in_rule_StructuredGoal2345); 
-                    string_literal243_tree = this.adaptor.create(string_literal243);
-                    this.adaptor.addChild(root_0, string_literal243_tree);
+                    string_literal245=this.match(this.input,105,AutoExpParser.FOLLOW_105_in_rule_StructuredGoal2353); 
+                    string_literal245_tree = this.adaptor.create(string_literal245);
+                    this.adaptor.addChild(root_0, string_literal245_tree);
 
-                    technique_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2349); 
+                    technique_2=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2357); 
                     technique_2_tree = this.adaptor.create(technique_2);
                     this.adaptor.addChild(root_0, technique_2_tree);
 
@@ -7770,20 +7782,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:480:2: ( 'quality' quality_3= STRING )?
-            var alt117=2;
-            var LA117_0 = this.input.LA(1);
+            var alt116=2;
+            var LA116_0 = this.input.LA(1);
 
-            if ( (LA117_0==104) ) {
-                alt117=1;
+            if ( (LA116_0==106) ) {
+                alt116=1;
             }
-            switch (alt117) {
+            switch (alt116) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:480:3: 'quality' quality_3= STRING
-                    string_literal244=this.match(this.input,104,AutoExpParser.FOLLOW_104_in_rule_StructuredGoal2355); 
-                    string_literal244_tree = this.adaptor.create(string_literal244);
-                    this.adaptor.addChild(root_0, string_literal244_tree);
+                    string_literal246=this.match(this.input,106,AutoExpParser.FOLLOW_106_in_rule_StructuredGoal2363); 
+                    string_literal246_tree = this.adaptor.create(string_literal246);
+                    this.adaptor.addChild(root_0, string_literal246_tree);
 
-                    quality_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2359); 
+                    quality_3=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2367); 
                     quality_3_tree = this.adaptor.create(quality_3);
                     this.adaptor.addChild(root_0, quality_3_tree);
 
@@ -7794,20 +7806,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:481:2: ( 'ptView' ptview_4= STRING )?
-            var alt118=2;
-            var LA118_0 = this.input.LA(1);
+            var alt117=2;
+            var LA117_0 = this.input.LA(1);
 
-            if ( (LA118_0==105) ) {
-                alt118=1;
+            if ( (LA117_0==107) ) {
+                alt117=1;
             }
-            switch (alt118) {
+            switch (alt117) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:481:3: 'ptView' ptview_4= STRING
-                    string_literal245=this.match(this.input,105,AutoExpParser.FOLLOW_105_in_rule_StructuredGoal2365); 
-                    string_literal245_tree = this.adaptor.create(string_literal245);
-                    this.adaptor.addChild(root_0, string_literal245_tree);
+                    string_literal247=this.match(this.input,107,AutoExpParser.FOLLOW_107_in_rule_StructuredGoal2373); 
+                    string_literal247_tree = this.adaptor.create(string_literal247);
+                    this.adaptor.addChild(root_0, string_literal247_tree);
 
-                    ptview_4=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2369); 
+                    ptview_4=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2377); 
                     ptview_4_tree = this.adaptor.create(ptview_4);
                     this.adaptor.addChild(root_0, ptview_4_tree);
 
@@ -7818,20 +7830,20 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
             }
 
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:482:2: ( 'contextOf' contextof_5= STRING )?
-            var alt119=2;
-            var LA119_0 = this.input.LA(1);
+            var alt118=2;
+            var LA118_0 = this.input.LA(1);
 
-            if ( (LA119_0==106) ) {
-                alt119=1;
+            if ( (LA118_0==108) ) {
+                alt118=1;
             }
-            switch (alt119) {
+            switch (alt118) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:482:3: 'contextOf' contextof_5= STRING
-                    string_literal246=this.match(this.input,106,AutoExpParser.FOLLOW_106_in_rule_StructuredGoal2375); 
-                    string_literal246_tree = this.adaptor.create(string_literal246);
-                    this.adaptor.addChild(root_0, string_literal246_tree);
+                    string_literal248=this.match(this.input,108,AutoExpParser.FOLLOW_108_in_rule_StructuredGoal2383); 
+                    string_literal248_tree = this.adaptor.create(string_literal248);
+                    this.adaptor.addChild(root_0, string_literal248_tree);
 
-                    contextof_5=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2379); 
+                    contextof_5=this.match(this.input,STRING,AutoExpParser.FOLLOW_STRING_in_rule_StructuredGoal2387); 
                     contextof_5_tree = this.adaptor.create(contextof_5);
                     this.adaptor.addChild(root_0, contextof_5_tree);
 
@@ -7841,9 +7853,9 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
             }
 
-            char_literal247=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_StructuredGoal2384); 
-            char_literal247_tree = this.adaptor.create(char_literal247);
-            this.adaptor.addChild(root_0, char_literal247_tree);
+            char_literal249=this.match(this.input,13,AutoExpParser.FOLLOW_13_in_rule_StructuredGoal2392); 
+            char_literal249_tree = this.adaptor.create(char_literal249);
+            this.adaptor.addChild(root_0, char_literal249_tree);
 
 
 
@@ -7901,36 +7913,36 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:485:16: (fACTORIAL= 'FACTORIAL' | cRD= 'CRD' | rCBD= 'RCBD' | lS= 'LS' | oTHER= 'OTHER' )
-            var alt120=5;
+            var alt119=5;
             switch ( this.input.LA(1) ) {
-            case 107:
-                alt120=1;
-                break;
-            case 108:
-                alt120=2;
-                break;
             case 109:
-                alt120=3;
+                alt119=1;
                 break;
             case 110:
-                alt120=4;
+                alt119=2;
                 break;
             case 111:
-                alt120=5;
+                alt119=3;
+                break;
+            case 112:
+                alt119=4;
+                break;
+            case 113:
+                alt119=5;
                 break;
             default:
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 120, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 119, 0, this.input);
 
                 throw nvae;
             }
 
-            switch (alt120) {
+            switch (alt119) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:486:2: fACTORIAL= 'FACTORIAL'
                     root_0 = this.adaptor.nil();
 
-                    fACTORIAL=this.match(this.input,107,AutoExpParser.FOLLOW_107_in_rule_DesignType2394); 
+                    fACTORIAL=this.match(this.input,109,AutoExpParser.FOLLOW_109_in_rule_DesignType2402); 
                     fACTORIAL_tree = this.adaptor.create(fACTORIAL);
                     this.adaptor.addChild(root_0, fACTORIAL_tree);
 
@@ -7941,7 +7953,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:486:26: cRD= 'CRD'
                     root_0 = this.adaptor.nil();
 
-                    cRD=this.match(this.input,108,AutoExpParser.FOLLOW_108_in_rule_DesignType2400); 
+                    cRD=this.match(this.input,110,AutoExpParser.FOLLOW_110_in_rule_DesignType2408); 
                     cRD_tree = this.adaptor.create(cRD);
                     this.adaptor.addChild(root_0, cRD_tree);
 
@@ -7952,7 +7964,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:486:38: rCBD= 'RCBD'
                     root_0 = this.adaptor.nil();
 
-                    rCBD=this.match(this.input,109,AutoExpParser.FOLLOW_109_in_rule_DesignType2406); 
+                    rCBD=this.match(this.input,111,AutoExpParser.FOLLOW_111_in_rule_DesignType2414); 
                     rCBD_tree = this.adaptor.create(rCBD);
                     this.adaptor.addChild(root_0, rCBD_tree);
 
@@ -7963,7 +7975,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:486:52: lS= 'LS'
                     root_0 = this.adaptor.nil();
 
-                    lS=this.match(this.input,110,AutoExpParser.FOLLOW_110_in_rule_DesignType2412); 
+                    lS=this.match(this.input,112,AutoExpParser.FOLLOW_112_in_rule_DesignType2420); 
                     lS_tree = this.adaptor.create(lS);
                     this.adaptor.addChild(root_0, lS_tree);
 
@@ -7974,7 +7986,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:486:62: oTHER= 'OTHER'
                     root_0 = this.adaptor.nil();
 
-                    oTHER=this.match(this.input,111,AutoExpParser.FOLLOW_111_in_rule_DesignType2418); 
+                    oTHER=this.match(this.input,113,AutoExpParser.FOLLOW_113_in_rule_DesignType2426); 
                     oTHER_tree = this.adaptor.create(oTHER);
                     this.adaptor.addChild(root_0, oTHER_tree);
 
@@ -8036,36 +8048,36 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:488:15: (absolute= 'Absolute' | ratio= 'Ratio' | interval= 'Interval' | ordinal= 'Ordinal' | nominal= 'Nominal' )
-            var alt121=5;
+            var alt120=5;
             switch ( this.input.LA(1) ) {
-            case 112:
-                alt121=1;
-                break;
-            case 113:
-                alt121=2;
-                break;
             case 114:
-                alt121=3;
+                alt120=1;
                 break;
             case 115:
-                alt121=4;
+                alt120=2;
                 break;
             case 116:
-                alt121=5;
+                alt120=3;
+                break;
+            case 117:
+                alt120=4;
+                break;
+            case 118:
+                alt120=5;
                 break;
             default:
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 121, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 120, 0, this.input);
 
                 throw nvae;
             }
 
-            switch (alt121) {
+            switch (alt120) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:489:2: absolute= 'Absolute'
                     root_0 = this.adaptor.nil();
 
-                    absolute=this.match(this.input,112,AutoExpParser.FOLLOW_112_in_rule_ScaleType2428); 
+                    absolute=this.match(this.input,114,AutoExpParser.FOLLOW_114_in_rule_ScaleType2436); 
                     absolute_tree = this.adaptor.create(absolute);
                     this.adaptor.addChild(root_0, absolute_tree);
 
@@ -8076,7 +8088,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:489:24: ratio= 'Ratio'
                     root_0 = this.adaptor.nil();
 
-                    ratio=this.match(this.input,113,AutoExpParser.FOLLOW_113_in_rule_ScaleType2434); 
+                    ratio=this.match(this.input,115,AutoExpParser.FOLLOW_115_in_rule_ScaleType2442); 
                     ratio_tree = this.adaptor.create(ratio);
                     this.adaptor.addChild(root_0, ratio_tree);
 
@@ -8087,7 +8099,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:489:40: interval= 'Interval'
                     root_0 = this.adaptor.nil();
 
-                    interval=this.match(this.input,114,AutoExpParser.FOLLOW_114_in_rule_ScaleType2440); 
+                    interval=this.match(this.input,116,AutoExpParser.FOLLOW_116_in_rule_ScaleType2448); 
                     interval_tree = this.adaptor.create(interval);
                     this.adaptor.addChild(root_0, interval_tree);
 
@@ -8098,7 +8110,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:489:62: ordinal= 'Ordinal'
                     root_0 = this.adaptor.nil();
 
-                    ordinal=this.match(this.input,115,AutoExpParser.FOLLOW_115_in_rule_ScaleType2446); 
+                    ordinal=this.match(this.input,117,AutoExpParser.FOLLOW_117_in_rule_ScaleType2454); 
                     ordinal_tree = this.adaptor.create(ordinal);
                     this.adaptor.addChild(root_0, ordinal_tree);
 
@@ -8109,7 +8121,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:489:82: nominal= 'Nominal'
                     root_0 = this.adaptor.nil();
 
-                    nominal=this.match(this.input,116,AutoExpParser.FOLLOW_116_in_rule_ScaleType2452); 
+                    nominal=this.match(this.input,118,AutoExpParser.FOLLOW_118_in_rule_ScaleType2460); 
                     nominal_tree = this.adaptor.create(nominal);
                     this.adaptor.addChild(root_0, nominal_tree);
 
@@ -8171,36 +8183,36 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
         try {
             // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:491:16: (iv= 'iv' | ev= 'ev' | c= 'c' | r= 'r' | cl= 'cl' )
-            var alt122=5;
+            var alt121=5;
             switch ( this.input.LA(1) ) {
-            case 117:
-                alt122=1;
-                break;
-            case 118:
-                alt122=2;
-                break;
             case 119:
-                alt122=3;
+                alt121=1;
                 break;
             case 120:
-                alt122=4;
+                alt121=2;
                 break;
             case 121:
-                alt122=5;
+                alt121=3;
+                break;
+            case 122:
+                alt121=4;
+                break;
+            case 123:
+                alt121=5;
                 break;
             default:
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 122, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 121, 0, this.input);
 
                 throw nvae;
             }
 
-            switch (alt122) {
+            switch (alt121) {
                 case 1 :
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:492:2: iv= 'iv'
                     root_0 = this.adaptor.nil();
 
-                    iv=this.match(this.input,117,AutoExpParser.FOLLOW_117_in_rule_ThreatType2462); 
+                    iv=this.match(this.input,119,AutoExpParser.FOLLOW_119_in_rule_ThreatType2470); 
                     iv_tree = this.adaptor.create(iv);
                     this.adaptor.addChild(root_0, iv_tree);
 
@@ -8211,7 +8223,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:492:12: ev= 'ev'
                     root_0 = this.adaptor.nil();
 
-                    ev=this.match(this.input,118,AutoExpParser.FOLLOW_118_in_rule_ThreatType2468); 
+                    ev=this.match(this.input,120,AutoExpParser.FOLLOW_120_in_rule_ThreatType2476); 
                     ev_tree = this.adaptor.create(ev);
                     this.adaptor.addChild(root_0, ev_tree);
 
@@ -8222,7 +8234,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:492:22: c= 'c'
                     root_0 = this.adaptor.nil();
 
-                    c=this.match(this.input,119,AutoExpParser.FOLLOW_119_in_rule_ThreatType2474); 
+                    c=this.match(this.input,121,AutoExpParser.FOLLOW_121_in_rule_ThreatType2482); 
                     c_tree = this.adaptor.create(c);
                     this.adaptor.addChild(root_0, c_tree);
 
@@ -8233,7 +8245,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:492:30: r= 'r'
                     root_0 = this.adaptor.nil();
 
-                    r=this.match(this.input,120,AutoExpParser.FOLLOW_120_in_rule_ThreatType2480); 
+                    r=this.match(this.input,122,AutoExpParser.FOLLOW_122_in_rule_ThreatType2488); 
                     r_tree = this.adaptor.create(r);
                     this.adaptor.addChild(root_0, r_tree);
 
@@ -8244,7 +8256,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
                     // /home/eneiascs/dsm-workspace/dsm-experiments/br.unb.autoexp.web/src-js/br/unb/autoexp/web/parser/AutoExp.g:492:38: cl= 'cl'
                     root_0 = this.adaptor.nil();
 
-                    cl=this.match(this.input,121,AutoExpParser.FOLLOW_121_in_rule_ThreatType2486); 
+                    cl=this.match(this.input,123,AutoExpParser.FOLLOW_123_in_rule_ThreatType2494); 
                     cl_tree = this.adaptor.create(cl);
                     this.adaptor.addChild(root_0, cl_tree);
 
@@ -8284,7 +8296,7 @@ org.antlr.lang.augmentObject(AutoExpParser.prototype, {
 
 // public class variables
 org.antlr.lang.augmentObject(AutoExpParser, {
-    tokenNames: ["<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "STRING", "INT", "COMMENT", "WS", "'Experiment'", "'{'", "'Authors'", "','", "'}'", "'description'", "'Abstract'", "'Keywords'", "'Goals'", "'Research Questions'", "'Research Hypotheses'", "'Threat'", "'Experimental Design'", "'Dependent Variables'", "'Instruments'", "'Factors'", "'Treatments'", "'Groups'", "'Objects'", "'Executions'", "'Analysis'", "'Infrastructure'", "'requirements'", "'preconditions'", "'clouds'", "'on-finish'", "'user'", "'username'", "'keys'", "'privateKey'", "'publicKey'", "'fingerprint'", "'cpu'", "'memory'", "'platform'", "'cost'", "'number-of-instances-per-cloud'", "'LINUX'", "'WINDOWS'", "'.'", "'regions'", "'instanceTypes'", "'provider'", "'maxResourcePerType'", "'serviceClass'", "'instances'", "'endpoint'", "'status'", "'city'", "'geographicRegion'", "'zones'", "'UP'", "'DOWN'", "'access-key'", "'secret-key'", "'NONE'", "'TERMINATE'", "'type'", "'runs'", "'Restrictions'", "'Context Variables'", "'objects'", "'command'", "'timeout'", "'result'", "'files'", "'significance'", "'group'", "'parameters'", "'fullName'", "'institution'", "'email'", "'CA'", "'goal'", "'<'", "'='", "'!='", "'>'", "'scaleType'", "'unit'", "'range'", "'instrument'", "'valueExpression'", "'conversionFactor'", "'factor'", "'execution'", "'name'", "'path'", "'context'", "'objective'", "'method'", "'results'", "'conclusion'", "'object'", "'technique'", "'quality'", "'ptView'", "'contextOf'", "'FACTORIAL'", "'CRD'", "'RCBD'", "'LS'", "'OTHER'", "'Absolute'", "'Ratio'", "'Interval'", "'Ordinal'", "'Nominal'", "'iv'", "'ev'", "'c'", "'r'", "'cl'"],
+    tokenNames: ["<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "STRING", "INT", "COMMENT", "WS", "'Experiment'", "'{'", "'Authors'", "','", "'}'", "'description'", "'Abstract'", "'Keywords'", "'Goals'", "'Research Questions'", "'Research Hypotheses'", "'Threat'", "'Experimental Design'", "'Dependent Variables'", "'Instruments'", "'Factors'", "'Treatments'", "'Groups'", "'Objects'", "'Executions'", "'Analysis'", "'Infrastructure'", "'requirements'", "'preconditions'", "'clouds'", "'on-finish'", "'user'", "'username'", "'keys'", "'privateKey'", "'publicKey'", "'fingerprint'", "'cpu'", "'memory'", "'platform'", "'cost'", "'number-of-instances-per-cloud'", "'LINUX'", "'WINDOWS'", "'.'", "'regions'", "'instanceTypes'", "'provider'", "'maxResourcePerType'", "'serviceClass'", "'instances'", "'endpoint'", "'status'", "'city'", "'geographicRegion'", "'zones'", "'UP'", "'DOWN'", "'access-key'", "'secret-key'", "'NONE'", "'TERMINATE'", "'type'", "'runs'", "'Restrictions'", "'Context Variables'", "'objects'", "'command'", "'timeout'", "'result'", "'files'", "'significance'", "'group'", "'parameters'", "'fullName'", "'institution'", "'email'", "'CA'", "'goal'", "'<'", "'='", "'!='", "'>'", "'scaleType'", "'unit'", "'range'", "'instrument'", "'valueExpression'", "'conversionFactor'", "'factor'", "'execution'", "'name'", "'source'", "'dest'", "'checksum'", "'context'", "'objective'", "'method'", "'results'", "'conclusion'", "'object'", "'technique'", "'quality'", "'ptView'", "'contextOf'", "'FACTORIAL'", "'CRD'", "'RCBD'", "'LS'", "'OTHER'", "'Absolute'", "'Ratio'", "'Interval'", "'Ordinal'", "'Nominal'", "'iv'", "'ev'", "'c'", "'r'", "'cl'"],
     FOLLOW_rule_Experiment_in_rule_Model66: new org.antlr.runtime.BitSet([0x00000200, 0x00000000]),
     FOLLOW_EOF_in_rule_Model71: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
     FOLLOW_9_in_rule_Experiment84: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
@@ -8367,365 +8379,369 @@ org.antlr.lang.augmentObject(AutoExpParser, {
     FOLLOW_rule_ExperimentalObject_in_rule_Experiment372: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
     FOLLOW_12_in_rule_Experiment375: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
     FOLLOW_rule_ExperimentalObject_in_rule_Experiment379: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Experiment383: new org.antlr.runtime.BitSet([0x70002000, 0x00000000]),
+    FOLLOW_13_in_rule_Experiment383: new org.antlr.runtime.BitSet([0x70000000, 0x00000000]),
     FOLLOW_28_in_rule_Experiment387: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
     FOLLOW_10_in_rule_Experiment389: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
     FOLLOW_rule_Execution_in_rule_Experiment393: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
     FOLLOW_12_in_rule_Experiment396: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
     FOLLOW_rule_Execution_in_rule_Experiment400: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Experiment404: new org.antlr.runtime.BitSet([0x60002000, 0x00000000]),
+    FOLLOW_13_in_rule_Experiment404: new org.antlr.runtime.BitSet([0x60000000, 0x00000000]),
     FOLLOW_29_in_rule_Experiment410: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Analysis_in_rule_Experiment414: new org.antlr.runtime.BitSet([0x40002000, 0x00000000]),
-    FOLLOW_30_in_rule_Experiment420: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_Infrastructure_in_rule_Experiment424: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Experiment429: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_10_in_rule_Infrastructure441: new org.antlr.runtime.BitSet([0x80002000, 0x0000000F]),
-    FOLLOW_rule_User_in_rule_Infrastructure448: new org.antlr.runtime.BitSet([0x80002000, 0x00000007]),
-    FOLLOW_31_in_rule_Infrastructure455: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_Requirements_in_rule_Infrastructure459: new org.antlr.runtime.BitSet([0x00002000, 0x00000007]),
-    FOLLOW_32_in_rule_Infrastructure466: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_Preconditions_in_rule_Infrastructure470: new org.antlr.runtime.BitSet([0x00002000, 0x00000006]),
-    FOLLOW_33_in_rule_Infrastructure477: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Infrastructure479: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_Cloud_in_rule_Infrastructure483: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Infrastructure487: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_Cloud_in_rule_Infrastructure491: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Infrastructure495: new org.antlr.runtime.BitSet([0x00002000, 0x00000004]),
-    FOLLOW_34_in_rule_Infrastructure502: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000003, 0x00000000]),
-    FOLLOW_rule_OnFinishType_in_rule_Infrastructure506: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Infrastructure511: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_10_in_rule_Preconditions524: new org.antlr.runtime.BitSet([0x00002020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Preconditions531: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Preconditions535: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Preconditions539: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Preconditions546: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_35_in_rule_User557: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_User559: new org.antlr.runtime.BitSet([0x00000000, 0x00000010]),
-    FOLLOW_36_in_rule_User563: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_User567: new org.antlr.runtime.BitSet([0x00002000, 0x00000020]),
-    FOLLOW_37_in_rule_User572: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_User574: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_UserKey_in_rule_User578: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_User582: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_UserKey_in_rule_User586: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_User590: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_User598: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_UserKey610: new org.antlr.runtime.BitSet([0x00000402, 0x00000000]),
-    FOLLOW_10_in_rule_UserKey614: new org.antlr.runtime.BitSet([0x00002000, 0x000001C0]),
-    FOLLOW_38_in_rule_UserKey619: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_UserKey623: new org.antlr.runtime.BitSet([0x00002000, 0x00000180]),
-    FOLLOW_39_in_rule_UserKey630: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_UserKey634: new org.antlr.runtime.BitSet([0x00002000, 0x00000100]),
-    FOLLOW_40_in_rule_UserKey641: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_UserKey645: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_UserKey650: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_10_in_rule_Requirements663: new org.antlr.runtime.BitSet([0x00000000, 0x00000200]),
-    FOLLOW_41_in_rule_Requirements666: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_Requirements670: new org.antlr.runtime.BitSet([0x00000000, 0x00000400]),
-    FOLLOW_42_in_rule_Requirements673: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_Requirements677: new org.antlr.runtime.BitSet([0x00000000, 0x00000800]),
-    FOLLOW_43_in_rule_Requirements680: new org.antlr.runtime.BitSet([0x00000000, 0x0000C000]),
-    FOLLOW_rule_PlatformType_in_rule_Requirements684: new org.antlr.runtime.BitSet([0x00000000, 0x00001000]),
-    FOLLOW_44_in_rule_Requirements687: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_rule_BigDecimalType_in_rule_Requirements691: new org.antlr.runtime.BitSet([0x00000000, 0x00002000]),
-    FOLLOW_45_in_rule_Requirements694: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_Requirements698: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Requirements701: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_set_in_rule_PlatformType714: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_INT_in_rule_BigDecimalType731: new org.antlr.runtime.BitSet([0x00000002, 0x00010000]),
-    FOLLOW_48_in_rule_BigDecimalType734: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_BigDecimalType736: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_Cloud750: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Cloud753: new org.antlr.runtime.BitSet([0x00000000, 0x00080000]),
-    FOLLOW_rule_CloudProvider_in_rule_Cloud759: new org.antlr.runtime.BitSet([0x00000000, 0x40000000]),
-    FOLLOW_rule_AccessKey_in_rule_Cloud765: new org.antlr.runtime.BitSet([0x00002000, 0x00060000]),
-    FOLLOW_49_in_rule_Cloud769: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Cloud771: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_Region_in_rule_Cloud775: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Cloud779: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_Region_in_rule_Cloud783: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Cloud786: new org.antlr.runtime.BitSet([0x00002000, 0x00040000]),
-    FOLLOW_50_in_rule_Cloud792: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Cloud794: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_InstanceType_in_rule_Cloud798: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Cloud802: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_InstanceType_in_rule_Cloud806: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Cloud809: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Cloud814: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_51_in_rule_CloudProvider826: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_CloudProvider830: new org.antlr.runtime.BitSet([0x00000402, 0x00000000]),
-    FOLLOW_10_in_rule_CloudProvider834: new org.antlr.runtime.BitSet([0x00006000, 0x00300000]),
-    FOLLOW_52_in_rule_CloudProvider838: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_CloudProvider842: new org.antlr.runtime.BitSet([0x00006000, 0x00200000]),
-    FOLLOW_14_in_rule_CloudProvider850: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_CloudProvider854: new org.antlr.runtime.BitSet([0x00002000, 0x00200000]),
-    FOLLOW_53_in_rule_CloudProvider862: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_CloudProvider866: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_CloudProvider873: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_InstanceType892: new org.antlr.runtime.BitSet([0x00000002, 0x00400000]),
-    FOLLOW_54_in_rule_InstanceType896: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_InstanceType900: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_Region915: new org.antlr.runtime.BitSet([0x00000402, 0x00000000]),
-    FOLLOW_10_in_rule_Region919: new org.antlr.runtime.BitSet([0x00002000, 0x0F800000]),
-    FOLLOW_55_in_rule_Region923: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Region927: new org.antlr.runtime.BitSet([0x00002000, 0x0F000000]),
-    FOLLOW_56_in_rule_Region933: new org.antlr.runtime.BitSet([0x00000000, 0x30000000]),
-    FOLLOW_rule_StatusType_in_rule_Region937: new org.antlr.runtime.BitSet([0x00002000, 0x0E000000]),
-    FOLLOW_57_in_rule_Region943: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Region947: new org.antlr.runtime.BitSet([0x00002000, 0x0C000000]),
-    FOLLOW_58_in_rule_Region953: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_Region957: new org.antlr.runtime.BitSet([0x00002000, 0x08000000]),
-    FOLLOW_59_in_rule_Region963: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Region965: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_Zone_in_rule_Region969: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Region973: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_rule_Zone_in_rule_Region977: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Region980: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Region985: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_set_in_rule_StatusType1006: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_Zone1026: new org.antlr.runtime.BitSet([0x00000022, 0x00000000]),
-    FOLLOW_STRING_in_rule_Zone1032: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_62_in_rule_AccessKey1046: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_AccessKey1050: new org.antlr.runtime.BitSet([0x00000000, 0x80000000]),
-    FOLLOW_63_in_rule_AccessKey1053: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_AccessKey1056: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_set_in_rule_OnFinishType1083: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_Abstract_Impl_in_rule_Abstract1100: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_SimpleAbstract_in_rule_Abstract1104: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_StructuredAbstract_in_rule_Abstract1108: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_Goal_Impl_in_rule_Goal1119: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_SimpleGoal_in_rule_Goal1123: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_StructuredGoal_in_rule_Goal1127: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_10_in_rule_ExperimentalDesign1138: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x0000003C, 0x00000000]),
-    FOLLOW_66_in_rule_ExperimentalDesign1142: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x0000F800]),
-    FOLLOW_rule_DesignType_in_rule_ExperimentalDesign1146: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000038, 0x00000000]),
-    FOLLOW_67_in_rule_ExperimentalDesign1152: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_INT_in_rule_ExperimentalDesign1156: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000030, 0x00000000]),
-    FOLLOW_68_in_rule_ExperimentalDesign1164: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ExperimentalDesign1166: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1170: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_ExperimentalDesign1173: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1177: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_ExperimentalDesign1181: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000020, 0x00000000]),
-    FOLLOW_69_in_rule_ExperimentalDesign1189: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ExperimentalDesign1191: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1195: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_ExperimentalDesign1198: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1202: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_ExperimentalDesign1206: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_ExperimentalDesign1211: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Restriction1224: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000040, 0x00000000]),
-    FOLLOW_70_in_rule_Restriction1226: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Restriction1228: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_Restriction1232: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Restriction1235: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_Restriction1239: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Restriction1243: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Execution1258: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Execution1261: new org.antlr.runtime.BitSet([0x00002000, 0x00000001,0x00000780, 0x00000000]),
-    FOLLOW_71_in_rule_Execution1265: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Execution1269: new org.antlr.runtime.BitSet([0x00002000, 0x00000001,0x00000700, 0x00000000]),
-    FOLLOW_72_in_rule_Execution1275: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_rule_BigDecimalType_in_rule_Execution1279: new org.antlr.runtime.BitSet([0x00002000, 0x00000001,0x00000600, 0x00000000]),
-    FOLLOW_32_in_rule_Execution1285: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_Preconditions_in_rule_Execution1289: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000600, 0x00000000]),
-    FOLLOW_73_in_rule_Execution1295: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_Execution1299: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000400, 0x00000000]),
-    FOLLOW_74_in_rule_Execution1305: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Execution1307: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_Execution1311: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Execution1314: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_Execution1318: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Execution1322: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Execution1327: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Analysis1342: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Analysis1345: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000800, 0x00000000]),
-    FOLLOW_75_in_rule_Analysis1349: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_rule_BigDecimalType_in_rule_Analysis1353: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Analysis1358: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_ExperimentalObject1373: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
-    FOLLOW_14_in_rule_ExperimentalObject1376: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_ExperimentalObject1380: new org.antlr.runtime.BitSet([0x00000002, 0x00000000,0x00003400, 0x00000000]),
-    FOLLOW_76_in_rule_ExperimentalObject1384: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_ExperimentalObject1388: new org.antlr.runtime.BitSet([0x00000002, 0x00000000,0x00002400, 0x00000000]),
-    FOLLOW_77_in_rule_ExperimentalObject1394: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ExperimentalObject1396: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Parameter_in_rule_ExperimentalObject1400: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_ExperimentalObject1403: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Parameter_in_rule_ExperimentalObject1407: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_ExperimentalObject1411: new org.antlr.runtime.BitSet([0x00000002, 0x00000000,0x00000400, 0x00000000]),
-    FOLLOW_74_in_rule_ExperimentalObject1417: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ExperimentalObject1419: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_ExperimentalObject1423: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_ExperimentalObject1426: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_ExperimentalObject1430: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_ExperimentalObject1434: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Author1461: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Author1464: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x0001C000, 0x00000000]),
-    FOLLOW_78_in_rule_Author1468: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Author1472: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00018000, 0x00000000]),
-    FOLLOW_79_in_rule_Author1478: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Author1482: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00010000, 0x00000000]),
-    FOLLOW_80_in_rule_Author1488: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Author1492: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Author1499: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_Keyword1514: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Threat1531: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Threat1534: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x00020004, 0x00000000]),
-    FOLLOW_14_in_rule_Threat1538: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Threat1542: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00020004, 0x00000000]),
-    FOLLOW_66_in_rule_Threat1548: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x03E00000]),
-    FOLLOW_rule_ThreatType_in_rule_Threat1552: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00020000, 0x00000000]),
-    FOLLOW_81_in_rule_Threat1558: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Threat1562: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Threat1567: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Goal_Impl1582: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchQuestion1597: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ResearchQuestion1600: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x00040000, 0x00000000]),
-    FOLLOW_14_in_rule_ResearchQuestion1604: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_ResearchQuestion1608: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00040000, 0x00000000]),
-    FOLLOW_82_in_rule_ResearchQuestion1614: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchQuestion1618: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_ResearchQuestion1623: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchHypothesis1638: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ResearchHypothesis1641: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_ResearchHypothesisFormula_in_rule_ResearchHypothesis1646: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x00040000, 0x00000000]),
-    FOLLOW_14_in_rule_ResearchHypothesis1650: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_ResearchHypothesis1654: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00040000, 0x00000000]),
-    FOLLOW_82_in_rule_ResearchHypothesis1660: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchHypothesis1664: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_ResearchHypothesis1669: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchHypothesisFormula1684: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchHypothesisFormula1688: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00780000, 0x00000000]),
-    FOLLOW_rule_OperatorType_in_rule_ResearchHypothesisFormula1692: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_ResearchHypothesisFormula1696: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_set_in_rule_OperatorType1708: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_DependentVariable_Impl_in_rule_DependentVariable1732: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_BuiltinDependentVariable_in_rule_DependentVariable1734: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_rule_CustomDependentVariable_in_rule_DependentVariable1736: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_DependentVariable_Impl1752: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_BuiltinDependentVariable1767: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_CustomDependentVariable1788: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_CustomDependentVariable1791: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
-    FOLLOW_14_in_rule_CustomDependentVariable1794: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_CustomDependentVariable1798: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x07800000, 0x00000000]),
-    FOLLOW_87_in_rule_CustomDependentVariable1802: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x001F0000]),
-    FOLLOW_rule_ScaleType_in_rule_CustomDependentVariable1806: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x07000000, 0x00000000]),
-    FOLLOW_88_in_rule_CustomDependentVariable1812: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_CustomDependentVariable1816: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x06000000, 0x00000000]),
-    FOLLOW_89_in_rule_CustomDependentVariable1822: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_CustomDependentVariable1824: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Range_in_rule_CustomDependentVariable1828: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_CustomDependentVariable1831: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Range_in_rule_CustomDependentVariable1835: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_CustomDependentVariable1839: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x04000000, 0x00000000]),
-    FOLLOW_90_in_rule_CustomDependentVariable1845: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_CustomDependentVariable1849: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_CustomDependentVariable1854: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Instrument1868: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Instrument1871: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000080, 0x00000000]),
-    FOLLOW_71_in_rule_Instrument1874: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Instrument1878: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x08000000, 0x00000000]),
-    FOLLOW_91_in_rule_Instrument1881: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Instrument1885: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x10000000, 0x00000000]),
-    FOLLOW_92_in_rule_Instrument1889: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
-    FOLLOW_rule_BigDecimalType_in_rule_Instrument1893: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Instrument1898: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Factor1913: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Factor1916: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
-    FOLLOW_14_in_rule_Factor1919: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Factor1923: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00800000, 0x00000000]),
-    FOLLOW_87_in_rule_Factor1927: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x001F0000]),
-    FOLLOW_rule_ScaleType_in_rule_Factor1931: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_Factor1936: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_ContextVariable1951: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ContextVariable1954: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x02800000, 0x00000000]),
-    FOLLOW_14_in_rule_ContextVariable1958: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_ContextVariable1962: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x02800000, 0x00000000]),
-    FOLLOW_87_in_rule_ContextVariable1968: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x001F0000]),
-    FOLLOW_rule_ScaleType_in_rule_ContextVariable1972: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x02000000, 0x00000000]),
-    FOLLOW_89_in_rule_ContextVariable1978: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_ContextVariable1980: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Range_in_rule_ContextVariable1984: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_ContextVariable1987: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Range_in_rule_ContextVariable1991: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_ContextVariable1995: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_ContextVariable2000: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Range2015: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Treatment2028: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
-    FOLLOW_14_in_rule_Treatment2031: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_Treatment2035: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x20000000, 0x00000000]),
-    FOLLOW_93_in_rule_Treatment2038: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_Treatment2042: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x40002400, 0x00000000]),
-    FOLLOW_77_in_rule_Treatment2046: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Treatment2048: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Parameter_in_rule_Treatment2052: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Treatment2055: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_rule_Parameter_in_rule_Treatment2059: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Treatment2063: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x40000400, 0x00000000]),
-    FOLLOW_74_in_rule_Treatment2069: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_Treatment2071: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_Treatment2075: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_12_in_rule_Treatment2078: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_rule_File_in_rule_Treatment2082: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
-    FOLLOW_13_in_rule_Treatment2086: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x40000000, 0x00000000]),
-    FOLLOW_94_in_rule_Treatment2091: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
-    FOLLOW_ID_in_rule_Treatment2095: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_10_in_rule_File2108: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x80000000, 0x00000000]),
-    FOLLOW_95_in_rule_File2111: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_File2115: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x00000001]),
-    FOLLOW_96_in_rule_File2118: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_File2122: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_File2125: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Parameter2142: new org.antlr.runtime.BitSet([0x00000022, 0x00000000]),
-    FOLLOW_STRING_in_rule_Parameter2148: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_ExecutionParameter2166: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_Artifact2183: new org.antlr.runtime.BitSet([0x00000022, 0x00000000]),
-    FOLLOW_STRING_in_rule_Artifact2189: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_ObjectGroup2206: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_STRING_in_rule_SimpleAbstract2222: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_10_in_rule_StructuredAbstract2238: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x0000003E]),
-    FOLLOW_97_in_rule_StructuredAbstract2242: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredAbstract2246: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x0000003C]),
-    FOLLOW_98_in_rule_StructuredAbstract2252: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredAbstract2256: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000038]),
-    FOLLOW_99_in_rule_StructuredAbstract2262: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredAbstract2266: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000030]),
-    FOLLOW_100_in_rule_StructuredAbstract2272: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredAbstract2276: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000020]),
-    FOLLOW_101_in_rule_StructuredAbstract2282: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredAbstract2286: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_StructuredAbstract2291: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_SimpleGoal2306: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_SimpleGoal2311: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_ID_in_rule_StructuredGoal2328: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
-    FOLLOW_10_in_rule_StructuredGoal2331: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x000007C0]),
-    FOLLOW_102_in_rule_StructuredGoal2335: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredGoal2339: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000780]),
-    FOLLOW_103_in_rule_StructuredGoal2345: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredGoal2349: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000700]),
-    FOLLOW_104_in_rule_StructuredGoal2355: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredGoal2359: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000600]),
-    FOLLOW_105_in_rule_StructuredGoal2365: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredGoal2369: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000400]),
-    FOLLOW_106_in_rule_StructuredGoal2375: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
-    FOLLOW_STRING_in_rule_StructuredGoal2379: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
-    FOLLOW_13_in_rule_StructuredGoal2384: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_107_in_rule_DesignType2394: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_108_in_rule_DesignType2400: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_109_in_rule_DesignType2406: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_110_in_rule_DesignType2412: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_111_in_rule_DesignType2418: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_112_in_rule_ScaleType2428: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_113_in_rule_ScaleType2434: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_114_in_rule_ScaleType2440: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_115_in_rule_ScaleType2446: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_116_in_rule_ScaleType2452: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_117_in_rule_ThreatType2462: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_118_in_rule_ThreatType2468: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_119_in_rule_ThreatType2474: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_120_in_rule_ThreatType2480: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_121_in_rule_ThreatType2486: new org.antlr.runtime.BitSet([0x00000002, 0x00000000])
+    FOLLOW_rule_Analysis_in_rule_Experiment414: new org.antlr.runtime.BitSet([0x40000000, 0x00000000]),
+    FOLLOW_30_in_rule_Experiment419: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_Infrastructure_in_rule_Experiment423: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Experiment426: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_10_in_rule_Infrastructure438: new org.antlr.runtime.BitSet([0x00000000, 0x00000008]),
+    FOLLOW_rule_User_in_rule_Infrastructure444: new org.antlr.runtime.BitSet([0x80002000, 0x00000007]),
+    FOLLOW_31_in_rule_Infrastructure449: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_Requirements_in_rule_Infrastructure453: new org.antlr.runtime.BitSet([0x00002000, 0x00000007]),
+    FOLLOW_32_in_rule_Infrastructure460: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_Preconditions_in_rule_Infrastructure464: new org.antlr.runtime.BitSet([0x00002000, 0x00000006]),
+    FOLLOW_33_in_rule_Infrastructure471: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Infrastructure473: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_Cloud_in_rule_Infrastructure477: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Infrastructure481: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_Cloud_in_rule_Infrastructure485: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Infrastructure489: new org.antlr.runtime.BitSet([0x00002000, 0x00000004]),
+    FOLLOW_34_in_rule_Infrastructure496: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000003, 0x00000000]),
+    FOLLOW_rule_OnFinishType_in_rule_Infrastructure500: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Infrastructure505: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_10_in_rule_Preconditions518: new org.antlr.runtime.BitSet([0x00002020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Preconditions525: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Preconditions529: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Preconditions533: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Preconditions540: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_35_in_rule_User551: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_User553: new org.antlr.runtime.BitSet([0x00000000, 0x00000010]),
+    FOLLOW_36_in_rule_User557: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_User561: new org.antlr.runtime.BitSet([0x00002000, 0x00000020]),
+    FOLLOW_37_in_rule_User566: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_User568: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_UserKey_in_rule_User572: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_User576: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_UserKey_in_rule_User580: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_User584: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_User592: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_UserKey604: new org.antlr.runtime.BitSet([0x00000402, 0x00000000]),
+    FOLLOW_10_in_rule_UserKey608: new org.antlr.runtime.BitSet([0x00002000, 0x000001C0]),
+    FOLLOW_38_in_rule_UserKey613: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_UserKey617: new org.antlr.runtime.BitSet([0x00002000, 0x00000180]),
+    FOLLOW_39_in_rule_UserKey624: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_UserKey628: new org.antlr.runtime.BitSet([0x00002000, 0x00000100]),
+    FOLLOW_40_in_rule_UserKey635: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_UserKey639: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_UserKey644: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_10_in_rule_Requirements657: new org.antlr.runtime.BitSet([0x00000000, 0x00000200]),
+    FOLLOW_41_in_rule_Requirements660: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_Requirements664: new org.antlr.runtime.BitSet([0x00000000, 0x00000400]),
+    FOLLOW_42_in_rule_Requirements667: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_Requirements671: new org.antlr.runtime.BitSet([0x00000000, 0x00000800]),
+    FOLLOW_43_in_rule_Requirements674: new org.antlr.runtime.BitSet([0x00000000, 0x0000C000]),
+    FOLLOW_rule_PlatformType_in_rule_Requirements678: new org.antlr.runtime.BitSet([0x00000000, 0x00001000]),
+    FOLLOW_44_in_rule_Requirements681: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_rule_BigDecimalType_in_rule_Requirements685: new org.antlr.runtime.BitSet([0x00000000, 0x00002000]),
+    FOLLOW_45_in_rule_Requirements688: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_Requirements692: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Requirements695: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_set_in_rule_PlatformType708: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_INT_in_rule_BigDecimalType725: new org.antlr.runtime.BitSet([0x00000002, 0x00010000]),
+    FOLLOW_48_in_rule_BigDecimalType728: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_BigDecimalType730: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_Cloud744: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Cloud747: new org.antlr.runtime.BitSet([0x00000000, 0x00080000]),
+    FOLLOW_rule_CloudProvider_in_rule_Cloud753: new org.antlr.runtime.BitSet([0x00000000, 0x40000000]),
+    FOLLOW_rule_AccessKey_in_rule_Cloud759: new org.antlr.runtime.BitSet([0x00002000, 0x00060000]),
+    FOLLOW_49_in_rule_Cloud763: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Cloud765: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_Region_in_rule_Cloud769: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Cloud773: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_Region_in_rule_Cloud777: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Cloud780: new org.antlr.runtime.BitSet([0x00002000, 0x00040000]),
+    FOLLOW_50_in_rule_Cloud786: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Cloud788: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_InstanceType_in_rule_Cloud792: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Cloud796: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_InstanceType_in_rule_Cloud800: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Cloud803: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Cloud808: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_51_in_rule_CloudProvider820: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_CloudProvider824: new org.antlr.runtime.BitSet([0x00000402, 0x00000000]),
+    FOLLOW_10_in_rule_CloudProvider828: new org.antlr.runtime.BitSet([0x00006000, 0x00300000]),
+    FOLLOW_52_in_rule_CloudProvider832: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_CloudProvider836: new org.antlr.runtime.BitSet([0x00006000, 0x00200000]),
+    FOLLOW_14_in_rule_CloudProvider844: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_CloudProvider848: new org.antlr.runtime.BitSet([0x00002000, 0x00200000]),
+    FOLLOW_53_in_rule_CloudProvider856: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_CloudProvider860: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_CloudProvider867: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_InstanceType886: new org.antlr.runtime.BitSet([0x00000002, 0x00400000]),
+    FOLLOW_54_in_rule_InstanceType890: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_InstanceType894: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_Region909: new org.antlr.runtime.BitSet([0x00000402, 0x00000000]),
+    FOLLOW_10_in_rule_Region913: new org.antlr.runtime.BitSet([0x00002000, 0x0F800000]),
+    FOLLOW_55_in_rule_Region917: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Region921: new org.antlr.runtime.BitSet([0x00002000, 0x0F000000]),
+    FOLLOW_56_in_rule_Region927: new org.antlr.runtime.BitSet([0x00000000, 0x30000000]),
+    FOLLOW_rule_StatusType_in_rule_Region931: new org.antlr.runtime.BitSet([0x00002000, 0x0E000000]),
+    FOLLOW_57_in_rule_Region937: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Region941: new org.antlr.runtime.BitSet([0x00002000, 0x0C000000]),
+    FOLLOW_58_in_rule_Region947: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_Region951: new org.antlr.runtime.BitSet([0x00002000, 0x08000000]),
+    FOLLOW_59_in_rule_Region957: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Region959: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_Zone_in_rule_Region963: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Region967: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_rule_Zone_in_rule_Region971: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Region974: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Region979: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_set_in_rule_StatusType1000: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_Zone1020: new org.antlr.runtime.BitSet([0x00000022, 0x00000000]),
+    FOLLOW_STRING_in_rule_Zone1026: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_62_in_rule_AccessKey1040: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_AccessKey1044: new org.antlr.runtime.BitSet([0x00000000, 0x80000000]),
+    FOLLOW_63_in_rule_AccessKey1047: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_AccessKey1050: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_set_in_rule_OnFinishType1077: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_Abstract_Impl_in_rule_Abstract1094: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_SimpleAbstract_in_rule_Abstract1098: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_StructuredAbstract_in_rule_Abstract1102: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_Goal_Impl_in_rule_Goal1113: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_SimpleGoal_in_rule_Goal1117: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_StructuredGoal_in_rule_Goal1121: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_10_in_rule_ExperimentalDesign1132: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x0000000C, 0x00000000]),
+    FOLLOW_66_in_rule_ExperimentalDesign1136: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x0003E000]),
+    FOLLOW_rule_DesignType_in_rule_ExperimentalDesign1140: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000008, 0x00000000]),
+    FOLLOW_67_in_rule_ExperimentalDesign1145: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_INT_in_rule_ExperimentalDesign1149: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000030, 0x00000000]),
+    FOLLOW_68_in_rule_ExperimentalDesign1155: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ExperimentalDesign1157: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1161: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_ExperimentalDesign1164: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Restriction_in_rule_ExperimentalDesign1168: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_ExperimentalDesign1172: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000020, 0x00000000]),
+    FOLLOW_69_in_rule_ExperimentalDesign1180: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ExperimentalDesign1182: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1186: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_ExperimentalDesign1189: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_ContextVariable_in_rule_ExperimentalDesign1193: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_ExperimentalDesign1197: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_ExperimentalDesign1202: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Restriction1215: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000040, 0x00000000]),
+    FOLLOW_70_in_rule_Restriction1217: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Restriction1219: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_Restriction1223: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Restriction1226: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_Restriction1230: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Restriction1234: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Execution1249: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Execution1252: new org.antlr.runtime.BitSet([0x00002000, 0x00000001,0x00000780, 0x00000000]),
+    FOLLOW_71_in_rule_Execution1256: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Execution1260: new org.antlr.runtime.BitSet([0x00002000, 0x00000001,0x00000700, 0x00000000]),
+    FOLLOW_72_in_rule_Execution1266: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_rule_BigDecimalType_in_rule_Execution1270: new org.antlr.runtime.BitSet([0x00002000, 0x00000001,0x00000600, 0x00000000]),
+    FOLLOW_32_in_rule_Execution1276: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_Preconditions_in_rule_Execution1280: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000600, 0x00000000]),
+    FOLLOW_73_in_rule_Execution1286: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_Execution1290: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000400, 0x00000000]),
+    FOLLOW_74_in_rule_Execution1296: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Execution1298: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_Execution1302: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Execution1305: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_Execution1309: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Execution1313: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Execution1318: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Analysis1333: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Analysis1336: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000800, 0x00000000]),
+    FOLLOW_75_in_rule_Analysis1340: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_rule_BigDecimalType_in_rule_Analysis1344: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Analysis1349: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_ExperimentalObject1364: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
+    FOLLOW_14_in_rule_ExperimentalObject1367: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_ExperimentalObject1371: new org.antlr.runtime.BitSet([0x00000002, 0x00000000,0x00003400, 0x00000000]),
+    FOLLOW_76_in_rule_ExperimentalObject1375: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_ExperimentalObject1379: new org.antlr.runtime.BitSet([0x00000002, 0x00000000,0x00002400, 0x00000000]),
+    FOLLOW_77_in_rule_ExperimentalObject1385: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ExperimentalObject1387: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Parameter_in_rule_ExperimentalObject1391: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_ExperimentalObject1394: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Parameter_in_rule_ExperimentalObject1398: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_ExperimentalObject1402: new org.antlr.runtime.BitSet([0x00000002, 0x00000000,0x00000400, 0x00000000]),
+    FOLLOW_74_in_rule_ExperimentalObject1408: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ExperimentalObject1410: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_ExperimentalObject1414: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_ExperimentalObject1417: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_ExperimentalObject1421: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_ExperimentalObject1425: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Author1452: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Author1455: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x0001C000, 0x00000000]),
+    FOLLOW_78_in_rule_Author1459: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Author1463: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00018000, 0x00000000]),
+    FOLLOW_79_in_rule_Author1469: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Author1473: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00010000, 0x00000000]),
+    FOLLOW_80_in_rule_Author1479: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Author1483: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Author1490: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_Keyword1505: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Threat1522: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Threat1525: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x00020004, 0x00000000]),
+    FOLLOW_14_in_rule_Threat1529: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Threat1533: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00020004, 0x00000000]),
+    FOLLOW_66_in_rule_Threat1539: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x0F800000]),
+    FOLLOW_rule_ThreatType_in_rule_Threat1543: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00020000, 0x00000000]),
+    FOLLOW_81_in_rule_Threat1549: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Threat1553: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Threat1558: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Goal_Impl1573: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchQuestion1588: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ResearchQuestion1591: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x00040000, 0x00000000]),
+    FOLLOW_14_in_rule_ResearchQuestion1595: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_ResearchQuestion1599: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00040000, 0x00000000]),
+    FOLLOW_82_in_rule_ResearchQuestion1605: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchQuestion1609: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_ResearchQuestion1614: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchHypothesis1629: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ResearchHypothesis1632: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_ResearchHypothesisFormula_in_rule_ResearchHypothesis1637: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x00040000, 0x00000000]),
+    FOLLOW_14_in_rule_ResearchHypothesis1641: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_ResearchHypothesis1645: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00040000, 0x00000000]),
+    FOLLOW_82_in_rule_ResearchHypothesis1651: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchHypothesis1655: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_ResearchHypothesis1660: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchHypothesisFormula1675: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchHypothesisFormula1679: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00780000, 0x00000000]),
+    FOLLOW_rule_OperatorType_in_rule_ResearchHypothesisFormula1683: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_ResearchHypothesisFormula1687: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_set_in_rule_OperatorType1699: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_DependentVariable_Impl_in_rule_DependentVariable1723: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_BuiltinDependentVariable_in_rule_DependentVariable1725: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_rule_CustomDependentVariable_in_rule_DependentVariable1727: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_DependentVariable_Impl1743: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_BuiltinDependentVariable1758: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_CustomDependentVariable1776: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_CustomDependentVariable1779: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
+    FOLLOW_14_in_rule_CustomDependentVariable1782: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_CustomDependentVariable1786: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x07800000, 0x00000000]),
+    FOLLOW_87_in_rule_CustomDependentVariable1790: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x007C0000]),
+    FOLLOW_rule_ScaleType_in_rule_CustomDependentVariable1794: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x07000000, 0x00000000]),
+    FOLLOW_88_in_rule_CustomDependentVariable1800: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_CustomDependentVariable1804: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x06000000, 0x00000000]),
+    FOLLOW_89_in_rule_CustomDependentVariable1810: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_CustomDependentVariable1812: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Range_in_rule_CustomDependentVariable1816: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_CustomDependentVariable1819: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Range_in_rule_CustomDependentVariable1823: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_CustomDependentVariable1827: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x04000000, 0x00000000]),
+    FOLLOW_90_in_rule_CustomDependentVariable1833: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_CustomDependentVariable1837: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_CustomDependentVariable1842: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Instrument1856: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Instrument1859: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000080, 0x00000000]),
+    FOLLOW_71_in_rule_Instrument1862: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Instrument1866: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x08000000, 0x00000000]),
+    FOLLOW_91_in_rule_Instrument1869: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Instrument1873: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x10000000, 0x00000000]),
+    FOLLOW_92_in_rule_Instrument1877: new org.antlr.runtime.BitSet([0x00000040, 0x00000000]),
+    FOLLOW_rule_BigDecimalType_in_rule_Instrument1881: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Instrument1886: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Factor1901: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Factor1904: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
+    FOLLOW_14_in_rule_Factor1907: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Factor1911: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00800000, 0x00000000]),
+    FOLLOW_87_in_rule_Factor1915: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x007C0000]),
+    FOLLOW_rule_ScaleType_in_rule_Factor1919: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_Factor1924: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_ContextVariable1939: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ContextVariable1942: new org.antlr.runtime.BitSet([0x00006000, 0x00000000,0x02800000, 0x00000000]),
+    FOLLOW_14_in_rule_ContextVariable1946: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_ContextVariable1950: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x02800000, 0x00000000]),
+    FOLLOW_87_in_rule_ContextVariable1956: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x007C0000]),
+    FOLLOW_rule_ScaleType_in_rule_ContextVariable1960: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x02000000, 0x00000000]),
+    FOLLOW_89_in_rule_ContextVariable1966: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_ContextVariable1968: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Range_in_rule_ContextVariable1972: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_ContextVariable1975: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Range_in_rule_ContextVariable1979: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_ContextVariable1983: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_ContextVariable1988: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Range2003: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Treatment2016: new org.antlr.runtime.BitSet([0x00004000, 0x00000000]),
+    FOLLOW_14_in_rule_Treatment2019: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_Treatment2023: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x20000000, 0x00000000]),
+    FOLLOW_93_in_rule_Treatment2026: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_Treatment2030: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x40002400, 0x00000000]),
+    FOLLOW_77_in_rule_Treatment2034: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Treatment2036: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Parameter_in_rule_Treatment2040: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Treatment2043: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_rule_Parameter_in_rule_Treatment2047: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Treatment2051: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x40000400, 0x00000000]),
+    FOLLOW_74_in_rule_Treatment2057: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_Treatment2059: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_Treatment2063: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_12_in_rule_Treatment2066: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_rule_File_in_rule_Treatment2070: new org.antlr.runtime.BitSet([0x00003000, 0x00000000]),
+    FOLLOW_13_in_rule_Treatment2074: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x40000000, 0x00000000]),
+    FOLLOW_94_in_rule_Treatment2079: new org.antlr.runtime.BitSet([0x00000010, 0x00000000]),
+    FOLLOW_ID_in_rule_Treatment2083: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_10_in_rule_File2096: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x80000000, 0x00000000]),
+    FOLLOW_95_in_rule_File2099: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_File2103: new org.antlr.runtime.BitSet([0x00000000, 0x00000000,0x00000000, 0x00000001]),
+    FOLLOW_96_in_rule_File2106: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_File2110: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000006]),
+    FOLLOW_97_in_rule_File2114: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_File2118: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000004]),
+    FOLLOW_98_in_rule_File2124: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_File2128: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_File2133: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Parameter2150: new org.antlr.runtime.BitSet([0x00000022, 0x00000000]),
+    FOLLOW_STRING_in_rule_Parameter2156: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_ExecutionParameter2174: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_Artifact2191: new org.antlr.runtime.BitSet([0x00000022, 0x00000000]),
+    FOLLOW_STRING_in_rule_Artifact2197: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_ObjectGroup2214: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_STRING_in_rule_SimpleAbstract2230: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_10_in_rule_StructuredAbstract2246: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x000000F8]),
+    FOLLOW_99_in_rule_StructuredAbstract2250: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredAbstract2254: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x000000F0]),
+    FOLLOW_100_in_rule_StructuredAbstract2260: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredAbstract2264: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x000000E0]),
+    FOLLOW_101_in_rule_StructuredAbstract2270: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredAbstract2274: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x000000C0]),
+    FOLLOW_102_in_rule_StructuredAbstract2280: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredAbstract2284: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00000080]),
+    FOLLOW_103_in_rule_StructuredAbstract2290: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredAbstract2294: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_StructuredAbstract2299: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_SimpleGoal2314: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_SimpleGoal2319: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_ID_in_rule_StructuredGoal2336: new org.antlr.runtime.BitSet([0x00000400, 0x00000000]),
+    FOLLOW_10_in_rule_StructuredGoal2339: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00001F00]),
+    FOLLOW_104_in_rule_StructuredGoal2343: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredGoal2347: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00001E00]),
+    FOLLOW_105_in_rule_StructuredGoal2353: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredGoal2357: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00001C00]),
+    FOLLOW_106_in_rule_StructuredGoal2363: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredGoal2367: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00001800]),
+    FOLLOW_107_in_rule_StructuredGoal2373: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredGoal2377: new org.antlr.runtime.BitSet([0x00002000, 0x00000000,0x00000000, 0x00001000]),
+    FOLLOW_108_in_rule_StructuredGoal2383: new org.antlr.runtime.BitSet([0x00000020, 0x00000000]),
+    FOLLOW_STRING_in_rule_StructuredGoal2387: new org.antlr.runtime.BitSet([0x00002000, 0x00000000]),
+    FOLLOW_13_in_rule_StructuredGoal2392: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_109_in_rule_DesignType2402: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_110_in_rule_DesignType2408: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_111_in_rule_DesignType2414: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_112_in_rule_DesignType2420: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_113_in_rule_DesignType2426: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_114_in_rule_ScaleType2436: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_115_in_rule_ScaleType2442: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_116_in_rule_ScaleType2448: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_117_in_rule_ScaleType2454: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_118_in_rule_ScaleType2460: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_119_in_rule_ThreatType2470: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_120_in_rule_ThreatType2476: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_121_in_rule_ThreatType2482: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_122_in_rule_ThreatType2488: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
+    FOLLOW_123_in_rule_ThreatType2494: new org.antlr.runtime.BitSet([0x00000002, 0x00000000])
 });
 
 })();

@@ -71,7 +71,6 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExperimentAccess().getGroup_35(), "rule__Experiment__Group_35__0");
 					put(grammarAccess.getExperimentAccess().getGroup_35_3(), "rule__Experiment__Group_35_3__0");
 					put(grammarAccess.getExperimentAccess().getGroup_36(), "rule__Experiment__Group_36__0");
-					put(grammarAccess.getExperimentAccess().getGroup_37(), "rule__Experiment__Group_37__0");
 					put(grammarAccess.getInfrastructureAccess().getGroup(), "rule__Infrastructure__Group__0");
 					put(grammarAccess.getInfrastructureAccess().getGroup_3(), "rule__Infrastructure__Group_3__0");
 					put(grammarAccess.getInfrastructureAccess().getGroup_4(), "rule__Infrastructure__Group_4__0");
@@ -116,11 +115,10 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAccessKeyAccess().getGroup(), "rule__AccessKey__Group__0");
 					put(grammarAccess.getExperimentalDesignAccess().getGroup(), "rule__ExperimentalDesign__Group__0");
 					put(grammarAccess.getExperimentalDesignAccess().getGroup_1(), "rule__ExperimentalDesign__Group_1__0");
-					put(grammarAccess.getExperimentalDesignAccess().getGroup_2(), "rule__ExperimentalDesign__Group_2__0");
-					put(grammarAccess.getExperimentalDesignAccess().getGroup_3(), "rule__ExperimentalDesign__Group_3__0");
-					put(grammarAccess.getExperimentalDesignAccess().getGroup_3_3(), "rule__ExperimentalDesign__Group_3_3__0");
 					put(grammarAccess.getExperimentalDesignAccess().getGroup_4(), "rule__ExperimentalDesign__Group_4__0");
 					put(grammarAccess.getExperimentalDesignAccess().getGroup_4_3(), "rule__ExperimentalDesign__Group_4_3__0");
+					put(grammarAccess.getExperimentalDesignAccess().getGroup_5(), "rule__ExperimentalDesign__Group_5__0");
+					put(grammarAccess.getExperimentalDesignAccess().getGroup_5_3(), "rule__ExperimentalDesign__Group_5_3__0");
 					put(grammarAccess.getRestrictionAccess().getGroup(), "rule__Restriction__Group__0");
 					put(grammarAccess.getRestrictionAccess().getGroup_4(), "rule__Restriction__Group_4__0");
 					put(grammarAccess.getExecutionAccess().getGroup(), "rule__Execution__Group__0");
@@ -179,6 +177,8 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTreatmentAccess().getGroup_6(), "rule__Treatment__Group_6__0");
 					put(grammarAccess.getTreatmentAccess().getGroup_6_3(), "rule__Treatment__Group_6_3__0");
 					put(grammarAccess.getFileAccess().getGroup(), "rule__File__Group__0");
+					put(grammarAccess.getFileAccess().getGroup_6(), "rule__File__Group_6__0");
+					put(grammarAccess.getFileAccess().getGroup_7(), "rule__File__Group_7__0");
 					put(grammarAccess.getParameterAccess().getGroup(), "rule__Parameter__Group__0");
 					put(grammarAccess.getExecutionParameterAccess().getGroup(), "rule__ExecutionParameter__Group__0");
 					put(grammarAccess.getArtifactAccess().getGroup(), "rule__Artifact__Group__0");
@@ -229,7 +229,7 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExperimentAccess().getExecutionsAssignment_35_2(), "rule__Experiment__ExecutionsAssignment_35_2");
 					put(grammarAccess.getExperimentAccess().getExecutionsAssignment_35_3_1(), "rule__Experiment__ExecutionsAssignment_35_3_1");
 					put(grammarAccess.getExperimentAccess().getAnalysisAssignment_36_1(), "rule__Experiment__AnalysisAssignment_36_1");
-					put(grammarAccess.getExperimentAccess().getInfrastructureAssignment_37_1(), "rule__Experiment__InfrastructureAssignment_37_1");
+					put(grammarAccess.getExperimentAccess().getInfrastructureAssignment_38(), "rule__Experiment__InfrastructureAssignment_38");
 					put(grammarAccess.getInfrastructureAccess().getUserAssignment_2(), "rule__Infrastructure__UserAssignment_2");
 					put(grammarAccess.getInfrastructureAccess().getRequirementsAssignment_3_1(), "rule__Infrastructure__RequirementsAssignment_3_1");
 					put(grammarAccess.getInfrastructureAccess().getPreconditionsAssignment_4_1(), "rule__Infrastructure__PreconditionsAssignment_4_1");
@@ -278,11 +278,11 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAccessKeyAccess().getSecretKeyAssignment_3(), "rule__AccessKey__SecretKeyAssignment_3");
 					put(grammarAccess.getOnFinishTypeAccess().getTypeNameAssignment(), "rule__OnFinishType__TypeNameAssignment");
 					put(grammarAccess.getExperimentalDesignAccess().getTypeAssignment_1_1(), "rule__ExperimentalDesign__TypeAssignment_1_1");
-					put(grammarAccess.getExperimentalDesignAccess().getRunsAssignment_2_1(), "rule__ExperimentalDesign__RunsAssignment_2_1");
-					put(grammarAccess.getExperimentalDesignAccess().getRestrictionsAssignment_3_2(), "rule__ExperimentalDesign__RestrictionsAssignment_3_2");
-					put(grammarAccess.getExperimentalDesignAccess().getRestrictionsAssignment_3_3_1(), "rule__ExperimentalDesign__RestrictionsAssignment_3_3_1");
-					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_4_2(), "rule__ExperimentalDesign__ContextVariablesAssignment_4_2");
-					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_4_3_1(), "rule__ExperimentalDesign__ContextVariablesAssignment_4_3_1");
+					put(grammarAccess.getExperimentalDesignAccess().getRunsAssignment_3(), "rule__ExperimentalDesign__RunsAssignment_3");
+					put(grammarAccess.getExperimentalDesignAccess().getRestrictionsAssignment_4_2(), "rule__ExperimentalDesign__RestrictionsAssignment_4_2");
+					put(grammarAccess.getExperimentalDesignAccess().getRestrictionsAssignment_4_3_1(), "rule__ExperimentalDesign__RestrictionsAssignment_4_3_1");
+					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_5_2(), "rule__ExperimentalDesign__ContextVariablesAssignment_5_2");
+					put(grammarAccess.getExperimentalDesignAccess().getContextVariablesAssignment_5_3_1(), "rule__ExperimentalDesign__ContextVariablesAssignment_5_3_1");
 					put(grammarAccess.getRestrictionAccess().getTreatmentAssignment_0(), "rule__Restriction__TreatmentAssignment_0");
 					put(grammarAccess.getRestrictionAccess().getObjectsAssignment_3(), "rule__Restriction__ObjectsAssignment_3");
 					put(grammarAccess.getRestrictionAccess().getObjectsAssignment_4_1(), "rule__Restriction__ObjectsAssignment_4_1");
@@ -355,7 +355,9 @@ public class AutoExpParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTreatmentAccess().getFilesAssignment_6_3_1(), "rule__Treatment__FilesAssignment_6_3_1");
 					put(grammarAccess.getTreatmentAccess().getExecutionAssignment_8(), "rule__Treatment__ExecutionAssignment_8");
 					put(grammarAccess.getFileAccess().getNameAssignment_3(), "rule__File__NameAssignment_3");
-					put(grammarAccess.getFileAccess().getPathAssignment_5(), "rule__File__PathAssignment_5");
+					put(grammarAccess.getFileAccess().getSourceAssignment_5(), "rule__File__SourceAssignment_5");
+					put(grammarAccess.getFileAccess().getDestAssignment_6_1(), "rule__File__DestAssignment_6_1");
+					put(grammarAccess.getFileAccess().getChecksumAssignment_7_1(), "rule__File__ChecksumAssignment_7_1");
 					put(grammarAccess.getParameterAccess().getNameAssignment_1(), "rule__Parameter__NameAssignment_1");
 					put(grammarAccess.getParameterAccess().getValueAssignment_2(), "rule__Parameter__ValueAssignment_2");
 					put(grammarAccess.getExecutionParameterAccess().getValueAssignment_1(), "rule__ExecutionParameter__ValueAssignment_1");

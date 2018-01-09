@@ -14,7 +14,6 @@ interface DohkoService {
 	def Response runDohko(ApplicationDescriptor applicationDescriptor) throws IOException 
 	def ApplicationDescriptor getApplicationDescriptor(File file)
 	def ApplicationDescriptor getApplicationDescriptor(String jobId,String username)
-	
 	def JobStatus getJobStatus(String jobId)
 	
 } 

@@ -51,6 +51,9 @@ public class TaskOutput implements Serializable, Cloneable {
 	@XmlElement(name = "value")
 	private Object value;
 
+	@XmlElement(name="checksum")
+	private String checksum;
+	
 	public TaskOutput() {
 		super();
 	}
@@ -118,7 +121,23 @@ public class TaskOutput implements Serializable, Cloneable {
 		this.value = value;
 		return this;
 	}
+	/**
+	 * @return the checksum
+	 */
+	public String getChecksum() 
+	{
+		return checksum;
+	}
 
+
+	/**
+	 * @param checksum the checksum to set
+	 */
+	public TaskOutput setChecksum(String checksum) 
+	{
+		this.checksum = checksum;
+		return this;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) {
