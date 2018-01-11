@@ -244,7 +244,7 @@ class RScriptGenerator {
 							
 			}
 			if (nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment1.name») != 0 & nrow(subset_«hypothesis.name»_«object.name»_«hypothesis.formula.treatment2.name») != 0){
-							
+				result_«hypothesis.name»_«object.name»_wTest = FALSE			
 				wTest=wilcox.test(«hypothesis.formula.depVariable.name.convert»~treatment,data=subset(json_data,(treatment=='«hypothesis.formula.treatment1.name»'|treatment=='«hypothesis.formula.treatment2.name»') & object=='«object.name»')) 
 			 
 				print(wTest)
@@ -419,11 +419,11 @@ class RScriptGenerator {
 	'''
 		<<«object.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable]»
-			boxplot_«object.name»_«variable.name.convert» = ggplot(subset(json_data,(«FOR treatment:experiment.treatments»treatment=='«treatment.name»' «IF !treatment.name.equals(experiment.treatments.last.name)»|«ENDIF»«ENDFOR»)& object=='«object.name»'), aes(x =treatment , y = «variable.name.convert»)) +
+			boxplot_«object.name»_«variable.name.convert» = ggplot(subset(json_data,(«FOR treatment:experiment.treatmentsInUse»treatment=='«treatment.name»' «IF !treatment.name.equals(experiment.treatmentsInUse.last.name)»|«ENDIF»«ENDFOR»)& object=='«object.name»'), aes(x =treatment , y = «variable.name.convert»)) +
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
-				scale_x_discrete(name = "«experiment.treatments.head.factor.description»",labels=c(«FOR treatment:experiment.treatments»'«treatment.description»'«IF !treatment.name.equals(experiment.treatments.last.name)»,«ENDIF»«ENDFOR»))+
-				ggtitle("«variable.description» by «experiment.treatments.head.factor.description» for «object.name»") + 
+				scale_x_discrete(name = "«experiment.treatmentsInUse.head.factor.description»",labels=c(«FOR treatment:experiment.treatmentsInUse»'«treatment.description»'«IF !treatment.name.equals(experiment.treatmentsInUse.last.name)»,«ENDIF»«ENDFOR»))+
+				ggtitle("«variable.description» by «experiment.treatmentsInUse.head.factor.description» for «object.name»") + 
 				ylab("«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»")   
 				boxplot_«object.name»_«variable.name.convert»
 				

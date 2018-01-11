@@ -11,7 +11,7 @@
 	<groupId>br.unb.autoexp</groupId>
 	<artifactId>autoexp</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>autoexp</name>
+	
 	<packaging>eclipse-target-definition</packaging>
 
 </project>
