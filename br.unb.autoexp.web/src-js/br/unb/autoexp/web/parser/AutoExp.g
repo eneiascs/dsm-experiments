@@ -48,7 +48,7 @@ rule_Experiment :
 	'Treatments' '{' treatments_22+=rule_Treatment (',' treatments_23+=rule_Treatment)* '}'
 	('Groups' '{' groups_24+=rule_ObjectGroup (',' groups_25+=rule_ObjectGroup)* '}')?
 	'Objects' '{' experimentalobjects_26+=rule_ExperimentalObject (',' experimentalobjects_27+=rule_ExperimentalObject)* '}'
-	('Executions' '{' executions_28+=rule_Execution (',' executions_29+=rule_Execution)* '}')?
+	'Executions' '{' executions_28+=rule_Execution (',' executions_29+=rule_Execution)* '}'
 	('Analysis' analysis_30=rule_Analysis)?
 	'Infrastructure' infrastructure_31=rule_Infrastructure
 	'}';
@@ -191,7 +191,7 @@ rule_AccessKey:
 
 
 rule_OnFinishType:
-	typename_0=('NONE' | 'TERMINATE' );
+	typename_0=('NONE' | 'SHUTDOWN' |'TERMINATE' );
 
 
 rule_Abstract :
@@ -246,10 +246,12 @@ rule_Analysis :
 rule_ExperimentalObject :
 	
 	name_0=ID
+	'{'
 	'description' description_1=STRING
 	('group' objectgroup_2=ID)?
 	('parameters' '{' parameters_3+=rule_Parameter (',' parameters_4+=rule_Parameter)* '}')?
 	('files' '{' files_5+=rule_File (',' files_6+=rule_File)* '}')?
+	'}'
 ;
 
 

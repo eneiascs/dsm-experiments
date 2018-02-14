@@ -113,9 +113,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 								checkFile(specificationFile, executionFolder)
 								checkFile(rnwFile, executionFolder)
 
-								// progressMonitor.subTask("Writing data to file %s".format(dataFile.name));
-								// dataFileGenerator.writeToFile(dataFile, tasks);
-								// progressMonitor.worked(1);
+								
 								progressMonitor.done()
 								Status.OK_STATUS
 							}
@@ -126,7 +124,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 						fetchData.join
 						
 						progressMonitor.beginTask("Running experiment ...", design.numberOfTasks)
-						progressMonitor.worked(design.finished + design.failed)
+						progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
 						while (!design.isFinished) {
 							if (progressMonitor.isCanceled()) {
 								progressMonitor.done()
@@ -136,8 +134,8 @@ class StatusCommand extends AbstractWorkspaceCommand {
 							fetchData.schedule
 							fetchData.join
 							progressMonitor.beginTask("Running experiment ...", design.numberOfTasks)
-							progressMonitor.worked(design.finished + design.failed)
-							Thread.sleep(5000)
+							progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
+							Thread.sleep(10000)
 
 						}
 
@@ -157,8 +155,9 @@ class StatusCommand extends AbstractWorkspaceCommand {
 				Not Received: «design.notReceived»
 				Pending: «design.pending»
 				Running: «design.running»
-				Finished: «design.finished»
+				Finished: «design.getFinished()»
 				Failed: «design.failed»
+				Cancelled: «design.cancelled»
 										
 			'''
 			displayResult
@@ -176,18 +175,14 @@ class StatusCommand extends AbstractWorkspaceCommand {
 		return null;
 	}
 
-	def boolean isFinished(ExperimentDesignDTO design) {
 
-		((design.finished + design.failed) == design.numberOfTasks && design.numberOfTasks != 0)
-
-	}
 
 	def createUpdateTaskJob(ExperimentExecutionDTO task, String jobName) {
 		new Job(jobName) {
 			override run(IProgressMonitor progressMonitor) {
 
 				task.updateTaskStatus(specificationFile)
-				// progressMonitor.done();
+			
 				Status.OK_STATUS
 			}
 

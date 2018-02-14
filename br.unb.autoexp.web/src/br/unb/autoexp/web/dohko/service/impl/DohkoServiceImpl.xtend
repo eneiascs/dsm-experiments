@@ -14,6 +14,7 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.Base64
 import java.util.List
 import java.util.regex.Pattern
 import javax.ws.rs.NotFoundException
@@ -51,7 +52,7 @@ class DohkoServiceImpl implements DohkoService {
 
 	override updateTaskStatus(List<ExperimentExecutionDTO> tasks, File specificationFile) {
 		logger.info("Updating tasks status for jobId %s".format(tasks.head.jobId))
-		tasks.filter[isNotFinished].forEach [ task |
+		tasks.filter[isRunning].forEach [ task |
 			task.updateTaskStatus(specificationFile)
 
 		]
@@ -59,9 +60,9 @@ class DohkoServiceImpl implements DohkoService {
 
 	}
 
-	protected def boolean isNotFinished(ExperimentExecutionDTO it) {
-		executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED) || executionStatus.equals(ExecutionStatusDTO.PENDING) ||
-			executionStatus.equals(ExecutionStatusDTO.RUNNING)
+	protected def boolean isRunning(ExperimentExecutionDTO execution) {
+		execution.executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED) || execution.executionStatus.equals(ExecutionStatusDTO.PENDING) ||
+			execution.executionStatus.equals(ExecutionStatusDTO.RUNNING)
 	}
 
 	override getApplicationDescriptor(String jobId, String username) {
@@ -131,8 +132,7 @@ class DohkoServiceImpl implements DohkoService {
 
 				if (!stats.cpu.isNullOrEmpty) {
 					task.addDependentVariable("cpu", stats.cpu.maxBy[percent].percent.doubleValue)
-				// task.addDependentVariable("time",
-				// (status.date.time.doubleValue - stats.cpu.minBy[datetime].datetime.time.doubleValue) / 1000)
+			
 				}
 				if (!stats.memory.isNullOrEmpty) {
 					task.addDependentVariable("memory", stats.memory.maxBy[resident].resident.doubleValue / 1024)
@@ -146,7 +146,9 @@ class DohkoServiceImpl implements DohkoService {
 			val outputs = res.readEntity(new GenericType<List<TaskOutput>>() {
 			})
 			if (!outputs.filter[type.equals(TaskOutputType.SYSOUT)].isNullOrEmpty) {
-				val outputString = outputs.filter[type.equals(TaskOutputType.SYSOUT)].head.value.toString
+				val encodedOutput = outputs.filter[type.equals(TaskOutputType.SYSOUT)].head.value.toString
+				val decodedOutput = new String(Base64.getDecoder().decode(encodedOutput))
+				
 				val experiment = parseDomainmodel(specificationFile)
 
 				val depVariables = experiment.researchHypotheses.filter [
@@ -154,10 +156,10 @@ class DohkoServiceImpl implements DohkoService {
 				].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
 
 				depVariables.forEach [
-					val str=instrument.valueExpression.replaceAll("\\(","\\\\(").replaceAll("\\)","\\\\)")
-					
-					val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(str))
-					val m = p.matcher(outputString);
+					val expression=instrument.valueExpression.replaceAll("\\(","\\\\(").replaceAll("\\)","\\\\)")
+				
+					val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(expression))
+					val m = p.matcher(decodedOutput);
 					while (m.find) {
 						if (m.groupCount >= 3) {
 							var value = new Double(m.group(3))

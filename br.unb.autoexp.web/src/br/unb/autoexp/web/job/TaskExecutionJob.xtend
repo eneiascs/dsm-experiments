@@ -67,7 +67,7 @@ class TaskExecutionJob extends Job {
 			updateTaskStatusJob.join
 			design=updateTaskStatusJob.design
 			
-			Thread.sleep(1000)
+			Thread.sleep(10000)
 		}	
 		
 
@@ -97,9 +97,5 @@ class TaskExecutionJob extends Job {
 			}
 	}
 
-def boolean isFinished(ExperimentDesignDTO design) {
-		
-		((design.finished+design.failed)==design.numberOfTasks&&design.numberOfTasks!=0)
-		
-	}
+
 }

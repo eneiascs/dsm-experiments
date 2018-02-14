@@ -73,7 +73,7 @@ class UpdateTaskStatusJob extends Job {
 				if (jobStatus.changed(design)) {
 
 					var tasks = experimentExecutionService.findByJobId(jobId)
-					val pendingTasks = tasks.filter[!isFinished].toList
+					val pendingTasks = tasks.filter[task|!task.isFinished].toList
 
 					val tasksGroup = new JobGroup("tasksGroup", 4, 1)
 
@@ -100,6 +100,8 @@ class UpdateTaskStatusJob extends Job {
 											task.executionStatus = ExecutionStatusDTO.FINISHED
 										case TaskStatusType.FAILED:
 											task.executionStatus = ExecutionStatusDTO.FAILED
+										case TaskStatusType.CANCELLED:
+											task.executionStatus = ExecutionStatusDTO.CANCELLED	
 										default: {
 										}
 									}
@@ -138,8 +140,9 @@ class UpdateTaskStatusJob extends Job {
 				Not Received: «design.notReceived»
 				Pending: «design.pending»
 				Running: «design.running»
-				Finished: «design.finished»
+				Finished: «design.getFinished()»
 				Failed: «design.failed»
+				Cancelled: «design.cancelled»
 										
 			'''
 
@@ -167,20 +170,13 @@ class UpdateTaskStatusJob extends Job {
 	def changed(JobStatus status, ExperimentDesignDTO design) {
 		status.tasksStatus.filter[type.equals(TaskStatusType.PENDING)].length !== design.pending ||
 			status.tasksStatus.filter[type.equals(TaskStatusType.RUNNING)].length !== design.running ||
-			status.tasksStatus.filter[type.equals(TaskStatusType.FINISHED)].length !== design.finished ||
-			status.tasksStatus.filter[type.equals(TaskStatusType.FAILED)].length !== design.failed
+			status.tasksStatus.filter[type.equals(TaskStatusType.FINISHED)].length !== design.getFinished() ||
+			status.tasksStatus.filter[type.equals(TaskStatusType.FAILED)].length !== design.failed ||
+			status.tasksStatus.filter[type.equals(TaskStatusType.CANCELLED)].length !== design.cancelled
 	}
 
-	def boolean isFinished(ExperimentDesignDTO design) {
-		
+	
 
-		((design.finished + design.failed) == design.numberOfTasks && design.numberOfTasks != 0)
-
-	}
-
-	def isFinished(ExperimentExecutionDTO it) {
-		executionStatus.equals(ExecutionStatusDTO.FINISHED) || executionStatus.equals(ExecutionStatusDTO.FAILED)
-	}
 
 	def createUpdateTaskJob(ExperimentExecutionDTO task, String jobName) {
 		new Job(jobName) {

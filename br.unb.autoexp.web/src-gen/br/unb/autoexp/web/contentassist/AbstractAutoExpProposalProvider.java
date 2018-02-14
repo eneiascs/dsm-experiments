@@ -199,6 +199,7 @@ public class AbstractAutoExpProposalProvider extends org.eclipse.xtext.ui.editor
 	public void completeOnFinishType_TypeName(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 		// subclasses may override
+		// subclasses may override
 	}
 	public void completeExperimentalDesign_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);

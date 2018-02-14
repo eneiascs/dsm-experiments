@@ -9,6 +9,7 @@ enum ExecutionStatusDTO {
     
     FAILED, 
     
+    CANCELLED,
     
     FINISHED; 
 	 

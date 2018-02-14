@@ -136,5 +136,9 @@ class ExperimentExecutionDTO {
 
 		}
 	}
+	
+	def isFinished() { 
+		executionStatus.equals(ExecutionStatusDTO.FINISHED) || executionStatus.equals(ExecutionStatusDTO.FAILED) || executionStatus.equals(ExecutionStatusDTO.CANCELLED)
+	}
 
 }

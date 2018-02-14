@@ -104,9 +104,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 						val sendToDohkoJob = new Job("Sending job to execution ...") {
 
-	
-	
-	override run(IProgressMonitor progressMonitor) {
+							override run(IProgressMonitor progressMonitor) {
 								progressMonitor.beginTask("Sending job to execution ...", 100)
 								logger.info(String.format("Generating artifacts for %s", file.getName()));
 
@@ -138,7 +136,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 								jsonApplicationDescriptorFile = new File(
 									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
 										File.separator + "applicationDescriptor.json")
-										
+
 								logger.info(String.format("Converting file %s to application descriptor object",
 									applicationDescriptorFile.getName()));
 
@@ -176,8 +174,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 						val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
 
-	
-	override run(IProgressMonitor progressMonitor) {
+							override run(IProgressMonitor progressMonitor) {
 								val jobStatus = response.readEntity(JobStatus);
 
 								jobId = jobStatus.getId();
@@ -190,8 +187,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 								executionFolder.mkdirs();
 
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
-								
-								
+
 								copyToFolder(jsonApplicationDescriptorFile, executionFolder);
 								copyToFolder(applicationDescriptorFile, executionFolder);
 								copyToFolder(jsonFile, executionFolder);
