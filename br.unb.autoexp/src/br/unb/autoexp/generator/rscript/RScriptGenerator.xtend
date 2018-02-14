@@ -418,7 +418,7 @@ class RScriptGenerator {
 	def String generateObjectOverview(Experiment experiment,ExperimentalObject object)
 	'''
 		<<«object.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable]»
+		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 			boxplot_«object.name»_«variable.name.convert» = ggplot(subset(json_data,(«FOR treatment:experiment.treatmentsInUse»treatment=='«treatment.name»' «IF !treatment.name.equals(experiment.treatmentsInUse.last.name)»|«ENDIF»«ENDFOR»)& object=='«object.name»'), aes(x =treatment , y = «variable.name.convert»)) +
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    

@@ -30,7 +30,7 @@ Experiment returns Experiment:
 	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
 	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
 	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
-	('Executions' '{' executions+=Execution ("," executions+=Execution)* '}')?
+	'Executions' '{' executions+=Execution ("," executions+=Execution)* '}'
 	('Analysis' analysis=Analysis)?
 	'Infrastructure' infrastructure=Infrastructure
 	'}';
@@ -143,7 +143,7 @@ AccessKey:
 
 
 OnFinishType:
-	typeName=('NONE' | 'TERMINATE' );
+	typeName=('NONE' | 'SHUTDOWN' |'TERMINATE' );
 Abstract returns Abstract:
 	Abstract_Impl | SimpleAbstract | StructuredAbstract;
 
@@ -184,10 +184,12 @@ Analysis returns Analysis:
 ExperimentalObject returns ExperimentalObject:
 	{ExperimentalObject}
 	name=ID
+	'{'
 	'description' description=STRING
 	('group' objectGroup=[ObjectGroup|ID])?
 	('parameters' '{' parameters+=Parameter ("," parameters+=Parameter)* '}')?
 	('files' '{' files+=File ("," files+=File)* '}')?
+	'}'
 ;
 Abstract_Impl returns Abstract:
 	{Abstract};

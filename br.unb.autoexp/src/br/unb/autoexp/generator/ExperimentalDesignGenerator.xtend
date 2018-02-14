@@ -6,7 +6,7 @@ import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.File
 import br.unb.autoexp.autoExp.ResearchHypothesis
 import br.unb.autoexp.autoExp.Treatment
-import br.unb.autoexp.generator.dto.ExecutionDTO
+import br.unb.autoexp.generator.dto.ExecutionDTO2
 import br.unb.autoexp.generator.dto.FileDTO
 import com.google.common.collect.Lists
 import java.util.ArrayList
@@ -73,14 +73,14 @@ class ExperimentalDesignGenerator {
 	}
 
 	def designExecutions(Experiment experiment) {
-		val executions = new ArrayList<ExecutionDTO>()
+		val executions = new ArrayList<ExecutionDTO2>()
 		experiment.treatmentsInUse.forEach [ treatment |
 			treatment.experimentalObjects.forEach [ obj |
 				val execution = treatment.applyTreatmentToObject(obj)
 				
 				val depVariables=treatment.getDependentVariables.removeDuplicates.filter[instrument!==null]
 				depVariables.forEach[
-				    var ExecutionDTO exec=execution.copy
+				    var ExecutionDTO2 exec=execution.copy
 					var result=""
 									    
 				    if(!exec.files.filter[generated].isNullOrEmpty){
@@ -109,7 +109,7 @@ class ExperimentalDesignGenerator {
 
 	def designExecutionsRepeatedWithNumberOfRuns(Experiment experiment) {
 		if(experiment.experimentalDesign.runs == 0) experiment.experimentalDesign.runs = 1
-		val executions = new ArrayList<ExecutionDTO>()
+		val executions = new ArrayList<ExecutionDTO2>()
 		experiment.designExecutions.forEach [ execution |
 			for (i : 0 ..< experiment.experimentalDesign.runs) {
 
@@ -122,7 +122,7 @@ class ExperimentalDesignGenerator {
 
 	def applyTreatmentToObject(Treatment treatment, ExperimentalObject object) {
 
-		val execution = new ExecutionDTO()
+		val execution = new ExecutionDTO2()
 
 		execution.cmd = treatment.execution.cmd.replaceParameter(treatment, object)
 		execution.name = treatment.execution.name
@@ -145,7 +145,7 @@ class ExperimentalDesignGenerator {
 		execution.resolveFiles(treatment, object)
 	}
 
-	def resolveFiles(ExecutionDTO execution, Treatment treatment, ExperimentalObject object) {
+	def resolveFiles(ExecutionDTO2 execution, Treatment treatment, ExperimentalObject object) {
 		var result = new String(execution.cmd)
 		val pattern = "\\$\\{[^\\}]*\\}"
 		var m = Pattern.compile(pattern).matcher(result)
@@ -171,8 +171,8 @@ class ExperimentalDesignGenerator {
 			var file = new FileDTO()
 			file.setGenerated(false)
 			file.name = name
-			file.source = source
-			file.dest = dest
+			file.source = source.replaceParameter(treatment,object)
+			file.dest = dest.replaceParameter(treatment,object)
 			file.checksum = checksum
 		
 			file
@@ -180,7 +180,7 @@ class ExperimentalDesignGenerator {
 		execution
 	}
 
-	def resolveFileParameter(List<File> files, ExecutionDTO execution, String[] split, String group) {
+	def resolveFileParameter(List<File> files, ExecutionDTO2 execution, String[] split, String group) {
 		val actualParameter = group.substring(2, group.length - 1)
 		switch split.head {
 			case "file": {
