@@ -74,6 +74,7 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 			case RUNNING: ExecutionStatusDTO.RUNNING
 			case FINISHED: ExecutionStatusDTO.FINISHED
 			case FAILED: ExecutionStatusDTO.FAILED
+			case CANCELLED: ExecutionStatusDTO.CANCELLED
 		}
 
 	}
@@ -85,6 +86,7 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 			case RUNNING: ExecutionStatus.RUNNING
 			case FINISHED: ExecutionStatus.FINISHED
 			case FAILED: ExecutionStatus.FAILED
+			case CANCELLED: ExecutionStatus.CANCELLED
 		}
 	}
 

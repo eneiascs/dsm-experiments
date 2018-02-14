@@ -21,6 +21,7 @@ class ExperimentDesignDTO {
 	int running
 	int finished
 	int failed
+	int cancelled
 
 	Date creationDate
 	Date lastUpdateDate
@@ -42,6 +43,7 @@ class ExperimentDesignDTO {
 		this.running = builder.running
 		this.finished = builder.finished
 		this.failed = builder.failed
+		this.cancelled = builder.cancelled
 		this.creationDate = builder.creationDate
 		this.lastUpdateDate = builder.lastUpdateDate
 	}
@@ -69,7 +71,7 @@ class ExperimentDesignDTO {
 		int running
 		int finished
 		int failed
-
+		int cancelled
 		Date creationDate
 		Date lastUpdateDate
 
@@ -127,6 +129,10 @@ class ExperimentDesignDTO {
 		}
 		def Builder failed(int failed) {
 			this.failed = failed
+			this
+		}
+		def Builder cancelled(int cancelled) {
+			this.cancelled = cancelled
 			this
 		}
 		def Builder lastUpdateDate(Date lastUpdateDate) {

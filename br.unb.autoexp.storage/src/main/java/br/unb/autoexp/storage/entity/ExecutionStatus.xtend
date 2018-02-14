@@ -9,6 +9,7 @@ enum ExecutionStatus {
     
     FAILED, 
     
+    CANCELLED,
     
     FINISHED; 
 	

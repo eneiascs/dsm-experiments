@@ -7,7 +7,9 @@ enum ExecutionStatusDTO {
     
     RUNNING, 
     
-    FAILED, 
+    FAILED,
+    
+    CANCELLED, 
     
     
     FINISHED; 

@@ -1,6 +1,5 @@
 package br.unb.autoexp.storage.service.impl
 
-import br.unb.autoexp.storage.entity.ExecutionStatus
 import br.unb.autoexp.storage.entity.ExperimentDesign
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentDesignDTO
@@ -62,6 +61,7 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 			updated.running,
 			updated.finished,
 			updated.failed,
+			updated.cancelled,
 			new Date()
 		)
 		updated = repository.save(updated);
@@ -80,7 +80,7 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 			experimentDesign.running = tasks.filter[executionStatus.equals(ExecutionStatusDTO.RUNNING)].toList.size
 			experimentDesign.finished =tasks.filter[executionStatus.equals(ExecutionStatusDTO.FINISHED)].toList.size
 			experimentDesign.failed = tasks.filter[executionStatus.equals(ExecutionStatusDTO.FAILED)].toList.size
-
+			experimentDesign.cancelled = tasks.filter[executionStatus.equals(ExecutionStatusDTO.CANCELLED)].toList.size
 		}
 		experimentDesign
 	}
@@ -99,7 +99,7 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 			null
 		}else{
 		ExperimentDesignDTO.builder.id(model.id).jobId(model.jobId).name(model.name).fileName(model.fileName).design(
-			model.design).runs(model.runs).numberOfTasks(model.numberOfTasks).notReceived(model.notReceived).pending(model.pending).running(model.running).finished(model.finished).failed(model.failed).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).build()
+			model.design).runs(model.runs).numberOfTasks(model.numberOfTasks).notReceived(model.notReceived).pending(model.pending).running(model.running).finished(model.finished).failed(model.failed).cancelled(model.cancelled).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).build()
 			
 			}
 	}

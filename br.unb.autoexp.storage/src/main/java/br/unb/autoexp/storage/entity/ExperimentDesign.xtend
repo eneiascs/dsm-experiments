@@ -19,6 +19,7 @@ class ExperimentDesign {
 	int running
 	int finished
 	int failed
+	int cancelled
 	
 	Date creationDate
 	Date lastUpdateDate
@@ -40,11 +41,12 @@ class ExperimentDesign {
 		this.running = builder.running
 		this.finished = builder.finished
 		this.failed = builder.failed
+		this.cancelled = builder.cancelled
 		this.creationDate = builder.creationDate
 		this.lastUpdateDate=builder.lastUpdateDate
 	}
 
-	def update(String jobId, String name, String design, String fileName,int runs,int numberOfTasks,int notReceived,int pending,int running,int finished,int failed, Date lastUpdateDate) {
+	def update(String jobId, String name, String design, String fileName,int runs,int numberOfTasks,int notReceived,int pending,int running,int finished,int failed, int cancelled, Date lastUpdateDate) {
 		this.jobId = jobId
 		this.name = name
 		this.design = design
@@ -57,6 +59,8 @@ class ExperimentDesign {
 		this.running = running
 		this.finished =finished
 		this.failed = failed
+		this.cancelled = cancelled
+		
 		this.lastUpdateDate = lastUpdateDate
 
 	}
@@ -82,6 +86,7 @@ class ExperimentDesign {
 		int running
 		int finished
 		int failed
+		int cancelled
 		Date creationDate
 		Date lastUpdateDate
 
@@ -137,6 +142,10 @@ class ExperimentDesign {
 		}
 		def Builder failed(int failed) {
 			this.failed = failed
+			this
+		}
+		def Builder cancelled(int cancelled) {
+			this.cancelled = cancelled
 			this
 		}
 		def Builder lastUpdateDate(Date lastUpdateDate) {
