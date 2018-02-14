@@ -65,19 +65,19 @@ class AutoExpGeneratorTest {
 							 	product description "Product"  factor strategy parameters{argument "PRODUCT"} execution reanaEvaluator	
 							 	}
 							 Objects { 
-							 	intercloud0 description "Intercloud"  parameters {
-							 		spl "intercloud", evolution "0"},
-							 	lift0 description "Lift"  parameters {
-							 		spl "lift", evolution "0"}, 
+							 	intercloud0 {description "Intercloud"  parameters {
+							 		spl "intercloud", evolution "0"}},
+							 	lift0 {description "Lift"  parameters {
+							 		spl "lift", evolution "0"}}, 
 							 		
-							 	bsn0 description "BSN"  parameters {
-							 		spl "bsn", evolution "0"} , 	 
-							 	eMail0 description "Email"  parameters {
-							 		spl "email", evolution "0"}, 	 
-							 	tankwar0 description "Tank War"  parameters {
-							 		spl "tankwar", evolution "0"}, 	 
-							 	minepump0 description "Minepump" parameters {
-							 		spl "minepump", evolution "0"} 	 
+							 	bsn0 {description "BSN"  parameters {
+							 		spl "bsn", evolution "0"}} , 	 
+							 	eMail0 {description "Email"  parameters {
+							 		spl "email", evolution "0"}}, 	 
+							 	tankwar0 {description "Tank War"  parameters {
+							 		spl "tankwar", evolution "0"}}, 	 
+							 	minepump0 {description "Minepump" parameters {
+							 		spl "minepump", evolution "0"}} 	 
 							 			
 							 }
 							 	    
@@ -586,7 +586,7 @@ class AutoExpGeneratorTest {
 								   	  		
 							
 							}
-							Objects { lift description "",bsn description ""} 	
+							Objects { lift {description ""},bsn {description ""}} 	
 							
 							Executions { 
 								cpuinfo { 
@@ -785,7 +785,7 @@ class AutoExpGeneratorTest {
  							   	  		
  						
  						}
- 						Objects {lift description "",bsn description ""} 	
+ 						Objects { lift {description ""},bsn {description ""}} 	
  						
  						Executions { 
  							cpuinfo { 
@@ -865,7 +865,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects {lift description "",bsn description ""} 	
+				Objects { lift {description ""},bsn {description ""}} 	
 				
 				Executions { helloWorldFeatureFamily { 
 						
@@ -964,7 +964,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects {lift description "",bsn description ""} 	
+				Objects { lift {description ""},bsn {description ""}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1065,7 +1065,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects {lift description "Lift",bsn description "BSN"} 	
+				Objects { lift {description ""},bsn {description ""}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1150,7 +1150,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects {lift description ""} 	
+				Objects {lift {description ""}}	
 				
 				Executions { helloWorld { 
 						
@@ -1224,7 +1224,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects {lift description "",bsn description ""} 	
+				Objects { lift {description ""},bsn {description ""}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1307,10 +1307,10 @@ class AutoExpGeneratorTest {
 				
 				}
 				Objects { 
-					intercloud description "" parameters {
-						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-					lift description "" parameters {
-						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+					intercloud {description "" parameters {
+						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+					lift {description "" parameters {
+						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 					 	
 				}
 				Executions { helloWorld { 
@@ -1379,7 +1379,7 @@ class AutoExpGeneratorTest {
 				
 				}
 				Objects { 
-					intercloud description "", lift  description ""	
+					intercloud {description ""}, lift  {description ""}	
 					
 				}
 				Executions { helloWorld { 
@@ -1469,7 +1469,7 @@ class AutoExpGeneratorTest {
 					
 					}
 					Objects { 
-						O60341 description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}} 
+						O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}} 
 					}
 					
 					
@@ -1563,8 +1563,8 @@ class AutoExpGeneratorTest {
 					
 					}
 					Objects { 
-						O60341 description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}},
-						O60342 description "" files {{name "query" source "$HOME/sequences/O60342.fasta"}} 
+						O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}},
+						O60342 {description "" files {{name "query" source "$HOME/sequences/O60342.fasta"}}} 
 					}
 					
 					
@@ -1674,7 +1674,7 @@ class AutoExpGeneratorTest {
 				
 				}
 				Objects { 
-					O60341  description ""
+					O60341 { description ""}
 				}
 				
 				
@@ -1795,19 +1795,19 @@ Experiment reanaSpl {
 				
 				}
 				Objects { 
-					intercloud description "" parameters {
-						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"},
-					lift description "" parameters {
-						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}, 
+					intercloud {description "" parameters {
+						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}},
+					lift {description "" parameters {
+						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}}, 
 					 
-					bsn description "" parameters {
-						featureModel "bsn/0.txt",umlModel "bsn/0_behavioral_model.xml"}, 	 
-					eMail description "" parameters {
-						featureModel "email/0.txt",umlModel "email/0_behavioral_model.xml"}, 	 
-					tankwar description "" parameters {
-						featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}, 	 
-					minepump description "" parameters {
-						featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"} 	 
+					bsn {description "" parameters {
+						featureModel "bsn/0.txt",umlModel "bsn/0_behavioral_model.xml"}}, 	 
+					eMail {description "" parameters {
+						featureModel "email/0.txt",umlModel "email/0_behavioral_model.xml"}}, 	 
+					tankwar {description "" parameters {
+						featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}}, 	 
+					minepump {description "" parameters {
+						featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"}} 	 
 							
 				}
 				Executions { 
@@ -1942,19 +1942,19 @@ Experiment reanaSpl {
 	 	product description ""  factor strategy parameters{argument "arg"} execution reanaEvaluator	
 	 	}
 	 Objects { 
-	 	intercloud description "Intercloud" parameters {
-	 		featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"},
-	 	lift description "Lift" parameters {
-	 		featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}, 
+	 	intercloud {description "Intercloud" parameters {
+	 		featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}},
+	 	lift {description "Lift" parameters {
+	 		featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}}, 
 	 		
-	 	bsn description "BSN" parameters {
-	 		featureModel "bsn/0.txt",umlModel "bsn/0_behavioral_model.xml"}, 	 
-	 	eMail description "Email" parameters {
-	 		featureModel "email/0.txt",umlModel "email/0_behavioral_model.xml"}, 	 
-	 	tankwar description "Tank War" parameters {
-	 		featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}, 	 
-	 	minepump description "Minepump" parameters {
-	 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"} 	 
+	 	bsn {description "BSN" parameters {
+	 		featureModel "bsn/0.txt",umlModel "bsn/0_behavioral_model.xml"}}, 	 
+	 	eMail {description "Email" parameters {
+	 		featureModel "email/0.txt",umlModel "email/0_behavioral_model.xml"}}, 	 
+	 	tankwar {description "Tank War" parameters {
+	 		featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}}, 	 
+	 	minepump {description "Minepump" parameters {
+	 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"}} 	 
 	 }			
 	 
 	

@@ -69,7 +69,7 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "",lift description "",bsn description ""} 	
+				Objects { intercloud {description ""},lift {description ""},bsn {description ""}} 	
 				
 				Executions { 
 					cpuinfo { 
@@ -148,7 +148,7 @@ class AutoExpValidatorTest {
 						     	  		
 							
 						}
-							Objects { intercloud description "",lift description "",bsn description ""} 	
+							Objects { intercloud {description ""},lift {description ""},bsn {description ""}} 	
 							
 							Executions { 
 								cpuinfo { 
@@ -194,10 +194,10 @@ class AutoExpValidatorTest {
 				
 				}
 				Objects { 
-					intercloud  description "" parameters {
-						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-					lift description "" parameters {
-						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+					intercloud  {description "" parameters {
+						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+					lift {description "" parameters {
+						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 					} 	
 				
 				Executions { helloWorld { 
@@ -250,7 +250,7 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+				Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
 				
 				Executions { 
 					cpuinfo { 
@@ -308,7 +308,7 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+				Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
 								
 				Executions { 
 				  cpuinfo { 
@@ -356,7 +356,7 @@ class AutoExpValidatorTest {
 						   	  		
 					
 					}
-					Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+					Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
 							
 					Executions { 
 					  cpuinfo { 
@@ -409,7 +409,7 @@ class AutoExpValidatorTest {
 												   	  		
 											
 											}
-											Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+											Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
 											
 												
 										Executions { 
@@ -457,7 +457,7 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
+						Objects { intercloud {description ""},lift {description ""},email {description ""},bsn {description ""}} 	
 					Executions { 
 					  cpuinfo { 
 					  command "cat /proc/cpuinfo"
@@ -504,7 +504,7 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { intercloud description "",lift description "",email description "",bsn description ""} 	
+						Objects { intercloud {description ""},lift {description ""},email {description ""},bsn {description ""}} 	
 					Executions { 
 										  cpuinfo { 
 										  command "cat /proc/cpuinfo"
@@ -547,7 +547,7 @@ class AutoExpValidatorTest {
 												   	  		
 											
 											}
-											Objects { intercloud description "",lift description "",Email description "",bsn description ""} 	
+											Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
 											
 											Executions { helloWorld { 
 																	
@@ -595,10 +595,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -650,10 +650,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 					
 						Executions { helloWorld { 
@@ -701,10 +701,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} },
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -752,10 +752,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -804,10 +804,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "Intercloud" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "Lift" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "Intercloud" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "Lift" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -856,10 +856,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -908,10 +908,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -960,10 +960,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -1010,10 +1010,10 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "" parameters {
-								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} ,
-							lift description "" parameters {
-								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"} 
+							intercloud {description "" parameters {
+								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
+							lift {description "" parameters {
+								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
 						
 						Executions { helloWorld { 
@@ -1062,7 +1062,7 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "", lift description ""  	
+							intercloud {description ""}, lift {description ""}  	
 							}
 						
 						Executions { helloWorld { 
@@ -1116,7 +1116,7 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							intercloud description "", lift  description ""	
+							intercloud {description ""}, lift  {description ""}	
 							}
 						
 						Executions { helloWorld { 
@@ -1164,7 +1164,7 @@ class AutoExpValidatorTest {
 							
 							}
 							Objects { 
-								O60341 description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}} 
+								O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}} 
 							}
 							
 							
@@ -1212,7 +1212,7 @@ class AutoExpValidatorTest {
 							
 							}
 							Objects { 
-								O60341 description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}} 
+								O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}} 
 							}
 							
 							
@@ -1265,7 +1265,7 @@ class AutoExpValidatorTest {
 							
 							}
 							Objects { 
-								O60341  description ""
+								O60341  {description ""}
 							}
 							
 							
@@ -1282,7 +1282,7 @@ class AutoExpValidatorTest {
 							Infrastructure {
 								user{
 								  username "user"
-								  key "key"
+								  
 								}  
 							}
 						}
@@ -1318,7 +1318,7 @@ class AutoExpValidatorTest {
 						
 						}
 						Objects { 
-							O60341 description ""
+							O60341 {description ""}
 						}
 						
 						
@@ -1335,7 +1335,6 @@ class AutoExpValidatorTest {
 						Infrastructure {
 							user{
 							  username "user"
-							  key "key"
 							}  
 						}
 					}

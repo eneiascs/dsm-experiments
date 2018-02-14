@@ -58,7 +58,7 @@ class RScriptGeneratorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "Intercloud SPL",lift description "Lift SPL"} 	
+				Objects { intercloud {description "Intercloud SPL"},lift {description "Lift SPL"}} 	
 				
 				Executions { 
 					cpuinfo { 

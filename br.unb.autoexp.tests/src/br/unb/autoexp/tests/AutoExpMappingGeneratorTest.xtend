@@ -41,7 +41,7 @@ class AutoExpMappingGeneratorTest {
 					   	  		
 				
 				}
-				Objects { intercloud description "Intercloud",lift description "Lift"} 	
+				Objects { intercloud {description "Intercloud"},lift {description "Lift"}} 	
 				
 				Executions { helloWorldFeatureFamily { 
 						
