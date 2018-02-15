@@ -18,7 +18,8 @@
   <name>br.unb.autoexp.web.build</name>
   <modules>
 
-		
+		<module>../br.unb.autoexp.target</module>
+		<module>../br.unb.autoexp.web.target/neon</module>
 		<module>../br.unb.autoexp</module>
 <!-- 		<module>../br.unb.autoexp.tests</module>  -->
 		<module>../br.unb.autoexp.web</module>	
