@@ -375,8 +375,8 @@ class DohkoGenerator {
 	}
 
 	def compileDohko(Experiment experiment) {
-		val applicationDescriptor = generateApplicationDescriptor(experiment)
-		writeApplicationDescriptorToYaml(applicationDescriptor)
+		//val applicationDescriptor = generateApplicationDescriptor(experiment)
+		//writeApplicationDescriptorToYaml(applicationDescriptor)
 		'''
 			---
 			name: "«experiment.name»"
