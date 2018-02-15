@@ -248,7 +248,6 @@
       <plugin id="org.eclipse.xtext.xbase" autoStart="false" startLevel="5" />
       <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="5" />
       <plugin id="org.excalibur.client" autoStart="true" startLevel="0" />
-      <plugin id="org.excalibur.core" autoStart="true" startLevel="0" />
       <plugin id="org.excalibur.discovery" autoStart="true" startLevel="0" />
       <plugin id="org.excalibur.services" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="0" />
