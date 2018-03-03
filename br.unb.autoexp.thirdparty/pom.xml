@@ -204,15 +204,7 @@
 		</plugins>
 	</build>
 
-	<distributionManagement>
-		<repository>
-			<id>bintray-eneiascs-autoexp</id>
-			<name>eneiascs-autoexp</name>
-
-			<url>https://api.bintray.com/maven/eneiascs/eneiascs/autoexp/thirdparty/repository/${project.version};publish=1</url>
-		</repository>
-	</distributionManagement>
-
+	
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -220,14 +212,14 @@
 			<url>http://repo.reficio.org/maven/</url>
 		</pluginRepository>
 	</pluginRepositories>
-	<!-- <repositories> -->
-	<!-- <repository> -->
-	<!-- <id>eneiascs-snapshot-repository</id> -->
-	<!-- <url>https://github.com/eneiascs/maven-repository/raw/master/snapshots</url> -->
-	<!-- <snapshots> -->
-	<!-- <enabled>true</enabled> -->
-	<!-- </snapshots> -->
-	<!-- </repository> -->
+	<repositories>
+	<repository>
+		<id>eneiascs-snapshot-repository</id>
+		<url>https://github.com/eneiascs/maven-repository/raw/master/snapshots</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+	</repository>
 
 	<!-- <repository> -->
 	<!-- <id>eneiascs-releases-repo</id> -->
@@ -236,5 +228,5 @@
 	<!-- <enabled>false</enabled> -->
 	<!-- </snapshots> -->
 	<!-- </repository> -->
-	<!-- </repositories> -->
+	</repositories>
 </project>
