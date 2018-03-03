@@ -165,43 +165,69 @@ class NewModelTemplateWizard extends AbstractNewResourceWizard {
 				 		«treatment.name» description "«treatment.description»"  factor «treatment.factor.name» parameters{argument "arg"} execution reanaEvaluator«IF !experiment.treatments.last.name.equals(treatment.name)»,«ENDIF»	
 				 	«ENDFOR»   	 		 
 				 	}
-				 Objects { 
-				 	intercloud description "Intercloud" parameters {
-				 		featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"},
-				 	lift description "Lift" parameters {
-				 		featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}, 
-				 		
-				 	bsn description "BSN" parameters {
-				 		featureModel "bsn/0.txt",umlModel "bsn/0_behavioral_model.xml"}, 	 
-				 	eMail description "Email" parameters {
-				 		featureModel "email/0.txt",umlModel "email/0_behavioral_model.xml"}, 	 
-				 	tankwar description "Tank War" parameters {
-				 		featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}, 	 
-				 	minepump description "Minepump" parameters {
-				 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"} 	 
-				 			
-				 }
-				 Executions { 
-				 	reanaEvaluator { 
-				 		command "java -jar reanaSpl.jar --analysis-strategy='${treatment.parameter.argument}' --feature-model='${object.parameter.featureModel}' --uml-model='${object.parameter.umlModel}'" 
-				 		
-				 		files {
-				 		    {name "featureModel" path "${object.parameter.featureModel}"},
-				 		    { name "umlModel" path "${object.parameter.umlModel}" }
-				 		    
-				 		}
-				 		   
+				 	 Objects { 
+				 	 	intercloud {
+				 	 	    description "Intercloud" 
+				 	 	    parameters {
+				 	 		    featureModel "intercloud/0.txt",
+				 	 		    umlModel "intercloud/0_behavioral_model.xml"}
+				 	 	},
+				 	 	lift {
+				 	 	    description "Lift" 
+				 	 	    parameters {
+				 	 		    featureModel "lift/0.txt",
+				 	 		    umlModel "lift/0_behavioral_model.xml"
+				 	 	    } 
+				 	 	},	
+				 	 	bsn {
+				 	 	    description "BSN" 
+				 	 	    parameters {
+				 	 		    featureModel "bsn/0.txt",
+				 	 		    umlModel "bsn/0_behavioral_model.xml"
+				 	 	    } 	 
+				 	 	},
+				 	 	eMail {
+				 	 	    description "Email" 
+				 	 	    parameters {
+				 	 		    featureModel "email/0.txt",
+				 	 		    umlModel "email/0_behavioral_model.xml"
+				 	 	    } 	 
+				 	 	},
+				 	 	tankwar {
+				 	 	    description "Tank War" 
+				 	 	    parameters {
+				 	 		    featureModel "tankwar/0.txt",
+				 	 		    umlModel "tankwar/0_behavioral_model.xml"
+				 	 	    }   
+				 	 	 }, 	 
+				 	 	minepump {
+				 	 	    description "Minepump" 
+				 	 	    parameters {
+				 	 		featureModel "minepump/0.txt",
+				 	 		umlModel "minepump/0_behavioral_model.xml"
+				 	 	    } 	 
+				 	 	}		
+				 	 }
+				 	Executions { 
+				 	    reanaEvaluator { 
+				 	 	    command "java -jar reanaSpl.jar --analysis-strategy='${treatment.parameter.argument}' --feature-model='${object.parameter.featureModel}' --uml-model='${object.parameter.umlModel}'" 
+				 	 		
+				 	 		files {
+				 	 		    {
+				 	 		        name "featureModel" 
+				 	 		        source "${object.parameter.featureModel}"
+				 	 		    },
+				 	 		    {
+				 	 		        name "umlModel" 
+				 	 		        source "${object.parameter.umlModel}"
+				 	 		    }
+				 	 		}
+				 	 	}
 				 	}
-				 		
-				 		
-				 }
 				 Infrastructure {
 				 	user{
 				 	  username "vagrant"
-				 	  	 
-				 	  	    
 				 	}
-				 	 
 				 }
 				}
 		'''
