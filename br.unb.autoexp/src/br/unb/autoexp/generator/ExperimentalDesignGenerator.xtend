@@ -172,7 +172,8 @@ class ExperimentalDesignGenerator {
 			file.setGenerated(false)
 			file.name = name
 			file.source = source.replaceParameter(treatment,object)
-			file.dest = dest.replaceParameter(treatment,object)
+			if(dest===null) file.dest="/opt/dohko/files/"+file.name
+			else file.dest = dest.replaceParameter(treatment,object)
 			file.checksum = checksum
 		
 			file
