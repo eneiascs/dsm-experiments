@@ -214,8 +214,8 @@ class AutoExpParsingTest {
 		"ssearch36".assertEquals(applicationDescriptor.getApplications().head.name)
 		"ssearch36 -d 0 ${query} ${database}".assertEquals(applicationDescriptor.getApplications().head.commandLine)
 		2.assertEquals(applicationDescriptor.getApplications().head.files.size)
-		"query".assertEquals(applicationDescriptor.getApplications().head.files.head.name)
-		"$HOME/sequences/O60341.fasta".assertEquals(applicationDescriptor.getApplications().head.files.head.source)
+		"query".assertEquals(applicationDescriptor.getApplications().head.files.head.getName())
+		"$HOME/sequences/O60341.fasta".assertEquals(applicationDescriptor.getApplications().head.files.head.getSource())
 		"NO".assertEquals(applicationDescriptor.getApplications().head.files.head.generated.name)
 	}		
 	@Test

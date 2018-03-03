@@ -642,14 +642,14 @@ class AutoExpGeneratorTest {
 				user:
 				  username: "user"
 				  keys:
-				    - name: "key"
-				      private-key-material: "xxx"
-				      public-key-material: "yyy"
-				      fingerprint: "zzz"
-				    - name: "key2"
-				      private-key-material: "xxx2"
-				      public-key-material: "yyy2"
-				      fingerprint: "zzz2"
+				  - name: "key"
+				    private-key-material: "xxx"
+				    public-key-material: "yyy"
+				    fingerprint: "zzz"
+				  - name: "key2"
+				    private-key-material: "xxx2"
+				    public-key-material: "yyy2"
+				    fingerprint: "zzz2"
 				requirements:
 				  cpu: 1
 				  memory: 2
@@ -680,10 +680,10 @@ class AutoExpGeneratorTest {
 				      - name: "name"
 				        status: "status"
 				    instance-types:
-				      - name: "micro"
-				        number-of-instances: 1
-				      - name: "large"
-				        number-of-instances: 1
+				    - name: "micro"
+				      number-of-instances: 1
+				    - name: "large"
+				      number-of-instances: 1
 				  - name: "ec3"
 				    provider:
 				      name: "amazon3"
@@ -1065,7 +1065,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects { lift {description ""},bsn {description ""}} 	
+				Objects { lift {description "Lift"},bsn {description "BSN"}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1495,7 +1495,7 @@ class AutoExpGeneratorTest {
 				user:
 				  username: "user"
 				  keys:
-				    - name: "key"
+				  - name: "key"
 				blocks:
 				  - applications:
 				    - name: "query1_O60341_0"
@@ -1590,7 +1590,7 @@ class AutoExpGeneratorTest {
 				user:
 				  username: "user"
 				  keys:
-				    - name: "key"
+				  - name: "key"
 				blocks:
 				  - applications:
 				    - name: "query1_O60341_0"
@@ -1705,7 +1705,7 @@ class AutoExpGeneratorTest {
 				user:
 				  username: "user"
 				  keys:
-				    - name: "key"
+				  - name: "key"
 				blocks:
 				  - applications:
 				    - name: "query1_O60341_0"
@@ -1833,7 +1833,7 @@ Experiment reanaSpl {
 				user:
 				  username: "user"
 				  keys:
-				    - name: "key"
+				  - name: "key"
 				blocks:
 				  - applications:
 				    - name: "featureFamily_intercloud_0"
