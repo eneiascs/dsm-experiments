@@ -71,7 +71,10 @@ class ExperimentalDesignGenerator {
 		experiment.researchHypotheses.map[treatments].flatten.map[experimentalObjects].flatten.toList.removeDuplicates
 
 	}
+	def List<ExperimentalObject> getObjectsInUse(ResearchHypothesis hypothesis) {
+		hypothesis.treatments.map[experimentalObjects].flatten.toList.removeDuplicates
 
+	}
 	def designExecutions(Experiment experiment) {
 		val executions = new ArrayList<ExecutionDTO2>()
 		experiment.treatmentsInUse.forEach [ treatment |
