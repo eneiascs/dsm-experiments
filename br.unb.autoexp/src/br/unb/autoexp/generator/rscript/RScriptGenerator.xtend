@@ -1,9 +1,12 @@
 package br.unb.autoexp.generator.rscript
 
+import br.unb.autoexp.autoExp.CustomDependentVariable
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.ResearchHypothesis
+import br.unb.autoexp.autoExp.ScaleType
 import br.unb.autoexp.autoExp.SimpleGoal
+import br.unb.autoexp.autoExp.Treatment
 import br.unb.autoexp.autoExp.impl.SimpleAbstractImpl
 import br.unb.autoexp.autoExp.impl.SimpleGoalImpl
 import br.unb.autoexp.autoExp.impl.StructuredAbstractImpl
@@ -11,7 +14,6 @@ import br.unb.autoexp.autoExp.impl.StructuredGoalImpl
 import br.unb.autoexp.generator.ExperimentalDesignGenerator
 import java.util.List
 import javax.inject.Inject
-import br.unb.autoexp.autoExp.Treatment
 
 class RScriptGenerator {
 @Inject extension ExperimentalDesignGenerator 
@@ -39,12 +41,15 @@ class RScriptGenerator {
 		json_data = fromJSON("data.json")
 «««		json_data =subset(json_data,(executionStatus=='FINISHED'))
 		
+		«FOR i:1..experiment.experimentalObjects.size»
+			json_data$objectOrder[json_data$object == '«experiment.experimentalObjects.get(i-1).name»'] = «i»
+		«ENDFOR»
 		
 		«FOR treatment:experiment.treatmentsInUse»
 			json_data$treatmentDescription[json_data$treatment == '«treatment.name»'] = '«treatment.description»'
 		«ENDFOR»
-		«FOR object:experiment.objectsInUse»
-			json_data$objectDescription[json_data$object == '«object.name»'] = '«object.description»'
+		«FOR object:experiment.experimentalObjects»
+			json_data$objectLabel[json_data$object == '«object.name»'] = '«IF object.value===null»«object.description»«ELSE»«object.value»«ENDIF»'
 		«ENDFOR»
 		
 		expectedRuns = «experiment.experimentalDesign.runs»
@@ -61,9 +66,45 @@ class RScriptGenerator {
 		
 		json_data$treatment = as.factor(json_data$treatment)
 		json_data$treatmentDescription = as.factor(json_data$treatmentDescription)
-		json_data$object = as.factor(json_data$object)
-		json_data$objectDescription = as.factor(json_data$objectDescription)
-		
+		json_data$object = as.factor(json_data$object)		
+		«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
+			json_data$objectLabel = as.factor(json_data$objectLabel)
+		«ELSE»
+			json_data$objectLabel = as.numeric(json_data$objectLabel)
+		«ENDIF»		
+		data_summary <- function(data, varname, groupnames){
+		  require(plyr)
+		  summary_func <- function(x, col){
+		    c(mean = mean(x[[col]], na.rm=TRUE),
+		      sd = sd(x[[col]], na.rm=TRUE))
+		  }
+		  data_sum<-ddply(data, groupnames, .fun=summary_func,
+		                  varname)
+		  data_sum <- rename(data_sum, c("mean" = varname))
+		 return(data_sum)
+		}
+		breaks_continuous <- function(data, steps){
+		  diff<-max(data)-min(data) 
+		  step_size<-diff/steps
+		  step<-min(data)
+		  breaks<-c(step)
+		  for (i in 1:steps){
+		    step<-step+step_size
+		    breaks<-c(breaks,step)
+		  }
+		  return(breaks)
+		}  
+		breaks_log <- function(data, steps){
+		  diff<-max(data)/min(data) 
+		  base<-diff^(1/steps)
+		  exp<-log(min(data),base)
+		  breaks<-c(round(base^exp))
+		  for (i in 1:steps){
+		    exp<-exp+1
+		    breaks<-c(breaks,round(base^exp))
+		  }
+		  return(breaks)
+		}  
 		@
 		\section{Description}
 		«experiment.description»
@@ -76,11 +117,11 @@ class RScriptGenerator {
 		
 		«experiment.generateOverview»
 
-		\subsection{Treatments Overview}		
-		«FOR treatment:experiment.treatmentsInUse»
-			\subsubsection{Overview for «treatment.description»}
-			«experiment.generateOverview(treatment)»
-		«ENDFOR»
+«««		\subsection{Treatments Overview}		
+«««		«FOR treatment:experiment.treatmentsInUse»
+«««			\subsubsection{Overview for «treatment.description»}
+«««			«experiment.generateOverview(treatment)»
+«««		«ENDFOR»
 		
 		
 		\subsection{Objects Overview}
@@ -133,8 +174,7 @@ class RScriptGenerator {
 	
 	def String generate(ResearchHypothesis hypothesis){
 		'''
-«««		Research hypothesis «hypothesis.name»: «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment1.description» is «IF hypothesis.formula.operator.typeName.equals("=")»equals«ENDIF»«IF hypothesis.formula.operator.typeName.equals("<")»lower«ENDIF»«IF hypothesis.formula.operator.typeName.equals(">")»greater«ENDIF» than «hypothesis.formula.depVariable.description» for «hypothesis.formula.treatment2.description». «IF hypothesis.goal!==null» Related to «hypothesis.goal.name».«ENDIF» 
-							
+		
 		 «hypothesis.initializeResults»
 		 
 		 «hypothesis.generateOverview»
@@ -155,21 +195,12 @@ class RScriptGenerator {
 		'''
 	}	
 	def String generateOverview(ResearchHypothesis hypothesis){
+		val experiment=hypothesis.eContainer as Experiment
 		'''			
 			<<overview_«hypothesis.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-			DF=subset(json_data,«FOR object:hypothesis.objectsInUse BEFORE "(" SEPARATOR "|" AFTER ")"»object=='«object.name»'«ENDFOR» & (treatment=='«hypothesis.formula.treatment1.name»'|treatment=='«hypothesis.formula.treatment2.name»'))
-			DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$«hypothesis.formula.depVariable.name.convert», DF$objectDescription, mean)))])   
-			boxplot_overview_«hypothesis.name» = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = «hypothesis.formula.depVariable.name.convert»)) +
-				geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-				theme_bw() +    
-				scale_x_discrete(name = "Experimental Object")+
-				ggtitle("«hypothesis.formula.depVariable.description» Overview") + 
-				ylab("«hypothesis.formula.depVariable.description» «IF hypothesis.formula.depVariable.unit!==null»(«hypothesis.formula.depVariable.unit»)«ENDIF»") +
-				scale_fill_discrete(guide = guide_legend(title = NULL))
-				
-			boxplot_overview_«hypothesis.name»
-			@					
-					
+			DF<-data_summary(subset(json_data,«FOR object:hypothesis.objectsInUse BEFORE "(" SEPARATOR "|" AFTER ")"»object=='«object.name»'«ENDFOR» & (treatment=='«hypothesis.formula.treatment1.name»'|treatment=='«hypothesis.formula.treatment2.name»')), varname="«hypothesis.formula.depVariable.name.convert»", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+			«generatePlotOverview(experiment, hypothesis.formula.depVariable)»
+			@
 		'''
 	}
 	
@@ -485,28 +516,53 @@ class RScriptGenerator {
 		
 		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 			<<overview_«variable.name.convert», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-			DF=subset(json_data,«FOR object:experiment.objectsInUse BEFORE "(" SEPARATOR "|" AFTER ")"»object=='«object.name»'«ENDFOR»)
-			DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$«variable.name.convert», DF$objectDescription, mean)))])   
-			boxplot_overview_«variable.name.convert» = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = «variable.name.convert»)) +
-				geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-				theme_bw() +    
-				scale_x_discrete(name = "Experimental Object")+
-				ggtitle("«variable.description» Overview") + 
-				ylab("«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»") +
-				scale_fill_discrete(guide = guide_legend(title = NULL))
-				
-			boxplot_overview_«variable.name.convert»
-			@					
+			DF<-data_summary(subset(json_data,«FOR object:experiment.objectsInUse BEFORE "(" SEPARATOR "|" AFTER ")"»object=='«object.name»'«ENDFOR»), varname="«variable.name.convert»", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+			«generatePlotOverview(experiment, variable)»
 		«ENDFOR»			
 	'''
+	
+	protected def CharSequence generatePlotOverview(Experiment experiment, CustomDependentVariable variable)
+		'''«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
+			DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+		«ENDIF»
+		
+		ggplot(DF, aes(x=objectLabel, y=«variable.name.convert», group=treatmentDescription, color=treatmentDescription)) + 
+		    geom_errorbar(aes(ymin=«variable.name.convert»-sd, ymax=«variable.name.convert»+sd), width=.1, linetype=3) +
+		    geom_line() + geom_point()+
+		   scale_color_brewer(palette="Paired") +
+		   theme_bw() +
+		  «IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
+		  	scale_x_discrete(name = "«experiment.objectsDescription»")+
+		  «ENDIF»
+		  «IF experiment.objectsScaleType.equals(ScaleType.ABSOLUTE)»
+		  	scale_x_continuous(name = "«experiment.objectsDescription»", breaks_continuous(data=DF$objectLabel,steps=10))+
+		  «ENDIF»
+		  «IF experiment.objectsScaleType.equals(ScaleType.LOGARITHMIC)»
+		  	scale_x_log10(name = "«experiment.objectsDescription»(log scale)", breaks_log(data=DF$objectLabel,steps=10))+
+		  «ENDIF»
+		  
+		  «IF variable.scaleType.equals(ScaleType.NOMINAL)»
+		  	scale_y_discrete(name = "«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»")+
+		  «ENDIF»
+		  «IF variable.scaleType.equals(ScaleType.ABSOLUTE)»
+		  	scale_y_continuous(name = "«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»")+
+		  «ENDIF»
+		  «IF variable.scaleType.equals(ScaleType.LOGARITHMIC)»
+		  	scale_y_log10(name = "«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»(log scale)")+
+		  «ENDIF»			  
+		  ggtitle("«variable.description» Overview") + 
+		  theme(legend.title = element_blank())	
+		@
+				'''
+	
 	
 	def String generateOverview(Experiment experiment, Treatment treatment)
 	'''
 		<<«treatment.name», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 			DF=subset(json_data,«FOR object:treatment.experimentalObjects BEFORE "(" SEPARATOR "|" AFTER ")"»object=='«object.name»'«ENDFOR» & treatment=='«treatment.name»')
-			DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$«variable.name.convert», DF$objectDescription, mean)))])   
-			boxplot_«treatment.name»_«variable.name.convert» = ggplot(DF, aes(x =objectDescription , y = «variable.name.convert»)) +
+			DF$objectLabel = ordered(DF$objectLabel, levels=levels(DF$objectLabel)[order(as.numeric(by(DF$«variable.name.convert», DF$objectLabel, mean)))])   
+			boxplot_«treatment.name»_«variable.name.convert» = ggplot(DF, aes(x =objectLabel , y = «variable.name.convert»)) +
 				geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
 				theme_bw() +    
 				scale_x_discrete(name = "Experimental Object")+
