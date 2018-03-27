@@ -5,6 +5,7 @@ import br.unb.autoexp.tests.helper.AutoExpGeneratorTestHelper
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -64,7 +65,7 @@ class AutoExpGeneratorTest {
 							 	familyProduct description "Family Product"  factor strategy parameters{argument "FAMILY_PRODUCT"} execution reanaEvaluator,
 							 	product description "Product"  factor strategy parameters{argument "PRODUCT"} execution reanaEvaluator	
 							 	}
-							 Objects { 
+							 Objects {description "SPL" scaleType Nominal { 
 							 	intercloud0 {description "Intercloud"  parameters {
 							 		spl "intercloud", evolution "0"}},
 							 	lift0 {description "Lift"  parameters {
@@ -78,7 +79,7 @@ class AutoExpGeneratorTest {
 							 		spl "tankwar", evolution "0"}}, 	 
 							 	minepump0 {description "Minepump" parameters {
 							 		spl "minepump", evolution "0"}} 	 
-							 			
+							 	}		
 							 }
 							 	    
 							  
@@ -586,7 +587,7 @@ class AutoExpGeneratorTest {
 								   	  		
 							
 							}
-							Objects { lift {description ""},bsn {description ""}} 	
+							Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
 							
 							Executions { 
 								cpuinfo { 
@@ -785,7 +786,7 @@ class AutoExpGeneratorTest {
  							   	  		
  						
  						}
- 						Objects { lift {description ""},bsn {description ""}} 	
+ 						Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
  						
  						Executions { 
  							cpuinfo { 
@@ -865,7 +866,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects { lift {description ""},bsn {description ""}} 	
+				Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
 				
 				Executions { helloWorldFeatureFamily { 
 						
@@ -964,7 +965,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects { lift {description ""},bsn {description ""}} 	
+				Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1065,7 +1066,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects { lift {description "Lift"},bsn {description "BSN"}} 	
+				Objects {description "SPL" scaleType Nominal { lift {description "Lift"},bsn {description "BSN"}}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1150,7 +1151,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects {lift {description ""}}	
+				Objects {description "SPL" scaleType Nominal {lift {description ""}}}	
 				
 				Executions { helloWorld { 
 						
@@ -1224,7 +1225,7 @@ class AutoExpGeneratorTest {
 					   	  		
 				
 				}
-				Objects { lift {description ""},bsn {description ""}} 	
+				Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
 				
 				Executions { helloWorld { 
 						
@@ -1306,12 +1307,12 @@ class AutoExpGeneratorTest {
 					 
 				
 				}
-				Objects { 
+				Objects {description "SPL" scaleType Nominal { 
 					intercloud {description "" parameters {
 						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 					lift {description "" parameters {
 						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
-					 	
+					} 	
 				}
 				Executions { helloWorld { 
 					command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
@@ -1378,9 +1379,9 @@ class AutoExpGeneratorTest {
 					 
 				
 				}
-				Objects { 
+				Objects {description "SPL" scaleType Nominal { 
 					intercloud {description ""}, lift  {description ""}	
-					
+					}	
 				}
 				Executions { helloWorld { 
 					command "echo 'Hello World ${treatment.name} ${object.name}'" result {name "results" source "$HOME/results/${object.name}_results.json"}
@@ -1468,10 +1469,10 @@ class AutoExpGeneratorTest {
 						 
 					
 					}
-					Objects { 
+					Objects {description "SPL" scaleType Nominal { 
 						O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}} 
+						}
 					}
-					
 					
 					Executions { 
 						ssearch36 { 
@@ -1562,11 +1563,11 @@ class AutoExpGeneratorTest {
 						 
 					
 					}
-					Objects { 
+					Objects {description "SPL" scaleType Nominal { 
 						O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}},
 						O60342 {description "" files {{name "query" source "$HOME/sequences/O60342.fasta"}}} 
+						}
 					}
-					
 					
 					Executions { 
 						ssearch36 { 
@@ -1673,10 +1674,10 @@ class AutoExpGeneratorTest {
 					 
 				
 				}
-				Objects { 
+				Objects {description "SPL" scaleType Nominal{ 
 					O60341 { description ""}
+					}
 				}
-				
 				
 				Executions { 
 					ssearch36 { 
@@ -1794,7 +1795,7 @@ Experiment reanaSpl {
 					 
 				
 				}
-				Objects { 
+				Objects {description "SPL" scaleType Nominal { 
 					intercloud {description "" parameters {
 						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}},
 					lift {description "" parameters {
@@ -1808,7 +1809,7 @@ Experiment reanaSpl {
 						featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}}, 	 
 					minepump {description "" parameters {
 						featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"}} 	 
-							
+					}		
 				}
 				Executions { 
 					reanaEvaluator { 
@@ -1941,7 +1942,7 @@ Experiment reanaSpl {
 	 	familyProduct description ""  factor strategy parameters{argument "arg"} execution reanaEvaluator,
 	 	product description ""  factor strategy parameters{argument "arg"} execution reanaEvaluator	
 	 	}
-	 Objects { 
+	 Objects {description "SPL" scaleType Nominal { 
 	 	intercloud {description "Intercloud" parameters {
 	 		featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}},
 	 	lift {description "Lift" parameters {
@@ -1955,8 +1956,8 @@ Experiment reanaSpl {
 	 		featureModel "tankwar/0.txt",umlModel "tankwar/0_behavioral_model.xml"}}, 	 
 	 	minepump {description "Minepump" parameters {
 	 		featureModel "minepump/0.txt",umlModel "minepump/0_behavioral_model.xml"}} 	 
-	 }			
-	 
+	 	}			
+	 }
 	
 	 
 	
@@ -2067,4 +2068,222 @@ Experiment reanaSpl {
 			applicationDescriptor.convert
 		]
 	}
+	
+	@Test
+	def void testPreProcessing() {
+		''' 
+			Experiment reanaSpl {
+				description "Reliability Analysis of Software Product Lines" 
+				     
+				Research Hypotheses {
+					RH1 {time featureFamily = featureProduct}
+				}
+				Experimental Design {
+				  	runs 2
+				}  
+				Dependent Variables {
+				    time { description "Analysis time" scaleType Absolute instrument timeInstrument }
+				}
+				Instruments {
+				    timeInstrument {command  "/usr/bin/time -f 'Elapsed Real Time (secs): %e'"  valueExpression "Elapsed Real Time (secs):"}
+				} 
+				Factors { 
+					strategy { description "Analysis Strategy" scaleType Nominal}
+				} 
+				Treatments { 
+				    featureFamily description "" factor strategy execution cat,
+					featureProduct description "" factor strategy execution cat
+				}
+				Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
+										 
+				Executions {
+					cat {command "cat /opt/dohko/${treatment.name}/${object.name}.dat" timeout 10 
+						preprocessing {
+							mkdir{command "mkdir -p /opt/dohko/${treatment.name}"},
+							echo{command "echo 'Treatment: ${treatment.name} Object: ${object.name}' >> /opt/dohko/${treatment.name}/${object.name}.dat"}
+						}
+					}
+				}						 
+				
+				Infrastructure {
+					user {
+						username "vagrant" 
+					}
+				}
+			}
+
+		''' => [
+			val applicationDescriptor = '''
+				---
+				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
+				user:
+				  username: "vagrant"
+				blocks:
+				  - applications:
+				    - name: "pre_mkdir_featureFamily_lift_0"
+				      command-line: "mkdir -p /opt/dohko/featureFamily"
+				    - name: "pre_echo_featureFamily_lift_0"
+				      command-line: "echo 'Treatment: featureFamily Object: lift' >> /opt/dohko/featureFamily/lift.dat"
+				    - name: "featureFamily_lift_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/lift.dat"
+				      timeout: 10
+				    - name: "pre_mkdir_featureFamily_lift_1"
+				      command-line: "mkdir -p /opt/dohko/featureFamily"
+				    - name: "pre_echo_featureFamily_lift_1"
+				      command-line: "echo 'Treatment: featureFamily Object: lift' >> /opt/dohko/featureFamily/lift.dat"
+				    - name: "featureFamily_lift_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/lift.dat"
+				      timeout: 10
+				  - applications:
+				    - name: "pre_mkdir_featureFamily_bsn_0"
+				      command-line: "mkdir -p /opt/dohko/featureFamily"
+				    - name: "pre_echo_featureFamily_bsn_0"
+				      command-line: "echo 'Treatment: featureFamily Object: bsn' >> /opt/dohko/featureFamily/bsn.dat"
+				    - name: "featureFamily_bsn_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/bsn.dat"
+				      timeout: 10
+				    - name: "pre_mkdir_featureFamily_bsn_1"
+				      command-line: "mkdir -p /opt/dohko/featureFamily"
+				    - name: "pre_echo_featureFamily_bsn_1"
+				      command-line: "echo 'Treatment: featureFamily Object: bsn' >> /opt/dohko/featureFamily/bsn.dat"
+				    - name: "featureFamily_bsn_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/bsn.dat"
+				      timeout: 10
+				  - applications:
+				    - name: "pre_mkdir_featureProduct_lift_0"
+				      command-line: "mkdir -p /opt/dohko/featureProduct"
+				    - name: "pre_echo_featureProduct_lift_0"
+				      command-line: "echo 'Treatment: featureProduct Object: lift' >> /opt/dohko/featureProduct/lift.dat"
+				    - name: "featureProduct_lift_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/lift.dat"
+				      timeout: 10
+				    - name: "pre_mkdir_featureProduct_lift_1"
+				      command-line: "mkdir -p /opt/dohko/featureProduct"
+				    - name: "pre_echo_featureProduct_lift_1"
+				      command-line: "echo 'Treatment: featureProduct Object: lift' >> /opt/dohko/featureProduct/lift.dat"
+				    - name: "featureProduct_lift_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/lift.dat"
+				      timeout: 10
+				  - applications:
+				    - name: "pre_mkdir_featureProduct_bsn_0"
+				      command-line: "mkdir -p /opt/dohko/featureProduct"
+				    - name: "pre_echo_featureProduct_bsn_0"
+				      command-line: "echo 'Treatment: featureProduct Object: bsn' >> /opt/dohko/featureProduct/bsn.dat"
+				    - name: "featureProduct_bsn_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/bsn.dat"
+				      timeout: 10
+				    - name: "pre_mkdir_featureProduct_bsn_1"
+				      command-line: "mkdir -p /opt/dohko/featureProduct"
+				    - name: "pre_echo_featureProduct_bsn_1"
+				      command-line: "echo 'Treatment: featureProduct Object: bsn' >> /opt/dohko/featureProduct/bsn.dat"
+				    - name: "featureProduct_bsn_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/bsn.dat"
+				      timeout: 10
+			'''
+			assertCompilesToWithFileExtension(applicationDescriptor,".yml")
+			applicationDescriptor.convert
+
+		]
+	}
+
+	@Test
+	def void testPostProcessing() {
+		''' 
+			Experiment reanaSpl {
+				description "Reliability Analysis of Software Product Lines" 
+				     
+				Research Hypotheses {
+					RH1 {time featureFamily = featureProduct}
+				}
+				Experimental Design {
+				  	runs 2
+				}  
+				Dependent Variables {
+				    time { description "Analysis time" scaleType Absolute instrument timeInstrument }
+				}
+				Instruments {
+				    timeInstrument {command  "/usr/bin/time -f 'Elapsed Real Time (secs): %e'"  valueExpression "Elapsed Real Time (secs):"}
+				} 
+				Factors { 
+					strategy { description "Analysis Strategy" scaleType Nominal}
+				} 
+				Treatments { 
+				    featureFamily description "" factor strategy execution cat,
+					featureProduct description "" factor strategy execution cat
+				}
+				Objects {description "SPL" scaleType Nominal { lift {description ""},bsn {description ""}}} 	
+										 
+				Executions {
+					cat {command "cat /opt/dohko/${treatment.name}/${object.name}.dat" timeout 10 
+						postprocessing {
+							rmdir{command "rm -f /opt/dohko/${treatment.name}/${object.name}.dat"}
+						}
+					}
+				}						 
+				
+				Infrastructure {
+					user {
+						username "vagrant" 
+					}
+				}
+			}
+		''' => [
+			val applicationDescriptor = '''
+				---
+				name: "reanaSpl"
+				description: "Reliability Analysis of Software Product Lines"
+				user:
+				  username: "vagrant"
+				blocks:
+				  - applications:
+				    - name: "featureFamily_lift_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/lift.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureFamily_lift_0"
+				      command-line: "rm -f /opt/dohko/featureFamily/lift.dat"
+				    - name: "featureFamily_lift_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/lift.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureFamily_lift_1"
+				      command-line: "rm -f /opt/dohko/featureFamily/lift.dat"
+				  - applications:
+				    - name: "featureFamily_bsn_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/bsn.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureFamily_bsn_0"
+				      command-line: "rm -f /opt/dohko/featureFamily/bsn.dat"
+				    - name: "featureFamily_bsn_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureFamily/bsn.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureFamily_bsn_1"
+				      command-line: "rm -f /opt/dohko/featureFamily/bsn.dat"
+				  - applications:
+				    - name: "featureProduct_lift_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/lift.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureProduct_lift_0"
+				      command-line: "rm -f /opt/dohko/featureProduct/lift.dat"
+				    - name: "featureProduct_lift_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/lift.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureProduct_lift_1"
+				      command-line: "rm -f /opt/dohko/featureProduct/lift.dat"
+				  - applications:
+				    - name: "featureProduct_bsn_0"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/bsn.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureProduct_bsn_0"
+				      command-line: "rm -f /opt/dohko/featureProduct/bsn.dat"
+				    - name: "featureProduct_bsn_1"
+				      command-line: "/usr/bin/time -f 'Elapsed Real Time (secs): %e' cat /opt/dohko/featureProduct/bsn.dat"
+				      timeout: 10
+				    - name: "post_rmdir_featureProduct_bsn_1"
+				      command-line: "rm -f /opt/dohko/featureProduct/bsn.dat"
+			'''
+			assertCompilesToWithFileExtension(applicationDescriptor,".yml")
+			applicationDescriptor.convert
+
+		]
+	}	
 }

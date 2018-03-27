@@ -58,7 +58,7 @@ class RScriptGeneratorTest {
 					   	  		
 				
 				}
-				Objects { intercloud {description "Intercloud SPL"},lift {description "Lift SPL"}} 	
+				Objects {description "SPL" scaleType Nominal { intercloud {description "Intercloud SPL"},lift {description "Lift SPL"}}} 	
 				
 				Executions { 
 					cpuinfo { 
@@ -110,11 +110,13 @@ class RScriptGeneratorTest {
 				 
 				json_data = fromJSON("data.json")
 				
+				json_data$objectOrder[json_data$object == 'intercloud'] = 1
+				json_data$objectOrder[json_data$object == 'lift'] = 2
 				
 				json_data$treatmentDescription[json_data$treatment == 'featureFamily'] = 'Feature Family'
 				json_data$treatmentDescription[json_data$treatment == 'featureProduct'] = 'Feature Product'
-				json_data$objectDescription[json_data$object == 'intercloud'] = 'Intercloud SPL'
-				json_data$objectDescription[json_data$object == 'lift'] = 'Lift SPL'
+				json_data$objectLabel[json_data$object == 'intercloud'] = 'Intercloud SPL'
+				json_data$objectLabel[json_data$object == 'lift'] = 'Lift SPL'
 				
 				expectedRuns = 1
 				json_data$time[json_data$executionStatus!='FINISHED']=NA
@@ -159,9 +161,41 @@ class RScriptGeneratorTest {
 				
 				json_data$treatment = as.factor(json_data$treatment)
 				json_data$treatmentDescription = as.factor(json_data$treatmentDescription)
-				json_data$object = as.factor(json_data$object)
-				json_data$objectDescription = as.factor(json_data$objectDescription)
-				
+				json_data$object = as.factor(json_data$object)		
+				json_data$objectLabel = as.factor(json_data$objectLabel)
+				data_summary <- function(data, varname, groupnames){
+				  require(plyr)
+				  summary_func <- function(x, col){
+				    c(mean = mean(x[[col]], na.rm=TRUE),
+				      sd = sd(x[[col]], na.rm=TRUE))
+				  }
+				  data_sum<-ddply(data, groupnames, .fun=summary_func,
+				                  varname)
+				  data_sum <- rename(data_sum, c("mean" = varname))
+				 return(data_sum)
+				}
+				breaks_continuous <- function(data, steps){
+				  diff<-max(data)-min(data) 
+				  step_size<-diff/steps
+				  step<-min(data)
+				  breaks<-c(step)
+				  for (i in 1:steps){
+				    step<-step+step_size
+				    breaks<-c(breaks,step)
+				  }
+				  return(breaks)
+				}  
+				breaks_log <- function(data, steps){
+				  diff<-max(data)/min(data) 
+				  base<-diff^(1/steps)
+				  exp<-log(min(data),base)
+				  breaks<-c(round(base^exp))
+				  for (i in 1:steps){
+				    exp<-exp+1
+				    breaks<-c(breaks,round(base^exp))
+				  }
+				  return(breaks)
+				}  
 				@
 				\section{Description}
 				Reliability Analysis of Software Product Lines
@@ -191,106 +225,51 @@ class RScriptGeneratorTest {
 				
 				
 				<<overview_time, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF=subset(json_data,(object=='intercloud'|object=='lift'))
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$time, DF$objectDescription, mean)))])   
-				boxplot_overview_time = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = time)) +
-					geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Analysis time Overview") + 
-					ylab("Analysis time ") +
-					scale_fill_discrete(guide = guide_legend(title = NULL))
-					
-				boxplot_overview_time
-				@					
+				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+						
+						ggplot(DF, aes(x=objectLabel, y=time, group=treatmentDescription, color=treatmentDescription)) + 
+						    geom_errorbar(aes(ymin=time-sd, ymax=time+sd), width=.1, linetype=3) +
+						    geom_line() + geom_point()+
+						   scale_color_brewer(palette="Paired") +
+						   theme_bw() +
+						  scale_x_discrete(name = "SPL")+
+						  
+						  scale_y_continuous(name = "Analysis time ")+
+						  ggtitle("Analysis time Overview") + 
+						  theme(legend.title = element_blank())	
+						@
 				<<overview_memory, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF=subset(json_data,(object=='intercloud'|object=='lift'))
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$memory, DF$objectDescription, mean)))])   
-				boxplot_overview_memory = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = memory)) +
-					geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Memory Consumption Overview") + 
-					ylab("Memory Consumption ") +
-					scale_fill_discrete(guide = guide_legend(title = NULL))
-					
-				boxplot_overview_memory
-				@					
+				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+						
+						ggplot(DF, aes(x=objectLabel, y=memory, group=treatmentDescription, color=treatmentDescription)) + 
+						    geom_errorbar(aes(ymin=memory-sd, ymax=memory+sd), width=.1, linetype=3) +
+						    geom_line() + geom_point()+
+						   scale_color_brewer(palette="Paired") +
+						   theme_bw() +
+						  scale_x_discrete(name = "SPL")+
+						  
+						  scale_y_continuous(name = "Memory Consumption ")+
+						  ggtitle("Memory Consumption Overview") + 
+						  theme(legend.title = element_blank())	
+						@
 				<<overview_cpu, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF=subset(json_data,(object=='intercloud'|object=='lift'))
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$cpu, DF$objectDescription, mean)))])   
-				boxplot_overview_cpu = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = cpu)) +
-					geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Cpu Consumption Overview") + 
-					ylab("Cpu Consumption ") +
-					scale_fill_discrete(guide = guide_legend(title = NULL))
-					
-				boxplot_overview_cpu
-				@					
+				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+						
+						ggplot(DF, aes(x=objectLabel, y=cpu, group=treatmentDescription, color=treatmentDescription)) + 
+						    geom_errorbar(aes(ymin=cpu-sd, ymax=cpu+sd), width=.1, linetype=3) +
+						    geom_line() + geom_point()+
+						   scale_color_brewer(palette="Paired") +
+						   theme_bw() +
+						  scale_x_discrete(name = "SPL")+
+						  
+						  scale_y_continuous(name = "Cpu Consumption ")+
+						  ggtitle("Cpu Consumption Overview") + 
+						  theme(legend.title = element_blank())	
+						@
 				
-				\subsection{Treatments Overview}		
-				\subsubsection{Overview for Feature Family}
-				<<featureFamily, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF=subset(json_data,(object=='intercloud'|object=='lift') & treatment=='featureFamily')
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$time, DF$objectDescription, mean)))])   
-				boxplot_featureFamily_time = ggplot(DF, aes(x =objectDescription , y = time)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Analysis time by Analysis Strategy for Feature Family") + 
-					ylab("Analysis time ")   
-					boxplot_featureFamily_time				
-				DF=subset(json_data,(object=='intercloud'|object=='lift') & treatment=='featureFamily')
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$memory, DF$objectDescription, mean)))])   
-				boxplot_featureFamily_memory = ggplot(DF, aes(x =objectDescription , y = memory)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Memory Consumption by Analysis Strategy for Feature Family") + 
-					ylab("Memory Consumption ")   
-					boxplot_featureFamily_memory				
-				DF=subset(json_data,(object=='intercloud'|object=='lift') & treatment=='featureFamily')
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$cpu, DF$objectDescription, mean)))])   
-				boxplot_featureFamily_cpu = ggplot(DF, aes(x =objectDescription , y = cpu)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Cpu Consumption by Analysis Strategy for Feature Family") + 
-					ylab("Cpu Consumption ")   
-					boxplot_featureFamily_cpu				
-				@	
-				\subsubsection{Overview for Feature Product}
-				<<featureProduct, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF=subset(json_data,(object=='intercloud'|object=='lift') & treatment=='featureProduct')
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$time, DF$objectDescription, mean)))])   
-				boxplot_featureProduct_time = ggplot(DF, aes(x =objectDescription , y = time)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Analysis time by Analysis Strategy for Feature Product") + 
-					ylab("Analysis time ")   
-					boxplot_featureProduct_time				
-				DF=subset(json_data,(object=='intercloud'|object=='lift') & treatment=='featureProduct')
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$memory, DF$objectDescription, mean)))])   
-				boxplot_featureProduct_memory = ggplot(DF, aes(x =objectDescription , y = memory)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Memory Consumption by Analysis Strategy for Feature Product") + 
-					ylab("Memory Consumption ")   
-					boxplot_featureProduct_memory				
-				DF=subset(json_data,(object=='intercloud'|object=='lift') & treatment=='featureProduct')
-				DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$cpu, DF$objectDescription, mean)))])   
-				boxplot_featureProduct_cpu = ggplot(DF, aes(x =objectDescription , y = cpu)) +
-					geom_boxplot(fill = "#4271AE", colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-					theme_bw() +    
-					scale_x_discrete(name = "Experimental Object")+
-					ggtitle("Cpu Consumption by Analysis Strategy for Feature Product") + 
-					ylab("Cpu Consumption ")   
-					boxplot_featureProduct_cpu				
-				@	
 				
 				
 				\subsection{Objects Overview}
@@ -370,7 +349,7 @@ class RScriptGeneratorTest {
 				\section{Research Hypotheses}
 				
 				\subsection{RH1: }
-									
+				
 				 <<RH1, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 
 				 result_RH1_objects=2
@@ -383,19 +362,21 @@ class RScriptGeneratorTest {
 				 @
 				 
 				 <<overview_RH1, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				 DF=subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct'))
-				 DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$time, DF$objectDescription, mean)))])   
-				 boxplot_overview_RH1 = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = time)) +
-				 	geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-				 	theme_bw() +    
-				 	scale_x_discrete(name = "Experimental Object")+
-				 	ggtitle("Analysis time Overview") + 
-				 	ylab("Analysis time ") +
-				 	scale_fill_discrete(guide = guide_legend(title = NULL))
-				 	
-				 boxplot_overview_RH1
-				 @					
+				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
 				 		
+				 		ggplot(DF, aes(x=objectLabel, y=time, group=treatmentDescription, color=treatmentDescription)) + 
+				 		    geom_errorbar(aes(ymin=time-sd, ymax=time+sd), width=.1, linetype=3) +
+				 		    geom_line() + geom_point()+
+				 		   scale_color_brewer(palette="Paired") +
+				 		   theme_bw() +
+				 		  scale_x_discrete(name = "SPL")+
+				 		  
+				 		  scale_y_continuous(name = "Analysis time ")+
+				 		  ggtitle("Analysis time Overview") + 
+				 		  theme(legend.title = element_blank())	
+				 		@
+				 @
 				 	
 				
 				\subsubsection{RH1.1: Object Intercloud SPL}
@@ -715,7 +696,7 @@ class RScriptGeneratorTest {
 				
 				
 				\subsection{RH2: }
-									
+				
 				 <<RH2, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 
 				 result_RH2_objects=2
@@ -728,19 +709,21 @@ class RScriptGeneratorTest {
 				 @
 				 
 				 <<overview_RH2, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				 DF=subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct'))
-				 DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$memory, DF$objectDescription, mean)))])   
-				 boxplot_overview_RH2 = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = memory)) +
-				 	geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-				 	theme_bw() +    
-				 	scale_x_discrete(name = "Experimental Object")+
-				 	ggtitle("Memory Consumption Overview") + 
-				 	ylab("Memory Consumption ") +
-				 	scale_fill_discrete(guide = guide_legend(title = NULL))
-				 	
-				 boxplot_overview_RH2
-				 @					
+				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
 				 		
+				 		ggplot(DF, aes(x=objectLabel, y=memory, group=treatmentDescription, color=treatmentDescription)) + 
+				 		    geom_errorbar(aes(ymin=memory-sd, ymax=memory+sd), width=.1, linetype=3) +
+				 		    geom_line() + geom_point()+
+				 		   scale_color_brewer(palette="Paired") +
+				 		   theme_bw() +
+				 		  scale_x_discrete(name = "SPL")+
+				 		  
+				 		  scale_y_continuous(name = "Memory Consumption ")+
+				 		  ggtitle("Memory Consumption Overview") + 
+				 		  theme(legend.title = element_blank())	
+				 		@
+				 @
 				 	
 				
 				\subsubsection{RH2.1: Object Intercloud SPL}
@@ -1060,7 +1043,7 @@ class RScriptGeneratorTest {
 				
 				
 				\subsection{RH3: }
-									
+				
 				 <<RH3, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 
 				 result_RH3_objects=2
@@ -1073,19 +1056,21 @@ class RScriptGeneratorTest {
 				 @
 				 
 				 <<overview_RH3, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				 DF=subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct'))
-				 DF$objectDescription = ordered(DF$objectDescription, levels=levels(DF$objectDescription)[order(as.numeric(by(DF$cpu, DF$objectDescription, mean)))])   
-				 boxplot_overview_RH3 = ggplot(DF, aes(x =objectDescription, fill = treatmentDescription,  y = cpu)) +
-				 	geom_boxplot(colour = "#1F3552",alpha = 0.7,outlier.colour = "#1F3552", outlier.shape = 20)+
-				 	theme_bw() +    
-				 	scale_x_discrete(name = "Experimental Object")+
-				 	ggtitle("Cpu Consumption Overview") + 
-				 	ylab("Cpu Consumption ") +
-				 	scale_fill_discrete(guide = guide_legend(title = NULL))
-				 	
-				 boxplot_overview_RH3
-				 @					
+				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
 				 		
+				 		ggplot(DF, aes(x=objectLabel, y=cpu, group=treatmentDescription, color=treatmentDescription)) + 
+				 		    geom_errorbar(aes(ymin=cpu-sd, ymax=cpu+sd), width=.1, linetype=3) +
+				 		    geom_line() + geom_point()+
+				 		   scale_color_brewer(palette="Paired") +
+				 		   theme_bw() +
+				 		  scale_x_discrete(name = "SPL")+
+				 		  
+				 		  scale_y_continuous(name = "Cpu Consumption ")+
+				 		  ggtitle("Cpu Consumption Overview") + 
+				 		  theme(legend.title = element_blank())	
+				 		@
+				 @
 				 	
 				
 				\subsubsection{RH3.1: Object Intercloud SPL}

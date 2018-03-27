@@ -69,7 +69,7 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud {description ""},lift {description ""},bsn {description ""}} 	
+				Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},bsn {description ""}}}	
 				
 				Executions { 
 					cpuinfo { 
@@ -148,7 +148,7 @@ class AutoExpValidatorTest {
 						     	  		
 							
 						}
-							Objects { intercloud {description ""},lift {description ""},bsn {description ""}} 	
+							Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},bsn {description ""}}} 	
 							
 							Executions { 
 								cpuinfo { 
@@ -193,13 +193,13 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { 
+				Objects {description "SPL" scaleType Nominal { 
 					intercloud  {description "" parameters {
 						featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 					lift {description "" parameters {
 						featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 					} 	
-				
+				}
 				Executions { helloWorld { 
 					command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 					}
@@ -250,7 +250,7 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
+				Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}}} 	
 				
 				Executions { 
 					cpuinfo { 
@@ -308,7 +308,7 @@ class AutoExpValidatorTest {
 					   	  		
 				
 				}
-				Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
+				Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}}} 	
 								
 				Executions { 
 				  cpuinfo { 
@@ -356,7 +356,7 @@ class AutoExpValidatorTest {
 						   	  		
 					
 					}
-					Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
+					Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}}} 	
 							
 					Executions { 
 					  cpuinfo { 
@@ -409,7 +409,7 @@ class AutoExpValidatorTest {
 												   	  		
 											
 											}
-											Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
+											Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}}} 	
 											
 												
 										Executions { 
@@ -457,7 +457,7 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { intercloud {description ""},lift {description ""},email {description ""},bsn {description ""}} 	
+						Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},email {description ""},bsn {description ""}}} 	
 					Executions { 
 					  cpuinfo { 
 					  command "cat /proc/cpuinfo"
@@ -504,7 +504,7 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { intercloud {description ""},lift {description ""},email {description ""},bsn {description ""}} 	
+						Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},email {description ""},bsn {description ""}}} 	
 					Executions { 
 										  cpuinfo { 
 										  command "cat /proc/cpuinfo"
@@ -547,7 +547,7 @@ class AutoExpValidatorTest {
 												   	  		
 											
 											}
-											Objects { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}} 	
+											Objects {description "SPL" scaleType Nominal { intercloud {description ""},lift {description ""},Email {description ""},bsn {description ""}}} 	
 											
 											Executions { helloWorld { 
 																	
@@ -594,13 +594,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment2.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'"
 							},
@@ -649,13 +649,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-					
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel} ${treatment.description} ${object.description}'"
 							}
@@ -700,13 +700,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"} },
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name2}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -751,13 +751,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter2.argument} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -803,13 +803,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "Intercloud" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "Lift" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument2} Object:${object.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -855,13 +855,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object2.name} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -907,13 +907,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name2} featureModel: ${object.parameter.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -959,13 +959,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter2.featureModel} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -1009,13 +1009,13 @@ class AutoExpValidatorTest {
 							   	  		
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description "" parameters {
 								featureModel "intercloud/0.txt",umlModel "intercloud/0_behavioral_model.xml"}} ,
 							lift {description "" parameters {
 								featureModel "lift/0.txt",umlModel "lift/0_behavioral_model.xml"}} 
 							} 	
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}: ${treatment.parameter.argument} Object:${object.name} featureModel: ${object.parameter.featureModel2} umlModel: ${object.parameter.umlModel}'" 
 							}
@@ -1061,10 +1061,10 @@ class AutoExpValidatorTest {
 							 
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description ""}, lift {description ""}  	
 							}
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}'" result {name 'results' source '$HOME/results/${object.name2}_results.json'}
 											 }
@@ -1115,10 +1115,10 @@ class AutoExpValidatorTest {
 							 
 						
 						}
-						Objects { 
+						Objects {description "SPL" scaleType Nominal { 
 							intercloud {description ""}, lift  {description ""}	
 							}
-						
+						}
 						Executions { helloWorld { 
 							command "echo 'Hello World ${treatment.name}'" result {name 'results' source '$HOME/results/${object.name}_results.json'}
 											 }
@@ -1163,9 +1163,9 @@ class AutoExpValidatorTest {
 								 
 							
 							}
-							Objects { 
+							Objects {description "" scaleType Nominal { 
 								O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}} 
-							}
+							}}
 							
 							
 							Executions { 
@@ -1211,10 +1211,10 @@ class AutoExpValidatorTest {
 								 
 							
 							}
-							Objects { 
+							Objects {description "" scaleType Nominal { 
 								O60341 {description "" files {{name "query" source "$HOME/sequences/O60341.fasta"}}} 
 							}
-							
+							}
 							
 							Executions { 
 								ssearch36 { 
@@ -1264,10 +1264,10 @@ class AutoExpValidatorTest {
 								 
 							
 							}
-							Objects { 
+							Objects {description "" scaleType Nominal { 
 								O60341  {description ""}
 							}
-							
+							}
 							
 							Executions { 
 								ssearch36 { 
@@ -1317,10 +1317,10 @@ class AutoExpValidatorTest {
 							 
 						
 						}
-						Objects { 
+						Objects {description "" scaleType Nominal { 
 							O60341 {description ""}
+							}
 						}
-						
 						
 						Executions { 
 							ssearch36 { 
@@ -1347,5 +1347,229 @@ class AutoExpValidatorTest {
 						"ssearch36 -d 0 ${execution.file.query2} ${execution.file.database}".length + 2)
 				]
 			}
+	@Test
+	def void testAbsolutWithNumericValue() {
+		'''
+			Experiment reanaSpl {
+				
+				description "Reliability Analysis of Software Product Lines" 
+				
+				Research Hypotheses {
+					RH1 {time featureFamily = featureProduct},
+					RH2 {memoryConsumption featureFamily < featureProduct}, 
+					RH3 {memoryConsumption featureFamily != familyProduct},
+					RH4 {memoryConsumption micro > large}
+					}
+					Experimental Design {
+						runs 1
+					}
+						Dependent Variables {
+						  time { description "Analysis time" scaleType Absolute },
+						  memoryConsumption { description "Memory Consumption" scaleType Absolute }
+						}    
+							 
+						Factors { 
+							strategy { description "Analysis Strategy" scaleType Nominal},
+							computer { description "Computer" scaleType Nominal}   
+						} 
+						Treatments { 
+						  featureFamily description "" factor strategy execution cpuinfo,
+						  featureProduct description "" factor strategy execution cpuinfo,
+						  familyProduct description "" factor strategy execution cpuinfo,
+						  micro description "" factor computer execution cpuinfo,
+						  large description "" factor computer execution cpuinfo
+						     	  		
+							
+						}
+							Objects {description "SPL" scaleType Absolute { 
+								intercloud {description "" value "1"},
+								lift {description "" value "2"},
+								bsn {description "" value "3"}
+							}} 	
+							
+							Executions { 
+								cpuinfo { 
+									command "cat /proc/cpuinfo"
+								}
+							}	
+								
+							Infrastructure {
+								user{
+									username "user"
+								}
+								
+							}
+						}
+		'''.parse.assertNoIssues
+	}
+		@Test
+	def void testAbsolutWithoutNumericValue() {
+		val testInput='''
+			Experiment reanaSpl {
+				
+				description "Reliability Analysis of Software Product Lines" 
+				
+				Research Hypotheses {
+					RH1 {time featureFamily = featureProduct},
+					RH2 {memoryConsumption featureFamily < featureProduct}, 
+					RH3 {memoryConsumption featureFamily != familyProduct},
+					RH4 {memoryConsumption micro > large}
+					}
+					Experimental Design {
+						runs 1
+					}
+						Dependent Variables {
+						  time { description "Analysis time" scaleType Absolute },
+						  memoryConsumption { description "Memory Consumption" scaleType Absolute }
+						}    
+							 
+						Factors { 
+							strategy { description "Analysis Strategy" scaleType Nominal},
+							computer { description "Computer" scaleType Nominal}   
+						} 
+						Treatments { 
+						  featureFamily description "" factor strategy execution cpuinfo,
+						  featureProduct description "" factor strategy execution cpuinfo,
+						  familyProduct description "" factor strategy execution cpuinfo,
+						  micro description "" factor computer execution cpuinfo,
+						  large description "" factor computer execution cpuinfo
+						     	  		
+							
+						}
+							Objects {description "SPL" scaleType Absolute { 
+								intercloud {description "" value "e"},
+								lift {description "" value "0.r"},
+								bsn {description ""}
+							}} 	 	
+							
+							Executions { 
+								cpuinfo { 
+									command "cat /proc/cpuinfo"
+								}
+							}	
+								
+							Infrastructure {
+								user{
+									username "user"
+								}
+								
+							}
+						}
+		'''
+		
+		testInput.parse => [
+				assertError(AutoExpPackage.eINSTANCE.experimentalObject, AutoExpValidator.NUMERIC_VALUE_MISSING,
+						"Scale type 'Absolute' requires a numeric value.")
+				]
+	}	
+		@Test
+	def void testLogWithNumericValue() {
+		'''
+			Experiment reanaSpl {
+				
+				description "Reliability Analysis of Software Product Lines" 
+				
+				Research Hypotheses {
+					RH1 {time featureFamily = featureProduct},
+					RH2 {memoryConsumption featureFamily < featureProduct}, 
+					RH3 {memoryConsumption featureFamily != familyProduct},
+					RH4 {memoryConsumption micro > large}
+					}
+					Experimental Design {
+						runs 1
+					}
+						Dependent Variables {
+						  time { description "Analysis time" scaleType Absolute },
+						  memoryConsumption { description "Memory Consumption" scaleType Absolute }
+						}    
+							 
+						Factors { 
+							strategy { description "Analysis Strategy" scaleType Nominal},
+							computer { description "Computer" scaleType Nominal}   
+						} 
+						Treatments { 
+						  featureFamily description "" factor strategy execution cpuinfo,
+						  featureProduct description "" factor strategy execution cpuinfo,
+						  familyProduct description "" factor strategy execution cpuinfo,
+						  micro description "" factor computer execution cpuinfo,
+						  large description "" factor computer execution cpuinfo
+						     	  		
+							
+						}
+							Objects {description "SPL" scaleType Logarithmic { 
+								intercloud {description "" value "10.1"},
+								lift {description "" value "15.4"},
+								bsn {description "" value "20.6"}
+							}} 
+							Executions { 
+								cpuinfo { 
+									command "cat /proc/cpuinfo"
+								}
+							}	
+								
+							Infrastructure {
+								user{
+									username "user"
+								}
+								
+							}
+						}
+		'''.parse.assertNoIssues
+	}
+		@Test
+	def void testLogWithoutNumericValue() {
+		val testInput='''
+			Experiment reanaSpl {
+				
+				description "Reliability Analysis of Software Product Lines" 
+				
+				Research Hypotheses {
+					RH1 {time featureFamily = featureProduct},
+					RH2 {memoryConsumption featureFamily < featureProduct}, 
+					RH3 {memoryConsumption featureFamily != familyProduct},
+					RH4 {memoryConsumption micro > large}
+					}
+					Experimental Design {
+						runs 1
+					}
+						Dependent Variables {
+						  time { description "Analysis time" scaleType Absolute },
+						  memoryConsumption { description "Memory Consumption" scaleType Absolute }
+						}    
+							 
+						Factors { 
+							strategy { description "Analysis Strategy" scaleType Nominal},
+							computer { description "Computer" scaleType Nominal}   
+						} 
+						Treatments { 
+						  featureFamily description "" factor strategy execution cpuinfo,
+						  featureProduct description "" factor strategy execution cpuinfo,
+						  familyProduct description "" factor strategy execution cpuinfo,
+						  micro description "" factor computer execution cpuinfo,
+						  large description "" factor computer execution cpuinfo
+						     	  		
+							
+						}
+							Objects {description "SPL" scaleType Logarithmic { intercloud {description ""},lift {description ""},bsn {description ""}}} 	
+							
+							Executions { 
+								cpuinfo { 
+									command "cat /proc/cpuinfo"
+								}
+							}	
+								
+							Infrastructure {
+								user{
+									username "user"
+								}
+								
+							}
+						}
+		'''
+		testInput.parse => [
+					assertError(AutoExpPackage.eINSTANCE.experimentalObject, AutoExpValidator.NUMERIC_VALUE_MISSING,
+						"Scale type 'Logarithmic' requires a numeric value.")
+				]
+	}	
 			
 			}
