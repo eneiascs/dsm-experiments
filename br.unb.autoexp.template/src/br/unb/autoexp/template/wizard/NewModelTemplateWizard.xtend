@@ -165,7 +165,7 @@ class NewModelTemplateWizard extends AbstractNewResourceWizard {
 				 		«treatment.name» description "«treatment.description»"  factor «treatment.factor.name» parameters{argument "arg"} execution reanaEvaluator«IF !experiment.treatments.last.name.equals(treatment.name)»,«ENDIF»	
 				 	«ENDFOR»   	 		 
 				 	}
-				 	 Objects { 
+				 	 Objects { description "" scaleType Nominal { 
 				 	 	intercloud {
 				 	 	    description "Intercloud" 
 				 	 	    parameters {
@@ -206,6 +206,7 @@ class NewModelTemplateWizard extends AbstractNewResourceWizard {
 				 	 		featureModel "minepump/0.txt",
 				 	 		umlModel "minepump/0_behavioral_model.xml"
 				 	 	    } 	 
+				 	 	}
 				 	 	}		
 				 	 }
 				 	Executions { 

@@ -143,7 +143,7 @@ class NewModelExampleWizard extends NewModelFileWizard {
 				 	 
 				 
 				 }
-				 Objects { 
+				 Objects { description "" scaleType Nominal { 
 				 	intercloud {
 				 	    description "Intercloud" 
 				 	    parameters {
@@ -184,6 +184,7 @@ class NewModelExampleWizard extends NewModelFileWizard {
 				 		featureModel "minepump/0.txt",
 				 		umlModel "minepump/0_behavioral_model.xml"
 				 	    } 	 
+				 	}
 				 	}		
 				 }
 				Executions { 
