@@ -47,10 +47,10 @@ rule_Experiment :
 	'Factors' '{' factors_20+=rule_Factor (',' factors_21+=rule_Factor)* '}'
 	'Treatments' '{' treatments_22+=rule_Treatment (',' treatments_23+=rule_Treatment)* '}'
 	('Groups' '{' groups_24+=rule_ObjectGroup (',' groups_25+=rule_ObjectGroup)* '}')?
-	'Objects' '{' experimentalobjects_26+=rule_ExperimentalObject (',' experimentalobjects_27+=rule_ExperimentalObject)* '}'
-	'Executions' '{' executions_28+=rule_Execution (',' executions_29+=rule_Execution)* '}'
-	('Analysis' analysis_30=rule_Analysis)?
-	'Infrastructure' infrastructure_31=rule_Infrastructure
+	'Objects' '{' 'description' objectsdescription_26=STRING 'scaleType' objectsscaletype_27=rule_ScaleType '{' experimentalobjects_28+=rule_ExperimentalObject (',' experimentalobjects_29+=rule_ExperimentalObject)* '}' '}'
+	'Executions' '{' executions_30+=rule_Execution (',' executions_31+=rule_Execution)* '}'
+	('Analysis' analysis_32=rule_Analysis)?
+	'Infrastructure' infrastructure_33=rule_Infrastructure
 	'}';
 
 
@@ -230,6 +230,8 @@ rule_Execution :
 	('preconditions' preconditions_3=rule_Preconditions)?
 	('result' result_4=rule_File)?
 	('files' '{' files_5+=rule_File (',' files_6+=rule_File)* '}')?
+	('preprocessing' '{' preprocessingexecutions_7+=rule_Execution (',' preprocessingexecutions_8+=rule_Execution)* '}')?
+	('postprocessing' '{' postprocessingexecutions_9+=rule_Execution (',' postprocessingexecutions_10+=rule_Execution)* '}')?
 	'}';
 
 
@@ -248,9 +250,10 @@ rule_ExperimentalObject :
 	name_0=ID
 	'{'
 	'description' description_1=STRING
-	('group' objectgroup_2=ID)?
-	('parameters' '{' parameters_3+=rule_Parameter (',' parameters_4+=rule_Parameter)* '}')?
-	('files' '{' files_5+=rule_File (',' files_6+=rule_File)* '}')?
+	('value' value_2=STRING)?
+	('group' objectgroup_3=ID)?
+	('parameters' '{' parameters_4+=rule_Parameter (',' parameters_5+=rule_Parameter)* '}')?
+	('files' '{' files_6+=rule_File (',' files_7+=rule_File)* '}')?
 	'}'
 ;
 
@@ -488,7 +491,7 @@ rule_DesignType:
 	fACTORIAL='FACTORIAL' | cRD='CRD' | rCBD='RCBD' | lS='LS' | oTHER='OTHER';
 
 rule_ScaleType:
-	absolute='Absolute' | ratio='Ratio' | interval='Interval' | ordinal='Ordinal' | nominal='Nominal';
+	absolute='Absolute' | logarithmic='Logarithmic' | nominal='Nominal';
 
 rule_ThreatType:
 	iv='iv' | ev='ev' | c='c' | r='r' | cl='cl';
