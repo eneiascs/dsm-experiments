@@ -23,6 +23,8 @@ class ExecutionDTO2 {
 	ExperimentalObject object
 	DesignType designType
 	Map<String,String> invalidParameters=new HashMap<String,String>()
+	List<ExecutionDTO2> preProcessing= new ArrayList<ExecutionDTO2>()
+	List<ExecutionDTO2> postProcessing= new ArrayList<ExecutionDTO2>()
 
 	override boolean equals(Object obj){
 		if (obj===null||!(obj instanceof ExecutionDTO2)){
@@ -35,6 +37,9 @@ class ExecutionDTO2 {
 			&&((this.timeout===null&&exec.timeout===null)||(this.timeout.equals(exec.timeout)))	
 			&&((this.preconditions===null&&exec.preconditions===null)||(this.preconditions.equals(exec.preconditions)))			
 			&&this.files.equals(exec.files)
+			&&this.preProcessing.equals(exec.preProcessing)
+			&&this.postProcessing.equals(exec.postProcessing)
+			
 		}
 		
 	}
@@ -49,20 +54,14 @@ class ExecutionDTO2 {
 		copy.object = this.object
 		copy.designType=this.designType
 		copy.files = this.files?.map[copy()]
+		copy.preProcessing = this.preProcessing?.map[copy()]
+		copy.postProcessing = this.postProcessing?.map[copy()]
 		copy
 
 	}
 	def ExecutionDTO2 copy(String taskName) {
-		var copy=new ExecutionDTO2()
-		copy.name = this.name
+		var copy=copy()
 		copy.taskName = taskName
-		copy.cmd = this.cmd
-		copy.timeout=this.timeout
-		copy.preconditions = this.preconditions
-		copy.treatment = this.treatment
-		copy.object = this.object
-		copy.designType=this.designType
-		copy.files = this.files?.map[copy()]
 		copy
 
 	}

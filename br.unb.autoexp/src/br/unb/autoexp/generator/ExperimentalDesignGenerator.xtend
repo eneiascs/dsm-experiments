@@ -14,6 +14,7 @@ import java.util.List
 import java.util.regex.Pattern
 
 import static extension java.lang.String.*
+import br.unb.autoexp.autoExp.Execution
 
 class ExperimentalDesignGenerator {
 	
@@ -96,7 +97,7 @@ class ExperimentalDesignGenerator {
 				    if (!executions.filter[taskName.equals(currentTaskName)&&!cmd.equals(currentCommand)].isNullOrEmpty){
 				    	exec.taskName="%s_%s".format(execution.taskName,name)
 				    }					  
-				   // exec.taskName="%s_%s".format(execution.taskName,name)
+				  
 				    executions.add(exec)
 				]
 				if (depVariables.isNullOrEmpty){
@@ -124,27 +125,35 @@ class ExperimentalDesignGenerator {
 	}
 
 	def applyTreatmentToObject(Treatment treatment, ExperimentalObject object) {
-
+		
+		
+		treatment.execution.generateExecution(treatment,object)
+	}
+	
+	def ExecutionDTO2 generateExecution(Execution exec, Treatment treatment, ExperimentalObject object){
 		val execution = new ExecutionDTO2()
-
-		execution.cmd = treatment.execution.cmd.replaceParameter(treatment, object)
-		execution.name = treatment.execution.name
+		
+		execution.cmd = exec.cmd.replaceParameter(treatment, object)
+		execution.name = exec.name
 		execution.taskName = "%s_%s".format(treatment.name, object.name)
-		execution.timeout = treatment.execution.timeout
+		execution.timeout =exec.timeout
 		execution.treatment = treatment
 		execution.object = object
-		execution.preconditions = treatment.execution.preconditions
+		execution.preconditions = exec.preconditions
 		execution.designType = (treatment.eContainer as Experiment).experimentalDesign.type
 		if (treatment.execution.result !== null) {
 			var result = new FileDTO()
 			result.setGenerated(true)
-			result.name = treatment.execution.result.name
-			result.source = treatment.execution.result.source.replaceParameter(treatment, object)
+			result.name = exec.result.name
+			result.source = exec.result.source.replaceParameter(treatment, object)
 			execution.files.add(result)
 		}
 		execution.files.filter[generated].forEach [
 			getSource.parameters.forEach[execution.invalidParameters.put(it, "result")]
 		]
+		execution.preProcessing = exec.preProcessingExecutions.map[preProcessingExecution|preProcessingExecution.generateExecution(treatment,object)]
+		execution.postProcessing = exec.postProcessingExecutions.map[preProcessingExecution|preProcessingExecution.generateExecution(treatment,object)]
+		
 		execution.resolveFiles(treatment, object)
 	}
 

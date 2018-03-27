@@ -29,7 +29,7 @@ Experiment returns Experiment:
 	'Factors' '{' factors+=Factor ("," factors+=Factor)* '}'
 	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
 	('Groups' '{' groups+=ObjectGroup ("," groups+=ObjectGroup)* '}')?
-	'Objects' '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}'
+	'Objects' '{' 'description' objectsDescription=STRING 'scaleType' objectsScaleType=ScaleType '{' experimentalObjects+=ExperimentalObject ("," experimentalObjects+=ExperimentalObject)* '}' '}'
 	'Executions' '{' executions+=Execution ("," executions+=Execution)* '}'
 	('Analysis' analysis=Analysis)?
 	'Infrastructure' infrastructure=Infrastructure
@@ -172,6 +172,8 @@ Execution returns Execution:
 	('preconditions' preconditions=Preconditions)?
 	('result' result=File)?
 	('files' '{' files+=File ("," files+=File)* '}')?
+	('preprocessing' '{' preProcessingExecutions+=Execution ("," preProcessingExecutions+=Execution)* '}')?
+	('postprocessing' '{' postProcessingExecutions+=Execution ("," postProcessingExecutions+=Execution)* '}')?
 	'}';
 
 Analysis returns Analysis:
@@ -186,6 +188,7 @@ ExperimentalObject returns ExperimentalObject:
 	name=ID
 	'{'
 	'description' description=STRING
+	('value' value=STRING)?
 	('group' objectGroup=[ObjectGroup|ID])?
 	('parameters' '{' parameters+=Parameter ("," parameters+=Parameter)* '}')?
 	('files' '{' files+=File ("," files+=File)* '}')?
@@ -302,7 +305,7 @@ enum DesignType returns DesignType:
 	FACTORIAL='FACTORIAL' |CRD='CRD' | RCBD='RCBD' | LS='LS' |  OTHER='OTHER';
 
 enum ScaleType returns ScaleType:
-	Absolute='Absolute' | Ratio='Ratio' | Interval='Interval' | Ordinal='Ordinal' | Nominal='Nominal';
+	Absolute='Absolute' | Logarithmic='Logarithmic' | Nominal='Nominal';
 
 Range returns Range:
 	{Range}

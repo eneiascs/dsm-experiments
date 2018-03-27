@@ -7,6 +7,7 @@ import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.generator.dohko.DohkoGenerator
 import br.unb.autoexp.generator.mapping.MappingGenerator
 import br.unb.autoexp.generator.rscript.RScriptGenerator
+import br.unb.autoexp.generator.rscript.RScriptReproductionGenerator
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
@@ -25,6 +26,7 @@ class AutoExpGenerator extends AbstractGenerator {
 	@Inject extension DohkoGenerator
 	@Inject extension MappingGenerator
 	@Inject extension RScriptGenerator
+	@Inject extension RScriptReproductionGenerator
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		for (e : resource.allContents.toIterable.filter(Experiment)) {
@@ -36,7 +38,7 @@ class AutoExpGenerator extends AbstractGenerator {
 				e.compileMapping)
 			fsa.generateFile("%s.Rnw".format(resource.URI.path.split("/").last.replaceFirst("[.][^.]+$", "")),
 				e.compileRScript)	
-
+			fsa.generateFile("reproduction.R",e.compileReproduction)
 		}
 
 	}

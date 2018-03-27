@@ -7,6 +7,7 @@ import br.unb.autoexp.autoExp.AutoExpPackage
 import br.unb.autoexp.autoExp.DependentVariable
 import br.unb.autoexp.autoExp.Execution
 import br.unb.autoexp.autoExp.Experiment
+import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.Factor
 import br.unb.autoexp.autoExp.ResearchHypothesis
 import br.unb.autoexp.autoExp.ResearchHypothesisFormula
@@ -16,6 +17,8 @@ import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 
 import static extension java.lang.String.*
+import br.unb.autoexp.autoExp.ScaleType
+import java.math.BigDecimal
 
 /**
  * This class contains custom validation rules. 
@@ -39,19 +42,8 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 	public static val EXECUTION_NEVER_USED = ISSUE_CODE_PREFIX + "ExecutionNeverUsed"
 	public static val INVALID_PARAMETER = ISSUE_CODE_PREFIX + "InvalidParameter"
 	public static val UNREGISTERED_DESIGN = ISSUE_CODE_PREFIX + "UnregisteredDesign"
-
+	public static val NUMERIC_VALUE_MISSING = ISSUE_CODE_PREFIX + "NumericValueMissing"
 	@Inject extension ExperimentalDesignGenerator
-
-//	@Check
-//	def checkUnregisteredDesign(ExperimentalDesign design) {
-//			if (design.type.generator===null) {
-//
-//				error("There is no generators registered for design type '%s'".format(design.type.getName),
-//					AutoExpPackage.eINSTANCE.experimentalDesign_Type, AutoExpValidator.UNREGISTERED_DESIGN, design.type.getName)
-//			}
-//	
-//	}
-
 
 	@Check
 	def checkRepeatedHypothesis(ResearchHypothesis hypothesis) {
@@ -94,48 +86,51 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 			warning("Dependent variable '%s' is never used".format(variable.name),
 				AutoExpPackage.eINSTANCE.dependentVariable_Name, AutoExpValidator.DEPENDENT_VARIABLE_NEVER_USED,
 				variable.name)
-			}
 		}
+	}
 
-		@Check
-		def checkFactorNeverUsed(Factor factor) {
-			val experiment = factor.eContainer as Experiment
-			if (!experiment.researchHypotheses.map[formula.treatment1.factor].contains(factor) &&
-				!experiment.researchHypotheses.map[formula.treatment2.factor].contains(factor)) {
-				warning("Factor '%s' is never used".format(factor.name), AutoExpPackage.eINSTANCE.factor_Name,
-					AutoExpValidator.FACTOR_NEVER_USED, factor.name)
-			}
+	@Check
+	def checkFactorNeverUsed(Factor factor) {
+		val experiment = factor.eContainer as Experiment
+		if (!experiment.researchHypotheses.map[formula.treatment1.factor].contains(factor) &&
+			!experiment.researchHypotheses.map[formula.treatment2.factor].contains(factor)) {
+			warning("Factor '%s' is never used".format(factor.name), AutoExpPackage.eINSTANCE.factor_Name,
+				AutoExpValidator.FACTOR_NEVER_USED, factor.name)
 		}
+	}
 
-		@Check
-		def checkTreatmentNeverUsed(Treatment treatment) {
-			val experiment = treatment.eContainer as Experiment
-			if (!experiment.researchHypotheses.map[formula.treatment1].contains(treatment) &&
-				!experiment.researchHypotheses.map[formula.treatment2].contains(treatment)) {
-				warning("Treatment '%s' is never used".format(treatment.name), AutoExpPackage.eINSTANCE.treatment_Name,
-					AutoExpValidator.TREATMENT_NEVER_USED, treatment.name)
-			}
+	@Check
+	def checkTreatmentNeverUsed(Treatment treatment) {
+		val experiment = treatment.eContainer as Experiment
+		if (!experiment.researchHypotheses.map[formula.treatment1].contains(treatment) &&
+			!experiment.researchHypotheses.map[formula.treatment2].contains(treatment)) {
+			warning("Treatment '%s' is never used".format(treatment.name), AutoExpPackage.eINSTANCE.treatment_Name,
+				AutoExpValidator.TREATMENT_NEVER_USED, treatment.name)
 		}
+	}
 
-		@Check
-		def checkExecutionNeverUsed(Execution execution) {
+	@Check
+	def checkExecutionNeverUsed(Execution execution) {
+		if (execution.eContainer instanceof Experiment) {
 			val experiment = execution.eContainer as Experiment
 			if (!experiment.researchHypotheses.map[formula.treatment1.execution].contains(execution) &&
 				!experiment.researchHypotheses.map[formula.treatment2.execution].contains(execution)) {
 				warning("Execution '%s' is never used".format(execution.name), AutoExpPackage.eINSTANCE.execution_Name,
 					AutoExpValidator.EXECUTION_NEVER_USED, execution.name)
 			}
-		}
 
-		@Check
-		def checkInvalidParameter(Execution execution) {
+		}
+	}
+
+	@Check
+	def checkInvalidParameter(Execution execution) {
+		if (execution.eContainer instanceof Experiment) {
 			val experiment = execution.eContainer as Experiment
-			
+
 			experiment.designExecutions.filter[execution.name.equals(name)].forEach [ exec |
-				exec.invalidParameters.forEach [ parameter,attribute |
-					
-					
-					val att=switch attribute{
+				exec.invalidParameters.forEach [ parameter, attribute |
+
+					val att = switch attribute {
 						case "cmd": AutoExpPackage.eINSTANCE.execution_Cmd
 						case "result": AutoExpPackage.eINSTANCE.execution_Result
 					}
@@ -147,20 +142,26 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 
 		}
 
-//		@Check
-//		def checkInvalidParameterResult(Execution execution) {
-//			val experiment = execution.eContainer as Experiment
-//
-//			experiment.designExecutions.forEach [ exec |
-//				exec.files.filter[generated].head.path.parameters.forEach [ parameter |
-//					if (exec.files.filter[generated].head.name.equals(execution.result.name))
-//						error("Parameter '%s' cannot be resolved".format(parameter),
-//							AutoExpPackage.eINSTANCE.execution_Result, AutoExpValidator.INVALID_PARAMETER, parameter)
-//				]
-//
-//			]
-//
-//		}
+	}
 
+	@Check
+	def checkNumericScaleTypeWithoutNumericValue(ExperimentalObject object) {
+		val experiment = object.eContainer as Experiment
+
+		if (experiment.objectsScaleType.equals(ScaleType.ABSOLUTE) ||
+			experiment.objectsScaleType.equals(ScaleType.LOGARITHMIC)) {
+			
+			try {
+				
+				new BigDecimal(object.value)
+			} catch (Exception e) {
+			
+				error("Scale type '%s' requires a numeric value.".format(experiment.objectsScaleType.getName),
+					AutoExpPackage.eINSTANCE.experimentalObject_Name, AutoExpValidator.NUMERIC_VALUE_MISSING,
+					object.name)
+
+				}
+			}
+		}
 	}
 	

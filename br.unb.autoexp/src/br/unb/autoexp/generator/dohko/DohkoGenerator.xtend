@@ -7,6 +7,7 @@ import br.unb.autoexp.autoExp.ResearchHypothesis
 import br.unb.autoexp.autoExp.Treatment
 import br.unb.autoexp.generator.ExperimentalDesignGenerator
 import br.unb.autoexp.generator.dto.ExecutionDTO
+import br.unb.autoexp.generator.dto.ExecutionDTO2
 import br.unb.autoexp.generator.exception.InvalidPropertyException
 import java.util.ArrayList
 import java.util.List
@@ -472,42 +473,21 @@ class DohkoGenerator {
 				  	  	  «ENDIF»
 				  	  «ENDFOR»					  	
 				  «ENDFOR»
-			«ENDIF»			 
+			«ENDIF»
 			«IF !experiment.designExecutions.isNullOrEmpty»
-				blocks:
-				  «FOR execution:experiment.designExecutions»				  
-				  	- applications:
-				  	  «FOR i:0..(experiment.experimentalDesign.runs-1)»
-				  	  	- name: "«execution.taskName»_«i»"
-				  	  	  command-line: "«execution.cmd»"
-				  	  	  «IF execution.timeout!==null» 
-				  	  	  	timeout: «execution.timeout»
-				  	  	  «ENDIF»
-				  	  	  «IF execution.preconditions!==null»
-				  	  	  	preconditions:
-				  	  	  	  packages: 
-				  	  	  	  «FOR pack:execution.preconditions.packages»
-				  	  	  	  	- «pack»
-				  	  	  	  «ENDFOR»
-				  	  	  «ENDIF»
-				  	  	  «IF!execution.files.isNullOrEmpty»				    
-				  	  	  	files:
-				  	  	  «ENDIF»
-				  	  	  «FOR file:execution.files»
-				  	  	  	- name: "«file.name»"
-				  	  	  	  source: "«file.source»"
-				  	  	  	  «IF file.dest===null»
-				  	  	  	  	dest: "/opt/dohko/files/«file.name»"
-				  	  	  	  «ELSE»
-				  	  	  	  	dest: "«file.dest»"
-				  	  	  	  «ENDIF»
-				  	  	  	  «IF file.checksum!==null»
-				  	  	  	  	checksum: "«file.checksum»"
-				  	  	  	  «ENDIF»
-				  	  	  	  generated: «IF file.generated»"Y"«ELSE»"N"«ENDIF»
-				  	  	«ENDFOR»
-				  	«ENDFOR»  
-				  «ENDFOR»  
+			  blocks:
+			    «FOR execution:experiment.designExecutions» 
+			      - applications:
+			        «FOR i:0..(experiment.experimentalDesign.runs-1)»
+			          «FOR pre:execution.preProcessing»
+			            «generateApplication(pre, "pre"+"_"+pre.name+"_"+execution.taskName+"_"+i)»
+			          «ENDFOR»
+			          «generateApplication(execution, execution.taskName+"_"+i)»
+			          «FOR post:execution.postProcessing»
+			            «generateApplication(post, "post"+"_"+post.name+"_"+execution.taskName+"_"+i)»
+			          «ENDFOR»
+			        «ENDFOR»
+			    «ENDFOR»
 			«ENDIF»
 			«IF experiment.infrastructure.onFinish!==null»
 				on-finish: "«experiment.infrastructure.onFinish.typeName»"
@@ -515,6 +495,39 @@ class DohkoGenerator {
 		'''
 
 	}
+	
+	protected def Object generateApplication(ExecutionDTO2 execution, String taskName)
+	 '''
+	 - name: "«taskName»"
+	   command-line: "«execution.cmd»"
+	   «IF execution.timeout!==null»
+	     timeout: «execution.timeout»
+	   «ENDIF»
+	   «IF execution.preconditions!==null»
+	     preconditions:
+	       packages: 
+	       «FOR pack:execution.preconditions.packages»
+	         - «pack»
+	       «ENDFOR»
+	   «ENDIF»
+	   «IF!execution.files.isNullOrEmpty»
+	     files:
+	   «ENDIF»
+	   «FOR file:execution.files»
+	     - name: "«file.name»"
+	       source: "«file.source»"
+	       «IF file.dest===null»
+	         dest: "/opt/dohko/files/«file.name»"
+	       «ELSE»
+	         dest: "«file.dest»"
+	       «ENDIF»
+	       «IF file.checksum!==null»
+	         checksum: "«file.checksum»"
+	       «ENDIF»
+	       generated: «IF file.generated»"Y"«ELSE»"N"«ENDIF»
+	   «ENDFOR»
+	 '''
+	
 
 	def writeApplicationDescriptorToYaml(ApplicationDescriptor app) {
 		''' 
@@ -811,45 +824,15 @@ class DohkoGenerator {
 				  «FOR execution:experiment.designExecutions SEPARATOR ","»				  
 				  	{
 				  	"applications":[
+				  	
 				  	«FOR i:(0..experiment.experimentalDesign.runs-1) SEPARATOR ","»
-				  		{
-				  		  "name": "«execution.taskName»_«i»",
-				  		  "command-line": "«execution.cmd»"
-				  		  «IF execution.timeout!==null»
-				  		  	, 
-				  		  	"timeout": «execution.timeout»
-				  		  «ENDIF»
-				  		  «IF execution.preconditions!==null»
-				  		  	,
-				  		  	"preconditions":{
-				  		  	  "packages":[ 
-				  		  	  «FOR pack:execution.preconditions.packages SEPARATOR ","»
-				  		  	  	"«pack»"
-				  		  	  «ENDFOR»
-				  		  	  ]
-				  		  	}
-				  		  «ENDIF»
-				  		  «IF!execution.files.isNullOrEmpty»				    
-				  		  	,
-				  		  	"files":[
-				  		  	«FOR file:execution.files SEPARATOR ","»
-				  		  		{
-				  		  		"name": "«file.name»",
-				  		  		"source": "«file.source»",
-				  		  		«IF file.dest===null»
-				  		  			"dest": "/opt/dohko/files/«file.name»",
-				  		  		«ELSE»
-				  		  			"dest": "«file.dest»",
-				  		  		«ENDIF»
-				  		  		«IF file.checksum!==null»
-				  		  			"checksum": "«file.checksum»",
-				  		  		«ENDIF»
-				  		  		"generated": «IF file.generated»"Y"«ELSE»"N"«ENDIF»
-				  		  		} 
-				  			«ENDFOR»
-				  			]
-				  		«ENDIF»
-				  		} 
+				  	  «FOR pre: execution.preProcessing SEPARATOR "," AFTER "," »
+				  	  «generateApplicationJson(pre, "pre"+"_"+pre.name+"_"+execution.taskName+"_"+i)»
+				  	  «ENDFOR»
+				  	  «generateApplicationJson(execution, execution.taskName+"_"+i)»
+				  	  «FOR post: execution.postProcessing BEFORE "," SEPARATOR "," »
+				  	    «generateApplicationJson(post, "post"+"_"+post.name+"_"+execution.taskName+"_"+i)»
+				  	  «ENDFOR»
 				  	«ENDFOR»
 				  	]  
 				  	}
@@ -864,5 +847,48 @@ class DohkoGenerator {
 		'''
 
 	}
+	
+	protected def Object generateApplicationJson(ExecutionDTO2 execution, String taskName)
+		'''
+						  		{
+						  		  "name": "«taskName»",
+						  		  "command-line": "«execution.cmd»"
+						  		  «IF execution.timeout!==null»
+						  		  	, 
+						  		  	"timeout": «execution.timeout»
+						  		  «ENDIF»
+						  		  «IF execution.preconditions!==null»
+						  		  	,
+						  		  	"preconditions":{
+						  		  	  "packages":[ 
+						  		  	  «FOR pack:execution.preconditions.packages SEPARATOR ","»
+						  		  	  	"«pack»"
+						  		  	  «ENDFOR»
+						  		  	  ]
+						  		  	}
+						  		  «ENDIF»
+						  		  «IF!execution.files.isNullOrEmpty»				    
+						  		  	,
+						  		  	"files":[
+						  		  	«FOR file:execution.files SEPARATOR ","»
+						  		  		{
+						  		  		"name": "«file.name»",
+						  		  		"source": "«file.source»",
+						  		  		«IF file.dest===null»
+						  		  			"dest": "/opt/dohko/files/«file.name»",
+						  		  		«ELSE»
+						  		  			"dest": "«file.dest»",
+						  		  		«ENDIF»
+						  		  		«IF file.checksum!==null»
+						  		  			"checksum": "«file.checksum»",
+						  		  		«ENDIF»
+						  		  		"generated": «IF file.generated»"Y"«ELSE»"N"«ENDIF»
+						  		  		} 
+						  			«ENDFOR»
+						  			]
+						  		«ENDIF»
+						  		} 
+						  	'''
+	
 
 }
