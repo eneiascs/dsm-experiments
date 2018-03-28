@@ -144,7 +144,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 								executionFolder.mkdirs();
 
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
-								val reproductionFile=new File(executionFolder.getAbsolutePath() + File.separator + "reproduction.R");
+								val reproductionFile=new File(file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
+										File.separator + "reproduction.R");
 								copyToFolder(jsonApplicationDescriptorFile, executionFolder);
 								copyToFolder(applicationDescriptorFile, executionFolder);
 								copyToFolder(jsonFile, executionFolder);
