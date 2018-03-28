@@ -17,7 +17,7 @@ class DataFileGeneratorServiceImpl implements DataFileGeneratorService {
 	override writeToFile(File file, List<ExperimentExecutionDTO> tasks) {
 		val text = '''
 			[
-				«FOR task : tasks»
+				«FOR task : tasks SEPARATOR ","»
 				{
 				"id":"«task.id»",
 				"jobId":"«task.jobId»",
@@ -30,9 +30,9 @@ class DataFileGeneratorServiceImpl implements DataFileGeneratorService {
 					"«key»":«task.dependentVariables.get(key)»,
 				«ENDFOR»
 				"executionStatus":"«task.executionStatus.name»",
-				"creationDate":«task.creationDate.time»,
-				"lastUpdateDate":«task.lastUpdateDate.time»
-				}«IF !tasks.last.id.equals(task.id)»,«ENDIF»
+				"creationDate":«task.creationDate?.time»,
+				"lastUpdateDate":«task.lastUpdateDate?.time»
+				}
 				«ENDFOR»
 			]
 		'''

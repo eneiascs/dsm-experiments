@@ -7,6 +7,7 @@ import br.unb.autoexp.storage.service.ExperimentDesignStorageService
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
 import br.unb.autoexp.web.data.DataFileGeneratorService
 import br.unb.autoexp.web.dohko.service.DohkoService
+import br.unb.autoexp.web.mapping.MappingServiceFactory
 import java.io.File
 import javax.inject.Inject
 import org.apache.log4j.Logger
@@ -58,7 +59,7 @@ class UpdateTaskStatusJob extends Job {
 	override protected run(IProgressMonitor progressMonitor) {
 
 		try {
-			design = experimentDesignService.findByJobId(jobId)
+
 			if (progressMonitor.isCanceled()) {
 				progressMonitor.done();
 
@@ -66,73 +67,70 @@ class UpdateTaskStatusJob extends Job {
 
 			}
 
-			if (!design.isFinished) {
+			val applicationDescriptorFile = new File(
+				specificationFile.getParentFile().getAbsolutePath() + File.separator +
+					specificationFile.getName().replaceFirst("[.][^.]+$", ".yml"));
+			var applicationDescriptor = dohkoService.getApplicationDescriptor(applicationDescriptorFile);
 
-				val jobStatus = dohkoService.getJobStatus(jobId)
+			logger.info("Reading application descriptor for job id %s".format(jobId))
+			applicationDescriptor = dohkoService.getApplicationDescriptor(jobId, applicationDescriptor.user.username);
 
-				if (jobStatus.changed(design)) {
+			val jsonFile = new File(
+				dataFile.getParentFile().getAbsolutePath() + File.separator +
+					specificationFile.getName().replaceFirst("[.][^.]+$", ".json"));
+			val mappingService = MappingServiceFactory.get(jsonFile.getAbsolutePath());
 
-					var tasks = experimentExecutionService.findByJobId(jobId)
-					val pendingTasks = tasks.filter[task|!task.isFinished].toList
+			design = experimentDesignService.findByJobId(jobId)
 
-					val tasksGroup = new JobGroup("tasksGroup", 4, 1)
+			var tasks = (applicationDescriptor.getApplications() + applicationDescriptor.getBlocks().map [
+				getApplications()
+			].flatten).toList.map [
+				val mapping = mappingService.findByTaskName(name);
+				ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).taskId(id).factor(
+					if(mapping === null) null else mapping.factor).object(
+					if(mapping === null) null else mapping.object).taskName(
+					if(mapping === null) null else mapping.getTaskName).treatment(
+					if(mapping === null) null else mapping.treatment).jobId(jobId).build
 
-					jobStatus.tasksStatus.filter[!type.equals(TaskStatusType.PENDING)].forEach [
-						val taskJob = new Job("Updating task status...") {
-							override run(IProgressMonitor progressMonitor) {
-								if (progressMonitor.isCanceled()) {
-									progressMonitor.done();
-
-									throw new InterruptedException()
-
-								}
-
-								if (!pendingTasks.filter[element|element.taskId.equals(taskId)].isNullOrEmpty) {
-
-									val task = pendingTasks.filter[element|element.taskId.equals(taskId)].head
-
-									switch (type) {
-										case TaskStatusType.PENDING:
-											task.executionStatus = ExecutionStatusDTO.PENDING
-										case TaskStatusType.RUNNING:
-											task.executionStatus = ExecutionStatusDTO.RUNNING
-										case TaskStatusType.FINISHED:
-											task.executionStatus = ExecutionStatusDTO.FINISHED
-										case TaskStatusType.FAILED:
-											task.executionStatus = ExecutionStatusDTO.FAILED
-										case TaskStatusType.CANCELLED:
-											task.executionStatus = ExecutionStatusDTO.CANCELLED	
-										default: {
-										}
-									}
-
-									dohkoService.updateTaskStatus(task, specificationFile)
-									design = experimentDesignService.update(jobId)
-								}
-								Status.OK_STATUS
-							}
-						}
-						taskJob.system=true
-						taskJob.jobGroup=tasksGroup
-						taskJob.schedule
-					]
+			]
 			
-					if (progressMonitor.isCanceled()) {
-						progressMonitor.done();
 
-						throw new InterruptedException()
+			val tasksGroup = new JobGroup("tasksGroup", 30, 1)
 
+			
+			tasks.forEach [ task |
+
+				val taskJob = new Job("Updating task status...") {
+					override run(IProgressMonitor progressMonitor) {
+						if (progressMonitor.isCanceled()) {
+							progressMonitor.done();
+
+							throw new InterruptedException()
+
+						}
+
+						dohkoService.updateTaskStatus(task, specificationFile)
+						Status.OK_STATUS
 					}
-					tasksGroup.join(Long.MAX_VALUE, progressMonitor)
-					tasks = experimentExecutionService.findByJobId(jobId)
-					design = experimentDesignService.update(jobId)
-					// progressMonitor.subTask("Writing data to file %s".format(dataFile.name));
-					dataFileGenerator.writeToFile(dataFile, tasks);
-
 				}
-			// progressMonitor.worked(1);
-			// progressMonitor.done()
+				taskJob.system = true
+				taskJob.jobGroup = tasksGroup
+				taskJob.schedule
+			]
+
+			if (progressMonitor.isCanceled()) {
+				progressMonitor.done();
+
+				throw new InterruptedException()
+
 			}
+			tasksGroup.join(Long.MAX_VALUE, progressMonitor)
+			tasks = experimentExecutionService.findByJobId(jobId)
+			design = experimentDesignService.update(jobId)
+
+			dataFileGenerator.writeToFile(dataFile, tasks);
+
+
 			message = '''
 				Execution Status:
 									
@@ -175,15 +173,11 @@ class UpdateTaskStatusJob extends Job {
 			status.tasksStatus.filter[type.equals(TaskStatusType.CANCELLED)].length !== design.cancelled
 	}
 
-	
-
-
 	def createUpdateTaskJob(ExperimentExecutionDTO task, String jobName) {
 		new Job(jobName) {
 			override run(IProgressMonitor progressMonitor) {
 
-				// task.updateTaskStatus(specificationFile)
-				// progressMonitor.done();
+				
 				Status.OK_STATUS
 			}
 

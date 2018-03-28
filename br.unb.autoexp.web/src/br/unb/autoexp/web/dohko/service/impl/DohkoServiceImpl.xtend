@@ -30,6 +30,8 @@ import org.excalibur.core.execution.domain.ApplicationDescriptor
 import org.excalibur.core.execution.domain.JobStatus
 import org.excalibur.core.execution.domain.TaskOutputType
 import org.excalibur.core.execution.domain.TaskStats
+import org.excalibur.core.execution.domain.TaskStatus
+import org.excalibur.core.execution.domain.TaskStatusType
 
 import static extension java.lang.String.*
 
@@ -49,7 +51,6 @@ class DohkoServiceImpl implements DohkoService {
 
 	}
 
-
 	override updateTaskStatus(List<ExperimentExecutionDTO> tasks, File specificationFile) {
 		logger.info("Updating tasks status for jobId %s".format(tasks.head.jobId))
 		tasks.filter[isRunning].forEach [ task |
@@ -61,7 +62,8 @@ class DohkoServiceImpl implements DohkoService {
 	}
 
 	protected def boolean isRunning(ExperimentExecutionDTO execution) {
-		execution.executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED) || execution.executionStatus.equals(ExecutionStatusDTO.PENDING) ||
+		execution.executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED) ||
+			execution.executionStatus.equals(ExecutionStatusDTO.PENDING) ||
 			execution.executionStatus.equals(ExecutionStatusDTO.RUNNING)
 	}
 
@@ -83,7 +85,7 @@ class DohkoServiceImpl implements DohkoService {
 		}
 
 	}
-	
+
 	def Experiment parseDomainmodel(File file) {
 
 		val model = parser.parse(readFile(file.absolutePath))
@@ -124,6 +126,23 @@ class DohkoServiceImpl implements DohkoService {
 
 	override updateTaskStatus(ExperimentExecutionDTO task, File specificationFile) {
 		try {
+			val target = getTaskTarget(task.jobId, task.taskId, "status")
+
+			val status = target.request(MediaType.APPLICATION_JSON).get(TaskStatus)
+			switch (status.type) {
+				case TaskStatusType.PENDING:
+					task.executionStatus = ExecutionStatusDTO.PENDING
+				case TaskStatusType.RUNNING:
+					task.executionStatus = ExecutionStatusDTO.RUNNING
+				case TaskStatusType.FINISHED:
+					task.executionStatus = ExecutionStatusDTO.FINISHED
+				case TaskStatusType.FAILED:
+					task.executionStatus = ExecutionStatusDTO.FAILED
+				case TaskStatusType.CANCELLED:
+					task.executionStatus = ExecutionStatusDTO.CANCELLED
+				default: {
+				}
+			}
 
 			try {
 				val targetResources = getTaskTarget(task.jobId, task.taskId, "stats")
@@ -132,14 +151,14 @@ class DohkoServiceImpl implements DohkoService {
 
 				if (!stats.cpu.isNullOrEmpty) {
 					task.addDependentVariable("cpu", stats.cpu.maxBy[percent].percent.doubleValue)
-			
+
 				}
 				if (!stats.memory.isNullOrEmpty) {
 					task.addDependentVariable("memory", stats.memory.maxBy[resident].resident.doubleValue / 1024)
 				}
 
 			} catch (Exception e) {
-				logger.error(e.message,e)
+				logger.error(e.message, e)
 			}
 			val res = getTaskTarget(task.jobId, task.taskId, "output").request(MediaType.APPLICATION_JSON).get
 
@@ -148,7 +167,7 @@ class DohkoServiceImpl implements DohkoService {
 			if (!outputs.filter[type.equals(TaskOutputType.SYSOUT)].isNullOrEmpty) {
 				val encodedOutput = outputs.filter[type.equals(TaskOutputType.SYSOUT)].head.value.toString
 				val decodedOutput = new String(Base64.getDecoder().decode(encodedOutput))
-				
+
 				val experiment = parseDomainmodel(specificationFile)
 
 				val depVariables = experiment.researchHypotheses.filter [
@@ -156,8 +175,8 @@ class DohkoServiceImpl implements DohkoService {
 				].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
 
 				depVariables.forEach [
-					val expression=instrument.valueExpression.replaceAll("\\(","\\\\(").replaceAll("\\)","\\\\)")
-				
+					val expression = instrument.valueExpression.replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")
+
 					val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(expression))
 					val m = p.matcher(decodedOutput);
 					while (m.find) {
@@ -173,8 +192,10 @@ class DohkoServiceImpl implements DohkoService {
 				]
 
 			}
-
-			experimentExecutionService.update(task)
+			if (task.id === null)
+				experimentExecutionService.create(task)
+			else
+				experimentExecutionService.update(task)
 
 		} catch (NotFoundException e) {
 			logger.error(e.getMessage(), e)
@@ -188,10 +209,11 @@ class DohkoServiceImpl implements DohkoService {
 	override getJobStatus(String jobId) {
 		getJobTarget(jobId, "vagrant", "status").request(MediaType.APPLICATION_JSON).get(JobStatus)
 	}
-def convert(String depVariable) {
-		switch(depVariable){
-			case "cpuConsumption":"cpu"
-			case "memoryConsumption":"memory"
+
+	def convert(String depVariable) {
+		switch (depVariable) {
+			case "cpuConsumption": "cpu"
+			case "memoryConsumption": "memory"
 			default: depVariable
 		}
 	}

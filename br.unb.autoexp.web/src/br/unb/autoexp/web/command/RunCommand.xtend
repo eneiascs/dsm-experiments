@@ -10,22 +10,18 @@ import br.unb.autoexp.web.dohko.service.DohkoService
 import br.unb.autoexp.web.job.RunAnalysisJob
 import br.unb.autoexp.web.job.TaskExecutionJob
 import br.unb.autoexp.web.mapping.MappingServiceFactory
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.inject.Inject
 import java.io.File
 import java.io.IOException
 import java.lang.reflect.InvocationTargetException
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.List
+import java.util.UUID
 import javax.inject.Provider
-import javax.ws.rs.client.Entity
-import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-import org.apache.commons.io.FileUtils
 import org.apache.log4j.Logger
 import org.dslforge.xtext.common.commands.BasicGenerateCommand
 import org.eclipse.core.commands.AbstractHandler
@@ -41,6 +37,7 @@ import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.ui.IWorkbenchWindow
 import org.eclipse.ui.handlers.HandlerUtil
 import org.excalibur.core.execution.domain.ApplicationDescriptor
+import static java.util.UUID.randomUUID;
 import org.excalibur.core.execution.domain.JobStatus
 
 /**
@@ -58,8 +55,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 	@Inject
 	private ExperimentDesignStorageService experimentDesignService
-	@Inject
-	private ExperimentExecutionStorageService experimentExecutionService
+
 	@Inject
 	private DataFileGeneratorService dataFileGenerator
 
@@ -77,16 +73,11 @@ class RunCommand extends AbstractWorkspaceCommand {
 	ApplicationDescriptor applicationDescriptor
 	private Job runExperimentJob
 
-	@Inject
-	private Provider<TaskExecutionJob> taskExecutionJobProvider;
-
 	private JobGroup runExperimentJobGroup
 	String jobId
 	File applicationDescriptorFile
 	File executionFolder
 	File jsonApplicationDescriptorFile
-	@Inject
-	private Provider<RunAnalysisJob> runAnalysisJobProvider;
 	Response response
 	List<ExperimentExecutionDTO> tasks
 
@@ -102,10 +93,10 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 					try {
 
-						val sendToDohkoJob = new Job("Sending job to execution ...") {
+						val generateArtifacts = new Job("Generating artifacts ...") {
 
 							override run(IProgressMonitor progressMonitor) {
-								progressMonitor.beginTask("Sending job to execution ...", 100)
+
 								logger.info(String.format("Generating artifacts for %s", file.getName()));
 
 								progressMonitor.subTask(String.format("Generating artifacts for %s", file.getName()))
@@ -146,6 +137,37 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 								progressMonitor.worked(20)
 
+								val sdf = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss");
+								executionFolder = new File(
+									String.format("%s%s%s%s%s", specificationFile.getParentFile().getAbsolutePath(),
+										File.separator, "executions", File.separator, sdf.format(new Date())));
+								executionFolder.mkdirs();
+
+								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
+								val reproductionFile=new File(executionFolder.getAbsolutePath() + File.separator + "reproduction.R");
+								copyToFolder(jsonApplicationDescriptorFile, executionFolder);
+								copyToFolder(applicationDescriptorFile, executionFolder);
+								copyToFolder(jsonFile, executionFolder);
+								copyToFolder(specificationFile, executionFolder);
+								copyToFolder(rnwFile, executionFolder);
+								copyToFolder(reproductionFile, executionFolder);
+								progressMonitor.worked(100)
+
+								Status.OK_STATUS
+							}
+						}
+						generateArtifacts.system = true
+						generateArtifacts.jobGroup = runExperimentJobGroup
+						generateArtifacts.schedule
+
+						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
+
+		
+
+						val sendToDohkoJob = new Job("Sending job to execution ...") {
+
+							override run(IProgressMonitor progressMonitor) {
+
 								progressMonitor.subTask("Sending application descriptor to Execution")
 								logger.info(String.format("Sending application descriptor to dohko"));
 								response = dohkoService.runDohko(applicationDescriptor);
@@ -156,7 +178,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 								logger.info(result);
 
 								if (response.getStatus() == 201 || response.getStatus() == 202) {
-
+									
 									Status.OK_STATUS
 								} else {
 									throw new RuntimeException(result)
@@ -169,31 +191,16 @@ class RunCommand extends AbstractWorkspaceCommand {
 						sendToDohkoJob.system = true
 						sendToDohkoJob.jobGroup = runExperimentJobGroup
 						sendToDohkoJob.schedule
+						progressMonitor.worked(100)
 
 						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-
-						val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
+						
+										val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
 
 							override run(IProgressMonitor progressMonitor) {
-								val jobStatus = response.readEntity(JobStatus);
 
-								jobId = jobStatus.getId();
-								applicationDescriptor = dohkoService.getApplicationDescriptor(jobId,
-									applicationDescriptor.getUser().getUsername());
-								val sdf = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss");
-								executionFolder = new File(
-									String.format("%s%s%s%s%s", specificationFile.getParentFile().getAbsolutePath(),
-										File.separator, "executions", File.separator, sdf.format(new Date())));
-								executionFolder.mkdirs();
-
-								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
-
-								copyToFolder(jsonApplicationDescriptorFile, executionFolder);
-								copyToFolder(applicationDescriptorFile, executionFolder);
-								copyToFolder(jsonFile, executionFolder);
-								copyToFolder(specificationFile, executionFolder);
-								copyToFolder(rnwFile, executionFolder);
-
+								val jobStatus=response.readEntity(JobStatus)
+								jobId=jobStatus.id
 								val mappingService = MappingServiceFactory.get(jsonFile.getAbsolutePath());
 
 								val design = mappingService.findAll().get(0).getDesignType().getName();
@@ -218,9 +225,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 											if(mapping === null) null else mapping.treatment).jobId(jobId).build
 
 								]
-								tasks = experimentExecutionService.create(tasks)
 
-								dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(jobId));
+								dataFileGenerator.writeToFile(dataFile, tasks);
 								Status.OK_STATUS
 							}
 						}
@@ -230,54 +236,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
 
-						val TaskExecutionJob taskExecutionJob = taskExecutionJobProvider.get
-						taskExecutionJob.jobGroup = runExperimentJobGroup
-						taskExecutionJob.system = true
-						taskExecutionJob.jobId = jobId
-						taskExecutionJob.specificationFile = specificationFile
-						taskExecutionJob.dataFile = dataFile
-						taskExecutionJob.schedule
-//						tasks.forEach [
-//							val TaskExecutionJob taskExecutionJob = taskExecutionJobProvider.get
-//							taskExecutionJob.jobGroup = runExperimentJobGroup
-//							taskExecutionJob.system = true
-//							taskExecutionJob.task = it
-//							taskExecutionJob.specificationFile = specificationFile
-//							taskExecutionJob.schedule
-//						]
-						progressMonitor.subTask("Running tasks")
-						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-						isError = taskExecutionJob.isError
-						result = taskExecutionJob.message
 
-						if (!isError) {
-
-							val runAnalysisJob = runAnalysisJobProvider.get
-							runAnalysisJob.rnwFile = new File(executionFolder.absolutePath + File.separator +
-								file.getName().replaceFirst("[.][^.]+$", ".Rnw"))
-
-							runAnalysisJob.jobGroup = runExperimentJobGroup
-							runAnalysisJob.system = true
-							runAnalysisJob.schedule
-
-							runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-
-							result = runAnalysisJob.message
-							isError = runAnalysisJob.error
-						}
-						val Job res = new Job("Displaying results...") {
-							override run(IProgressMonitor progressMonitor) {
-
-								if (!progressMonitor.isCanceled) {
-									displayResult
-
-								}
-								Status.OK_STATUS
-							}
-						}
-						res.jobGroup = runExperimentJobGroup
-						res.system = true
-						res.schedule
 
 						Status.OK_STATUS
 

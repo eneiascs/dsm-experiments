@@ -80,35 +80,18 @@ class UpdateStatusCommand extends AbstractWorkspaceCommand {
 
 						throw new RuntimeException(message)
 					}
-					val executionFolder = file
+				
 
 					jobId = dataFileGenerator.getJobIdFromFile(dataFile)
-					var List<ExperimentExecutionDTO> tasks = experimentExecutionService.findByJobId(jobId)
+	
+					val design = experimentDesignService.findByJobId(jobId)
 
-					if (tasks.isNullOrEmpty) {
-
+				if (design === null) {
 						throw new RuntimeException(message)
 					}
 
-					val design = experimentDesignService.findByJobId(tasks.head.jobId)
+					specificationFile = new File(file.getAbsolutePath() + File.separator + design.fileName)
 
-					if (design === null) {
-
-						throw new RuntimeException(message)
-					}
-
-					specificationFile = new File(file.getAbsolutePath() + File.separator + design.getFileName())
-					val jsonFile = new File(file.getAbsolutePath() + File.separator +
-						design.getFileName().replaceFirst("[.][^.]+$", ".json"))
-					val applicationDescriptorFile = new File(file.getAbsolutePath() + File.separator +
-						design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
-					val rnwFile = new File(file.getAbsolutePath() + File.separator +
-						design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
-
-					checkFile(applicationDescriptorFile, executionFolder)
-					checkFile(jsonFile, executionFolder)
-					checkFile(specificationFile, executionFolder)
-					checkFile(rnwFile, executionFolder)
 
 					Status.OK_STATUS
 				}
