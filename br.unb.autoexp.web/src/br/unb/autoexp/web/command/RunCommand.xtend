@@ -139,7 +139,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 								executionFolder.mkdirs();
 
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
-								applicationDescriptorFile.parentFile.listFiles.forEach[copyToFolder(executionFolder)]		
+								applicationDescriptorFile.parentFile.listFiles.forEach[copyToFolder(executionFolder)]
+								specificationFile.copyToFolder(executionFolder)		
 								progressMonitor.worked(100)
 
 								Status.OK_STATUS
