@@ -57,7 +57,7 @@
       <editor
             class="org.dslforge.texteditor.BasicTextEditor"
             default="true"
-            extensions="yml,txt,log,sh,html,json,java,R,Rnw,tex,sty,out"
+            extensions="yml,txt,log,sh,html,json,java,R,Rnw,tex,sty,out,py"
             id="br.unb.autoexp.web.textEditor"
             name="Text Editor">
       </editor>

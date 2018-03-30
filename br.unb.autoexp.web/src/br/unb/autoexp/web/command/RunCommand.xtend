@@ -69,7 +69,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 	private File jsonFile
 
 	private File file
-	private File rnwFile
+	
 	ApplicationDescriptor applicationDescriptor
 	private Job runExperimentJob
 
@@ -77,7 +77,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 	String jobId
 	File applicationDescriptorFile
 	File executionFolder
-	File jsonApplicationDescriptorFile
+	
 	Response response
 	List<ExperimentExecutionDTO> tasks
 
@@ -121,12 +121,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
 										File.separator + file.getName().replaceFirst("[.][^.]+$", ".yml"));
 
-								rnwFile = new File(
-									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
-										File.separator + file.getName().replaceFirst("[.][^.]+$", ".Rnw"));
-								jsonApplicationDescriptorFile = new File(
-									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
-										File.separator + "applicationDescriptor.json")
+								
 
 								logger.info(String.format("Converting file %s to application descriptor object",
 									applicationDescriptorFile.getName()));
@@ -144,14 +139,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 								executionFolder.mkdirs();
 
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
-								val reproductionFile=new File(file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
-										File.separator + "reproduction.R");
-								copyToFolder(jsonApplicationDescriptorFile, executionFolder);
-								copyToFolder(applicationDescriptorFile, executionFolder);
-								copyToFolder(jsonFile, executionFolder);
-								copyToFolder(specificationFile, executionFolder);
-								copyToFolder(rnwFile, executionFolder);
-								copyToFolder(reproductionFile, executionFolder);
+								applicationDescriptorFile.parentFile.listFiles.forEach[copyToFolder(executionFolder)]		
 								progressMonitor.worked(100)
 
 								Status.OK_STATUS
