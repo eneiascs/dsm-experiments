@@ -6,6 +6,7 @@ package br.unb.autoexp.generator
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.generator.dohko.DohkoGenerator
 import br.unb.autoexp.generator.mapping.MappingGenerator
+import br.unb.autoexp.generator.pythonscript.PythonScriptGenerator
 import br.unb.autoexp.generator.rscript.RScriptGenerator
 import br.unb.autoexp.generator.rscript.RScriptReproductionGenerator
 import com.google.inject.Inject
@@ -27,6 +28,7 @@ class AutoExpGenerator extends AbstractGenerator {
 	@Inject extension MappingGenerator
 	@Inject extension RScriptGenerator
 	@Inject extension RScriptReproductionGenerator
+	@Inject extension PythonScriptGenerator
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		for (e : resource.allContents.toIterable.filter(Experiment)) {
@@ -39,6 +41,8 @@ class AutoExpGenerator extends AbstractGenerator {
 			fsa.generateFile("%s.Rnw".format(resource.URI.path.split("/").last.replaceFirst("[.][^.]+$", "")),
 				e.compileRScript)	
 			fsa.generateFile("reproduction.R",e.compileReproduction)
+			fsa.generateFile("%s.py".format(resource.URI.path.split("/").last.replaceFirst("[.][^.]+$", "")),
+				e.compilePythonScript)	
 		}
 
 	}
