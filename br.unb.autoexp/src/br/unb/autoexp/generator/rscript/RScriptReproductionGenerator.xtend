@@ -21,7 +21,7 @@ class RScriptReproductionGenerator {
 			names(results_original)<-names
 			
 			source("original_data.R")
-			df<-getOriginalData() 
+			df<-rbind(getOriginalData(),getRunexecData()) 
 			 
 			json_data = fromJSON("data.json")
 			
