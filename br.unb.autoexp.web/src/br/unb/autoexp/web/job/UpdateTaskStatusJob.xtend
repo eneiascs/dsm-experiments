@@ -81,20 +81,27 @@ class UpdateTaskStatusJob extends Job {
 			val mappingService = MappingServiceFactory.get(jsonFile.getAbsolutePath());
 
 			design = experimentDesignService.findByJobId(jobId)
-
+			val tasksDatabase =experimentExecutionService.findByJobId(jobId)
 			var tasks = (applicationDescriptor.getApplications() + applicationDescriptor.getBlocks().map [
 				getApplications()
 			].flatten).toList.map [
+							
 				val mapping = mappingService.findByTaskName(name);
-				ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).taskId(id).factor(
-					if(mapping === null) null else mapping.factor).object(
-					if(mapping === null) null else mapping.object).taskName(
-					if(mapping === null) null else mapping.getTaskName).treatment(
-					if(mapping === null) null else mapping.treatment).jobId(jobId).build
+				
+				val i =if(tasksDatabase!==null&&!tasksDatabase.filter[t|t.taskId.equals(id)].isNullOrEmpty)  tasksDatabase.filter[t|t.taskId.equals(id)].head.id else null
+				
+				ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING)
+				.id(i)
+				.taskId(id)
+				.factor(if(mapping === null) null else mapping.factor)
+				.object(if(mapping === null) null else mapping.object)
+				.taskName(if(mapping === null) null else mapping.getTaskName)
+				.treatment(if(mapping === null) null else mapping.treatment)
+				.jobId(jobId)
+				.build
 
 			]
 			
-
 			val tasksGroup = new JobGroup("tasksGroup", 30, 1)
 
 			
@@ -108,7 +115,8 @@ class UpdateTaskStatusJob extends Job {
 							throw new InterruptedException()
 
 						}
-
+						
+						experimentExecutionService.findByJobId(jobId)
 						dohkoService.updateTaskStatus(task, specificationFile)
 						Status.OK_STATUS
 					}
