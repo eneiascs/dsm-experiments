@@ -17,11 +17,17 @@ class RScriptReproductionGenerator {
 			library(ggplot2)
 			
 			names<-c("treatment","object","execution", "min","mean","max")
-			results_original<-data.frame(replicate(3,character(0)), replicate(3,numeric(0)))
-			names(results_original)<-names
+			df<-data.frame(replicate(3,character(0)), replicate(3,numeric(0)))
+			names(df)<-names
 			
-			source("original_data.R")
-			df<-rbind(getOriginalData(),getRunexecData()) 
+			originalDataFile<-"original_data.R"
+			if (file.exists(originalDataFile)) {
+			  source(originalDataFile)
+			  if(exists('getOriginalData',  mode='function')){
+			    df<-rbind(df,getOriginalData()) 
+			  }
+			  
+			} 
 			 
 			json_data = fromJSON("data.json")
 			
