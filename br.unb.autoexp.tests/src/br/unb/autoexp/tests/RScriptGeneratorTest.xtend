@@ -19,7 +19,7 @@ class RScriptGeneratorTest {
 		'''
 			Experiment reanaSpl {
 			
-				Authors {author1 {fullName "Author1 Full Name" institution "University of Bras�lia" email "author1@unb.br"},author2 {fullName "Author2 Full Name" institution "University of Bras�lia" email "author2@unb.br"}}
+				Authors {author1 {fullName "Author1 Full Name" institution "University of Brasilia" email "author1@unb.br"},author2 {fullName "Author2 Full Name" institution "University of Bras�lia" email "author2@unb.br"}}
 			
 			  description "Reliability Analysis of Software Product Lines" 
 			 Abstract {
@@ -226,7 +226,7 @@ class RScriptGeneratorTest {
 				
 				<<overview_time, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 						
 						ggplot(DF, aes(x=objectLabel, y=time, group=treatmentDescription, color=treatmentDescription)) + 
 						    geom_errorbar(aes(ymin=time-sd, ymax=time+sd), width=.1, linetype=3) +
@@ -241,7 +241,7 @@ class RScriptGeneratorTest {
 						@
 				<<overview_memory, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 						
 						ggplot(DF, aes(x=objectLabel, y=memory, group=treatmentDescription, color=treatmentDescription)) + 
 						    geom_errorbar(aes(ymin=memory-sd, ymax=memory+sd), width=.1, linetype=3) +
@@ -256,7 +256,7 @@ class RScriptGeneratorTest {
 						@
 				<<overview_cpu, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 						
 						ggplot(DF, aes(x=objectLabel, y=cpu, group=treatmentDescription, color=treatmentDescription)) + 
 						    geom_errorbar(aes(ymin=cpu-sd, ymax=cpu+sd), width=.1, linetype=3) +
@@ -363,7 +363,7 @@ class RScriptGeneratorTest {
 				 
 				 <<overview_RH1, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 				 		
 				 		ggplot(DF, aes(x=objectLabel, y=time, group=treatmentDescription, color=treatmentDescription)) + 
 				 		    geom_errorbar(aes(ymin=time-sd, ymax=time+sd), width=.1, linetype=3) +
@@ -710,7 +710,7 @@ class RScriptGeneratorTest {
 				 
 				 <<overview_RH2, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 				 		
 				 		ggplot(DF, aes(x=objectLabel, y=memory, group=treatmentDescription, color=treatmentDescription)) + 
 				 		    geom_errorbar(aes(ymin=memory-sd, ymax=memory+sd), width=.1, linetype=3) +
@@ -1057,7 +1057,7 @@ class RScriptGeneratorTest {
 				 
 				 <<overview_RH3, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 				 		
 				 		ggplot(DF, aes(x=objectLabel, y=cpu, group=treatmentDescription, color=treatmentDescription)) + 
 				 		    geom_errorbar(aes(ymin=cpu-sd, ymax=cpu+sd), width=.1, linetype=3) +
