@@ -4,11 +4,8 @@ import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentDesignDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
 import br.unb.autoexp.storage.service.ExperimentDesignStorageService
-import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
 import br.unb.autoexp.web.data.DataFileGeneratorService
 import br.unb.autoexp.web.dohko.service.DohkoService
-import br.unb.autoexp.web.job.RunAnalysisJob
-import br.unb.autoexp.web.job.TaskExecutionJob
 import br.unb.autoexp.web.mapping.MappingServiceFactory
 import com.google.inject.Inject
 import java.io.File
@@ -19,11 +16,10 @@ import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.List
-import java.util.UUID
-import javax.inject.Provider
 import javax.ws.rs.core.Response
 import org.apache.log4j.Logger
 import org.dslforge.xtext.common.commands.BasicGenerateCommand
+import org.dslforge.xtext.common.registry.LanguageRegistry
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
@@ -37,9 +33,8 @@ import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.ui.IWorkbenchWindow
 import org.eclipse.ui.handlers.HandlerUtil
 import org.excalibur.core.execution.domain.ApplicationDescriptor
-import static java.util.UUID.randomUUID;
 import org.excalibur.core.execution.domain.JobStatus
-
+import static extension java.lang.String.format
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
  * 
@@ -69,7 +64,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 	private File jsonFile
 
 	private File file
-	
+
 	ApplicationDescriptor applicationDescriptor
 	private Job runExperimentJob
 
@@ -77,7 +72,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 	String jobId
 	File applicationDescriptorFile
 	File executionFolder
-	
+
 	Response response
 	List<ExperimentExecutionDTO> tasks
 
@@ -92,7 +87,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 				override run(IProgressMonitor progressMonitor) {
 
 					try {
-
+						
 						val generateArtifacts = new Job("Generating artifacts ...") {
 
 							override run(IProgressMonitor progressMonitor) {
@@ -107,9 +102,16 @@ class RunCommand extends AbstractWorkspaceCommand {
 									throw new RuntimeException("Error getting generate command");
 								}
 								generateCommand.execute(event);
+								val availableLanguages =LanguageRegistry.INSTANCE.getMetamodels();
+								
+								if(availableLanguages.isNullOrEmpty){
+									throw new RuntimeException("No language available.");		
+								}
+								val defaultFileExtension = LanguageRegistry.INSTANCE.getFileExtensionFor(availableLanguages.get(0))
 
-								val message = "Execution must be run from a specification file (*.ae)";
-								if (!file.getName().endsWith(".ae")) {
+								val message = "Execution must be run from a specification file (*.%s)".format(
+									defaultFileExtension);
+								if (!file.getName().endsWith("." + defaultFileExtension)) {
 
 									throw new RuntimeException(message);
 								}
@@ -120,8 +122,6 @@ class RunCommand extends AbstractWorkspaceCommand {
 								applicationDescriptorFile = new File(
 									file.getParentFile().getAbsolutePath() + File.separator + DEFAULT_OUTPUT_FOLDER +
 										File.separator + file.getName().replaceFirst("[.][^.]+$", ".yml"));
-
-								
 
 								logger.info(String.format("Converting file %s to application descriptor object",
 									applicationDescriptorFile.getName()));
@@ -140,7 +140,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
 								applicationDescriptorFile.parentFile.listFiles.forEach[copyToFolder(executionFolder)]
-								specificationFile.copyToFolder(executionFolder)		
+								specificationFile.copyToFolder(executionFolder)
 								progressMonitor.worked(100)
 
 								Status.OK_STATUS
@@ -151,8 +151,6 @@ class RunCommand extends AbstractWorkspaceCommand {
 						generateArtifacts.schedule
 
 						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-
-		
 
 						val sendToDohkoJob = new Job("Sending job to execution ...") {
 
@@ -168,7 +166,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 								logger.info(result);
 
 								if (response.getStatus() == 201 || response.getStatus() == 202) {
-									
+
 									Status.OK_STATUS
 								} else {
 									throw new RuntimeException(result)
@@ -184,13 +182,13 @@ class RunCommand extends AbstractWorkspaceCommand {
 						progressMonitor.worked(100)
 
 						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-						
-										val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
+
+						val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
 
 							override run(IProgressMonitor progressMonitor) {
 
-								val jobStatus=response.readEntity(JobStatus)
-								jobId=jobStatus.id
+								val jobStatus = response.readEntity(JobStatus)
+								jobId = jobStatus.id
 								val mappingService = MappingServiceFactory.get(jsonFile.getAbsolutePath());
 
 								val design = mappingService.findAll().get(0).getDesignType().getName();
@@ -225,8 +223,6 @@ class RunCommand extends AbstractWorkspaceCommand {
 						insertTasksInDatabase.schedule
 
 						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-
-
 
 						Status.OK_STATUS
 

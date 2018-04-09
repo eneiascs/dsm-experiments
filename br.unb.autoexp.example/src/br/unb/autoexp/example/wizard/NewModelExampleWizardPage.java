@@ -2,11 +2,7 @@ package br.unb.autoexp.example.wizard;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.dslforge.workspace.ui.wizards.NewModelFileWizardPage;
 import org.dslforge.xtext.common.registry.LanguageRegistry;
@@ -41,12 +37,11 @@ public class NewModelExampleWizardPage extends NewModelFileWizardPage {
 	}
 
 	private static final long serialVersionUID = 1L;
-	public Collection<String> availableFileExtensions = Collections.emptyList();
+
 	public String defaultFileExtension = null;
 	private Text fileNameText;
 	private Combo languageNameCombo;
 	private String languageName = null;
-	private final Map<String, String> languageToFileExtension = new HashMap<String, String>();
 
 	@Override
 	public void createControl(Composite parent) {

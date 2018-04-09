@@ -23,7 +23,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "br.unb.autoexp.AutoExp"
-			fileExtensions = "ae"
+			fileExtensions = "exp"
 			serializer = {
 				generateStub = false
 			}

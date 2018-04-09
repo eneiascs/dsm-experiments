@@ -50,7 +50,7 @@
       <editor
             id="br.unb.autoexp.web.editor"
             name="AutoExp Model Editor"
-		            extensions="ae"
+		            extensions="exp"
            class="br.unb.autoexp.web.editor.AutoExpEditor"
             contributorClass="br.unb.autoexp.web.editor.AutoExpActionBarContributor">
       </editor>
@@ -67,7 +67,7 @@
   <contribution
        factory="br.unb.autoexp.web.AutoExpExecutableExtensionFactory"
         path="/br.unb.autoexp/src/br/unb/autoexp/AutoExp.xtext"
-        extension="ae">
+        extension="exp">
   </contribution>
 </extension>
    <extension

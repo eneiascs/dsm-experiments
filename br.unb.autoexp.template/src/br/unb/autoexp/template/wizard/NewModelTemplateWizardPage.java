@@ -1,10 +1,9 @@
 package br.unb.autoexp.template.wizard;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
+import org.dslforge.xtext.common.registry.LanguageRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -21,15 +20,21 @@ import org.eclipse.swt.widgets.Text;
 
 public class NewModelTemplateWizardPage extends AbstractNewResourceWizardPage {
 
+	private static final long serialVersionUID = 1L;
+
+	public String defaultFileExtension;
+	private Text fileNameText;
+
 	protected NewModelTemplateWizardPage(String pageName) {
 		super(pageName);
+		List<String> availableLanguages = LanguageRegistry.INSTANCE.getMetamodels();
+
+		if (availableLanguages == null || availableLanguages.isEmpty()) {
+			throw new RuntimeException("No language available.");
+		}
+		defaultFileExtension = LanguageRegistry.INSTANCE.getFileExtensionFor(availableLanguages.get(0));
 
 	}
-
-	private static final long serialVersionUID = 1L;
-	public Collection<String> availableFileExtensions = Collections.emptyList();
-	public String defaultFileExtension = "ae";
-	private Text fileNameText;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -79,7 +84,7 @@ public class NewModelTemplateWizardPage extends AbstractNewResourceWizardPage {
 			setErrorMessage("The model file name must have the following extension: " + defaultFileExtension);
 			return false;
 		}
-		if (fileNameText.getText() == null || fileNameText.getText().equals(".ae")) {
+		if (fileNameText.getText() == null || fileNameText.getText().equals("." + defaultFileExtension)) {
 			setErrorMessage("Model file name not specified, please enter the file name");
 			return false;
 		}
