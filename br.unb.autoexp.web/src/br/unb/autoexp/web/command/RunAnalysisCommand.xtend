@@ -48,8 +48,7 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 	@Inject
 	private Provider<RunAnalysisJob> runAnalysisJobProvider;
 
-	@Inject
-	private Provider<UpdateTaskStatusJob> updateTaskStatusJobProvider;
+	
 	private IWorkbenchWindow window
 @Accessors
 	private String result
@@ -62,8 +61,7 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 
 	@Accessors
 	private File file
-	private UpdateTaskStatusJob updateTaskStatusJob
-
+	
 	private RunAnalysisJob runAnalysisJob
 
 	String jobId
@@ -71,9 +69,9 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 	override execute(ExecutionEvent event) throws ExecutionException {
 		try {
 			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-			if (file === null) {
-				file = unwrap(event, File);
-			}
+			
+			file = unwrap(event, File);
+			
 			result = ""
 			isError = false
 			val Job operation = new Job("Checking files in folder...") {
