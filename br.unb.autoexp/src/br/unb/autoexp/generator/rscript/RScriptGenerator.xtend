@@ -523,7 +523,7 @@ class RScriptGenerator {
 	
 	protected def CharSequence generatePlotOverview(Experiment experiment, CustomDependentVariable variable)
 		'''«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-			DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(DF$objectOrder)])
+			DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
 		«ENDIF»
 		
 		ggplot(DF, aes(x=objectLabel, y=«variable.name.convert», group=treatmentDescription, color=treatmentDescription)) + 
