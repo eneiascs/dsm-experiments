@@ -32,10 +32,7 @@ class RScriptReproductionGenerator {
 			 
 			json_data = fromJSON("data.json")
 			
-			«FOR i:1..experiment.experimentalObjects.size»
-				json_data$objectOrder[json_data$object == '«experiment.experimentalObjects.get(i-1).name»'] = «i»
-			«ENDFOR»
-			
+					
 			expectedRuns = «experiment.experimentalDesign.runs»
 			«FOR variable : (experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 				json_data$«variable.name.convert»[json_data$executionStatus!='FINISHED']=NA
@@ -51,7 +48,7 @@ class RScriptReproductionGenerator {
 			«FOR variable : (experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 				«FOR treatment:experiment.treatmentsInUse»				
 					«FOR object:treatment.experimentalObjects»
-						df2<-data.frame("«treatment.name»","«IF object.value===null»«object.description»«ELSE»«object.value»«ENDIF»","Reproduction","«variable.name.convert»",min(json_data$«variable.name.convert»[json_data$treatment == '«treatment.name»' & json_data$object == '«object.name»']),mean(json_data$«variable.name.convert»[json_data$treatment == '«treatment.name»' & json_data$object == '«object.name»']),max(json_data$«variable.name.convert»[json_data$treatment == '«treatment.name»' & json_data$object == '«object.name»']))
+						df2<-data.frame("«treatment.description»","«IF object.value===null»«object.description»«ELSE»«object.value»«ENDIF»","Reproduction","«variable.name.convert»",min(json_data$«variable.name.convert»[json_data$treatment == '«treatment.name»' & json_data$object == '«object.name»']),mean(json_data$«variable.name.convert»[json_data$treatment == '«treatment.name»' & json_data$object == '«object.name»']),max(json_data$«variable.name.convert»[json_data$treatment == '«treatment.name»' & json_data$object == '«object.name»']))
 						names(df2)<-names
 						df<-data.frame(rbind(df,df2))
 					«ENDFOR» 
@@ -61,6 +58,7 @@ class RScriptReproductionGenerator {
 			«IF !experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
 				df$object<-as.numeric(df$object)				
 			«ENDIF»
+			
 			data_summary <- function(data, varname, groupnames){
 					  require(plyr)
 					  summary_func <- function(x, col){
@@ -98,10 +96,11 @@ class RScriptReproductionGenerator {
 			
 			«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 			for (exec in levels(df$execution)){
-				DF<-subset(df,execution==exec & dependentVariable=='«variable.name.convert»')
-				«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-					DF$object <- factor(DF$object, levels = DF$object[order(unique(json_data$objectOrder[!is.na(json_data$objectOrder)], incomparables = FALSE))])
-				«ENDIF»
+				DF<-subset(df,execution==exec & dependentVariable=='«variable.name.convert»' & !is.na(mean))
+				if(nrow(DF)>0){
+					«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
+						DF$object <- factor(DF$object, levels=c(«FOR object:experiment.experimentalObjects SEPARATOR ","»"«object.description»"«ENDFOR»))
+					«ENDIF»
 					print(ggplot(DF, aes(x=object, y=mean, group=treatment, color=treatment)) + 
 					geom_errorbar(aes(ymin=min, ymax=max), width=.1, linetype=3) +
 					geom_line() + geom_point()+
@@ -127,16 +126,17 @@ class RScriptReproductionGenerator {
 					«ENDIF»			  
 					ggtitle(paste("«variable.description» (",exec,")", sep = "")) + 
 					theme(legend.title = element_blank()))
+				}	
 			}
 			«ENDFOR»
 			
 			
 			«FOR treatment:experiment.treatmentsInUse»
 				«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
-				
-					DF<-subset(df,treatment=='«treatment.name»' & dependentVariable=='«variable.name.convert»')
+				DF<-subset(df,treatment=='«treatment.description»' & dependentVariable=='«variable.name.convert»' & !is.na(mean))	
+				if(nrow(DF)>0){
 					«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-					DF$object <- factor(DF$object, levels = DF$object[order(unique(json_data$objectOrder[!is.na(json_data$objectOrder)], incomparables = FALSE))])
+						DF$object <- factor(DF$object, levels=c(«FOR i:1..experiment.experimentalObjects.size SEPARATOR ","»"«experiment.experimentalObjects.get(i-1).description»"«ENDFOR»))
 					«ENDIF»
 					ggplot(DF, aes(x=object, y=mean, group=execution, color=execution)) + 
 					geom_errorbar(aes(ymin=min, ymax=max), width=.1, linetype=3) +
@@ -163,6 +163,7 @@ class RScriptReproductionGenerator {
 					«ENDIF»			  
 					ggtitle("«variable.description» for «treatment.description»") + 
 					theme(legend.title = element_blank())
+				}	
 				«ENDFOR»	
 			«ENDFOR»
 			'''

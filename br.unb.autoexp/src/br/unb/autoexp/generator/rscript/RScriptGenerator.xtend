@@ -516,14 +516,15 @@ class RScriptGenerator {
 		
 		«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 			<<overview_«variable.name.convert», include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-			DF<-data_summary(subset(json_data,«FOR object:experiment.objectsInUse BEFORE "(" SEPARATOR "|" AFTER ")"»object=='«object.name»'«ENDFOR»), varname="«variable.name.convert»", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+			DF<-data_summary(subset(json_data,«FOR object:experiment.objectsInUse BEFORE "(" SEPARATOR "|"»object=='«object.name»'«ENDFOR») & !is.na(«variable.name.convert»)), varname="«variable.name.convert»", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
 			«generatePlotOverview(experiment, variable)»
+			@
 		«ENDFOR»			
 	'''
 	
 	protected def CharSequence generatePlotOverview(Experiment experiment, CustomDependentVariable variable)
 		'''«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-			DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+			DF$objectLabel <- factor(DF$objectLabel, levels=c(«FOR object:experiment.experimentalObjects SEPARATOR ","»"«object.description»"«ENDFOR»))
 		«ENDIF»
 		
 		ggplot(DF, aes(x=objectLabel, y=«variable.name.convert», group=treatmentDescription, color=treatmentDescription)) + 
@@ -552,8 +553,7 @@ class RScriptGenerator {
 		  «ENDIF»			  
 		  ggtitle("«variable.description» Overview") + 
 		  theme(legend.title = element_blank())	
-		@
-				'''
+		'''
 	
 	
 	def String generateOverview(Experiment experiment, Treatment treatment)

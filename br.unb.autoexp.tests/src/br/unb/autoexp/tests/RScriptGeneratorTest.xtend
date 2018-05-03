@@ -225,8 +225,8 @@ class RScriptGeneratorTest {
 				
 				
 				<<overview_time, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & !is.na(time)), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				DF$objectLabel <- factor(DF$objectLabel, levels=c("Intercloud SPL","Lift SPL"))
 						
 						ggplot(DF, aes(x=objectLabel, y=time, group=treatmentDescription, color=treatmentDescription)) + 
 						    geom_errorbar(aes(ymin=time-sd, ymax=time+sd), width=.1, linetype=3) +
@@ -238,10 +238,10 @@ class RScriptGeneratorTest {
 						  scale_y_continuous(name = "Analysis time ")+
 						  ggtitle("Analysis time Overview") + 
 						  theme(legend.title = element_blank())	
-						@
+				@
 				<<overview_memory, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & !is.na(memory)), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				DF$objectLabel <- factor(DF$objectLabel, levels=c("Intercloud SPL","Lift SPL"))
 						
 						ggplot(DF, aes(x=objectLabel, y=memory, group=treatmentDescription, color=treatmentDescription)) + 
 						    geom_errorbar(aes(ymin=memory-sd, ymax=memory+sd), width=.1, linetype=3) +
@@ -253,10 +253,10 @@ class RScriptGeneratorTest {
 						  scale_y_continuous(name = "Memory Consumption ")+
 						  ggtitle("Memory Consumption Overview") + 
 						  theme(legend.title = element_blank())	
-						@
+				@
 				<<overview_cpu, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
-				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift')), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+				DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & !is.na(cpu)), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
+				DF$objectLabel <- factor(DF$objectLabel, levels=c("Intercloud SPL","Lift SPL"))
 						
 						ggplot(DF, aes(x=objectLabel, y=cpu, group=treatmentDescription, color=treatmentDescription)) + 
 						    geom_errorbar(aes(ymin=cpu-sd, ymax=cpu+sd), width=.1, linetype=3) +
@@ -268,7 +268,7 @@ class RScriptGeneratorTest {
 						  scale_y_continuous(name = "Cpu Consumption ")+
 						  ggtitle("Cpu Consumption Overview") + 
 						  theme(legend.title = element_blank())	
-						@
+				@
 				
 				
 				
@@ -363,7 +363,7 @@ class RScriptGeneratorTest {
 				 
 				 <<overview_RH1, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="time", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+				 DF$objectLabel <- factor(DF$objectLabel, levels=c("Intercloud SPL","Lift SPL"))
 				 		
 				 		ggplot(DF, aes(x=objectLabel, y=time, group=treatmentDescription, color=treatmentDescription)) + 
 				 		    geom_errorbar(aes(ymin=time-sd, ymax=time+sd), width=.1, linetype=3) +
@@ -375,7 +375,6 @@ class RScriptGeneratorTest {
 				 		  scale_y_continuous(name = "Analysis time ")+
 				 		  ggtitle("Analysis time Overview") + 
 				 		  theme(legend.title = element_blank())	
-				 		@
 				 @
 				 	
 				
@@ -710,7 +709,7 @@ class RScriptGeneratorTest {
 				 
 				 <<overview_RH2, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="memory", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+				 DF$objectLabel <- factor(DF$objectLabel, levels=c("Intercloud SPL","Lift SPL"))
 				 		
 				 		ggplot(DF, aes(x=objectLabel, y=memory, group=treatmentDescription, color=treatmentDescription)) + 
 				 		    geom_errorbar(aes(ymin=memory-sd, ymax=memory+sd), width=.1, linetype=3) +
@@ -722,7 +721,6 @@ class RScriptGeneratorTest {
 				 		  scale_y_continuous(name = "Memory Consumption ")+
 				 		  ggtitle("Memory Consumption Overview") + 
 				 		  theme(legend.title = element_blank())	
-				 		@
 				 @
 				 	
 				
@@ -1057,7 +1055,7 @@ class RScriptGeneratorTest {
 				 
 				 <<overview_RH3, include=TRUE, echo=FALSE, warning=FALSE , message=FALSE >>=
 				 DF<-data_summary(subset(json_data,(object=='intercloud'|object=='lift') & (treatment=='featureFamily'|treatment=='featureProduct')), varname="cpu", groupnames=c("treatmentDescription", "objectLabel", "objectOrder"))
-				 DF$objectLabel <- factor(DF$objectLabel, levels = DF$objectLabel[order(unique(DF$objectOrder, incomparables = FALSE))])			
+				 DF$objectLabel <- factor(DF$objectLabel, levels=c("Intercloud SPL","Lift SPL"))
 				 		
 				 		ggplot(DF, aes(x=objectLabel, y=cpu, group=treatmentDescription, color=treatmentDescription)) + 
 				 		    geom_errorbar(aes(ymin=cpu-sd, ymax=cpu+sd), width=.1, linetype=3) +
@@ -1069,7 +1067,6 @@ class RScriptGeneratorTest {
 				 		  scale_y_continuous(name = "Cpu Consumption ")+
 				 		  ggtitle("Cpu Consumption Overview") + 
 				 		  theme(legend.title = element_blank())	
-				 		@
 				 @
 				 	
 				
