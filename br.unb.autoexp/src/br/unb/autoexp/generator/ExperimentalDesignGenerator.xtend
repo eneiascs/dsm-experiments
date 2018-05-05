@@ -1,6 +1,7 @@
 package br.unb.autoexp.generator
 
-import br.unb.autoexp.autoExp.CustomDependentVariable
+import br.unb.autoexp.autoExp.DependentVariable
+import br.unb.autoexp.autoExp.Execution
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.File
@@ -14,13 +15,12 @@ import java.util.List
 import java.util.regex.Pattern
 
 import static extension java.lang.String.*
-import br.unb.autoexp.autoExp.Execution
 
 class ExperimentalDesignGenerator {
 	
 
 
-	def List<CustomDependentVariable> getDependentVariables(Treatment treatment) {
+	def List<DependentVariable> getDependentVariables(Treatment treatment) {
 		val experiment = (treatment.eContainer) as Experiment
 		experiment.researchHypotheses.filter [
 			formula.treatment1.name.equals(treatment.name) || formula.treatment2.name.equals(treatment.name)
@@ -63,7 +63,7 @@ class ExperimentalDesignGenerator {
 		]).removeDuplicates.sortBy[name]
 	}
 
-	def List<CustomDependentVariable> getDependentVariables(Experiment experiment) {
+	def List<DependentVariable> getDependentVariables(Experiment experiment) {
 
 		Lists.newArrayList(experiment.researchHypotheses.map[formula.depVariable]).removeDuplicates
 	}

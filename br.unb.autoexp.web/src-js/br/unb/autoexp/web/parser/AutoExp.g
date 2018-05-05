@@ -40,9 +40,9 @@ rule_Experiment :
 	('Goals' '{' goals_7+=rule_Goal (',' goals_8+=rule_Goal)* '}')?
 	('Research Questions' '{' researchquestions_9+=rule_ResearchQuestion (',' researchquestions_10+=rule_ResearchQuestion)* '}')?
 	('Research Hypotheses' '{' researchhypotheses_11+=rule_ResearchHypothesis (',' researchhypotheses_12+=rule_ResearchHypothesis)* '}')?
-	('Threat' '{' threats_13+=rule_Threat (',' threats_14+=rule_Threat)* '}')?
+	('Threats' '{' threats_13+=rule_Threat (',' threats_14+=rule_Threat)* '}')?
 	'Experimental Design' experimentaldesign_15=rule_ExperimentalDesign
-	'Dependent Variables' '{' dependentvariables_16+=rule_CustomDependentVariable (',' dependentvariables_17+=rule_CustomDependentVariable)* '}'
+	'Dependent Variables' '{' dependentvariables_16+=rule_DependentVariable (',' dependentvariables_17+=rule_DependentVariable)* '}'
 	('Instruments' '{' instruments_18+=rule_Instrument (',' instruments_19+=rule_Instrument)* '}')?
 	'Factors' '{' factors_20+=rule_Factor (',' factors_21+=rule_Factor)* '}'
 	'Treatments' '{' treatments_22+=rule_Treatment (',' treatments_23+=rule_Treatment)* '}'
@@ -160,10 +160,6 @@ rule_Region:
 
 
 
-//enum GeographicRegionEnum:
-//	AFRICA='1' | ASIA='2' | CENTRAL_AMERICA='3' | EUROPEAN='4' | NORTH_AMERICA='5'|SOUTH_AMERICA='6'
-//	
-//;
  
 rule_StatusType:
 	typename_0=('UP' | 'DOWN' );
@@ -330,28 +326,10 @@ rule_OperatorType:
 	typename_0=('<' | '=' |'!=' | '>');
 
 
+ 
+
 
 rule_DependentVariable :
-	rule_DependentVariable_Impl|rule_BuiltinDependentVariable|rule_CustomDependentVariable
-;
-
-
-
-rule_DependentVariable_Impl :
-	
-	name_0=ID
-;
-
-
-rule_BuiltinDependentVariable :
-	
-	name_0=STRING
-	;
-
-
-
-
-rule_CustomDependentVariable :
 	
 	name_0=ID
 	'{'
@@ -424,19 +402,6 @@ rule_File :
 
 
 rule_Parameter :
-	
-	name_0=ID
-	(value_1=STRING)?;
-
-
-
-rule_ExecutionParameter :
-	
-	(value_0=STRING)?;
-
-
-
-rule_Artifact :
 	
 	name_0=ID
 	(value_1=STRING)?;
