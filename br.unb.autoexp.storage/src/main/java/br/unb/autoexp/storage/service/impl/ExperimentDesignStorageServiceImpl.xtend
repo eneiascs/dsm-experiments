@@ -26,9 +26,18 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 	override create(ExperimentDesignDTO experimentDesign) {
 		LOGGER.info("Creating a new experimentDesign entry with information: {}", experimentDesign);
 
-		var persisted = ExperimentDesign.getBuilder().jobId(experimentDesign.jobId).name(experimentDesign.name).
-			fileName(experimentDesign.fileName).runs(experimentDesign.runs).design(experimentDesign.design).
-			creationDate(new Date()).lastUpdateDate(new Date()).build();
+		var persisted = ExperimentDesign.getBuilder()
+			.jobId(experimentDesign.jobId)
+			.name(experimentDesign.name)
+			.fileName(experimentDesign.fileName)
+			.specification(experimentDesign.specification)
+			.mapping(experimentDesign.mapping)
+			.runs(experimentDesign.runs)
+			.numberOfTasks(experimentDesign.numberOfTasks)
+			.design(experimentDesign.design)
+			.creationDate(new Date())
+			.lastUpdateDate(new Date())
+			.build();
 
 		persisted = repository.save(persisted.updateDesignSummary);
 		LOGGER.info("Created a new experimentDesign entry with information: {}", persisted);
@@ -54,9 +63,11 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 			experimentDesign.name,
 			experimentDesign.design,
 			experimentDesign.fileName,
+			experimentDesign.specification,
+			experimentDesign.mapping,
 			experimentDesign.runs,
-			updated.numberOfTasks,
-			updated.notReceived,
+			experimentDesign.numberOfTasks,
+			experimentDesign.numberOfTasks-(updated.pending+updated.running+updated.finished+updated.failed+updated.cancelled),
 			updated.pending,
 			updated.running,
 			updated.finished,
@@ -98,7 +109,7 @@ class ExperimentDesignStorageServiceImpl implements ExperimentDesignStorageServi
 		if (model===null){
 			null
 		}else{
-		ExperimentDesignDTO.builder.id(model.id).jobId(model.jobId).name(model.name).fileName(model.fileName).design(
+		ExperimentDesignDTO.builder.id(model.id).jobId(model.jobId).name(model.name).fileName(model.fileName).specification(model.specification).mapping(model.mapping).design(
 			model.design).runs(model.runs).numberOfTasks(model.numberOfTasks).notReceived(model.notReceived).pending(model.pending).running(model.running).finished(model.finished).failed(model.failed).cancelled(model.cancelled).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).build()
 			
 			}

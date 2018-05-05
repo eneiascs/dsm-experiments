@@ -37,4 +37,5 @@ public class WebAutoExpStandaloneSetup extends AutoExpStandaloneSetup {
 		Module mergedModule = Modules2.mixin((Module) original, module);
 		return mergedModule;
 	}
+	
 }

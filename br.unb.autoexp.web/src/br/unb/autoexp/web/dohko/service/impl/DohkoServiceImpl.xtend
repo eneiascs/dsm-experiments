@@ -2,18 +2,26 @@ package br.unb.autoexp.web.dohko.service.impl
 
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.Model
+import br.unb.autoexp.rBaseApi.client.RBaseApiClient
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
+import br.unb.autoexp.storage.entity.dto.ExperimentDesignDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
+import br.unb.autoexp.storage.service.ExperimentDesignStorageService
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
 import br.unb.autoexp.tests.dohko.ApplicationDescriptorConverter
+import br.unb.autoexp.web.data.DataFileGeneratorService
+import br.unb.autoexp.web.dohko.domain.TaskMessage
 import br.unb.autoexp.web.dohko.domain.TaskOutput
 import br.unb.autoexp.web.dohko.service.DohkoService
+import br.unb.autoexp.web.mapping.dto.MappingDTO
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.inject.Inject
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.Arrays
 import java.util.Base64
 import java.util.List
 import java.util.regex.Pattern
@@ -40,7 +48,14 @@ class DohkoServiceImpl implements DohkoService {
 	@Inject
 	ExperimentExecutionStorageService experimentExecutionService
 	@Inject
+	ExperimentDesignStorageService experimentDesignService
+	@Inject
 	ParseHelper<Model> parser
+	@Inject
+	private DataFileGeneratorService dataFileGenerator
+
+	@Inject
+	private RBaseApiClient rBaseApiClient
 
 	override Response runDohko(ApplicationDescriptor applicationDescriptor) throws IOException {
 
@@ -106,7 +121,7 @@ class DohkoServiceImpl implements DohkoService {
 			String.format("http://%s/%s/jobs/%s/%s", getDohkoAddress(), username, jobId, command))
 	}
 
-	def String getDohkoAddress() {
+	override String getDohkoAddress() {
 		var host = "10.10.3.10:8080"
 		if (System.getenv("DOHKO_ADDRESS") !== null) {
 			host = System.getenv("DOHKO_ADDRESS")
@@ -122,6 +137,88 @@ class DohkoServiceImpl implements DohkoService {
 
 	def String readFile(String path) throws IOException {
 		new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8)
+	}
+
+	override updateTaskStatus(TaskMessage taskMessage) {
+		var ExperimentDesignDTO design = null
+		design = experimentDesignService.findByJobId(taskMessage.jobId)
+		while (design === null) {
+			Thread.sleep(30000)
+			design = experimentDesignService.findByJobId(taskMessage.jobId)
+
+		}
+
+		if (design === null)
+			throw new RuntimeException("Experiment with jobId %s not found in database".format(taskMessage.jobId))
+
+		val mapper = new ObjectMapper()
+		val obj = mapper.readerFor(typeof(MappingDTO[])).readValue(
+			new String(Base64.getDecoder().decode(design.mapping)))
+		val List<MappingDTO> mappings = Arrays.asList(obj)
+		val mapping = mappings.filter[it.taskName.equals(taskMessage.taskName)].head
+
+		val task = ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).taskId(
+			taskMessage.taskId).factor(if(mapping === null) null else mapping.factor).object(
+			if(mapping === null) null else mapping.object).taskName(if(mapping === null) null else mapping.getTaskName).
+			treatment(if(mapping === null) null else mapping.treatment).jobId(taskMessage.jobId).creationDate(
+				taskMessage.date).lastUpdateDate(taskMessage.date).build
+
+		switch (taskMessage.status) {
+			case TaskStatusType.PENDING:
+				task.executionStatus = ExecutionStatusDTO.PENDING
+			case TaskStatusType.RUNNING:
+				task.executionStatus = ExecutionStatusDTO.RUNNING
+			case TaskStatusType.FINISHED:
+				task.executionStatus = ExecutionStatusDTO.FINISHED
+			case TaskStatusType.FAILED:
+				task.executionStatus = ExecutionStatusDTO.FAILED
+			case TaskStatusType.CANCELLED:
+				task.executionStatus = ExecutionStatusDTO.CANCELLED
+			default: {
+			}
+		}
+
+		if (task.executionStatus.equals(ExecutionStatusDTO.FINISHED) && taskMessage.output !== null) {
+			val experimentSpecification = new String(Base64.getDecoder().decode(design.specification))
+			val experiment = parser.parse(experimentSpecification).experiments.head
+
+			val depVariables = experiment.researchHypotheses.filter [
+				formula.treatment1.name.equals(task.treatment) || formula.treatment2.name.equals(task.treatment)
+			].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
+
+			depVariables.forEach [
+				val expression = instrument.valueExpression.replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")
+
+				val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(expression))
+				val m = p.matcher(taskMessage.output);
+				while (m.find) {
+					if (m.groupCount >= 3) {
+						var value = new Double(m.group(3))
+						if (instrument.conversionFactor !== null) {
+							value = (value * instrument.conversionFactor.doubleValue).doubleValue
+						}
+						task.addDependentVariable(name.convert, value)
+					}
+
+				}
+			]
+		}
+		
+		val persistedTask = experimentExecutionService.create(task)
+		
+		design=experimentDesignService.update(taskMessage.jobId)
+
+		val dataFile = new File(new File(design.fileName).parentFile.absolutePath + File.separator + "data.json")
+
+		dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(taskMessage.jobId));
+		if (design.isFinished) {
+			logger.info("Execution finished jobId %s".format(taskMessage.jobId))
+			rBaseApiClient.runAnalysis(new File(design.getFileName().replaceFirst("[.][^.]+$", ".Rnw")).relativePath)
+			logger.info("Analysis finished jobId %s".format(taskMessage.jobId))
+		}
+
+		persistedTask
+
 	}
 
 	override updateTaskStatus(ExperimentExecutionDTO task, File specificationFile) {
@@ -216,5 +313,10 @@ class DohkoServiceImpl implements DohkoService {
 			case "memoryConsumption": "memory"
 			default: depVariable
 		}
+	}
+
+	def getRelativePath(File file) {
+		file.parentFile.parentFile.parentFile.name + "/" + file.parentFile.parentFile.name + "/" +
+			file.parentFile.name + "/" + file.name
 	}
 }

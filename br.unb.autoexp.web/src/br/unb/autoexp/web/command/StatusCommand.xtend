@@ -10,31 +10,21 @@ import com.google.inject.Inject
 import java.io.File
 import java.io.IOException
 import java.lang.reflect.InvocationTargetException
+import java.util.Date
 import java.util.List
 import org.apache.log4j.Logger
 import org.dslforge.xtext.common.registry.LanguageRegistry
-import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
-import org.eclipse.core.commands.IHandler
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.dialogs.MessageDialog
-import org.eclipse.jface.dialogs.ProgressMonitorDialog
-import org.eclipse.jface.operation.IRunnableWithProgress
-import org.eclipse.swt.widgets.Shell
 import org.eclipse.ui.IWorkbenchWindow
 import org.eclipse.ui.handlers.HandlerUtil
 
-/**
- * Our sample handler extends AbstractHandler, an IHandler base class.
- * 
- * @see IHandler
- * @see AbstractHandler
- */
 class StatusCommand extends AbstractWorkspaceCommand {
-	private static final String DEFAULT_OUTPUT_FOLDER = "src-gen"
+
 	static final Logger logger = Logger.getLogger(StatusCommand)
 
 	@Inject
@@ -57,7 +47,6 @@ class StatusCommand extends AbstractWorkspaceCommand {
 
 	String jobId
 
-	private IRunnableWithProgress operation
 	ExperimentDesignDTO design
 
 	override execute(ExecutionEvent event) throws ExecutionException {
@@ -66,78 +55,81 @@ class StatusCommand extends AbstractWorkspaceCommand {
 			file = unwrap(event, File);
 			message = ""
 			isError = false
-			operation = new IRunnableWithProgress() {
+			val operation = new Job("Running experiment ...") {
 				override run(IProgressMonitor progressMonitor) {
 					try {
+						progressMonitor.beginTask("Running experiment ...", IProgressMonitor.UNKNOWN)
+						progressMonitor.subTask("Checking files")
+						message = String.format(
+							"Status must be run from a execution folder.\nExecution data not found for %s.",
+							file.getName())
 
-						val fetchData = new Job("Fetching data from database ...") {
+						dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
+						if (!dataFile.exists) {
 
-							override run(IProgressMonitor progressMonitor) {
-								val message = String.format(
-									"Status must be run from a execution folder.\nExecution data not found for %s.",
-									file.getName())
+							throw new RuntimeException(message)
+						}
+						val executionFolder = file
 
-								dataFile = new File(file.getAbsolutePath() + File.separator + "data.json")
-								if (!dataFile.exists) {
+						jobId = dataFileGenerator.getJobIdFromFile(dataFile)
+						var List<ExperimentExecutionDTO> tasks = experimentExecutionService.findByJobId(jobId)
 
-									throw new RuntimeException(message)
-								}
-								val executionFolder = file
+						if (tasks.isNullOrEmpty) {
 
-								jobId = dataFileGenerator.getJobIdFromFile(dataFile)
-								var List<ExperimentExecutionDTO> tasks = experimentExecutionService.findByJobId(jobId)
+							throw new RuntimeException(message)
+						}
+						progressMonitor.subTask("Reading database")
+						design = experimentDesignService.findByJobId(tasks.head.jobId)
 
-								if (tasks.isNullOrEmpty) {
+						if (design === null) {
 
-									throw new RuntimeException(message)
-								}
-
-								design = experimentDesignService.findByJobId(tasks.head.jobId)
-
-								if (design === null) {
-
-									throw new RuntimeException(message)
-								}
-
-								specificationFile = new File(file.getAbsolutePath() + File.separator +
-									design.getFileName())
-								val jsonFile = new File(file.getAbsolutePath() + File.separator +
-									design.getFileName().replaceFirst("[.][^.]+$", ".json"))
-								val applicationDescriptorFile = new File(file.getAbsolutePath() + File.separator +
-									design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
-								val rnwFile = new File(file.getAbsolutePath() + File.separator +
-									design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
-
-								checkFile(applicationDescriptorFile, executionFolder)
-								checkFile(jsonFile, executionFolder)
-								checkFile(specificationFile, executionFolder)
-								checkFile(rnwFile, executionFolder)
-
-								
-								progressMonitor.done()
-								Status.OK_STATUS
-							}
+							throw new RuntimeException(message)
 						}
 
-						fetchData.system = true
-						fetchData.schedule
-						fetchData.join
-						
-						progressMonitor.beginTask("Running experiment ...", design.numberOfTasks)
-						progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
-						while (!design.isFinished) {
+						specificationFile = new File(design.getFileName())
+						val jsonFile = new File(design.getFileName().replaceFirst("[.][^.]+$", ".json"))
+						val applicationDescriptorFile = new File(design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
+						val rnwFile = new File(design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
+
+						checkFile(applicationDescriptorFile, executionFolder)
+						checkFile(jsonFile, executionFolder)
+						checkFile(specificationFile, executionFolder)
+						checkFile(rnwFile, executionFolder)
+
+						do {
 							if (progressMonitor.isCanceled()) {
 								progressMonitor.done()
-								return
+								return Status.OK_STATUS
 
 							}
-							fetchData.schedule
-							fetchData.join
+							design = experimentDesignService.findByJobId(tasks.head.jobId)
 							progressMonitor.beginTask("Running experiment ...", design.numberOfTasks)
-							progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
-							Thread.sleep(10000)
+							message = '''
+								«val completed=design.getFinished()+design.getFailed+design.cancelled»
+								Completed «completed» of «design.numberOfTasks» tasks («100*completed/design.numberOfTasks»%)
+								Elapsed time: «design.creationDate.diff»
+							'''
 
-						}
+							progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
+							progressMonitor.subTask(message)
+							if (!design.isFinished)
+								Thread.sleep(10000)
+
+						} while (!design.isFinished)
+
+						progressMonitor.done
+						message = '''
+							Execution Status:
+							 
+							Tasks: «design.numberOfTasks» 
+							Pending: «design.pending+design.notReceived» 
+							Running: «design.running» 
+							Finished: «design.getFinished()» 
+							Failed: «design.failed» 
+							Cancelled: «design.cancelled»
+						'''
+						displayResult
+						Status.OK_STATUS
 
 					} catch (Exception e) {
 					} finally {
@@ -145,22 +137,13 @@ class StatusCommand extends AbstractWorkspaceCommand {
 					}
 
 				}
+
 			}
 
-			new ProgressMonitorDialog(new Shell()).run(true, true, operation);
-			message = '''
-				Execution Status:
-									
-				Tasks: «design.numberOfTasks»
-				Not Received: «design.notReceived»
-				Pending: «design.pending»
-				Running: «design.running»
-				Finished: «design.getFinished()»
-				Failed: «design.failed»
-				Cancelled: «design.cancelled»
-										
-			'''
-			displayResult
+		
+			operation.user = true
+			
+			operation.schedule
 		} catch (InvocationTargetException ex) {
 			message = "An error has occurred: " + ex.getMessage();
 			displayResult
@@ -175,14 +158,23 @@ class StatusCommand extends AbstractWorkspaceCommand {
 		return null;
 	}
 
+	def String diff(Date date) {
+		val now = new Date()
+		val diff = now.getTime() - date.getTime()
+		val diffMinutes = diff / (60 * 1000) % 60;
+		val diffHours = diff / (60 * 60 * 1000) % 24;
+		val diffDays = diff / (24 * 60 * 60 * 1000);
 
+		'''«IF diffDays==1»«diffDays» day «ENDIF»«IF diffDays>1»«diffDays» days «ENDIF»«diffHours»h«diffMinutes»min
+		'''
+	}
 
 	def createUpdateTaskJob(ExperimentExecutionDTO task, String jobName) {
 		new Job(jobName) {
 			override run(IProgressMonitor progressMonitor) {
 
 				task.updateTaskStatus(specificationFile)
-			
+
 				Status.OK_STATUS
 			}
 
@@ -206,7 +198,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 	def void checkFile(File file, File executionFolder) throws IOException {
 		if (!file.exists()) {
 			val message = String.format("File %s not found in %s folder", file.getName(), executionFolder.getName())
-			MessageDialog.openError(window.getShell(), "Run Error", message)
+			// MessageDialog.openError(window.getShell(), "Run Error", message)
 			throw new RuntimeException(message)
 		}
 

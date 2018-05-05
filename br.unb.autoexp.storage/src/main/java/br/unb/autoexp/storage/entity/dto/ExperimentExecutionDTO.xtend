@@ -59,8 +59,8 @@ class ExperimentExecutionDTO {
 	}
 
 	override toString() {
-		"{\"id\":\"%s\",\"jobId\":\"%s\",\"taskId\":\"%s\",\"taskName\":\"%s\",\"factor\":\"%s\",\"treatment\":\"%s\",\"object\":\"%s\",\"executionStatus\":\"%s\",\"creationDate\":\"%s\",\"lastUpdateDate\":\"%s\"}"
-		.format(id,jobId,taskId,taskName,factor,treatment,object,executionStatus,creationDate,lastUpdateDate)
+		"{\"id\":\"%s\",\"jobId\":\"%s\",\"taskId\":\"%s\",\"taskName\":\"%s\",\"factor\":\"%s\",\"treatment\":\"%s\",\"object\":\"%s\",\"executionStatus\":\"%s\",\"creationDate\":\"%s\",\"lastUpdateDate\":\"%s\",\"executionStatus\":\"%s\"}"
+		.format(id,jobId,taskId,taskName,factor,treatment,object,executionStatus,creationDate,lastUpdateDate,executionStatus)
 	}
 
 	static class Builder {

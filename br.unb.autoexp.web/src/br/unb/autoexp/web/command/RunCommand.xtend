@@ -4,6 +4,7 @@ import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentDesignDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
 import br.unb.autoexp.storage.service.ExperimentDesignStorageService
+import br.unb.autoexp.web.client.NotificationClientEndpoint
 import br.unb.autoexp.web.data.DataFileGeneratorService
 import br.unb.autoexp.web.dohko.service.DohkoService
 import br.unb.autoexp.web.mapping.MappingServiceFactory
@@ -12,8 +13,10 @@ import java.io.File
 import java.io.IOException
 import java.lang.reflect.InvocationTargetException
 import java.nio.file.Files
+import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
+import java.util.Base64
 import java.util.Date
 import java.util.List
 import javax.ws.rs.core.Response
@@ -28,13 +31,14 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
-import org.eclipse.core.runtime.jobs.JobGroup
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.ui.IWorkbenchWindow
 import org.eclipse.ui.handlers.HandlerUtil
 import org.excalibur.core.execution.domain.ApplicationDescriptor
 import org.excalibur.core.execution.domain.JobStatus
-import static extension java.lang.String.format
+
+import static extension java.lang.String.*
+
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
  * 
@@ -54,6 +58,9 @@ class RunCommand extends AbstractWorkspaceCommand {
 	@Inject
 	private DataFileGeneratorService dataFileGenerator
 
+	@Inject
+	private NotificationClientEndpoint notificationClientEndpoint
+
 	private IWorkbenchWindow window
 
 	private String result
@@ -68,46 +75,49 @@ class RunCommand extends AbstractWorkspaceCommand {
 	ApplicationDescriptor applicationDescriptor
 	private Job runExperimentJob
 
-	private JobGroup runExperimentJobGroup
+	
 	String jobId
 	File applicationDescriptorFile
 	File executionFolder
-
+	
 	Response response
 	List<ExperimentExecutionDTO> tasks
-
+	ExperimentDesignDTO experimentDesign	
 	override execute(ExecutionEvent event) throws ExecutionException {
 		try {
 			window = HandlerUtil.getActiveWorkbenchWindowChecked(event)
 			file = unwrap(event, File)
 			result = ""
 			isError = false
-
+			notificationClientEndpoint.createOrReuseConnection
+	
+			
 			runExperimentJob = new Job("Running experiment ...") {
-				override run(IProgressMonitor progressMonitor) {
+				
+	
+	
+			override run(IProgressMonitor progressMonitor) {
 
 					try {
+								progressMonitor.beginTask("Running experiment ...",IProgressMonitor.UNKNOWN )
 						
-						val generateArtifacts = new Job("Generating artifacts ...") {
-
-							override run(IProgressMonitor progressMonitor) {
-
 								logger.info(String.format("Generating artifacts for %s", file.getName()));
 
 								progressMonitor.subTask(String.format("Generating artifacts for %s", file.getName()))
 								val generateCommand = new BasicGenerateCommand();
-								progressMonitor.worked(20)
+								
 								if (generateCommand === null || event === null) {
 
 									throw new RuntimeException("Error getting generate command");
 								}
 								generateCommand.execute(event);
-								val availableLanguages =LanguageRegistry.INSTANCE.getMetamodels();
-								
-								if(availableLanguages.isNullOrEmpty){
-									throw new RuntimeException("No language available.");		
+								val availableLanguages = LanguageRegistry.INSTANCE.getMetamodels();
+
+								if (availableLanguages.isNullOrEmpty) {
+									throw new RuntimeException("No language available.");
 								}
-								val defaultFileExtension = LanguageRegistry.INSTANCE.getFileExtensionFor(availableLanguages.get(0))
+								val defaultFileExtension = LanguageRegistry.INSTANCE.getFileExtensionFor(
+									availableLanguages.get(0))
 
 								val message = "Execution must be run from a specification file (*.%s)".format(
 									defaultFileExtension);
@@ -130,8 +140,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 								applicationDescriptor = dohkoService.getApplicationDescriptor(
 									applicationDescriptorFile);
 
-								progressMonitor.worked(20)
-
+								
 								val sdf = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss");
 								executionFolder = new File(
 									String.format("%s%s%s%s%s", specificationFile.getParentFile().getAbsolutePath(),
@@ -141,51 +150,25 @@ class RunCommand extends AbstractWorkspaceCommand {
 								dataFile = new File(executionFolder.getAbsolutePath() + File.separator + "data.json");
 								applicationDescriptorFile.parentFile.listFiles.forEach[copyToFolder(executionFolder)]
 								specificationFile.copyToFolder(executionFolder)
-								progressMonitor.worked(100)
-
-								Status.OK_STATUS
-							}
-						}
-						generateArtifacts.system = true
-						generateArtifacts.jobGroup = runExperimentJobGroup
-						generateArtifacts.schedule
-
-						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-
-						val sendToDohkoJob = new Job("Sending job to execution ...") {
-
-							override run(IProgressMonitor progressMonitor) {
-
-								progressMonitor.subTask("Sending application descriptor to Execution")
+								
+						
+					
+								progressMonitor.subTask("Sending application descriptor to execution")
 								logger.info(String.format("Sending application descriptor to dohko"));
 								response = dohkoService.runDohko(applicationDescriptor);
 
-								progressMonitor.worked(100)
-
+								
 								result = String.format("Response status: %s", response.getStatusInfo());
 								logger.info(result);
 
-								if (response.getStatus() == 201 || response.getStatus() == 202) {
+								if (response.getStatus() != 201 && response.getStatus() != 202) {
 
-									Status.OK_STATUS
-								} else {
 									throw new RuntimeException(result)
 								}
 
-							}
-						}
-						progressMonitor.beginTask(" ...", 100)
-						progressMonitor.subTask("Sending job to Dohko ... ")
-						sendToDohkoJob.system = true
-						sendToDohkoJob.jobGroup = runExperimentJobGroup
-						sendToDohkoJob.schedule
-						progressMonitor.worked(100)
-
-						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
-
-						val insertTasksInDatabase = new Job("Inserting tasks in database ...") {
-
-							override run(IProgressMonitor progressMonitor) {
+	
+					
+								progressMonitor.subTask("Inserting tasks into database")
 
 								val jobStatus = response.readEntity(JobStatus)
 								jobId = jobStatus.id
@@ -195,12 +178,22 @@ class RunCommand extends AbstractWorkspaceCommand {
 
 								val runs = mappingService.findAll().get(0).getRuns();
 								val experimentName = mappingService.findAll().get(0).getExperimentName();
-
+								
+								val specification=new String(Base64.getEncoder.encode(Files.readAllBytes(Paths.get(specificationFile.absolutePath))))
+								val mappingString=new String(Base64.getEncoder.encode(Files.readAllBytes(Paths.get(jsonFile.absolutePath))))
+								val numberOfTasks=applicationDescriptor.getApplications().size+applicationDescriptor.getBlocks.fold(0)[result, applications | result + applications.size ]
 								experimentDesignService.create(
-									ExperimentDesignDTO.getBuilder().design(design).jobId(jobId).runs(runs).name(
-										experimentName).fileName(specificationFile.getName()).numberOfTasks(
-										applicationDescriptor.getApplications().size).pending(
-										applicationDescriptor.getApplications().size).build());
+									ExperimentDesignDTO.getBuilder()
+										.design(design)
+										.jobId(jobId)
+										.runs(runs)
+										.name(experimentName)
+										.fileName(new File(executionFolder.getAbsolutePath() + File.separator + specificationFile.name).absolutePath)
+										.specification(specification)
+										.mapping(mappingString)
+										.numberOfTasks(numberOfTasks)
+										.notReceived(applicationDescriptor.getApplications().size)
+										.build());
 
 								tasks = (applicationDescriptor.getApplications() + applicationDescriptor.getBlocks().map [
 									getApplications()
@@ -215,15 +208,41 @@ class RunCommand extends AbstractWorkspaceCommand {
 								]
 
 								dataFileGenerator.writeToFile(dataFile, tasks);
-								Status.OK_STATUS
+								
+						do {
+							if (progressMonitor.isCanceled()) {
+								progressMonitor.done()
+								return Status.OK_STATUS
+
 							}
-						}
-						insertTasksInDatabase.system = true
-						insertTasksInDatabase.jobGroup = runExperimentJobGroup
-						insertTasksInDatabase.schedule
+							experimentDesign = experimentDesignService.findByJobId(tasks.head.jobId)
+							progressMonitor.beginTask("Running experiment ...", experimentDesign.numberOfTasks)
+							val status = '''
+								«val completed=experimentDesign.getFinished()+experimentDesign.getFailed+experimentDesign.cancelled»
+								Completed «completed» of «experimentDesign.numberOfTasks» tasks («100*completed/experimentDesign.numberOfTasks»%)
+								Elapsed time: «experimentDesign.creationDate.diff»
+							'''
 
-						runExperimentJobGroup.join(Long.MAX_VALUE, progressMonitor)
+							progressMonitor.worked(experimentDesign.getFinished() + experimentDesign.failed + experimentDesign.cancelled)
+							progressMonitor.subTask(status)
+							if (!experimentDesign.isFinished)
+								Thread.sleep(10000)
 
+						} while (!experimentDesign.isFinished)
+						result = '''
+							Execution Status:
+							 
+							Tasks: «experimentDesign.numberOfTasks» 
+							Pending: «experimentDesign.pending+experimentDesign.notReceived» 
+							Running: «experimentDesign.running» 
+							Finished: «experimentDesign.getFinished()» 
+							Failed: «experimentDesign.failed» 
+							Cancelled: «experimentDesign.cancelled»
+						'''
+						progressMonitor.done
+						
+								
+						displayResult
 						Status.OK_STATUS
 
 					} catch (InterruptedException ex) {
@@ -232,6 +251,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 						jobGroup.cancel
 						Status.CANCEL_STATUS
 					} catch (Exception ex) {
+						progressMonitor.done()
 						isError = true
 						result = "An error has occurred: " + ex.getMessage();
 						logger.error(ex.getMessage(), ex)
@@ -251,10 +271,26 @@ class RunCommand extends AbstractWorkspaceCommand {
 				}
 
 			};
-			runExperimentJobGroup = new JobGroup("runExperimentJobGroup", 4, 1)
+		
 			runExperimentJob.user = true
-			// runExperimentJob.jobGroup=runExperimentJobGroup
+			
 			runExperimentJob.schedule
+//			experimentDesign = experimentDesignService.findByJobId(tasks.head.jobId)
+//			if (experimentDesign!==null){
+//				result = '''
+//					Execution Status:
+//					 
+//					Tasks: «experimentDesign.numberOfTasks» 
+//					Pending: «experimentDesign.pending+experimentDesign.notReceived» 
+//					Running: «experimentDesign.running» 
+//					Finished: «experimentDesign.getFinished()» 
+//					Failed: «experimentDesign.failed» 
+//					Cancelled: «experimentDesign.cancelled»
+//				'''
+//			
+//			}
+//			displayResult
+			
 		} catch (InvocationTargetException ex) {
 			logger.error(ex.getMessage(), ex)
 		} catch (InterruptedException ex) {
@@ -271,7 +307,16 @@ class RunCommand extends AbstractWorkspaceCommand {
 		}
 
 	}
+	def String diff(Date date) {
+		val now = new Date()
+		val diff = now.getTime() - date.getTime()
+		val diffMinutes = diff / (60 * 1000) % 60;
+		val diffHours = diff / (60 * 60 * 1000) % 24;
+		val diffDays = diff / (24 * 60 * 60 * 1000);
 
+		'''«IF diffDays==1»«diffDays» day «ENDIF»«IF diffDays>1»«diffDays» days «ENDIF»«diffHours»h«diffMinutes»min
+		'''
+	}
 	def void copyToFolder(File file, File executionFolder) throws IOException {
 		if (!file.exists()) {
 			val message = String.format("File %s not found in %s folder", file.getName(), DEFAULT_OUTPUT_FOLDER);

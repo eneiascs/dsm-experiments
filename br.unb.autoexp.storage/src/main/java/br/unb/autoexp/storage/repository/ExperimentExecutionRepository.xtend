@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface ExperimentExecutionRepository extends MongoRepository<ExperimentExecution, String> {
 
-    def List<ExperimentExecution> findByJobId(String jobId)
-   
+   def List<ExperimentExecution> findByJobId(String jobId)
+   def List<ExperimentExecution> findByTaskId(String taskId)
 	
 }

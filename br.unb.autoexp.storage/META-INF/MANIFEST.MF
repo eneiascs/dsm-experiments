@@ -3,9 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Storage
 Bundle-SymbolicName: br.unb.autoexp.storage
 Bundle-Version: 1.0.0.qualifier
-Export-Package: br.unb.autoexp.storage.entity,
- br.unb.autoexp.storage.entity.dto,
- br.unb.autoexp.storage.service
 Import-Package: javax.ws.rs;version="2.0.1",
  javax.ws.rs.core;version="2.0.1"
 Require-Bundle: com.google.guava,

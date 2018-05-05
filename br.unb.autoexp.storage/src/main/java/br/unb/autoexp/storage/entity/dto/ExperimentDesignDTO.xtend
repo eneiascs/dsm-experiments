@@ -13,6 +13,8 @@ class ExperimentDesignDTO {
 	String jobId
 	String design
 	String fileName
+	String specification
+	String mapping
 	int runs
 
 	int numberOfTasks
@@ -35,6 +37,8 @@ class ExperimentDesignDTO {
 		this.jobId = builder.jobId
 		this.design = builder.design
 		this.fileName = builder.fileName
+		this.specification=builder.specification
+		this.mapping=builder.mapping
 		this.runs = builder.runs
 		this.numberOfTasks = builder.numberOfTasks
 
@@ -63,6 +67,8 @@ class ExperimentDesignDTO {
 		String jobId
 		String design
 		String fileName
+		String specification
+		String mapping
 		int runs
 		int numberOfTasks
 
@@ -102,7 +108,14 @@ class ExperimentDesignDTO {
 			this.fileName = fileName
 			this
 		}
-
+		def Builder specification(String specification) {
+			this.specification = specification
+			this
+		}
+		def Builder mapping(String mapping) {
+			this.mapping = mapping
+			this
+		}
 		def Builder runs(int runs) {
 			this.runs = runs
 			this

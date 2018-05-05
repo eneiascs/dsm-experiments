@@ -104,14 +104,11 @@ class RunAnalysisCommand extends AbstractWorkspaceCommand {
 							throw new RuntimeException(message)
 						}
 
-						specificationFile = new File(file.getAbsolutePath() + File.separator + design.getFileName())
-						val jsonFile = new File(file.getAbsolutePath() + File.separator +
-							design.getFileName().replaceFirst("[.][^.]+$", ".json"))
-						val applicationDescriptorFile = new File(file.getAbsolutePath() + File.separator +
-							design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
+						specificationFile = new File(design.getFileName())
+						val jsonFile = new File(design.getFileName().replaceFirst("[.][^.]+$", ".json"))
+						val applicationDescriptorFile = new File(design.getFileName().replaceFirst("[.][^.]+$", ".yml"))
 
-						rnwFile = new File(file.getAbsolutePath() + File.separator +
-							design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
+						rnwFile = new File(design.getFileName().replaceFirst("[.][^.]+$", ".Rnw"))
 						val executionFolder = file
 
 						checkFile(applicationDescriptorFile, executionFolder)

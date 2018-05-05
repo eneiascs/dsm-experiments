@@ -5,7 +5,6 @@ import br.unb.autoexp.storage.entity.ExperimentExecution
 import br.unb.autoexp.storage.entity.dto.ExecutionStatusDTO
 import br.unb.autoexp.storage.entity.dto.ExperimentExecutionDTO
 import br.unb.autoexp.storage.repository.ExperimentExecutionRepository
-import br.unb.autoexp.storage.service.ExperimentDesignStorageService
 import br.unb.autoexp.storage.service.ExperimentExecutionStorageService
 import java.util.Date
 import java.util.List
@@ -20,20 +19,50 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	@Autowired
 	ExperimentExecutionRepository repository;
-	
-	
-	override create(ExperimentExecutionDTO experimentExecution) {
-		LOGGER.info("Creating a new todo entry with information: {}", experimentExecution);
 
+	override create(ExperimentExecutionDTO experimentExecution) {
+		LOGGER.info("Creating a new experimentExecution entry with information: {}", experimentExecution);
+		if(experimentExecution.creationDate === null) experimentExecution.creationDate = new Date()
+		if(experimentExecution.lastUpdateDate === null) experimentExecution.lastUpdateDate = new Date()
 		var persisted = ExperimentExecution.getBuilder().jobId(experimentExecution.jobId).taskId(
 			experimentExecution.taskId).taskName(experimentExecution.taskName).factor(experimentExecution.factor).
-			treatment(experimentExecution.treatment).object(experimentExecution.object).dependentvariables(experimentExecution.dependentVariables).creationDate(new Date()).lastUpdateDate(new Date()).executionStatus(
+			treatment(experimentExecution.treatment).object(experimentExecution.object).dependentvariables(
+				experimentExecution.dependentVariables).creationDate(experimentExecution.creationDate).lastUpdateDate(
+				experimentExecution.lastUpdateDate).executionStatus(
 				experimentExecution.executionStatus.convertToEntity).build();
 
-		persisted = repository.save(persisted);
-		LOGGER.info("Created a new experimentExecution entry with information: {}", persisted);
-		
-		convertToDTO(persisted)
+		val executions = findByTaskId(experimentExecution.taskId)
+
+		if (executions.isNullOrEmpty) {
+			persisted = repository.save(persisted)
+			LOGGER.info("Created a new experimentExecution entry with information: {}", persisted.convertToDTO);
+			return persisted.convertToDTO
+
+		}
+		if (persisted.shouldUpdate(executions.head)) {
+			persisted.id = executions.head.id
+			persisted = repository.save(persisted);
+
+			LOGGER.info("Created a new experimentExecution entry with information: {}", persisted.convertToDTO);
+			return persisted.convertToDTO
+		}else{
+			LOGGER.info("Ignored experimentExecution entry with information: {}", persisted.convertToDTO);
+			executions.head
+		}
+
+	}
+	
+	def boolean shouldUpdate(ExperimentExecution entityToUpdate, ExperimentExecutionDTO entityInDatabase) {
+		switch(entityToUpdate.executionStatus){
+			case NOT_RECEIVED: false
+			case PENDING: entityInDatabase.executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED)
+			case RUNNING: entityInDatabase.executionStatus.equals(ExecutionStatusDTO.PENDING)||entityInDatabase.executionStatus.equals(ExecutionStatusDTO.NOT_RECEIVED)
+			case FINISHED: true
+			case FAILED: true
+			case CANCELLED: true
+			
+			
+		}
 	}
 
 	override findAll() {
@@ -47,20 +76,26 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 		repository.findOne(id).convertToDTO
 	}
 
+	override findByTaskId(String taskId) {
+		repository.findByTaskId(taskId).convertToDTO
+	}
+
 	override update(ExperimentExecutionDTO experimentExecution) {
-		 LOGGER.info("Updating experimentExecution entry with information: {}", experimentExecution);
+		LOGGER.info("Updating experimentExecution entry with information: {}", experimentExecution);
 
-        var updated = repository.findOne(experimentExecution.id);
-        
-        updated.update(experimentExecution.jobId,experimentExecution.taskId,experimentExecution.taskName,experimentExecution.factor, experimentExecution.treatment,experimentExecution.object,experimentExecution.dependentVariables, new Date(),experimentExecution.executionStatus.convertToEntity)
-               
-        		
-        updated = repository.save(updated);
+		var updated = repository.findOne(experimentExecution.id);
+		if(experimentExecution.lastUpdateDate === null) experimentExecution.lastUpdateDate = new Date()
+		updated.update(experimentExecution.jobId, experimentExecution.taskId, experimentExecution.taskName,
+			experimentExecution.factor, experimentExecution.treatment, experimentExecution.object,
+			experimentExecution.dependentVariables, experimentExecution.lastUpdateDate,
+			experimentExecution.executionStatus.convertToEntity)
 
-        LOGGER.info("Updated experimentExecution entry with information: {}", updated.toString);
-			
-        return convertToDTO(updated);
-		
+		updated = repository.save(updated);
+
+		LOGGER.info("Updated experimentExecution entry with information: {}", updated.toString);
+
+		return convertToDTO(updated);
+
 	}
 
 	def List<ExperimentExecutionDTO> convertToDTO(List<ExperimentExecution> model) {
@@ -92,7 +127,7 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	override create(List<ExperimentExecutionDTO> experimentExecution) {
 		experimentExecution.map[create]
-		
+
 	}
 
 	override findByJobId(String jobId) {
@@ -101,9 +136,9 @@ class ExperimentExecutionStorageServiceImpl implements ExperimentExecutionStorag
 
 	def ExperimentExecutionDTO convertToDTO(ExperimentExecution model) {
 		ExperimentExecutionDTO.builder.id(model.id).jobId(model.jobId).taskId(model.taskId).taskName(model.taskName).
-			factor(model.factor).treatment(model.treatment).object(model.object).dependentVariables(model.dependentVariables).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).executionStatus(model.executionStatus.convert).
-			build()
+			factor(model.factor).treatment(model.treatment).object(model.object).dependentVariables(
+				model.dependentVariables).creationDate(model.creationDate).lastUpdateDate(model.lastUpdateDate).
+			executionStatus(model.executionStatus.convert).build()
 	}
 
-		}
-		
+}

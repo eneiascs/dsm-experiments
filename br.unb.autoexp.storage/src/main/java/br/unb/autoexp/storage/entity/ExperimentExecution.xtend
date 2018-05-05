@@ -2,7 +2,6 @@ package br.unb.autoexp.storage.entity
 
 import java.util.Date
 import java.util.HashMap
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.springframework.data.annotation.Id
 
@@ -55,7 +54,11 @@ class ExperimentExecution {
 		this.lastUpdateDate = lastUpdateDate
 		this.executionStatus = executionStatus
 	}
-
+	override toString() {
+		"{\"id\":\"%s\",\"jobId\":\"%s\",\"taskId\":\"%s\",\"taskName\":\"%s\",\"factor\":\"%s\",\"treatment\":\"%s\",\"object\":\"%s\",\"executionStatus\":\"%s\",\"creationDate\":\"%s\",\"lastUpdateDate\":\"%s\",\"executionStatus\":\"%s\"}"
+		.format(id,jobId,taskId,taskName,factor,treatment,object,executionStatus,creationDate,lastUpdateDate,executionStatus)
+	}
+	
 
 	static class Builder {
 		String id

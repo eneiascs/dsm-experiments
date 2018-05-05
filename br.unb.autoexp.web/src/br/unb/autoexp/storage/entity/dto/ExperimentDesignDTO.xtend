@@ -13,6 +13,8 @@ class ExperimentDesignDTO {
 	String jobId
 	String design
 	String fileName
+	String specification
+	String mapping
 	int runs
 
 	int numberOfTasks
@@ -36,6 +38,8 @@ class ExperimentDesignDTO {
 		this.jobId = builder.jobId
 		this.design = builder.design
 		this.fileName = builder.fileName
+		this.specification = builder.specification
+		this.mapping = builder.mapping
 		this.runs = builder.runs
 		this.numberOfTasks = builder.numberOfTasks
 
@@ -64,6 +68,8 @@ class ExperimentDesignDTO {
 		String jobId
 		String design
 		String fileName
+		String specification
+		String mapping
 		int runs
 		int numberOfTasks
 
@@ -108,34 +114,42 @@ class ExperimentDesignDTO {
 			this.runs = runs
 			this
 		}
+
 		def Builder numberOfTasks(int numberOfTasks) {
 			this.numberOfTasks = numberOfTasks
 			this
 		}
+
 		def Builder notReceived(int notReceived) {
 			this.notReceived = notReceived
 			this
 		}
+
 		def Builder pending(int pending) {
 			this.pending = pending
 			this
 		}
+
 		def Builder running(int running) {
 			this.running = running
 			this
 		}
+
 		def Builder finished(int finished) {
 			this.finished = finished
 			this
 		}
+
 		def Builder failed(int failed) {
 			this.failed = failed
 			this
 		}
+
 		def Builder cancelled(int cancelled) {
 			this.cancelled = cancelled
 			this
 		}
+
 		def Builder lastUpdateDate(Date lastUpdateDate) {
 			this.lastUpdateDate = lastUpdateDate
 			this
@@ -145,15 +159,25 @@ class ExperimentDesignDTO {
 			this.creationDate = creationDate
 			this
 		}
-
+		def Builder specification(String specification) {
+			this.specification = specification
+			this
+		}
+		def Builder mapping(String mapping) {
+			this.mapping = mapping
+			this
+		}
 		def ExperimentDesignDTO build() {
 			new ExperimentDesignDTO(this);
 
 		}
+
+		
+
 	}
-	
+
 	def isFinished() {
-				((finished + failed + cancelled) == numberOfTasks && numberOfTasks!=0)
+		((finished + failed + cancelled) == numberOfTasks && numberOfTasks != 0)
 
 	}
 
