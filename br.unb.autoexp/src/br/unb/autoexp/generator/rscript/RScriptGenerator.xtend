@@ -1,6 +1,6 @@
 package br.unb.autoexp.generator.rscript
 
-import br.unb.autoexp.autoExp.CustomDependentVariable
+import br.unb.autoexp.autoExp.DependentVariable
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.ResearchHypothesis
@@ -522,7 +522,7 @@ class RScriptGenerator {
 		«ENDFOR»			
 	'''
 	
-	protected def CharSequence generatePlotOverview(Experiment experiment, CustomDependentVariable variable)
+	protected def CharSequence generatePlotOverview(Experiment experiment, DependentVariable variable)
 		'''«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
 			DF$objectLabel <- factor(DF$objectLabel, levels=c(«FOR object:experiment.experimentalObjects SEPARATOR ","»"«object.description»"«ENDFOR»))
 		«ENDIF»
