@@ -56,7 +56,7 @@ class RScriptReproductionGenerator {
 			«ENDFOR»
 			df$execution<-as.factor(df$execution)			
 			«IF !experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-				df$object<-as.numeric(df$object)				
+				df$object<-as.numeric(as.character(df$object))
 			«ENDIF»
 			
 			data_summary <- function(data, varname, groupnames){
@@ -138,7 +138,7 @@ class RScriptReproductionGenerator {
 					«IF experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
 						DF$object <- factor(DF$object, levels=c(«FOR i:1..experiment.experimentalObjects.size SEPARATOR ","»"«experiment.experimentalObjects.get(i-1).description»"«ENDFOR»))
 					«ENDIF»
-					ggplot(DF, aes(x=object, y=mean, group=execution, color=execution)) + 
+					print(ggplot(DF, aes(x=object, y=mean, group=execution, color=execution)) + 
 					geom_errorbar(aes(ymin=min, ymax=max), width=.1, linetype=3) +
 					geom_line() + geom_point()+
 					scale_color_brewer(palette="Paired") +
@@ -162,7 +162,7 @@ class RScriptReproductionGenerator {
 					scale_y_log10(name = "«variable.description» «IF variable.unit!==null»(«variable.unit»)«ENDIF»(log scale)")+
 					«ENDIF»			  
 					ggtitle("«variable.description» for «treatment.description»") + 
-					theme(legend.title = element_blank())
+					theme(legend.title = element_blank()))
 				}	
 				«ENDFOR»	
 			«ENDFOR»
