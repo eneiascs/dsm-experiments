@@ -1,39 +1,9 @@
 package br.unb.autoexp.generator.pythonscript
- 
-import br.unb.autoexp.autoExp.Experiment
-import br.unb.autoexp.autoExp.ExperimentalDesign
-import br.unb.autoexp.autoExp.ExperimentalObject
-import br.unb.autoexp.autoExp.ResearchHypothesis
-import br.unb.autoexp.autoExp.Treatment
-import br.unb.autoexp.generator.ExperimentalDesignGenerator
-import br.unb.autoexp.generator.dto.ExecutionDTO
-import br.unb.autoexp.generator.dto.ExecutionDTO2
-import br.unb.autoexp.generator.exception.InvalidPropertyException
-import java.util.ArrayList
-import java.util.List
-import java.util.UUID
-import java.util.regex.Pattern
-import javax.inject.Inject
-import org.eclipse.emf.common.util.EList
-import org.excalibur.core.cloud.api.AccessKey
-import org.excalibur.core.cloud.api.Cloud
-import org.excalibur.core.cloud.api.InstanceTypeReq
-import org.excalibur.core.cloud.api.Platform
-import org.excalibur.core.cloud.api.ProviderSupport
-import org.excalibur.core.cloud.api.domain.GeographicRegion
-import org.excalibur.core.cloud.api.domain.Region
-import org.excalibur.core.cloud.api.domain.RegionStatus
-import org.excalibur.core.cloud.api.domain.Zone
-import org.excalibur.core.domain.User
-import org.excalibur.core.domain.UserKey
-import org.excalibur.core.execution.domain.Application
-import org.excalibur.core.execution.domain.ApplicationDescriptor
-import org.excalibur.core.execution.domain.Block
-import org.excalibur.core.execution.domain.FinishAction
-import org.excalibur.core.execution.domain.Precondition
-import org.excalibur.core.execution.domain.Requirements
 
-import static extension java.lang.String.*
+import br.unb.autoexp.autoExp.Experiment
+import br.unb.autoexp.generator.ExperimentalDesignGenerator
+import br.unb.autoexp.generator.dto.ExecutionDTO2
+import javax.inject.Inject
 
 class PythonScriptGenerator {
 	@Inject extension ExperimentalDesignGenerator

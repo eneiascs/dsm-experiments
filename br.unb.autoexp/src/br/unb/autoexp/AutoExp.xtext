@@ -22,9 +22,9 @@ Experiment returns Experiment:
 	('Goals' '{' goals+=Goal ("," goals+=Goal)* '}')?
 	('Research Questions' '{' researchQuestions+=ResearchQuestion ("," researchQuestions+=ResearchQuestion)* '}')?
 	('Research Hypotheses' '{' researchHypotheses+=ResearchHypothesis ("," researchHypotheses+=ResearchHypothesis)* '}')?
-	('Threat' '{' threats+=Threat ("," threats+=Threat)* '}')?
+	('Threats' '{' threats+=Threat ("," threats+=Threat)* '}')?
 	'Experimental Design' experimentalDesign=ExperimentalDesign
-	'Dependent Variables' '{' dependentVariables+=CustomDependentVariable ("," dependentVariables+=CustomDependentVariable)* '}'
+	'Dependent Variables' '{' dependentVariables+=DependentVariable ("," dependentVariables+=DependentVariable)* '}'
 	('Instruments' '{' instruments+=Instrument ("," instruments+=Instrument)* '}')?
 	'Factors' '{' factors+=Factor ("," factors+=Factor)* '}'
 	'Treatments' '{' treatments+=Treatment ("," treatments+=Treatment)* '}'
@@ -118,10 +118,6 @@ Region:
 	'}')?
 ;
 
-//enum GeographicRegionEnum:
-//	AFRICA='1' | ASIA='2' | CENTRAL_AMERICA='3' | EUROPEAN='4' | NORTH_AMERICA='5'|SOUTH_AMERICA='6'
-//	
-//;
  
 StatusType:
 	typeName=('UP' | 'DOWN' );
@@ -244,28 +240,15 @@ ResearchHypothesis returns ResearchHypothesis:
 
 ResearchHypothesisFormula returns ResearchHypothesisFormula:
 	{ResearchHypothesisFormula}
-	depVariable=[CustomDependentVariable|ID] treatment1=[Treatment|ID] operator=OperatorType treatment2=[Treatment|ID];
+	depVariable=[DependentVariable|ID] treatment1=[Treatment|ID] operator=OperatorType treatment2=[Treatment|ID];
 
 OperatorType:
 	typeName=('<' | '=' |'!=' | '>');
+ 
+
 
 DependentVariable returns DependentVariable:
-	
-	DependentVariable_Impl|BuiltinDependentVariable|CustomDependentVariable
-;
-
-DependentVariable_Impl returns DependentVariable:
 	{DependentVariable}
-	name=ID
-;
-BuiltinDependentVariable returns BuiltinDependentVariable:
-	{BuiltinDependentVariable}
-	name=STRING
-	;
-
-
-CustomDependentVariable returns CustomDependentVariable:
-	{CustomDependentVariable}
 	name=ID
 	'{'
 	'description' description=STRING
@@ -331,15 +314,6 @@ File returns File:
 ;
 Parameter returns Parameter:
 	{Parameter}
-	name=ID
-	(value=STRING)?;
-
-ExecutionParameter returns ExecutionParameter:
-	{ExecutionParameter}
-	(value=STRING)?;
-
-Artifact returns Artifact:
-	{Artifact}
 	name=ID
 	(value=STRING)?;
 

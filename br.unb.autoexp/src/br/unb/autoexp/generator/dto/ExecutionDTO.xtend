@@ -1,6 +1,6 @@
 package br.unb.autoexp.generator.dto
 
-import br.unb.autoexp.autoExp.CustomDependentVariable
+import br.unb.autoexp.autoExp.DependentVariable
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.Treatment
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -10,7 +10,7 @@ class ExecutionDTO {
 	
 	Treatment treatment
 	ExperimentalObject object
-	CustomDependentVariable depVariable
+	DependentVariable depVariable
 		override boolean equals(Object obj){
 		if (obj===null||!(obj instanceof ExecutionDTO)){
 			false
