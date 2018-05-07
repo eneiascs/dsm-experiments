@@ -55,22 +55,19 @@ class RScriptReproductionGenerator {
 				«ENDFOR»
 			«ENDFOR»
 			df$execution<-as.factor(df$execution)			
-			«IF !experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-				df$object<-as.numeric(df$object)				
-			«ENDIF»
-			
+						
 			data_summary <- function(data, varname, groupnames){
-					  require(plyr)
-					  summary_func <- function(x, col){
-					    c(mean = mean(x[[col]], na.rm=TRUE),
-					      sd = sd(x[[col]], na.rm=TRUE))
-					  }
-					  data_sum<-ddply(data, groupnames, .fun=summary_func,
+				require(plyr)
+				summary_func <- function(x, col){
+				c(mean = mean(x[[col]], na.rm=TRUE),
+				      sd = sd(x[[col]], na.rm=TRUE))
+			 }
+			data_sum<-ddply(data, groupnames, .fun=summary_func,
 					                  varname)
-					  data_sum <- rename(data_sum, c("mean" = varname))
-					 return(data_sum)
-					}
-					breaks_continuous <- function(data, steps){
+				data_sum <- rename(data_sum, c("mean" = varname))
+				return(data_sum)
+			}
+			breaks_continuous <- function(data, steps){
 					  diff<-max(data)-min(data) 
 					  step_size<-diff/steps
 					  step<-min(data)
@@ -80,8 +77,8 @@ class RScriptReproductionGenerator {
 					    breaks<-c(breaks,step)
 					  }
 					  return(breaks)
-					}  
-					breaks_log <- function(data, steps){
+			}  
+			breaks_log <- function(data, steps){
 					  diff<-max(data)/min(data) 
 					  base<-diff^(1/steps)
 					  exp<-log(min(data),base)
@@ -91,8 +88,13 @@ class RScriptReproductionGenerator {
 					    breaks<-c(breaks,round(base^exp))
 					  }
 					  return(breaks)
-					}
-					write.table(df,"result.dat",row.names =FALSE)  
+			}
+			write.table(df,"result.dat",row.names =FALSE)
+			
+				
+			«IF !experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
+				df$object<-as.numeric(df$object)				
+			«ENDIF»
 			
 			«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
 			for (exec in levels(df$execution)){
@@ -166,6 +168,36 @@ class RScriptReproductionGenerator {
 				}	
 				«ENDFOR»	
 			«ENDFOR»
+			df$dependentVariable<-as.factor(df$dependentVariable)
+			df$treatment<-as.factor(df$treatment)
+			df$object<-as.factor(df$object)
+			
+			names.comparison<-c("dependentVariable","treatment","object","original","reproduction","difference")
+			df.comparison<-data.frame(replicate(3,character(0)), replicate(3,numeric(0)))
+			names(df.comparison)<-names.comparison
+			for (dependentVariable in levels(df$dependentVariable)){
+				for (treatment in levels(df$treatment)){
+				    for (object in levels(df$object)){
+						     
+				    	original<-df[df$execution=="Original" & df$dependentVariable==dependentVariable & df$treatment==treatment & df$object==object,]
+						if (nrow(original)==0){
+							original.mean<-NA
+						}else{
+						    original.mean<-original$mean
+						}
+						    reproduction<-df[df$execution=="Reproduction" & df$dependentVariable==dependentVariable & df$treatment==treatment & df$object==object,]
+						if (nrow(reproduction)==0){
+						    reproduction.mean<-NA
+						}else{
+						    reproduction.mean<-reproduction$mean
+						}
+						df2<-data.frame(dependentVariable,treatment,object,original.mean,reproduction.mean,100*(reproduction.mean-original.mean)/original.mean)
+						names(df2)<-names.comparison
+						df.comparison<-data.frame(rbind(df.comparison,df2))
+				   }  
+				 }
+			}
+			write.table(df.comparison,"result-comparison.dat",row.names =FALSE)  	
 			'''
 			
 			

@@ -220,7 +220,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 							val status = '''
 								«val completed=experimentDesign.getFinished()+experimentDesign.getFailed+experimentDesign.cancelled»
 								Completed «completed» of «experimentDesign.numberOfTasks» tasks («100*completed/experimentDesign.numberOfTasks»%)
-								Elapsed time: «experimentDesign.creationDate.diff»
+								Elapsed time: «experimentDesign.diff»
 							'''
 
 							progressMonitor.worked(experimentDesign.getFinished() + experimentDesign.failed + experimentDesign.cancelled)
@@ -238,6 +238,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 							Finished: «experimentDesign.getFinished()» 
 							Failed: «experimentDesign.failed» 
 							Cancelled: «experimentDesign.cancelled»
+							 
+							Elapsed time: «experimentDesign.diff»
 						'''
 						progressMonitor.done
 						
@@ -275,21 +277,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 			runExperimentJob.user = true
 			
 			runExperimentJob.schedule
-//			experimentDesign = experimentDesignService.findByJobId(tasks.head.jobId)
-//			if (experimentDesign!==null){
-//				result = '''
-//					Execution Status:
-//					 
-//					Tasks: «experimentDesign.numberOfTasks» 
-//					Pending: «experimentDesign.pending+experimentDesign.notReceived» 
-//					Running: «experimentDesign.running» 
-//					Finished: «experimentDesign.getFinished()» 
-//					Failed: «experimentDesign.failed» 
-//					Cancelled: «experimentDesign.cancelled»
-//				'''
-//			
-//			}
-//			displayResult
+
 			
 		} catch (InvocationTargetException ex) {
 			logger.error(ex.getMessage(), ex)
@@ -307,9 +295,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 		}
 
 	}
-	def String diff(Date date) {
-		val now = new Date()
-		val diff = now.getTime() - date.getTime()
+	def String diff(ExperimentDesignDTO design) {		
+		val diff = design.lastUpdateDate.getTime() - design.creationDate.getTime()
 		val diffMinutes = diff / (60 * 1000) % 60;
 		val diffHours = diff / (60 * 60 * 1000) % 24;
 		val diffDays = diff / (24 * 60 * 60 * 1000);

@@ -107,7 +107,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 							message = '''
 								«val completed=design.getFinished()+design.getFailed+design.cancelled»
 								Completed «completed» of «design.numberOfTasks» tasks («100*completed/design.numberOfTasks»%)
-								Elapsed time: «design.creationDate.diff»
+								Elapsed time: «design.diff»
 							'''
 
 							progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
@@ -127,6 +127,8 @@ class StatusCommand extends AbstractWorkspaceCommand {
 							Finished: «design.getFinished()» 
 							Failed: «design.failed» 
 							Cancelled: «design.cancelled»
+							 
+							Elapsed time: «design.diff»
 						'''
 						displayResult
 						Status.OK_STATUS
@@ -158,9 +160,8 @@ class StatusCommand extends AbstractWorkspaceCommand {
 		return null;
 	}
 
-	def String diff(Date date) {
-		val now = new Date()
-		val diff = now.getTime() - date.getTime()
+	def String diff(ExperimentDesignDTO design) {		
+		val diff = design.lastUpdateDate.getTime() - design.creationDate.getTime()
 		val diffMinutes = diff / (60 * 1000) % 60;
 		val diffHours = diff / (60 * 60 * 1000) % 24;
 		val diffDays = diff / (24 * 60 * 60 * 1000);
@@ -198,7 +199,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 	def void checkFile(File file, File executionFolder) throws IOException {
 		if (!file.exists()) {
 			val message = String.format("File %s not found in %s folder", file.getName(), executionFolder.getName())
-			// MessageDialog.openError(window.getShell(), "Run Error", message)
+			
 			throw new RuntimeException(message)
 		}
 
