@@ -92,8 +92,8 @@ class RScriptReproductionGenerator {
 			write.table(df,"result.dat",row.names =FALSE)
 			
 				
-			«IF !experiment.objectsScaleType.equals(ScaleType.NOMINAL)»
-				df$object<-as.numeric(df$object)				
+			«IF !experiment.objectsScaleType.equals(ScaleType.NOMINAL)»				
+				df$object<-as.numeric(as.character(df$object))
 			«ENDIF»
 			
 			«FOR variable:(experiment.researchHypotheses as List<ResearchHypothesis>).map[formula.depVariable].removeDuplicates»
