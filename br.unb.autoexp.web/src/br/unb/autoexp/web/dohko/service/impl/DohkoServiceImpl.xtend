@@ -140,85 +140,89 @@ class DohkoServiceImpl implements DohkoService {
 	}
 
 	override updateTaskStatus(TaskMessage taskMessage) {
-		var ExperimentDesignDTO design = null
-		design = experimentDesignService.findByJobId(taskMessage.jobId)
-		while (design === null) {
-			Thread.sleep(30000)
+		if (taskMessage.status.equals(TaskStatusType.FINISHED)||taskMessage.status.equals(TaskStatusType.FAILED)||taskMessage.status.equals(TaskStatusType.CANCELLED)) {
+
+			var ExperimentDesignDTO design = null
 			design = experimentDesignService.findByJobId(taskMessage.jobId)
+			while (design === null) {
+				Thread.sleep(30000)
+				design = experimentDesignService.findByJobId(taskMessage.jobId)
 
-		}
+			}
 
-		if (design === null)
-			throw new RuntimeException("Experiment with jobId %s not found in database".format(taskMessage.jobId))
+			if (design === null)
+				throw new RuntimeException("Experiment with jobId %s not found in database".format(taskMessage.jobId))
 
-		val mapper = new ObjectMapper()
-		val obj = mapper.readerFor(typeof(MappingDTO[])).readValue(
-			new String(Base64.getDecoder().decode(design.mapping)))
-		val List<MappingDTO> mappings = Arrays.asList(obj)
-		val mapping = mappings.filter[it.taskName.equals(taskMessage.taskName)].head
+			val mapper = new ObjectMapper()
+			val obj = mapper.readerFor(typeof(MappingDTO[])).readValue(
+				new String(Base64.getDecoder().decode(design.mapping)))
+			val List<MappingDTO> mappings = Arrays.asList(obj)
+			val mapping = mappings.filter[it.taskName.equals(taskMessage.taskName)].head
 
-		val task = ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).taskId(
-			taskMessage.taskId).factor(if(mapping === null) null else mapping.factor).object(
-			if(mapping === null) null else mapping.object).taskName(if(mapping === null) null else mapping.getTaskName).
-			treatment(if(mapping === null) null else mapping.treatment).jobId(taskMessage.jobId).creationDate(
+			val task = ExperimentExecutionDTO.builder.executionStatus(ExecutionStatusDTO.PENDING).taskId(
+				taskMessage.taskId).factor(if(mapping === null) null else mapping.factor).object(
+				if(mapping === null) null else mapping.object).taskName(
+				if(mapping === null) null else mapping.getTaskName).treatment(
+				if(mapping === null) null else mapping.treatment).jobId(taskMessage.jobId).creationDate(
 				taskMessage.date).lastUpdateDate(taskMessage.date).build
 
-		switch (taskMessage.status) {
-			case TaskStatusType.PENDING:
-				task.executionStatus = ExecutionStatusDTO.PENDING
-			case TaskStatusType.RUNNING:
-				task.executionStatus = ExecutionStatusDTO.RUNNING
-			case TaskStatusType.FINISHED:
-				task.executionStatus = ExecutionStatusDTO.FINISHED
-			case TaskStatusType.FAILED:
-				task.executionStatus = ExecutionStatusDTO.FAILED
-			case TaskStatusType.CANCELLED:
-				task.executionStatus = ExecutionStatusDTO.CANCELLED
-			default: {
-			}
-		}
-
-		if (task.executionStatus.equals(ExecutionStatusDTO.FINISHED) && taskMessage.output !== null) {
-			val experimentSpecification = new String(Base64.getDecoder().decode(design.specification))
-			val experiment = parser.parse(experimentSpecification).experiments.head
-
-			val depVariables = experiment.researchHypotheses.filter [
-				formula.treatment1.name.equals(task.treatment) || formula.treatment2.name.equals(task.treatment)
-			].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
-
-			depVariables.forEach [
-				val expression = instrument.valueExpression.replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")
-
-				val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(expression))
-				val m = p.matcher(taskMessage.output);
-				while (m.find) {
-					if (m.groupCount >= 3) {
-						var value = new Double(m.group(3))
-						if (instrument.conversionFactor !== null) {
-							value = (value * instrument.conversionFactor.doubleValue).doubleValue
-						}
-						task.addDependentVariable(name.convert, value)
-					}
-
+			switch (taskMessage.status) {
+				case TaskStatusType.PENDING:
+					task.executionStatus = ExecutionStatusDTO.PENDING
+				case TaskStatusType.RUNNING:
+					task.executionStatus = ExecutionStatusDTO.RUNNING
+				case TaskStatusType.FINISHED:
+					task.executionStatus = ExecutionStatusDTO.FINISHED
+				case TaskStatusType.FAILED:
+					task.executionStatus = ExecutionStatusDTO.FAILED
+				case TaskStatusType.CANCELLED:
+					task.executionStatus = ExecutionStatusDTO.CANCELLED
+				default: {
 				}
-			]
+			}
+
+			if (task.executionStatus.equals(ExecutionStatusDTO.FINISHED) && taskMessage.output !== null) {
+				val experimentSpecification = new String(Base64.getDecoder().decode(design.specification))
+				val experiment = parser.parse(experimentSpecification).experiments.head
+
+				val depVariables = experiment.researchHypotheses.filter [
+					formula.treatment1.name.equals(task.treatment) || formula.treatment2.name.equals(task.treatment)
+				].filter[formula.depVariable.instrument !== null].map[formula.depVariable].toList
+
+				depVariables.forEach [
+					val expression = instrument.valueExpression.replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")
+
+					val p = Pattern.compile("(%s)( *)(\\d+\\.?\\d*)".format(expression))
+					val m = p.matcher(taskMessage.output);
+					while (m.find) {
+						if (m.groupCount >= 3) {
+							var value = new Double(m.group(3))
+							if (instrument.conversionFactor !== null) {
+								value = (value * instrument.conversionFactor.doubleValue).doubleValue
+							}
+							task.addDependentVariable(name.convert, value)
+						}
+
+					}
+				]
+			}
+
+			val persistedTask = experimentExecutionService.create(task)
+
+			design = experimentDesignService.update(taskMessage.jobId)
+
+			val dataFile = new File(new File(design.fileName).parentFile.absolutePath + File.separator + "data.json")
+
+			dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(taskMessage.jobId));
+			if (design.isFinished) {
+				logger.info("Execution finished jobId %s".format(taskMessage.jobId))
+				rBaseApiClient.runAnalysis(
+					new File(design.getFileName().replaceFirst("[.][^.]+$", ".Rnw")).relativePath)
+				logger.info("Analysis finished jobId %s".format(taskMessage.jobId))
+			}
+
+			persistedTask
 		}
-		
-		val persistedTask = experimentExecutionService.create(task)
-		
-		design=experimentDesignService.update(taskMessage.jobId)
-
-		val dataFile = new File(new File(design.fileName).parentFile.absolutePath + File.separator + "data.json")
-
-		dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(taskMessage.jobId));
-		if (design.isFinished) {
-			logger.info("Execution finished jobId %s".format(taskMessage.jobId))
-			rBaseApiClient.runAnalysis(new File(design.getFileName().replaceFirst("[.][^.]+$", ".Rnw")).relativePath)
-			logger.info("Analysis finished jobId %s".format(taskMessage.jobId))
-		}
-
-		persistedTask
-
 	}
 
 	override updateTaskStatus(ExperimentExecutionDTO task, File specificationFile) {
