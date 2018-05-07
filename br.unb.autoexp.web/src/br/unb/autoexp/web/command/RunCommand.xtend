@@ -220,7 +220,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 							val status = '''
 								«val completed=experimentDesign.getFinished()+experimentDesign.getFailed+experimentDesign.cancelled»
 								Completed «completed» of «experimentDesign.numberOfTasks» tasks («100*completed/experimentDesign.numberOfTasks»%)
-								Elapsed time: «experimentDesign.diff»
+								Elapsed time: «experimentDesign.creationDate.elapsedTime(new Date())»
 							'''
 
 							progressMonitor.worked(experimentDesign.getFinished() + experimentDesign.failed + experimentDesign.cancelled)
@@ -239,7 +239,7 @@ class RunCommand extends AbstractWorkspaceCommand {
 							Failed: «experimentDesign.failed» 
 							Cancelled: «experimentDesign.cancelled»
 							 
-							Elapsed time: «experimentDesign.diff»
+							Elapsed time: «experimentDesign.creationDate.elapsedTime(experimentDesign.lastUpdateDate)»
 						'''
 						progressMonitor.done
 						
@@ -295,8 +295,8 @@ class RunCommand extends AbstractWorkspaceCommand {
 		}
 
 	}
-	def String diff(ExperimentDesignDTO design) {		
-		val diff = design.lastUpdateDate.getTime() - design.creationDate.getTime()
+	def String elapsedTime(Date firstDate,Date secondDate) {		
+		val diff = secondDate.getTime() - firstDate.getTime()
 		val diffMinutes = diff / (60 * 1000) % 60;
 		val diffHours = diff / (60 * 60 * 1000) % 24;
 		val diffDays = diff / (24 * 60 * 60 * 1000);

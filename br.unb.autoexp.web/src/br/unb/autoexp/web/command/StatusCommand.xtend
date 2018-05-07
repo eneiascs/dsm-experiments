@@ -107,7 +107,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 							message = '''
 								«val completed=design.getFinished()+design.getFailed+design.cancelled»
 								Completed «completed» of «design.numberOfTasks» tasks («100*completed/design.numberOfTasks»%)
-								Elapsed time: «design.diff»
+								Elapsed time: «design.creationDate.elapsedTime(new Date())»
 							'''
 
 							progressMonitor.worked(design.getFinished() + design.failed + design.cancelled)
@@ -128,7 +128,7 @@ class StatusCommand extends AbstractWorkspaceCommand {
 							Failed: «design.failed» 
 							Cancelled: «design.cancelled»
 							 
-							Elapsed time: «design.diff»
+							Elapsed time: «design.creationDate.elapsedTime(design.lastUpdateDate)»
 						'''
 						displayResult
 						Status.OK_STATUS
@@ -160,8 +160,8 @@ class StatusCommand extends AbstractWorkspaceCommand {
 		return null;
 	}
 
-	def String diff(ExperimentDesignDTO design) {		
-		val diff = design.lastUpdateDate.getTime() - design.creationDate.getTime()
+	def String elapsedTime(Date firstDate,Date secondDate) {		
+		val diff = secondDate.getTime() - firstDate.getTime()
 		val diffMinutes = diff / (60 * 1000) % 60;
 		val diffHours = diff / (60 * 60 * 1000) % 24;
 		val diffDays = diff / (24 * 60 * 60 * 1000);
