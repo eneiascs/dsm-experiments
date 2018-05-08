@@ -211,11 +211,13 @@ class DohkoServiceImpl implements DohkoService {
 
 			design = experimentDesignService.update(taskMessage.jobId)
 
-			val dataFile = new File(new File(design.fileName).parentFile.absolutePath + File.separator + "data.json")
-
-			dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(taskMessage.jobId));
+			
 			if (design.isFinished) {
 				logger.info("Execution finished jobId %s".format(taskMessage.jobId))
+				val dataFile = new File(new File(design.fileName).parentFile.absolutePath + File.separator + "data.json")
+
+				dataFileGenerator.writeToFile(dataFile, experimentExecutionService.findByJobId(taskMessage.jobId))
+				
 				rBaseApiClient.runAnalysis(
 					new File(design.getFileName().replaceFirst("[.][^.]+$", ".Rnw")).relativePath)
 				logger.info("Analysis finished jobId %s".format(taskMessage.jobId))
