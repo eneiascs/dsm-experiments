@@ -26,21 +26,21 @@ The script `create_image.sh` first builds the `autoexp.war` file using the comma
 
 The source-code of the tool is available in the following folders:
 
-* br.unb.autoexp: contains the grammar (`src/br/unb/autoexp/AutoExp.xtext`), code generators (`src/br/unb/autoexp/generator/`), and validators (`src/br/unb/autoexp/generator/`) created using [Xtext](https://www.eclipse.org/Xtext/). 
-* br.unb.autoexp.web: Supporting framework implemented as a Web-based tool. We created the initial version using [DSLFORGE](https://dslforge.org/). Then, we extendend and customized it with new commands (`src/br/unb/autoexp/web/command/`) to run applications in the infrastructure and to analyze the results.
-* br.unb.autoexp.tests: contains generators and validators unit tests.
-* br.unb.autoexp.web.build: contains the configurations to build the war file. Use the command `mvn clean install -P autoexp` inside this folder to build the war file.
-* br.unb.autoexp.target: target project with the plugins required to generated the artifacts from the grammar.
-* br.unb.autoexp.web.target: target project with the plugins required to generated the Web-based application.
-* br.unb.autoexp.storage.mongodb.client: Web-services client to access the database.
-* br.unb.autoexp.thirdparty: used to create OSGI bundles from maven dependencies.
-* br.unb.autoexp.example:  experimental plugin with a command to create an example of experiment specification.
-* br.unb.autoexp.template:  experimentalnal plugin with a command to create an experiment specification from a Wizard Dialog.
-* br.unb.autoexp.ide, br.unb.autoexp.ui, br.unb.autoexp.ui.tests: used to create an Eclipse IDE plugin. They are not used in the Web-based tool.
+* __br.unb.autoexp:__ contains the grammar (`src/br/unb/autoexp/AutoExp.xtext`), code generators (`src/br/unb/autoexp/generator/`), and validators (`src/br/unb/autoexp/generator/`) created using [Xtext](https://www.eclipse.org/Xtext/). 
+* __br.unb.autoexp.web:__ contans the supporting framework, which was implemented as a Web-based tool. We created the initial version using [DSLFORGE](https://dslforge.org/). Then, we extendend and customized it with new commands (`src/br/unb/autoexp/web/command/`) to run applications in the infrastructure and to analyze the results.
+* __br.unb.autoexp.tests:__ contains generators and validators unit tests.
+* __br.unb.autoexp.web.build:__ contains the configurations to build the war file. Use the command `mvn clean install -P autoexp` inside this folder to build the war file.
+* __br.unb.autoexp.target:__ target project with the plugins required to generated the artifacts from the grammar.
+* __br.unb.autoexp.web.target:__ target project with the plugins required to generated the Web-based application.
+* __br.unb.autoexp.storage.mongodb.client:__ Web-services client to access the database.
+* __br.unb.autoexp.thirdparty:__ used to create OSGI bundles from maven dependencies.
+* __br.unb.autoexp.example:__  experimental plugin with a command to create an example of experiment specification.
+* __br.unb.autoexp.template:__  experimentalnal plugin with a command to create an experiment specification from a Wizard Dialog.
+* __br.unb.autoexp.ide, br.unb.autoexp.ui, br.unb.autoexp.ui.tests:__ used to create an Eclipse IDE plugin. They are not used in the Web-based tool.
 
 ### Execution Infrastructure ###
 
-We use [Dohko](https://github.com/eneiascs/dohko-job) to run the applications. This is a fork of [Dohko](https://github.com/dohko-io/dohko-job).
+We use a [fork](https://github.com/eneiascs/dohko-job) of [Dohko](https://github.com/dohko-io/dohko-job) to run the applications.
 
 We built it in a Docker image named `eneiascs/dohko-job`.
 
@@ -66,7 +66,7 @@ The Dockerfile and the script to build this image are in `docker/dsm-r-base-api`
 
 ## Running ##
 
-The file `docker-compose.yml` contains all the configurations required to run all the Docker containers containing the tool's components. This file also loads some environment variables defined in the file `.env`.
+The file `docker-compose.yml` contains the configuration necessary to run all the Docker containers containing the components. This file also loads some environment variables defined in the file `.env`.
 
 To run all the components, use the command `docker-compose up`.
 
