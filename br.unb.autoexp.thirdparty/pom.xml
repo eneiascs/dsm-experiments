@@ -165,22 +165,38 @@
 
 
 								<!-- Version 1.1.0 -->
-<!-- 								<artifact> -->
-<!-- 									<id>org.apache.logging.log4j:log4j-core:2.9.1</id> -->
-									
-<!-- 								</artifact> -->
-<!-- 								<artifact> -->
-<!-- 									<id>org.apache.logging.log4j:log4j-api:2.9.1</id> -->
-									
-<!-- 								</artifact> -->
+								<!-- <artifact> -->
+								<!-- <id>org.apache.logging.log4j:log4j-core:2.9.1</id> -->
+
+								<!-- </artifact> -->
+								<!-- <artifact> -->
+								<!-- <id>org.apache.logging.log4j:log4j-api:2.9.1</id> -->
+
+								<!-- </artifact> -->
 
 
-						<!-- Dohko Version 1.3.0 -->
-								 <artifact> 
-								<id>org.excalibur:excalibur-core:1.0.0-SNAPSHOT</id>
-								<transitive>false</transitive>
-								</artifact>
+								<!-- Dohko Version 1.3.0 -->
+								<!-- <artifact> -->
+								<!-- <id>org.excalibur:excalibur-core:1.0.0-SNAPSHOT</id> -->
+								<!-- <transitive>false</transitive> -->
+								<!-- </artifact> -->
+
+								<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+
+<!-- 								<artifact> -->
+<!-- 									<id>javax.websocket:javax.websocket-api:1.1</id>									 -->
+<!-- 								</artifact> -->
+<!-- 								<artifact> -->
+<!-- 									<id>org.springframework:spring-websocket:5.0.1.RELEASE</id>									 -->
+<!-- 								</artifact> -->
+<!-- 								<artifact> -->
+<!-- 									<id>org.springframework:spring-messaging:5.0.1.RELEASE</id>									 -->
+<!-- 								</artifact> -->
 								
+								<artifact>
+									<id>org.glassfish.tyrus.bundles:tyrus-standalone-client:1.12</id>									
+								</artifact>
+
 							</artifacts>
 						</configuration>
 
@@ -204,7 +220,7 @@
 		</plugins>
 	</build>
 
-	
+
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -213,20 +229,20 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<repositories>
-	<repository>
-		<id>eneiascs-snapshot-repository</id>
-		<url>https://github.com/eneiascs/maven-repository/raw/master/snapshots</url>
-		<snapshots>
-			<enabled>true</enabled>
-		</snapshots>
-	</repository>
+		<repository>
+			<id>eneiascs-snapshot-repository</id>
+			<url>https://github.com/eneiascs/maven-repository/raw/master/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 
-	<!-- <repository> -->
-	<!-- <id>eneiascs-releases-repo</id> -->
-	<!-- <url>https://github.com/eneiascs/maven-repository/raw/master/releases</url> -->
-	<!-- <snapshots> -->
-	<!-- <enabled>false</enabled> -->
-	<!-- </snapshots> -->
-	<!-- </repository> -->
+		<!-- <repository> -->
+		<!-- <id>eneiascs-releases-repo</id> -->
+		<!-- <url>https://github.com/eneiascs/maven-repository/raw/master/releases</url> -->
+		<!-- <snapshots> -->
+		<!-- <enabled>false</enabled> -->
+		<!-- </snapshots> -->
+		<!-- </repository> -->
 	</repositories>
 </project>

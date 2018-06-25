@@ -11,4 +11,4 @@ echo "Preparing to copy war file"
 war=$project_folder"/autoexp/target/autoexp.war"
 cp $war $parent_path"/autoexp.war"
 cd $parent_path
-docker build -t eneiascs/dsm-framework .
+docker build -t eneiascs/dsm-framework:1.0.0 .

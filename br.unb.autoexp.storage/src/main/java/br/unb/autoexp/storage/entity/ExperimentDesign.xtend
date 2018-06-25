@@ -12,6 +12,9 @@ class ExperimentDesign {
 	String jobId
 	String design
 	String fileName
+	String specification
+	String mapping
+
 	int runs
 	int numberOfTasks
 	int notReceived
@@ -20,7 +23,7 @@ class ExperimentDesign {
 	int finished
 	int failed
 	int cancelled
-	
+
 	Date creationDate
 	Date lastUpdateDate
 
@@ -32,7 +35,9 @@ class ExperimentDesign {
 		this.name = builder.name
 		this.jobId = builder.jobId
 		this.design = builder.design
-		this.fileName=builder.fileName
+		this.fileName = builder.fileName
+		this.specification = builder.specification
+		this.mapping = builder.mapping
 		this.runs = builder.runs
 		this.numberOfTasks = builder.numberOfTasks
 
@@ -43,24 +48,28 @@ class ExperimentDesign {
 		this.failed = builder.failed
 		this.cancelled = builder.cancelled
 		this.creationDate = builder.creationDate
-		this.lastUpdateDate=builder.lastUpdateDate
+		this.lastUpdateDate = builder.lastUpdateDate
 	}
 
-	def update(String jobId, String name, String design, String fileName,int runs,int numberOfTasks,int notReceived,int pending,int running,int finished,int failed, int cancelled, Date lastUpdateDate) {
+	def update(String jobId, String name, String design, String fileName, String specification, String mapping,
+		int runs, int numberOfTasks, int notReceived, int pending, int running, int finished, int failed, int cancelled,
+		Date lastUpdateDate) {
 		this.jobId = jobId
 		this.name = name
 		this.design = design
-		this.fileName=fileName
+		this.fileName = fileName
+		this.specification = specification
+		this.mapping = mapping
 		this.runs = runs
 		this.numberOfTasks = numberOfTasks
 
 		this.notReceived = notReceived
 		this.pending = pending
 		this.running = running
-		this.finished =finished
+		this.finished = finished
 		this.failed = failed
 		this.cancelled = cancelled
-		
+
 		this.lastUpdateDate = lastUpdateDate
 
 	}
@@ -69,15 +78,14 @@ class ExperimentDesign {
 		new Builder()
 	}
 
-	
-
 	static class Builder {
 		String id
 		String name
 		String jobId
 		String design
 		String fileName
-		
+		String specification
+		String mapping
 		int runs
 		int numberOfTasks
 
@@ -107,10 +115,22 @@ class ExperimentDesign {
 			this.jobId = jobId
 			this
 		}
-		def fileName(String fileName){
-			this.fileName=fileName
+
+		def fileName(String fileName) {
+			this.fileName = fileName
 			this
 		}
+
+		def specification(String specification) {
+			this.specification = specification
+			this
+		}
+
+		def mapping(String mapping) {
+			this.mapping = mapping
+			this
+		}
+
 		def Builder design(String design) {
 			this.design = design
 			this
@@ -120,44 +140,52 @@ class ExperimentDesign {
 			this.runs = runs
 			this
 		}
+
 		def Builder numberOfTasks(int numberOfTasks) {
 			this.numberOfTasks = numberOfTasks
 			this
 		}
+
 		def Builder notReceived(int notReceived) {
 			this.notReceived = notReceived
 			this
 		}
+
 		def Builder pending(int pending) {
 			this.pending = pending
 			this
 		}
+
 		def Builder running(int running) {
 			this.running = running
 			this
 		}
+
 		def Builder finished(int finished) {
 			this.finished = finished
 			this
 		}
+
 		def Builder failed(int failed) {
 			this.failed = failed
 			this
 		}
+
 		def Builder cancelled(int cancelled) {
 			this.cancelled = cancelled
 			this
 		}
+
 		def Builder lastUpdateDate(Date lastUpdateDate) {
 			this.lastUpdateDate = lastUpdateDate
 			this
 		}
-		
+
 		def Builder creationDate(Date creationDate) {
 			this.creationDate = creationDate
 			this
 		}
-		
+
 		def ExperimentDesign build() {
 			new ExperimentDesign(this);
 

@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 import br.unb.autoexp.autoExp.AutoExpFactory;
-import br.unb.autoexp.autoExp.CustomDependentVariable;
+import br.unb.autoexp.autoExp.DependentVariable;
 import br.unb.autoexp.autoExp.Experiment;
 import br.unb.autoexp.autoExp.Factor;
 import br.unb.autoexp.autoExp.OperatorType;
@@ -139,7 +139,7 @@ public class NewModelTemplateWizardTreatmentsPage extends AbstractNewResourceWiz
 			ResearchHypothesis rh = AutoExpFactory.eINSTANCE.createResearchHypothesis();
 			ResearchHypothesisFormula rhf = AutoExpFactory.eINSTANCE.createResearchHypothesisFormula();
 
-			CustomDependentVariable depVariable = AutoExpFactory.eINSTANCE.createCustomDependentVariable();
+			DependentVariable depVariable = AutoExpFactory.eINSTANCE.createDependentVariable();
 			Treatment firstTreatment = AutoExpFactory.eINSTANCE.createTreatment();
 			Treatment secondTreatment = AutoExpFactory.eINSTANCE.createTreatment();
 			Factor factor = AutoExpFactory.eINSTANCE.createFactor();

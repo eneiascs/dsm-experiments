@@ -90,7 +90,7 @@ class UpdateStatusCommand extends AbstractWorkspaceCommand {
 						throw new RuntimeException(message)
 					}
 
-					specificationFile = new File(file.getAbsolutePath() + File.separator + design.fileName)
+					specificationFile = new File(design.fileName)
 
 
 					Status.OK_STATUS

@@ -32,17 +32,21 @@ class ExperimentExecutionClient implements ExperimentExecutionStorageService {
 	}
 
 
-	override findById(String objectId) {
+	override ExperimentExecutionDTO findById(String objectId) {
 		ClientBuilder.newClient().target("%s/execution/id/%s".format(getBaseUrl(), objectId)).request(
 			MediaType.APPLICATION_JSON).get.readEntity(ExperimentExecutionDTO)
 	}
 
-	override findByJobId(String jobId) {
+	override List<ExperimentExecutionDTO> findByJobId(String jobId) {
 		ClientBuilder.newClient().target("%s/execution/jobId/%s".format(getBaseUrl(), jobId)).request(
 			MediaType.APPLICATION_JSON).get.readEntity(new GenericType<List<ExperimentExecutionDTO>>() {
 			})
 	}
-	
+	override List<ExperimentExecutionDTO> findByTaskId(String taskId) {
+		ClientBuilder.newClient().target("%s/execution/taskId/%s".format(getBaseUrl(), taskId)).request(
+			MediaType.APPLICATION_JSON).get.readEntity(new GenericType<List<ExperimentExecutionDTO>>() {
+			})
+	}
 	override update(ExperimentExecutionDTO experimentExecution) {
 		ClientBuilder.newClient().target("%s/execution/%s".format(getBaseUrl(),experimentExecution.id)).request(MediaType.APPLICATION_JSON).put(
 			Entity.entity(experimentExecution, MediaType.APPLICATION_JSON)).readEntity(ExperimentExecutionDTO)

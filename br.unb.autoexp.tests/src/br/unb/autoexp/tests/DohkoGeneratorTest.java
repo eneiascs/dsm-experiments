@@ -22,7 +22,7 @@ import br.unb.autoexp.autoExp.AccessKey;
 import br.unb.autoexp.autoExp.AutoExpFactory;
 import br.unb.autoexp.autoExp.Cloud;
 import br.unb.autoexp.autoExp.CloudProvider;
-import br.unb.autoexp.autoExp.CustomDependentVariable;
+import br.unb.autoexp.autoExp.DependentVariable;
 import br.unb.autoexp.autoExp.Execution;
 import br.unb.autoexp.autoExp.Experiment;
 import br.unb.autoexp.autoExp.ExperimentalObject;
@@ -63,7 +63,7 @@ public class DohkoGeneratorTest {
 		experiment.setName("name");
 		experiment.setExperimentalDesign(AutoExpFactory.eINSTANCE.createExperimentalDesign());
 		experiment.getExperimentalDesign().setRuns(2);
-		CustomDependentVariable dv = AutoExpFactory.eINSTANCE.createCustomDependentVariable();
+		DependentVariable dv = AutoExpFactory.eINSTANCE.createDependentVariable();
 		dv.setName("dependent variable name");
 		dv.setDescription("dependent variable description");
 

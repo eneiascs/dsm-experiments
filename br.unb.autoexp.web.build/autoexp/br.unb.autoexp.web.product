@@ -136,6 +136,7 @@
       <plugin id="org.glassfish.jersey.inject.jersey-hk2"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-jaxb"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
+      <plugin id="org.glassfish.tyrus.bundles.tyrus-standalone-client"/>
       <plugin id="org.hamcrest.core"/>
       <plugin id="org.junit"/>
       <plugin id="org.mongodb.bson"/>
@@ -248,6 +249,7 @@
       <plugin id="org.eclipse.xtext.xbase" autoStart="false" startLevel="5" />
       <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="5" />
       <plugin id="org.excalibur.client" autoStart="true" startLevel="0" />
+      <plugin id="org.excalibur.core" autoStart="false" startLevel="0" />
       <plugin id="org.excalibur.discovery" autoStart="true" startLevel="0" />
       <plugin id="org.excalibur.services" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="0" />
@@ -262,6 +264,7 @@
       <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="true" startLevel="0" />
       <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="false" startLevel="0" />
+      <plugin id="org.glassfish.tyrus.bundles.tyrus-standalone-client" autoStart="false" startLevel="0" />
       <plugin id="org.hamcrest.core" autoStart="true" startLevel="0" />
       <plugin id="org.junit" autoStart="true" startLevel="0" />
       <plugin id="org.mongodb.bson" autoStart="true" startLevel="5" />

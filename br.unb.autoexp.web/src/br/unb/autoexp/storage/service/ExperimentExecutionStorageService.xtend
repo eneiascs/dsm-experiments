@@ -48,5 +48,7 @@ interface ExperimentExecutionStorageService {
 	 * @return      The information of the requested experimentExecution entry.
 	 * @throws br.unb.autoexp.storage.exception.ExperimentExecutionNotFoundException if no experimentExecution entry is found.
 	 */
-	def List<ExperimentExecutionDTO> findByJobId(String id)
+	def List<ExperimentExecutionDTO> findByJobId(String jobId)
+	
+	def List<ExperimentExecutionDTO> findByTaskId(String taskId)
 }

@@ -34,6 +34,8 @@ interface ExperimentExecutionStorageService {
 	def ExperimentExecutionDTO findById(String id)
 
 	
+	def List<ExperimentExecutionDTO> findByTaskId(String taskId)
+	
 	/**
 	 * Updates the information of a experimentExecution entry.
 	 * @param experimentExecution  The information of the updated experimentExecution entry.

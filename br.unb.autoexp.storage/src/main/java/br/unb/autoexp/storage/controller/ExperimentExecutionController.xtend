@@ -59,6 +59,12 @@ class ExperimentExecutionController {
 	def ExperimentExecutionDTO findById(@PathVariable String id) {
 		storageService.findById(id)
 	}
+	
+	@RequestMapping(value="/taskId/{taskId}", method=RequestMethod.GET)
+	@ResponseBody
+	def List<ExperimentExecutionDTO> findByTaskId(@PathVariable String taskId) {
+		storageService.findByTaskId(taskId)
+	}
 
 	@RequestMapping(value="{id}", method=RequestMethod.PUT)
 	@ResponseBody
