@@ -74,4 +74,43 @@ If necessary, change cpuset and mem_limit according to your machine resources.
 
 It is also possible to split the execution in several machines. In this case, create a `docker-compose.yml` for each service, and set the URLs accordingly.
 
+## Using the Tool ##
+After the tool is running, open the URL [http://localhost/autoexp/texteditor](http://localhost/autoexp/texteditor), or replace `localhost` with the IP address, if accessing from another machine.
+
+The tool is an Eclipse RAP application. For this reason, it looks like the Eclipse IDE. 
+
+### Creating a new Project ###
+
+Click on `File`, `New` then `Project`.
+
+Insert the project name, and then click on `Finish`.
+
+
+### Creating a new Model ###
+
+Right-click on the project folder, then select `New`, then `Model`.
+
+Insert the model name with the extension `.exp`, then click on `Finish`.
+
+### Editing the Model ###
+
+Double-click the model file, then use the editor to create the model.
+
+### Generating the scripts ###
+Once the model is created, right-click on the model file, then click on `Generate`. The generated files are placed in the folder `src-gen`.
+
+
+### Running applications ###
+Right-click on the model file, then click on `Generate and Run`. This command generate the scripts and run them. First, the execution script is executed using Dohko. While running, the execution status is presented to the user. After the execution finishes, the analysis script is executed.
+
+Each execution creates a folder inside the folder `executions`. The folder and the generated files are copied to this folder. The execution results are written to `data.json` file. The analysis script generates a pdf file with the analysis report with the same name as the model.
+
+### Execution Status  ###
+
+To re-open the execution status while the applications are running, right-click on the execution folder (subfolder of executions), then click on `Generate and Run`.
+
+
+### Analyzing the results ###
+The analysis script is automatically executed after execution finishes. However, if you want to re-run it, right-click on the execution folder (subfolder of executions), then click on `Run Analysis`.
+
 
