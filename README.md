@@ -70,7 +70,7 @@ The file `docker-compose.yml` contains the configuration necessary to run all th
 
 To run all the components, use the command `docker-compose up`.
 
-If necessary, change cpuset and mem_limit according to your machine resources.
+If necessary, change `cpuset` and `mem_limit` according to your machine resources.
 
 It is also possible to split the execution in several machines. In this case, create a `docker-compose.yml` for each service, and set the URLs accordingly.
 
