@@ -100,14 +100,14 @@ Double-click the model file, then use the editor to create the model.
 Once the model is created, right-click on the model file, then click on `Generate`. The generated files are placed in the folder `src-gen`.
 
 
-### Running applications ###
+### Running the experiment ###
 Right-click on the model file, then click on `Generate and Run`. This command generate the scripts and run them. First, the execution script is executed using Dohko. While running, the execution status is presented to the user. After the execution finishes, the analysis script is executed.
 
-Each execution creates a folder inside the folder `executions`. The folder and the generated files are copied to this folder. The execution results are written to `data.json` file. The analysis script generates a pdf file with the analysis report with the same name as the model.
+Each execution creates a folder inside the folder `executions`. The folder and the generated files are copied to this folder. The execution results are written to `data.json` file. The analysis script generates a pdf file with the analysis report with the same name as the model file.
 
-### Execution Status  ###
+### Execution status  ###
 
-To re-open the execution status while the applications are running, right-click on the execution folder (subfolder of executions), then click on `Generate and Run`.
+To re-open the execution status while the applications are running, right-click on the execution folder (subfolder of executions), then click on `Execution Status`.
 
 
 ### Analyzing the results ###
