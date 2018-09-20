@@ -9,16 +9,17 @@ import br.unb.autoexp.autoExp.Execution
 import br.unb.autoexp.autoExp.Experiment
 import br.unb.autoexp.autoExp.ExperimentalObject
 import br.unb.autoexp.autoExp.Factor
+import br.unb.autoexp.autoExp.Instrument
 import br.unb.autoexp.autoExp.ResearchHypothesis
 import br.unb.autoexp.autoExp.ResearchHypothesisFormula
+import br.unb.autoexp.autoExp.ScaleType
 import br.unb.autoexp.autoExp.Treatment
 import br.unb.autoexp.generator.ExperimentalDesignGenerator
+import java.math.BigDecimal
 import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 
 import static extension java.lang.String.*
-import br.unb.autoexp.autoExp.ScaleType
-import java.math.BigDecimal
 
 /**
  * This class contains custom validation rules. 
@@ -43,6 +44,11 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 	public static val INVALID_PARAMETER = ISSUE_CODE_PREFIX + "InvalidParameter"
 	public static val UNREGISTERED_DESIGN = ISSUE_CODE_PREFIX + "UnregisteredDesign"
 	public static val NUMERIC_VALUE_MISSING = ISSUE_CODE_PREFIX + "NumericValueMissing"
+	public static val SAME_INSTRUMENT = ISSUE_CODE_PREFIX + "SameInstrument"
+	public static val SAME_INSTRUMENT_COMMAND = ISSUE_CODE_PREFIX + "SameInstrumentCommand"
+	public static val SAME_TREATMENT_PARAMETER = ISSUE_CODE_PREFIX + "SameTreatmentParameter"
+	public static val SAME_OBJECT_PARAMETER = ISSUE_CODE_PREFIX + "SameObjectParameter"
+
 	@Inject extension ExperimentalDesignGenerator
 
 	@Check
@@ -71,94 +77,167 @@ class AutoExpValidator extends AbstractAutoExpValidator {
 	}
 
 	@Check
-	def checkTreatmentsFromDistinctFactors(ResearchHypothesisFormula hyphotesisFormula) {
-		if (!hyphotesisFormula.treatment1.factor.equals(hyphotesisFormula.treatment2.factor))
-			error(
-				"Treatments '%s' and '%s' do not belong to the same factor".format(hyphotesisFormula.treatment1.name,
-					hyphotesisFormula.treatment2.name), AutoExpPackage.eINSTANCE.researchHypothesisFormula_Treatment2,
-				TREATMENT_FROM_DISTINCT_FACTORS, hyphotesisFormula.treatment2.name)
-	}
-
-	@Check
-	def checkDependentVariableNeverUsed(DependentVariable variable) {
+	def checkDependentVariableSameInstrument(DependentVariable variable) {
 		val experiment = variable.eContainer as Experiment
-		if (!experiment.researchHypotheses.map[formula.depVariable].contains(variable)) {
-			warning("Dependent variable '%s' is never used".format(variable.name),
-				AutoExpPackage.eINSTANCE.dependentVariable_Name, AutoExpValidator.DEPENDENT_VARIABLE_NEVER_USED,
-				variable.name)
-		}
-	}
-
-	@Check
-	def checkFactorNeverUsed(Factor factor) {
-		val experiment = factor.eContainer as Experiment
-		if (!experiment.researchHypotheses.map[formula.treatment1.factor].contains(factor) &&
-			!experiment.researchHypotheses.map[formula.treatment2.factor].contains(factor)) {
-			warning("Factor '%s' is never used".format(factor.name), AutoExpPackage.eINSTANCE.factor_Name,
-				AutoExpValidator.FACTOR_NEVER_USED, factor.name)
-		}
-	}
-
-	@Check
-	def checkTreatmentNeverUsed(Treatment treatment) {
-		val experiment = treatment.eContainer as Experiment
-		if (!experiment.researchHypotheses.map[formula.treatment1].contains(treatment) &&
-			!experiment.researchHypotheses.map[formula.treatment2].contains(treatment)) {
-			warning("Treatment '%s' is never used".format(treatment.name), AutoExpPackage.eINSTANCE.treatment_Name,
-				AutoExpValidator.TREATMENT_NEVER_USED, treatment.name)
-		}
-	}
-
-	@Check
-	def checkExecutionNeverUsed(Execution execution) {
-		if (execution.eContainer instanceof Experiment) {
-			val experiment = execution.eContainer as Experiment
-			if (!experiment.researchHypotheses.map[formula.treatment1.execution].contains(execution) &&
-				!experiment.researchHypotheses.map[formula.treatment2.execution].contains(execution)) {
-				warning("Execution '%s' is never used".format(execution.name), AutoExpPackage.eINSTANCE.execution_Name,
-					AutoExpValidator.EXECUTION_NEVER_USED, execution.name)
-			}
-
-		}
-	}
-
-	@Check
-	def checkInvalidParameter(Execution execution) {
-		if (execution.eContainer instanceof Experiment) {
-			val experiment = execution.eContainer as Experiment
-
-			experiment.designExecutions.filter[execution.name.equals(name)].forEach [ exec |
-				exec.invalidParameters.forEach [ parameter, attribute |
-
-					val att = switch attribute {
-						case "cmd": AutoExpPackage.eINSTANCE.execution_Cmd
-						case "result": AutoExpPackage.eINSTANCE.execution_Result
-					}
-					error("Parameter '%s' cannot be resolved".format(parameter), att,
-						AutoExpValidator.INVALID_PARAMETER, parameter)
-				]
-
+		val duplicatedDependentVariables = experiment.dependentVariables.filter [
+			!name.equals(variable.name) && variable.instrument.equals(instrument)
+		]
+		if (!duplicatedDependentVariables.isNullOrEmpty) {
+			duplicatedDependentVariables.forEach [
+				error("Dependent variables '%s' and '%s' have the same instrument".format(variable.name, name),
+					AutoExpPackage.eINSTANCE.dependentVariable_Name, AutoExpValidator.SAME_INSTRUMENT, name)
 			]
 
 		}
-
 	}
 
 	@Check
-	def checkNumericScaleTypeWithoutNumericValue(ExperimentalObject object) {
-		val experiment = object.eContainer as Experiment
+	def checkDependentVariableSameInstrumentCommand(Instrument instrument) {
+		val experiment = instrument.eContainer as Experiment
+		val duplicatedInstruments = experiment.instruments.filter [
+			!name.equals(instrument.name) && instrument.command.equals(command) &&
+				instrument.valueExpression.equals(valueExpression)
+		]
+		if (!duplicatedInstruments.isNullOrEmpty) {
+			duplicatedInstruments.forEach [
+				error("Instruments '%s' and '%s' have the same commands and expressions".format(instrument.name, name),
+					AutoExpPackage.eINSTANCE.instrument_Name, AutoExpValidator.SAME_INSTRUMENT_COMMAND, name)
+			]
 
-		if (experiment.objectsScaleType.equals(ScaleType.ABSOLUTE) ||
-			experiment.objectsScaleType.equals(ScaleType.LOGARITHMIC)) {
-			
-			try {
-				
-				new BigDecimal(object.value)
-			} catch (Exception e) {
-			
-				error("Scale type '%s' requires a numeric value.".format(experiment.objectsScaleType.getName),
-					AutoExpPackage.eINSTANCE.experimentalObject_Name, AutoExpValidator.NUMERIC_VALUE_MISSING,
-					object.name)
+		}
+	}
+
+	@Check
+	def checkTreatmentsSameParameter(Treatment treatment) {
+		val experiment = treatment.eContainer as Experiment
+		treatment.parameters.forEach [param|
+			val duplicatedParameters = experiment.treatments.map[parameters].flatten.filter [
+				p|!(p.eContainer as Treatment).name.equals(treatment.name) &&
+				p.name.equals(param.name)&&p.value.equals(param.value)
+			]
+			if (!duplicatedParameters.isNullOrEmpty) {
+				duplicatedParameters.forEach [p|
+					val t=(p.eContainer as Treatment)
+					error(
+						"Treatments '%s' and '%s' have the same parameter '%s'".format(treatment.name,
+							t.name,p.name), AutoExpPackage.eINSTANCE.treatment_Name, AutoExpValidator.SAME_TREATMENT_PARAMETER,
+						p.name)
+					]
+
+				}
+			]			
+	}
+@Check
+	def checkObjectsSameParameter(ExperimentalObject object) {
+		val experiment = object.eContainer as Experiment
+		object.parameters.forEach [param|
+			val duplicatedParameters = experiment.experimentalObjects.map[parameters].flatten.filter [
+				p|!(p.eContainer as ExperimentalObject).name.equals(object.name) &&
+				p.name.equals(param.name)&&p.value.equals(param.value)
+			]
+			if (!duplicatedParameters.isNullOrEmpty) {
+				duplicatedParameters.forEach [p|
+					val obj=(p.eContainer as ExperimentalObject)
+					error(
+						"Objects '%s' and '%s' have the same parameter '%s'".format(object.name,
+							obj.name,p.name), AutoExpPackage.eINSTANCE.experimentalObject_Name, AutoExpValidator.SAME_OBJECT_PARAMETER,
+						p.name)
+					]
+
+				}
+			]			
+	}
+
+		@Check
+		def checkTreatmentsFromDistinctFactors(ResearchHypothesisFormula hyphotesisFormula) {
+			if (!hyphotesisFormula.treatment1.factor.equals(hyphotesisFormula.treatment2.factor))
+				error(
+					"Treatments '%s' and '%s' do not belong to the same factor".format(
+						hyphotesisFormula.treatment1.name, hyphotesisFormula.treatment2.name),
+					AutoExpPackage.eINSTANCE.researchHypothesisFormula_Treatment2, TREATMENT_FROM_DISTINCT_FACTORS,
+					hyphotesisFormula.treatment2.name)
+		}
+
+		@Check
+		def checkDependentVariableNeverUsed(DependentVariable variable) {
+			val experiment = variable.eContainer as Experiment
+			if (!experiment.researchHypotheses.map[formula.depVariable].contains(variable)) {
+				warning("Dependent variable '%s' is never used".format(variable.name),
+					AutoExpPackage.eINSTANCE.dependentVariable_Name, AutoExpValidator.DEPENDENT_VARIABLE_NEVER_USED,
+					variable.name)
+			}
+		}
+
+		@Check
+		def checkFactorNeverUsed(Factor factor) {
+			val experiment = factor.eContainer as Experiment
+			if (!experiment.researchHypotheses.map[formula.treatment1.factor].contains(factor) &&
+				!experiment.researchHypotheses.map[formula.treatment2.factor].contains(factor)) {
+				warning("Factor '%s' is never used".format(factor.name), AutoExpPackage.eINSTANCE.factor_Name,
+					AutoExpValidator.FACTOR_NEVER_USED, factor.name)
+			}
+		}
+
+		@Check
+		def checkTreatmentNeverUsed(Treatment treatment) {
+			val experiment = treatment.eContainer as Experiment
+			if (!experiment.researchHypotheses.map[formula.treatment1].contains(treatment) &&
+				!experiment.researchHypotheses.map[formula.treatment2].contains(treatment)) {
+				warning("Treatment '%s' is never used".format(treatment.name), AutoExpPackage.eINSTANCE.treatment_Name,
+					AutoExpValidator.TREATMENT_NEVER_USED, treatment.name)
+			}
+		}
+
+		@Check
+		def checkExecutionNeverUsed(Execution execution) {
+			if (execution.eContainer instanceof Experiment) {
+				val experiment = execution.eContainer as Experiment
+				if (!experiment.researchHypotheses.map[formula.treatment1.execution].contains(execution) &&
+					!experiment.researchHypotheses.map[formula.treatment2.execution].contains(execution)) {
+					warning("Execution '%s' is never used".format(execution.name),
+						AutoExpPackage.eINSTANCE.execution_Name, AutoExpValidator.EXECUTION_NEVER_USED, execution.name)
+				}
+
+			}
+		}
+
+		@Check
+		def checkInvalidParameter(Execution execution) {
+			if (execution.eContainer instanceof Experiment) {
+				val experiment = execution.eContainer as Experiment
+
+				experiment.designExecutions.filter[execution.name.equals(name)].forEach [ exec |
+					exec.invalidParameters.forEach [ parameter, attribute |
+
+						val att = switch attribute {
+							case "cmd": AutoExpPackage.eINSTANCE.execution_Cmd
+							case "result": AutoExpPackage.eINSTANCE.execution_Result
+						}
+						error("Parameter '%s' cannot be resolved".format(parameter), att,
+							AutoExpValidator.INVALID_PARAMETER, parameter)
+					]
+
+				]
+
+			}
+
+		}
+
+		@Check
+		def checkNumericScaleTypeWithoutNumericValue(ExperimentalObject object) {
+			val experiment = object.eContainer as Experiment
+
+			if (experiment.objectsScaleType.equals(ScaleType.ABSOLUTE) ||
+				experiment.objectsScaleType.equals(ScaleType.LOGARITHMIC)) {
+
+				try {
+
+					new BigDecimal(object.value)
+				} catch (Exception e) {
+
+					error("Scale type '%s' requires a numeric value.".format(experiment.objectsScaleType.getName),
+						AutoExpPackage.eINSTANCE.experimentalObject_Name, AutoExpValidator.NUMERIC_VALUE_MISSING,
+						object.name)
 
 				}
 			}

@@ -273,7 +273,235 @@ class AutoExpValidatorTest {
 				testInput.lastIndexOf("featureFamily}"), "featureFamily".length)
 		]
 	}
+	@Test
+	def void testSameInstrument() {
+		val testInput = '''
+				Experiment reanaSpl {
+					
+					  description "Reliability Analysis of Software Product Lines" 
+					     
+					  Research Hypotheses {
+					  	RH1 {time featureFamily = featureProduct},
+					  	RH2 {memoryConsumption featureFamily = featureProduct}
+					  }
+					  Experimental Design {
+					   runs 1
+					  }
+					    Dependent Variables {
+					      time { description "Analysis time" scaleType Absolute instrument timeInstrument},
+					      memoryConsumption { description "Memory Consumption" scaleType Absolute instrument timeInstrument}
+						}    
+						 Instruments {
+						 	timeInstrument {command  "/usr/bin/time -v"  valueExpression "Total analysis time:"}
+						} 
+						Factors { 
+							strategy { description "Analysis Strategy" scaleType Nominal}
+							} 
+							
+							Treatments { 
+							  featureFamily description "" factor strategy execution featureFamilyExecutor,
+							  featureProduct description "" factor strategy execution featureProductExecutor
+							   	  		
+						
+						}
+						Objects {description "SPL" scaleType Nominal { intercloud {description ""}}} 	
+						
+						Executions { 
+							featureFamilyExecutor { 
+							 	command "java -jar reana-spl.jar --analysis-strategy = FEATURE_FAMILY --feature-model = ${object.parameter.spl}/models/0.txt --uml-models = ${object.parameter.spl}/models/0_behavioral_model.xml "
+							},
+							featureProductExecutor { 
+							 	command "java -jar reana-spl.jar --analysis-strategy = FEATURE_PRODUCT --feature-model = ${object.parameter.spl}/models/0.txt --uml-models = ${object.parameter.spl}/models/0_behavioral_model.xml "
+							} 
+						}	
+						Infrastructure {
+							user {
+								username "user"
+							}	
+						}
+									
+						
+					}
+		'''
+		testInput.parse => [
+			assertError(AutoExpPackage.eINSTANCE.dependentVariable, AutoExpValidator.SAME_INSTRUMENT,
+				"Dependent variables 'time' and 'memoryConsumption' have the same instrument")
+			assertError(AutoExpPackage.eINSTANCE.dependentVariable, AutoExpValidator.SAME_INSTRUMENT,
+				testInput.lastIndexOf("memoryConsumption"), "memoryConsumption".length)
+		]
+	}
+	@Test
+	def void testSameInstrumentCommand() {
+		val testInput = '''
+					Experiment reanaSpl {
+						
+						  description "Reliability Analysis of Software Product Lines" 
+						     
+						  Research Hypotheses {
+						  	RH1 {time featureFamily = featureProduct},
+						  	RH2 {memoryConsumption featureFamily = featureProduct}
+						  }
+						  Experimental Design {
+						   runs 1
+						  }
+						    Dependent Variables {
+						      time { description "Analysis time" scaleType Absolute instrument timeInstrument},
+						      memoryConsumption { description "Memory Consumption" scaleType Absolute instrument memoryInstrument}
+							}    
+							 Instruments {
+							 	timeInstrument {command  "/usr/bin/time -v"  valueExpression "Total analysis time:"},
+							 	memoryInstrument {command  "/usr/bin/time -v"  valueExpression "Total analysis time:"}
+							 } 
+							Factors { 
+								strategy { description "Analysis Strategy" scaleType Nominal}
+								} 
+								
+								Treatments { 
+								  featureFamily description "" factor strategy execution featureFamilyExecutor,
+								  featureProduct description "" factor strategy execution featureProductExecutor
+								   	  		
+							
+							}
+							Objects {description "SPL" scaleType Nominal { intercloud {description ""}}} 	
+							
+							Executions { 
+								featureFamilyExecutor { 
+								 	command "java -jar reana-spl.jar --analysis-strategy = FEATURE_FAMILY --feature-model = ${object.parameter.spl}/models/0.txt --uml-models = ${object.parameter.spl}/models/0_behavioral_model.xml "
+								},
+								featureProductExecutor { 
+								 	command "java -jar reana-spl.jar --analysis-strategy = FEATURE_PRODUCT --feature-model = ${object.parameter.spl}/models/0.txt --uml-models = ${object.parameter.spl}/models/0_behavioral_model.xml "
+								} 
+							}	
+							Infrastructure {
+								user {
+									username "user"
+								}	
+							}
+										
+							
+						}
+		'''
+		testInput.parse => [
+			assertError(AutoExpPackage.eINSTANCE.instrument, AutoExpValidator.SAME_INSTRUMENT_COMMAND,
+				"Instruments 'timeInstrument' and 'memoryInstrument' have the same commands and expressions")
+			assertError(AutoExpPackage.eINSTANCE.instrument, AutoExpValidator.SAME_INSTRUMENT_COMMAND,
+				testInput.lastIndexOf("memoryInstrument"), "memoryInstrument".length)
+		]
+	}
+	@Test
+	def void testTreatmentSameParameter() {
+		val testInput = '''
+			Experiment reanaSpl {
+						
+						  description "Reliability Analysis of Software Product Lines" 
+						     
+						  Research Hypotheses {
+						  	RH1 {time featureFamily = featureProduct},
+						  	RH2 {memoryConsumption featureFamily = featureProduct}
+						  }
+						  Experimental Design {
+						   runs 1
+						  }
+						    Dependent Variables {
+						      time { description "Analysis time" scaleType Absolute instrument timeInstrument},
+						      memoryConsumption { description "Memory Consumption" scaleType Absolute instrument memoryInstrument}
+							}    
+							 Instruments {
+				                timeInstrument {command  "/usr/bin/time -v"  valueExpression "Total analysis time:"},
+				                memoryInstrument {command  "/usr/bin/time -v"  valueExpression "memory:"}
+				            } 
+							Factors { 
+								strategy { description "Analysis Strategy" scaleType Nominal}
+								} 
+								
+								Treatments { 
+								  featureFamily description "" factor strategy parameters {strategy "FEATURE_FAMILY"} execution executor,
+								  featureProduct description "" factor strategy parameters {strategy "FEATURE_FAMILY"} execution executor
+								   	  		
+							
+							}
+							Objects {description "SPL" scaleType Nominal { intercloud {description ""}}} 	
+							
+							Executions { 
+								executor { 
+								 	command "java -jar reana-spl.jar --analysis-strategy = ${treatment.parameter.strategy} --feature-model = ${object.parameter.spl}/models/0.txt --uml-models = ${object.parameter.spl}/models/0_behavioral_model.xml "
+								}
+							}	
+							Infrastructure {
+								user {
+									username "user"
+								}	
+							}
+										
+							
+						}
+		'''
+		testInput.parse => [
+			assertError(AutoExpPackage.eINSTANCE.treatment, AutoExpValidator.SAME_TREATMENT_PARAMETER,
+				"Treatments 'featureFamily' and 'featureProduct' have the same parameter 'strategy'")
+			assertError(AutoExpPackage.eINSTANCE.treatment, AutoExpValidator.SAME_TREATMENT_PARAMETER,
+				testInput.lastIndexOf("featureProduct"), "featureProduct".length)
+		]
+	}
+	@Test
+	def void testObjectSameParameter() {
+		val testInput = '''
+					Experiment reanaSpl {
+						
+						  description "Reliability Analysis of Software Product Lines" 
+						     
+						  Research Hypotheses {
+						  	RH1 {time featureFamily = featureProduct},
+						  	RH2 {memoryConsumption featureFamily = featureProduct}
+						  }
+						  Experimental Design {
+						   runs 1
+						  }
+						    Dependent Variables {
+						      time { description "Analysis time" scaleType Absolute instrument timeInstrument},
+						      memoryConsumption { description "Memory Consumption" scaleType Absolute instrument memoryInstrument}
+							}    
+							 Instruments {
+							 	timeInstrument {command  "/usr/bin/time -v"  valueExpression "Total analysis time:"},
+							 	memoryInstrument {command  "/usr/bin/time -v"  valueExpression "memory:"}
+							 } 
+							Factors { 
+								strategy { description "Analysis Strategy" scaleType Nominal}
+								} 
+								
+								Treatments { 
+								  featureFamily description "" factor strategy parameters {strategy "FEATURE_FAMILY"} execution executor,
+								  featureProduct description "" factor strategy parameters {strategy "FEATURE_PRODUCT"} execution executor
+								   	  		
+							
+							}
+							Objects {description "SPL" scaleType Nominal { 
+							    intercloud {description "" parameters {spl "intercloud"}},
+							    bsn {description "" parameters {spl "intercloud"}} 
+							}} 	
+							
+							Executions { 
+								executor { 
+								 	command "java -jar reana-spl.jar --analysis-strategy = ${treatment.parameter.strategy} --feature-model = ${object.parameter.spl}/models/0.txt --uml-models = ${object.parameter.spl}/models/0_behavioral_model.xml "
+								}
+							}	
+							Infrastructure {
+								user {
+									username "user"
+								}	
+							}
+										
+							
+						}
 
+		'''
+		testInput.parse => [
+			assertError(AutoExpPackage.eINSTANCE.experimentalObject, AutoExpValidator.SAME_OBJECT_PARAMETER,
+				"Objects 'intercloud' and 'bsn' have the same parameter 'spl'")
+			assertError(AutoExpPackage.eINSTANCE.experimentalObject, AutoExpValidator.SAME_OBJECT_PARAMETER,
+				testInput.lastIndexOf("bsn"), "bsn".length)
+		]
+	}
 	@Test
 	def void testDistinctFactors() {
 		val testInput = '''
